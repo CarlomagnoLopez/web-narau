@@ -2,27 +2,18 @@ import React from "react";
 import { connect } from "react-redux";
 import { singIn } from "../redux/actions";
 import SignIn from "../components/SingIn";
-import SignUp from "../components/SignUp";
+import SignUpIntructor from "../components/SignUpIntructor";
+import SignUpEmpresa from "../components/SignUpEmpresa";
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       // input: "" 
-      signup: false
+      signupintructor: false,
+      signupempresa: false
     };
   }
-
-  // updateInput = input => {
-  //   this.setState({ input });
-  // };
-
-  // handleAddTodo = () => {
-  //   // this.props.addTodo(this.state.input);
-  //   this.fetchTodoList(this.state.input);
-  //   this.setState({ input: "" });
-  // };
-
 
   signInRequest = () => {
     fetch('https://ob5nizjire.execute-api.us-east-1.amazonaws.com/default/userslogin?user=carlo-magno@live.com.mx&psw=carlo2020', {
@@ -41,15 +32,30 @@ class App extends React.Component {
 
   startSignUp = () => {
     this.setState({
-      signup: true
+      signupintructor: true,
+      signupempresa: false
     })
   }
 
   startSignIn = () => {
     this.setState({
-      signup: false
+      signupintructor: false,
+      signupempresa: false
     })
   }
+
+  startSignUpEmpresa = () => {
+    this.setState({
+      signupintructor: false,
+      signupempresa: true
+    })
+  }
+
+  // startSignIn = () => {
+  //   this.setState({
+  //     signupintructor: false
+  //   })
+  // }
 
 
   render() {
@@ -58,7 +64,7 @@ class App extends React.Component {
     // console.log("state")
     // console.log(this.state)
     const { login } = this.props.api;
-    const { signup } = this.state;
+    const { signupintructor, signupempresa } = this.state;
 
     // this.signInRequest();
 
@@ -68,7 +74,7 @@ class App extends React.Component {
       <div>
         <div>
 
-          {!login && !signup &&
+          {!login && !signupintructor && !signupempresa &&
             <SignIn
               signInRequest={this.signInRequest}
               startSignUp={this.startSignUp}
@@ -77,10 +83,20 @@ class App extends React.Component {
         </div>
 
         <div>
-          {signup &&
-            <SignUp
+          {signupintructor && !signupempresa && 
+            <SignUpIntructor
               startSignIn={this.startSignIn}
-            ></SignUp>
+              changeEvent={this.startSignUpEmpresa}
+            ></SignUpIntructor>
+          }
+        </div>
+        <div>
+          {!signupintructor && signupempresa &&
+            <SignUpEmpresa
+              startSignIn={this.startSignIn}
+              changeEvent={this.startSignUp}
+              // startSignUpEmpresa={this.startSignUpEmpresa}
+            ></SignUpEmpresa>
           }
         </div>
       </div>
