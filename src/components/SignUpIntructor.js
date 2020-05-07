@@ -23,18 +23,6 @@ import {
   KeyboardDatePicker,
 } from '@material-ui/pickers';
 import { useForm } from "react-hook-form";
-// function Copyright() {
-//   return (
-//     <Typography variant="body2" color="textSecondary" align="center">
-//       {'Copyright © '}
-//       <Link color="inherit" href="https://material-ui.com/">
-//         Your Website
-//       </Link>{' '}
-//       {new Date().getFullYear()}
-//       {'.'}
-//     </Typography>
-//   );
-// }
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -68,6 +56,7 @@ export default function SignUpIntructor(props) {
   const { register, handleSubmit, watch, errors } = useForm();
   const onSubmit = data => {
     // console.log("data Valjues");
+    data.role = "user"
     props.validateForm(data);
     // console.log(data);
   };

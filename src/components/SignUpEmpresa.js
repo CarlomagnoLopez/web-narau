@@ -19,18 +19,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 // import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
-// function Copyright() {
-//   return (
-//     <Typography variant="body2" color="textSecondary" align="center">
-//       {'Copyright © '}
-//       <Link color="inherit" href="https://material-ui.com/">
-//         Your Website
-//       </Link>{' '}
-//       {new Date().getFullYear()}
-//       {'.'}
-//     </Typography>
-//   );
-// }
+import { useForm } from "react-hook-form";
 
 const useStyles = makeStyles((theme) => ({
   formControl: {
@@ -65,6 +54,15 @@ export default function SignUpEmpresa(props) {
     setAge(event.target.value);
   };
 
+  const { register, handleSubmit, watch, errors } = useForm();
+  const onSubmit = data => {
+    // console.log("data Valjues");
+    data.role = "company"
+    props.validateForm(data);
+    // console.log(data);
+  };
+
+
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
@@ -75,7 +73,7 @@ export default function SignUpEmpresa(props) {
         <Typography component="h1" variant="h5">
           Sign up Empresa
         </Typography>
-        <form className={classes.form} noValidate>
+        <form className={classes.form} noValidate onSubmit={handleSubmit(onSubmit)}>
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>
               <TextField
@@ -87,6 +85,8 @@ export default function SignUpEmpresa(props) {
                 id="firstName"
                 label="First Name"
                 autoFocus
+                inputRef={register({ required: true, maxLength: 20 })}
+                error={errors.firstName ? true : false}
               />
             </Grid>
             <Grid item xs={12} sm={6}>
@@ -98,6 +98,8 @@ export default function SignUpEmpresa(props) {
                 label="Last Name"
                 name="lastName"
                 autoComplete="lname"
+                inputRef={register({ required: true, maxLength: 20 })}
+                error={errors.lastName ? true : false}
               />
             </Grid>
             <Grid item xs={12}>
@@ -108,19 +110,26 @@ export default function SignUpEmpresa(props) {
                 id="empresa"
                 label="Empresa"
                 name="empresa"
+                inputRef={register({ required: true, maxLength: 20 })}
+                error={errors.empresa ? true : false}
               />
             </Grid>
             <Grid item xs={12}>
 
-              <FormControl variant="outlined" className={classes.formControl} fullWidth>
-                <InputLabel id="demo-simple-select-outlined-label" fullWidth>No. Employees</InputLabel>
+              <FormControl id="employ"
+                  name="employ" variant="outlined" className={classes.formControl} fullWidth>
+                <InputLabel id="employ"
+                  name="employ">No. Employees</InputLabel>
                 <Select
-                fullWidth
-                  labelId="demo-simple-select-outlined-label"
-                  id="demo-simple-select-outlined"
+                  fullWidth
+                  labelId="employ"
+                  id="employ"
+                  name="employ"
                   value={age}
                   onChange={handleChange}
-                  label="Age"
+                  label="No. Employees"
+                  // inputRef={register({ required: true, maxLength: 20 })}
+                  // error={errors.employ ? true : false}
                 >
                   <MenuItem value="">
                     <em>None</em>
@@ -139,6 +148,8 @@ export default function SignUpEmpresa(props) {
                 id="rfc"
                 label="RFC"
                 name="rfc"
+                inputRef={register({ required: true, maxLength: 20 })}
+                error={errors.rfc ? true : false}
               />
             </Grid>
             <Grid item xs={12}>
@@ -149,6 +160,8 @@ export default function SignUpEmpresa(props) {
                 id="address"
                 label="Address"
                 name="address"
+                inputRef={register({ required: true, maxLength: 20 })}
+                error={errors.address ? true : false}
               />
             </Grid>
             <Grid item xs={12}>
@@ -159,6 +172,8 @@ export default function SignUpEmpresa(props) {
                 id="puesto"
                 label="Position"
                 name="puesto"
+                inputRef={register({ required: true, maxLength: 20 })}
+                error={errors.puesto ? true : false}
               />
             </Grid>
             <Grid item xs={12}>
@@ -170,6 +185,8 @@ export default function SignUpEmpresa(props) {
                 label="Email Address"
                 name="email"
                 autoComplete="email"
+                inputRef={register({ required: true, pattern: /\b[\w\.-]+@[\w\.-]+\.\w{2,4}\b/ })}
+                error={errors.email ? true : false}
               />
             </Grid>
             <Grid item xs={12}>
@@ -182,6 +199,8 @@ export default function SignUpEmpresa(props) {
                 type="password"
                 id="password"
                 autoComplete="current-password"
+                inputRef={register({ required: true })}
+                error={errors.password ? true : false}
               />
             </Grid>
             <Grid item xs={12}>
