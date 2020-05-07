@@ -12,7 +12,7 @@ import Grid from '@material-ui/core/Grid';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
-
+import { useForm } from "react-hook-form";
 // function Copyright() {
 //   return (
 //     <Typography variant="body2" color="textSecondary" align="center">
@@ -60,6 +60,13 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SignIn(props) {
   const classes = useStyles();
+  const { register, handleSubmit, watch, errors } = useForm();
+  const onSubmit = data => {
+    // console.log("data Valjues");
+    // data.role = "user"
+    props.validateForm(data);
+    // console.log(data);
+  };
 
 //   console.log(props)
 
@@ -75,7 +82,7 @@ export default function SignIn(props) {
           <Typography component="h1" variant="h5">
             Sign in
           </Typography>
-          {/* <form className={classes.form} noValidate> */}
+          <form className={classes.form} noValidate  onSubmit={handleSubmit(onSubmit)}> 
             <TextField
               variant="outlined"
               margin="normal"
@@ -86,6 +93,8 @@ export default function SignIn(props) {
               name="email"
               autoComplete="email"
               autoFocus
+              inputRef={register({ required: true,pattern: /[\w\.-]+@[\w\.-]+\.\w{2,4}/ })}
+              error={errors.email ? true : false}
             />
             <TextField
               variant="outlined"
@@ -97,6 +106,8 @@ export default function SignIn(props) {
               type="password"
               id="password"
               autoComplete="current-password"
+              inputRef={register({ required: true, maxLength: 20 })}
+              error={errors.password ? true : false}
             />
             {/* <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
@@ -108,7 +119,6 @@ export default function SignIn(props) {
               variant="contained"
               color="primary"
               className={classes.submit}
-              onClick = {props.signInRequest}
             >
               Sign In
             </Button>
@@ -127,7 +137,7 @@ export default function SignIn(props) {
             {/* <Box mt={5}>
               <Copyright />
             </Box> */}
-          {/* </form> */}
+          </form>
         </div>
       </Grid>
     </Grid>
