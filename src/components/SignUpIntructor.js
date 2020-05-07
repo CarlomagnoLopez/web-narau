@@ -22,7 +22,7 @@ import {
   // KeyboardTimePicker,
   KeyboardDatePicker,
 } from '@material-ui/pickers';
-
+import { useForm } from "react-hook-form";
 // function Copyright() {
 //   return (
 //     <Typography variant="body2" color="textSecondary" align="center">
@@ -59,11 +59,20 @@ const useStyles = makeStyles((theme) => ({
 export default function SignUpIntructor(props) {
   const classes = useStyles();
 
-  const [selectedDate, setSelectedDate] = React.useState();
+  const [selectedDate, setSelectedDate] = React.useState(new Date());
 
   const handleDateChange = (date) => {
     setSelectedDate(date);
   };
+
+  const { register, handleSubmit, watch, errors } = useForm();
+  const onSubmit = data => {
+    // console.log("data Valjues");
+    props.validateForm(data);
+    // console.log(data);
+  };
+
+
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
@@ -74,7 +83,7 @@ export default function SignUpIntructor(props) {
         <Typography component="h1" variant="h5">
           Sign up Instructor
         </Typography>
-        <form className={classes.form} noValidate>
+        <form className={classes.form} noValidate onSubmit={handleSubmit(onSubmit)}>
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>
               <TextField
@@ -86,6 +95,8 @@ export default function SignUpIntructor(props) {
                 id="firstName"
                 label="First Name"
                 autoFocus
+                inputRef={register({ required: true, maxLength: 20 })}
+                error={errors.firstName ? true : false}
               />
             </Grid>
             <Grid item xs={12} sm={6}>
@@ -97,6 +108,8 @@ export default function SignUpIntructor(props) {
                 label="Last Name"
                 name="lastName"
                 autoComplete="lname"
+                inputRef={register({ required: true, maxLength: 20 })}
+                error={errors.lastName ? true : false}
               />
             </Grid>
             <Grid item xs={12}>
@@ -107,6 +120,8 @@ export default function SignUpIntructor(props) {
                 id="phone"
                 label="Phone Contact"
                 name="phone"
+                inputRef={register({ required: true, maxLength: 12, pattern: /^[0-9]*$/ })}
+                error={errors.phone ? true : false}
               // autoComplete="email"
               />
             </Grid>
@@ -117,8 +132,11 @@ export default function SignUpIntructor(props) {
                 <KeyboardDatePicker
                   inputVariant="outlined"
                   required
+                  inputRef={register({ required: true })}
+                  error={errors.dateofbirth ? true : false}
                   fullWidth
-                  id="date-picker-dialog"
+                  id="dateofbirth"
+                  name="dateofbirth"
                   label="Date of birth"
                   format="dd/MM/yyyy"
                   value={selectedDate}
@@ -139,6 +157,8 @@ export default function SignUpIntructor(props) {
                 id="city"
                 label="City"
                 name="city"
+                inputRef={register({ required: true })}
+                error={errors.city ? true : false}
               // autoComplete="email"
               />
             </Grid>
@@ -151,6 +171,8 @@ export default function SignUpIntructor(props) {
                 label="Email Address"
                 name="email"
                 autoComplete="email"
+                inputRef={register({ required: true, pattern: /\b[\w\.-]+@[\w\.-]+\.\w{2,4}\b/ })}
+                error={errors.email ? true : false}
               />
             </Grid>
             <Grid item xs={12}>
@@ -162,7 +184,8 @@ export default function SignUpIntructor(props) {
                 label="Password"
                 type="password"
                 id="password"
-                autoComplete="current-password"
+                inputRef={register({ required: true })}
+                error={errors.password ? true : false}
               />
             </Grid>
             <Grid item xs={12}>

@@ -51,12 +51,10 @@ class App extends React.Component {
     })
   }
 
-  // startSignIn = () => {
-  //   this.setState({
-  //     signupintructor: false
-  //   })
-  // }
-
+  validateForm = data => {
+    console.log("data")
+    console.log(data)
+  }
 
   render() {
     // console.log("props")
@@ -87,6 +85,7 @@ class App extends React.Component {
             <SignUpIntructor
               startSignIn={this.startSignIn}
               changeEvent={this.startSignUpEmpresa}
+              validateForm={this.validateForm}
             ></SignUpIntructor>
           }
         </div>

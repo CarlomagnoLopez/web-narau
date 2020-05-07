@@ -14,7 +14,11 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 
 import SwitchControl from '../controls/SwitchControl';
-
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
+// import FormHelperText from '@material-ui/core/FormHelperText';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
 // function Copyright() {
 //   return (
 //     <Typography variant="body2" color="textSecondary" align="center">
@@ -29,6 +33,10 @@ import SwitchControl from '../controls/SwitchControl';
 // }
 
 const useStyles = makeStyles((theme) => ({
+  formControl: {
+    // margin: theme.spacing(1),
+    minWidth: 120,
+  },
   paper: {
     marginTop: theme.spacing(8),
     display: 'flex',
@@ -51,7 +59,11 @@ const useStyles = makeStyles((theme) => ({
 export default function SignUpEmpresa(props) {
   const classes = useStyles();
 
+  const [age, setAge] = React.useState('');
 
+  const handleChange = (event) => {
+    setAge(event.target.value);
+  };
 
   return (
     <Container component="main" maxWidth="xs">
@@ -86,6 +98,67 @@ export default function SignUpEmpresa(props) {
                 label="Last Name"
                 name="lastName"
                 autoComplete="lname"
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                variant="outlined"
+                required
+                fullWidth
+                id="empresa"
+                label="Empresa"
+                name="empresa"
+              />
+            </Grid>
+            <Grid item xs={12}>
+
+              <FormControl variant="outlined" className={classes.formControl} fullWidth>
+                <InputLabel id="demo-simple-select-outlined-label" fullWidth>No. Employees</InputLabel>
+                <Select
+                fullWidth
+                  labelId="demo-simple-select-outlined-label"
+                  id="demo-simple-select-outlined"
+                  value={age}
+                  onChange={handleChange}
+                  label="Age"
+                >
+                  <MenuItem value="">
+                    <em>None</em>
+                  </MenuItem>
+                  <MenuItem value={10}>{"<10"}</MenuItem>
+                  <MenuItem value={20}>{">10"}</MenuItem>
+                  <MenuItem value={30}>{">100"}</MenuItem>
+                </Select>
+              </FormControl>
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                variant="outlined"
+                required
+                fullWidth
+                id="rfc"
+                label="RFC"
+                name="rfc"
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                variant="outlined"
+                required
+                fullWidth
+                id="address"
+                label="Address"
+                name="address"
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                variant="outlined"
+                required
+                fullWidth
+                id="puesto"
+                label="Position"
+                name="puesto"
               />
             </Grid>
             <Grid item xs={12}>
