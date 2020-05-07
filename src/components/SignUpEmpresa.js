@@ -14,21 +14,18 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 
 import SwitchControl from '../controls/SwitchControl';
-
-// function Copyright() {
-//   return (
-//     <Typography variant="body2" color="textSecondary" align="center">
-//       {'Copyright © '}
-//       <Link color="inherit" href="https://material-ui.com/">
-//         Your Website
-//       </Link>{' '}
-//       {new Date().getFullYear()}
-//       {'.'}
-//     </Typography>
-//   );
-// }
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
+// import FormHelperText from '@material-ui/core/FormHelperText';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
+import { useForm } from "react-hook-form";
 
 const useStyles = makeStyles((theme) => ({
+  formControl: {
+    // margin: theme.spacing(1),
+    minWidth: 120,
+  },
   paper: {
     marginTop: theme.spacing(8),
     display: 'flex',
@@ -51,6 +48,19 @@ const useStyles = makeStyles((theme) => ({
 export default function SignUpEmpresa(props) {
   const classes = useStyles();
 
+  const [age, setAge] = React.useState('');
+
+  const handleChange = (event) => {
+    setAge(event.target.value);
+  };
+
+  const { register, handleSubmit, watch, errors } = useForm();
+  const onSubmit = data => {
+    // console.log("data Valjues");
+    data.role = "company"
+    props.validateForm(data);
+    // console.log(data);
+  };
 
 
   return (
@@ -63,7 +73,7 @@ export default function SignUpEmpresa(props) {
         <Typography component="h1" variant="h5">
           Sign up Empresa
         </Typography>
-        <form className={classes.form} noValidate>
+        <form className={classes.form} noValidate onSubmit={handleSubmit(onSubmit)}>
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>
               <TextField
@@ -75,6 +85,8 @@ export default function SignUpEmpresa(props) {
                 id="firstName"
                 label="First Name"
                 autoFocus
+                inputRef={register({ required: true, maxLength: 20 })}
+                error={errors.firstName ? true : false}
               />
             </Grid>
             <Grid item xs={12} sm={6}>
@@ -86,6 +98,82 @@ export default function SignUpEmpresa(props) {
                 label="Last Name"
                 name="lastName"
                 autoComplete="lname"
+                inputRef={register({ required: true, maxLength: 20 })}
+                error={errors.lastName ? true : false}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                variant="outlined"
+                required
+                fullWidth
+                id="empresa"
+                label="Empresa"
+                name="empresa"
+                inputRef={register({ required: true, maxLength: 20 })}
+                error={errors.empresa ? true : false}
+              />
+            </Grid>
+            <Grid item xs={12}>
+
+              <FormControl id="employ"
+                  name="employ" variant="outlined" className={classes.formControl} fullWidth>
+                <InputLabel id="employ"
+                  name="employ">No. Employees</InputLabel>
+                <Select
+                  fullWidth
+                  labelId="employ"
+                  id="employ"
+                  name="employ"
+                  value={age}
+                  onChange={handleChange}
+                  label="No. Employees"
+                  // inputRef={register({ required: true, maxLength: 20 })}
+                  // error={errors.employ ? true : false}
+                >
+                  <MenuItem value="">
+                    <em>None</em>
+                  </MenuItem>
+                  <MenuItem value={10}>{"<10"}</MenuItem>
+                  <MenuItem value={20}>{">10"}</MenuItem>
+                  <MenuItem value={30}>{">100"}</MenuItem>
+                </Select>
+              </FormControl>
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                variant="outlined"
+                required
+                fullWidth
+                id="rfc"
+                label="RFC"
+                name="rfc"
+                inputRef={register({ required: true, maxLength: 20 })}
+                error={errors.rfc ? true : false}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                variant="outlined"
+                required
+                fullWidth
+                id="address"
+                label="Address"
+                name="address"
+                inputRef={register({ required: true, maxLength: 20 })}
+                error={errors.address ? true : false}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                variant="outlined"
+                required
+                fullWidth
+                id="puesto"
+                label="Position"
+                name="puesto"
+                inputRef={register({ required: true, maxLength: 20 })}
+                error={errors.puesto ? true : false}
               />
             </Grid>
             <Grid item xs={12}>
@@ -97,6 +185,8 @@ export default function SignUpEmpresa(props) {
                 label="Email Address"
                 name="email"
                 autoComplete="email"
+                inputRef={register({ required: true, pattern: /\b[\w\.-]+@[\w\.-]+\.\w{2,4}\b/ })}
+                error={errors.email ? true : false}
               />
             </Grid>
             <Grid item xs={12}>
@@ -109,6 +199,8 @@ export default function SignUpEmpresa(props) {
                 type="password"
                 id="password"
                 autoComplete="current-password"
+                inputRef={register({ required: true })}
+                error={errors.password ? true : false}
               />
             </Grid>
             <Grid item xs={12}>

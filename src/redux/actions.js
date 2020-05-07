@@ -1,4 +1,4 @@
-import { SIGN_IN } from "./actionTypes";
+import { SIGN_IN,SIGN_UP } from "./actionTypes";
 
 // let nextTodoId = 0;
 
@@ -9,4 +9,13 @@ export const singIn = contentSignIn => ({
     contentSignIn
   }
 });
+
+export const singUp = contentSignUp => ({
+  type: SIGN_UP,
+  payload: {
+    // id: ++nextTodoId,
+    contentSignUp
+  }
+});
+
 
