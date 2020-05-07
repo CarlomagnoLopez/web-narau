@@ -3,7 +3,8 @@ import { SIGN_IN, SIGN_UP } from "../redux/actionTypes";
 const initialState = {
   login: false,
   created: false,
-  desc:""
+  desc: "",
+  contentSignIn:""
   // sendVerification:false
 };
 
@@ -14,8 +15,10 @@ export default function (state = initialState, action) {
       return {
         ...state,
         login: contentSignIn.login,
+        signin: contentSignIn.login,
+        desc:contentSignIn.desc,
         // id,
-        contentSignIn
+        contentSignIn: contentSignIn["custom-attr"]
       };
     }
     case SIGN_UP: {

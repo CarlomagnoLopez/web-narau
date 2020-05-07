@@ -4,6 +4,7 @@ import { singIn, singUp } from "../redux/actions";
 import SignIn from "../components/SingIn";
 import SignUpIntructor from "../components/SignUpIntructor";
 import SignUpEmpresa from "../components/SignUpEmpresa";
+import Album from "../components/Album";
 
 import BussyLoader from '../controls/BussyLoader';
 import AlertDialogSlide from '../controls/AlertDialogSlide';
@@ -19,8 +20,8 @@ class App extends React.Component {
     };
   }
 
-  signInRequest = () => {
-    fetch('https://ob5nizjire.execute-api.us-east-1.amazonaws.com/default/userslogin?user=carlo-magno@live.com.mx&psw=carlo2020', {
+  signInRequest = (data) => {
+    fetch('https://ob5nizjire.execute-api.us-east-1.amazonaws.com/default/userslogin?user=' + data.email + '&psw=' + data.password, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -30,6 +31,11 @@ class App extends React.Component {
       .then(res => res.json())
       .then((data) => {
         this.props.singIn(data.body);
+        this.setState({
+          signupintructor: false,
+          signupempresa: false,
+          showLoader: false
+        })
       })
       .catch(console.log)
   }
@@ -88,6 +94,15 @@ class App extends React.Component {
     this.signUppRequest(data)
 
   }
+  validateFormSignIn = data => {
+    console.log("data")
+    console.log(data)
+    this.setState({
+      showLoader: true
+    })
+    this.signInRequest(data)
+
+  }
 
   // resetDialog = () =>{ 
 
@@ -98,7 +113,7 @@ class App extends React.Component {
     // console.log(this.props)
     // console.log("state")
     // console.log(this.state)
-    const { login, created, desc } = this.props.api;
+    const { login, created, desc, signin, contentSignIn } = this.props.api;
     const { signupintructor, signupempresa, showLoader } = this.state;
 
     // this.signInRequest();
@@ -128,12 +143,24 @@ class App extends React.Component {
           }
         </div>
 
+        <div>
+          {(desc === "noexist") &&
+            <AlertDialogSlide
+              desc="You don't have access."
+              show={true}
+            // resetDialog={this.resetDialog}
+            // showLoader={this.state.showLoader}
+            ></AlertDialogSlide>
+          }
+        </div>
+
 
         <div>
           {!login && !signupintructor && !signupempresa &&
             <SignIn
               signInRequest={this.signInRequest}
               startSignUp={this.startSignUp}
+              validateForm={this.validateFormSignIn}
             ></SignIn>
           }
         </div>
@@ -155,6 +182,19 @@ class App extends React.Component {
               validateForm={this.validateForm}
             // startSignUpEmpresa={this.startSignUpEmpresa}
             ></SignUpEmpresa>
+          }
+        </div>
+
+        <div>
+          {signin &&
+            <Album
+              // startSignIn={this.startSignIn}
+              // changeEvent={this.startSignUp}
+              // validateForm={this.validateForm}
+              // startSignUpEmpresa={this.startSignUpEmpresa}
+
+              contentUser={contentSignIn}
+            ></Album>
           }
         </div>
       </div>
