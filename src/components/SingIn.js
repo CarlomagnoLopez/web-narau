@@ -61,6 +61,11 @@ const useStyles = makeStyles((theme) => ({
 export default function SignIn(props) {
   const classes = useStyles();
   const { register, handleSubmit, watch, errors } = useForm();
+
+  // const { registerForgot, handleSubmitForgot, watchForgot, errorsForgot } = useForm();
+
+  
+
   const onSubmit = data => {
     // console.log("data Valjues");
     // data.role = "user"
@@ -68,9 +73,11 @@ export default function SignIn(props) {
     // console.log(data);
   };
 
-//   console.log(props)
+
 
   return (
+
+
     <Grid container component="main" className={classes.root}>
       <CssBaseline />
       <Grid item xs={false} sm={4} md={7} className={classes.image} />
@@ -82,7 +89,7 @@ export default function SignIn(props) {
           <Typography component="h1" variant="h5">
             Sign in
           </Typography>
-          <form className={classes.form} noValidate  onSubmit={handleSubmit(onSubmit)}> 
+          <form className={classes.form} noValidate onSubmit={handleSubmit(onSubmit)}>
             <TextField
               variant="outlined"
               margin="normal"
@@ -93,7 +100,7 @@ export default function SignIn(props) {
               name="email"
               autoComplete="email"
               autoFocus
-              inputRef={register({ required: true,pattern: /[\w\.-]+@[\w\.-]+\.\w{2,4}/ })}
+              inputRef={register({ required: true, pattern: /[\w\.-]+@[\w\.-]+\.\w{2,4}/ })}
               error={errors.email ? true : false}
             />
             <TextField
@@ -124,12 +131,12 @@ export default function SignIn(props) {
             </Button>
             <Grid container>
               <Grid item xs>
-                <Link href="#" variant="body2">
+                <Link href="#" variant="body2" onClick={props.showForgotPassword}>
                   Forgot password?
                 </Link>
               </Grid>
               <Grid item>
-                <Link href="#" variant="body2" onClick ={props.startSignUp}>
+                <Link href="#" variant="body2" onClick={props.startSignUp}>
                   {"Don't have an account? Sign Up"}
                 </Link>
               </Grid>

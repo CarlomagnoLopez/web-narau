@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { singIn, singUp } from "../redux/actions";
+import { singIn, singUp, recoveryPsw } from "../redux/actions";
 import SignIn from "../components/SingIn";
 import SignUpIntructor from "../components/SignUpIntructor";
 import SignUpEmpresa from "../components/SignUpEmpresa";
@@ -8,6 +8,7 @@ import Album from "../components/Album";
 
 import BussyLoader from '../controls/BussyLoader';
 import AlertDialogSlide from '../controls/AlertDialogSlide';
+import AlertForgotPassword from '../controls/AlertForgotPassword';
 
 class App extends React.Component {
   constructor(props) {
@@ -16,7 +17,8 @@ class App extends React.Component {
       // input: "" 
       signupintructor: false,
       signupempresa: false,
-      showLoader: false
+      showLoader: false,
+      forgotPassword: false
     };
   }
 
@@ -36,6 +38,26 @@ class App extends React.Component {
           signupempresa: false,
           showLoader: false
         })
+      })
+      .catch(console.log)
+  }
+  
+  recoveryPassword = (data) => {
+    fetch('https://ob5nizjire.execute-api.us-east-1.amazonaws.com/default/userrecovery?email=' + data.email, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-api-key': 'wD4FjaAoiG4bldvQ0oB6Q6fyIDqZCsfkaXCun0u6'
+      }
+    })
+      .then(res => res.json())
+      .then((data) => {
+        this.props.recoveryPsw(data);
+        // this.setState({
+        //   signupintructor: false,
+        //   signupempresa: false,
+        //   showLoader: false
+        // })
       })
       .catch(console.log)
   }
@@ -103,7 +125,24 @@ class App extends React.Component {
     this.signInRequest(data)
 
   }
+  handleCloseForgotPassword = () => {
+    this.setState({
+      forgotPassword: false
+    })
+  }
 
+  showForgotPassword = () => {
+    this.setState({
+      forgotPassword: true
+    })
+
+  }
+
+  sendToEmail = data => {
+    console.log(data)
+    this.recoveryPassword(data)
+    console.log("show it...")
+  }
   // resetDialog = () =>{ 
 
   // }
@@ -114,7 +153,7 @@ class App extends React.Component {
     // console.log("state")
     // console.log(this.state)
     const { login, created, desc, signin, contentSignIn } = this.props.api;
-    const { signupintructor, signupempresa, showLoader } = this.state;
+    const { signupintructor, signupempresa, showLoader, forgotPassword } = this.state;
 
     // this.signInRequest();
     console.log("login")
@@ -129,6 +168,18 @@ class App extends React.Component {
 
             // showLoader={this.state.showLoader}
             ></BussyLoader>
+          }
+        </div>
+
+        <div>
+          {forgotPassword &&
+            <AlertForgotPassword
+              handleClose={this.handleCloseForgotPassword}
+              sendToEmail={this.sendToEmail}
+              sendToEmail={this.sendToEmail}
+
+            // showLoader={this.state.showLoader}
+            ></AlertForgotPassword>
           }
         </div>
 
@@ -158,6 +209,7 @@ class App extends React.Component {
         <div>
           {!login && !signupintructor && !signupempresa &&
             <SignIn
+              showForgotPassword={this.showForgotPassword}
               signInRequest={this.signInRequest}
               startSignUp={this.startSignUp}
               validateForm={this.validateFormSignIn}
@@ -219,6 +271,6 @@ const mapStateToProps = state => {
 
 export default connect(
   mapStateToProps,
-  { singIn, singUp }
+  { singIn, singUp, recoveryPsw }
 )(App);
 // export default AddTodo;

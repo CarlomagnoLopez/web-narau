@@ -1,10 +1,11 @@
-import { SIGN_IN, SIGN_UP } from "../redux/actionTypes";
+import { SIGN_IN, SIGN_UP, RECOVERY_PSW } from "../redux/actionTypes";
 
 const initialState = {
   login: false,
   created: false,
   desc: "",
-  contentSignIn:""
+  contentSignIn: "",
+  recovery:false
   // sendVerification:false
 };
 
@@ -16,7 +17,7 @@ export default function (state = initialState, action) {
         ...state,
         login: contentSignIn.login,
         signin: contentSignIn.login,
-        desc:contentSignIn.desc,
+        desc: contentSignIn.desc,
         // id,
         contentSignIn: contentSignIn["custom-attr"]
       };
@@ -29,6 +30,18 @@ export default function (state = initialState, action) {
         // id,
         created: contentSignUp.created,
         desc: contentSignUp.desc
+      };
+    }
+
+    case RECOVERY_PSW: {
+      const { recovery } = action.payload;
+      return {
+        ...state,
+        recovery
+        // login: false,
+        // // id,
+        // created: contentSignUp.created,
+        // desc: contentSignUp.desc
       };
     }
 
