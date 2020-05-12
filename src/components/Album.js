@@ -188,7 +188,7 @@ export default function Album(props) {
                 </div>
                 <Divider />
                 <List>
-                    {[{ tooltip: 'About Me', icon: <HomeIcon /> }, { tooltip: 'Inbox', icon: <MailIcon /> }, { tooltip: 'Experience', icon: <StarIcon  /> }, { tooltip: 'Invoices', icon: <InboxIcon /> }].map((value, index) => (
+                    {[{ tooltip: 'About Me', icon: <HomeIcon /> }, { tooltip: 'Inbox', icon: <MailIcon /> }, { tooltip: 'Experience', icon: <StarIcon /> }, { tooltip: 'Invoices', icon: <InboxIcon /> }].map((value, index) => (
                         <ListItem button key={value.tooltip}>
                             <ListItemIcon>{value.icon}</ListItemIcon>
                             <ListItemText primary={value.tooltip} />

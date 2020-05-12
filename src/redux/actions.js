@@ -1,4 +1,4 @@
-import { SIGN_IN,SIGN_UP } from "./actionTypes";
+import { SIGN_IN, SIGN_UP, RECOVERY_PSW } from "./actionTypes";
 
 // let nextTodoId = 0;
 
@@ -15,6 +15,14 @@ export const singUp = contentSignUp => ({
   payload: {
     // id: ++nextTodoId,
     contentSignUp
+  }
+});
+
+export const recoveryPsw = recovery => ({
+  type: RECOVERY_PSW,
+  payload: {
+    // id: ++nextTodoId,
+    recovery
   }
 });
 
