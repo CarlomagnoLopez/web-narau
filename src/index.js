@@ -6,6 +6,7 @@ import store from "./redux/store";
 
 import App from "./containers/App";
 import Verify from "./containers/Verify";
+import VerifyTest from "./containers/VerifyTest";
 import NoMatch from "./containers/NoMatch";
 import 'typeface-roboto';
 // import { BrowserRouter as Router, Route,browserHistory } from 'react-router-dom'
@@ -28,6 +29,8 @@ ReactDOM.render(
         {/* <Route path="/recovery/:id"> */}
         <Route path="/verify/:id" children={<ChildRecovery />} >
         </Route>
+        <Route path="/verifyTest" children={<ChildRecoverytwo />} >
+        </Route>
         <Route exact path="/">
           <App />
         </Route>
@@ -49,5 +52,16 @@ function ChildRecovery() {
 
   return (
      <Verify linkVerify = {id}/> 
+  );
+}
+
+function ChildRecoverytwo() {
+  // We can use the `useParams` hook here to access
+  // the dynamic pieces of the URL.
+  // let { id } = useParams();
+
+  return (
+    //  <Verify linkVerify = {id}/> 
+     <VerifyTest/> 
   );
 }
