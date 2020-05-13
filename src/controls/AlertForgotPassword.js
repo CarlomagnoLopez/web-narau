@@ -20,22 +20,23 @@ export default function AlertForgotPassword(props) {
     //     setOpen(false);
     //   };
     const { register, handleSubmit, watch, errors } = useForm();
-
+    // let loading = false;
     const onSubmit = data => {
         // console.log("data Valjues");
         // data.role = "user"
         // props.validateForm(data);
         // console.log(data);
+        // loading = true;
         props.sendToEmail(data)
     };
 
-    let loading = true;
+    
 
     return (
         <div>
 
             <Dialog open={true} onClose={props.handleClose} aria-labelledby="form-dialog-title">
-                {loading &&
+                {props.loading &&
                     <BussyLoader
 
                     // showLoader={this.state.showLoader}
