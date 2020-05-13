@@ -18,7 +18,9 @@ class App extends React.Component {
       signupintructor: false,
       signupempresa: false,
       showLoader: false,
-      forgotPassword: false
+      forgotPassword: false,
+      loadingRecoveryPassword:false,
+      successSendPassword:false
     };
   }
 
@@ -53,6 +55,12 @@ class App extends React.Component {
       .then(res => res.json())
       .then((data) => {
         this.props.recoveryPsw(data);
+        this.setState({
+          loadingRecoveryPassword:false,
+          forgotPassword:false,
+          successSendPassword:true
+
+        })
         // this.setState({
         //   signupintructor: false,
         //   signupempresa: false,
@@ -139,6 +147,9 @@ class App extends React.Component {
   }
 
   sendToEmail = data => {
+    this.setState({
+      loadingRecoveryPassword:true
+    })
     console.log(data)
     this.recoveryPassword(data)
     console.log("show it...")
@@ -152,8 +163,8 @@ class App extends React.Component {
     // console.log(this.props)
     // console.log("state")
     // console.log(this.state)
-    const { login, created, desc, signin, contentSignIn } = this.props.api;
-    const { signupintructor, signupempresa, showLoader, forgotPassword } = this.state;
+    const { login, created, desc, signin, contentSignIn,recovery } = this.props.api;
+    const { signupintructor, signupempresa, showLoader, forgotPassword ,successSendPassword} = this.state;
 
     // this.signInRequest();
     console.log("login")
@@ -176,7 +187,7 @@ class App extends React.Component {
             <AlertForgotPassword
               handleClose={this.handleCloseForgotPassword}
               sendToEmail={this.sendToEmail}
-              sendToEmail={this.sendToEmail}
+              loading={this.state.loadingRecoveryPassword}
 
             // showLoader={this.state.showLoader}
             ></AlertForgotPassword>
@@ -198,6 +209,17 @@ class App extends React.Component {
           {(desc === "noexist") &&
             <AlertDialogSlide
               desc="You don't have access."
+              show={true}
+            // resetDialog={this.resetDialog}
+            // showLoader={this.state.showLoader}
+            ></AlertDialogSlide>
+          }
+        </div>
+
+        <div>
+          {(successSendPassword) &&
+            <AlertDialogSlide
+              desc={recovery ? "We send an email with your password." : "We don't have that email"}
               show={true}
             // resetDialog={this.resetDialog}
             // showLoader={this.state.showLoader}
