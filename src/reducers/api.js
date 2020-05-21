@@ -5,21 +5,30 @@ const initialState = {
   created: false,
   desc: "",
   contentSignIn: "",
-  recovery:false
+  recovery: false
   // sendVerification:false
 };
 
 export default function (state = initialState, action) {
   switch (action.type) {
+
     case SIGN_IN: {
       const { contentSignIn } = action.payload;
+      if (contentSignIn.login) {
+        localStorage.setItem("active", "true")
+      }
+      
+      // else {
+      //   localStorage.setItem("active", "false")
+      // }
+
       return {
         ...state,
         login: contentSignIn.login,
         signin: contentSignIn.login,
         desc: contentSignIn.desc,
         // id,
-        contentSignIn: contentSignIn["custom-attr"]
+        contentSignIn: contentSignIn["custom-attr"] ? contentSignIn["custom-attr"] : ""
       };
     }
     case SIGN_UP: {

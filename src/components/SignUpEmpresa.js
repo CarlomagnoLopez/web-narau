@@ -185,7 +185,7 @@ export default function SignUpEmpresa(props) {
                 label="Email Address"
                 name="email"
                 autoComplete="email"
-                inputRef={register({ required: true, pattern: /\b[\w\.-]+@[\w\.-]+\.\w{2,4}\b/ })}
+                inputRef={register({ required: true, pattern: /\b[\w\.-]+@[\w\.-]+\.\w{2,4}\b/ })}//eslint-disable-line
                 error={errors.email ? true : false}
               />
             </Grid>
