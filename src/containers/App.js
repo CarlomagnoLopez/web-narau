@@ -1,27 +1,37 @@
 import React from "react";
 import { connect } from "react-redux";
-import { singIn, singUp, recoveryPsw } from "../redux/actions";
-import SignIn from "../components/SingIn";
-import SignUpIntructor from "../components/SignUpIntructor";
-import SignUpEmpresa from "../components/SignUpEmpresa";
-import Album from "../components/Album";
-
+import {
+  Redirect,
+  useHistory
+} from "react-router-dom";
 import BussyLoader from '../controls/BussyLoader';
 import AlertDialogSlide from '../controls/AlertDialogSlide';
 import AlertForgotPassword from '../controls/AlertForgotPassword';
+import { singIn, singUp, recoveryPsw } from "../redux/actions";
+import SignIn from "../components/SingIn";
+import SignUpIntructor from "../components/SignUpIntructor";
+import SignUpEmpresa from "../components/SignUpEmpresa";;
+
+
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      openAlertDialogSlide: true,
       // input: "" 
       signupintructor: false,
       signupempresa: false,
       showLoader: false,
       forgotPassword: false,
-      loadingRecoveryPassword:false,
-      successSendPassword:false
+      loadingRecoveryPassword: false,
+      successSendPassword: false
     };
+  }
+
+  componentDidMount(){
+    localStorage.setItem("active","false");
+    localStorage.setItem("contentUser","");
   }
 
   signInRequest = (data) => {
@@ -36,6 +46,7 @@ class App extends React.Component {
       .then((data) => {
         this.props.singIn(data.body);
         this.setState({
+          openAlertDialogSlide: true,
           signupintructor: false,
           signupempresa: false,
           showLoader: false
@@ -43,7 +54,7 @@ class App extends React.Component {
       })
       .catch(console.log)
   }
-  
+
   recoveryPassword = (data) => {
     fetch('https://ob5nizjire.execute-api.us-east-1.amazonaws.com/default/userrecovery?email=' + data.email, {
       method: 'POST',
@@ -56,9 +67,9 @@ class App extends React.Component {
       .then((data) => {
         this.props.recoveryPsw(data);
         this.setState({
-          loadingRecoveryPassword:false,
-          forgotPassword:false,
-          successSendPassword:true
+          loadingRecoveryPassword: false,
+          forgotPassword: false,
+          successSendPassword: true
 
         })
         // this.setState({
@@ -128,6 +139,7 @@ class App extends React.Component {
     console.log("data")
     console.log(data)
     this.setState({
+
       showLoader: true
     })
     this.signInRequest(data)
@@ -148,11 +160,27 @@ class App extends React.Component {
 
   sendToEmail = data => {
     this.setState({
-      loadingRecoveryPassword:true
+      loadingRecoveryPassword: true
     })
     console.log(data)
     this.recoveryPassword(data)
     console.log("show it...")
+  }
+
+  setContent = contentSignIn => {
+    // let history = useHistory();
+
+    let jsonModel = JSON.stringify(contentSignIn);
+
+    localStorage.setItem("contentUser", jsonModel)
+    this.props.singIn({});
+    return (
+
+      <Redirect
+        push to="/profileconsultant/"
+      />
+    )
+    // history.push("/profileconsultant");
   }
   // resetDialog = () =>{ 
 
@@ -163,12 +191,19 @@ class App extends React.Component {
     // console.log(this.props)
     // console.log("state")
     // console.log(this.state)
-    const { login, created, desc, signin, contentSignIn,recovery } = this.props.api;
-    const { signupintructor, signupempresa, showLoader, forgotPassword ,successSendPassword} = this.state;
+    const { login, created, desc, signin, contentSignIn, recovery } = this.props.api;
+    const { signupintructor, signupempresa, showLoader, forgotPassword, successSendPassword } = this.state;
 
-    // this.signInRequest();
-    console.log("login")
-    console.log(login)
+    console.log("App.js")
+    // console.log(login)
+
+    // if (signin) {
+    //   let history = useHistory();
+
+    //   // function handleClick() {
+    //   history.push("/home");
+    //   // }
+    // }
 
 
     return (
@@ -209,7 +244,12 @@ class App extends React.Component {
           {(desc === "noexist") &&
             <AlertDialogSlide
               desc="You don't have access."
-              show={true}
+              show={this.state.openAlertDialogSlide}
+              handleClose={() => {
+                this.setState({
+                  openAlertDialogSlide: false
+                })
+              }}
             // resetDialog={this.resetDialog}
             // showLoader={this.state.showLoader}
             ></AlertDialogSlide>
@@ -232,7 +272,7 @@ class App extends React.Component {
           {!login && !signupintructor && !signupempresa &&
             <SignIn
               showForgotPassword={this.showForgotPassword}
-              signInRequest={this.signInRequest}
+              // signInRequest={this.signInRequest}
               startSignUp={this.startSignUp}
               validateForm={this.validateFormSignIn}
             ></SignIn>
@@ -261,14 +301,20 @@ class App extends React.Component {
 
         <div>
           {signin &&
-            <Album
-              // startSignIn={this.startSignIn}
-              // changeEvent={this.startSignUp}
-              // validateForm={this.validateForm}
-              // startSignUpEmpresa={this.startSignUpEmpresa}
+            this.setContent(contentSignIn)
+            // <Redirect
+            //   push to="/profileconsultant/"  
 
-              contentUser={contentSignIn}
-            ></Album>
+            // />
+            // from: string
+            // <Album
+            //   // startSignIn={this.startSignIn}
+            //   // changeEvent={this.startSignUp}
+            //   // validateForm={this.validateForm}
+            //   // startSignUpEmpresa={this.startSignUpEmpresa}
+
+            //   contentUser={contentSignIn}
+            // ></Album>
           }
         </div>
       </div>

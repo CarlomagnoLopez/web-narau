@@ -12,24 +12,24 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 });
 
 export default function AlertDialogSlide(props) {
-  const [open, setOpen] = React.useState(props.show);
+  // const [open, setOpen] = React.useState(TextareaAutosize);
 
   // const handleClickOpen = () => {
   //   setOpen(true);
   // };
 
-  const handleClose = () => {
+  // const handleClose = () => {
 
-    setOpen(false);
-  };
+  //   setOpen(false);
+  // };
 
   return (
     <div>
       <Dialog
-        open={open}
+        open={props.show}
         TransitionComponent={Transition}
         keepMounted
-        onClose={handleClose}
+        onClose={props.handleClose}
         aria-labelledby="alert-dialog-slide-title"
         aria-describedby="alert-dialog-slide-description"
       >
@@ -40,7 +40,7 @@ export default function AlertDialogSlide(props) {
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose} color="primary">
+          <Button onClick={props.handleClose} color="primary">
             Agree
           </Button>
         </DialogActions>

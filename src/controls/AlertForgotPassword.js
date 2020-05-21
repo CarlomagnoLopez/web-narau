@@ -57,7 +57,7 @@ export default function AlertForgotPassword(props) {
                             type="email"
                             name="email"
                             fullWidth
-                            inputRef={register({ required: true, pattern: /[\w\.-]+@[\w\.-]+\.\w{2,4}/ })}
+                            inputRef={register({ required: true, pattern: /[\w\.-]+@[\w\.-]+\.\w{2,4}/ })}//eslint-disable-line
                             error={errors.email ? true : false}
                         />
                     </DialogContent>
