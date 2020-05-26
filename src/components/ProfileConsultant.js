@@ -1,4 +1,7 @@
 import React from 'react';
+import { connect } from "react-redux";
+import { updateAttr } from "../redux/actions";
+
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -43,6 +46,7 @@ import {
 import { mainListItems, secondaryListItems } from '../controls/listItems';
 import ProfileHeader from './ProfileHeader';
 import InvoicesForm from './InvoicesForm';
+import CoursesForm from './CoursesForm';
 // import Chart from './Chart';
 // import Deposits from './Deposits';
 // import Orders from './Orders';
@@ -175,11 +179,27 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function Profile(props) {
+
+
+// export default connect(
+//     mapStateToProps,
+//     { updateAttr }
+// )(ProfileConsultant);
+
+// const mapStateToProps = state => {
+//     // return { activeFilter: state.visibilityFilter };
+//     return state;
+// };
+export default function ProfileConsultant(props) {
     const { logOut } = props;
     const classes = useStyles();
     const [open, setOpen] = React.useState(false);
     const [openInvoices, setOpenInvoices] = React.useState(false);
+    const [openCoursesForm, setOpenCoursesForm] = React.useState(false);
+
+    const { currentAccount } = props;
+
+    let { aboutMe } = currentAccount;
     const handleDrawerOpen = () => {
         setOpen(true);
     };
@@ -223,32 +243,67 @@ export default function Profile(props) {
         // console.log("show")
     }
 
-    
-    // const editCard = (isEdit) => {
-    //     if (isEdit) {
-    //         // setTypeCard(true);
-    //     } else {
-    //         // setTypeCard(false);
-    //     }
+    const showFormCourse = () => {
+        setOpenCoursesForm(true)
+        // console.log("show")
+    }
+    const closeFormCourse = () => {
+        setOpenCoursesForm(false)
+        // console.log("show")
+    }
+
+
+    // const updateAttribute = (data) => {
+    //     aboutMe = data;
     // }
+
+    const requestUpdateAttribute = (attr, name) => {
+
+        console.log(attr)
+        console.log(props)
+        let data = {
+            "role": props.currentAccount.role,
+            "email": props.currentAccount.email,
+            "updateAttribute": {
+                "name": name,
+                "value": attr
+            }
+
+        }
+
+        // console.log(data)
+
+        fetch('https://ob5nizjire.execute-api.us-east-1.amazonaws.com/default//saveattributes', {
+            method: 'PUT',
+            body: JSON.stringify(data),
+            headers: {
+                'Content-Type': 'application/json',
+                'x-api-key': 'wD4FjaAoiG4bldvQ0oB6Q6fyIDqZCsfkaXCun0u6'
+            }
+        })
+            .then(res => res.json())
+            .then((data) => {
+                // this.props.singUp(data.body);
+                // this.setState({
+                //     signupintructor: false,
+                //     signupempresa: false,
+                //     showLoader: false
+                // })
+
+                console.log(data)
+            })
+            .catch(console.log)
+    }
+
     return (
         <div className={classes.root}>
             <CssBaseline />
             <AppBar position="absolute" classes className={clsx(classes.appBar, open && classes.appBarShift)}>
                 <Toolbar className={classes.toolbar}>
-                    {/* <IconButton
-                        edge="start"
-                        color="inherit"
-                        aria-label="open drawer"
-                        onClick={handleDrawerOpen}
-                        className={clsx(classes.menuButton, open && classes.menuButtonHidden)}
-                    >
-                        <MenuIcon />
-                    </IconButton> */}
                     <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
                         Narau
                     </Typography>
-                    <Avatar className={classes.orange}>N</Avatar>
+                    <Avatar className={classes.orange}>{currentAccount.firstName.substring(0, 1) + currentAccount.lastName.substring(0, 1)}</Avatar>
                     <Tooltip title="LogOut" aria-label="LogOut">
                         <IconButton color="inherit">
                             <Badge badgeContent={4} color="secondary">
@@ -273,14 +328,14 @@ export default function Profile(props) {
                     <Grid container spacing={3}>
                         <Grid item xs={12}>
                             <Paper className={classes.paper} elevation={0}>
-                                <ProfileHeader></ProfileHeader>
+                                <ProfileHeader currentAccount={currentAccount}></ProfileHeader>
                             </Paper>
                         </Grid>
                     </Grid>
 
                     <Container maxWidth="lg" className={classes.container}>
 
-                        {!openInvoices &&
+                        {!openInvoices && !openCoursesForm &&
                             <Grid container spacing={3}>
                                 <Grid item xs={12} md={4} lg={3}
                                     direction="column"
@@ -288,8 +343,10 @@ export default function Profile(props) {
                                     alignItems="center">
                                     <Paper spacing={3} elevation={2}>
                                         <CardSideContent
-                                            text={"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."}
+                                            text={aboutMe}
                                             title={"Sobre mi."}
+                                            // update={updateAttribute}
+                                            request={requestUpdateAttribute}
                                         // action={editCard}
                                         // action={}
                                         ></CardSideContent>
@@ -339,7 +396,7 @@ export default function Profile(props) {
 
 
                                         ))}
-                                        <CardAddCourses openForm={openFormCourse}
+                                        <CardAddCourses openForm={showFormCourse}
                                         >
                                         </CardAddCourses>
 
@@ -358,22 +415,6 @@ export default function Profile(props) {
                                         </Container>
 
                                     </Grid>
-
-                                    {/* <Grid container item xs={12} spacing={3}>
-
-                                    <Container maxWidth="lg" className={classes.container} >
-                                        <Grid item xs={12} container
-                                            direction="row"
-                                            justify="center"
-                                            alignItems="flex-start">
-
-                                            <StaticCalendar></StaticCalendar>
-                                        </Grid>
-
-
-                                    </Container>
-
-                                </Grid> */}
                                 </Grid>
                             </Grid>
 
@@ -382,7 +423,17 @@ export default function Profile(props) {
                             <Container maxWidth="lg" className={classes.container}>
                                 <Grid container spacing={3}>
                                     {/* <div>invoices</div> */}
-                                    <InvoicesForm  closeFormInvoices={closeFormInvoices}></InvoicesForm>
+                                    <InvoicesForm closeFormInvoices={closeFormInvoices}></InvoicesForm>
+                                </Grid>
+
+                            </Container>
+                        }
+
+                        {openCoursesForm &&
+                            <Container maxWidth="lg" className={classes.container}>
+                                <Grid container spacing={3}>
+                                    {/* <div>invoices</div> */}
+                                    <CoursesForm closeFormCourse={closeFormCourse}></CoursesForm>
                                 </Grid>
 
                             </Container>
@@ -402,3 +453,4 @@ export default function Profile(props) {
         </div >
     );
 }
+

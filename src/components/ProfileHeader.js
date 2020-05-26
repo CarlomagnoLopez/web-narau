@@ -64,8 +64,12 @@ const useStyles = makeStyles(
     })
 );
 
-export default function ProfileHeader() {
+export default function ProfileHeader(props) {
     const classes = useStyles();
+
+    const completeName = props.currentAccount.firstName + " " + props.currentAccount.lastName;
+
+    const avatarTitle =  props.currentAccount.firstName.substring(0, 1) + props.currentAccount.lastName.substring(0, 1)
 
     return (
         <Card className={classes.root} >
@@ -81,30 +85,30 @@ export default function ProfileHeader() {
             <CardHeader
                 // classes={classes.content}
                 avatar={
-                    <Avatar className={classes.avatarHeader}>N</Avatar>
+                    <Avatar className={classes.avatarHeader}>{avatarTitle}</Avatar>
                 }
                 title={<Typography className={classes.title} gutterBottom variant="h5" component="div">
-                    Name of the user.
+                    {completeName}
                     </Typography>}
                 subheader={<SimpleRating className={classes.rating} />}
             />
             {/* <CardContent> */}
-                {/* <Container maxWidth="lg" className={classes.container}>
+            {/* <Container maxWidth="lg" className={classes.container}>
                     <Paper className={classes.paper} > */}
-                {/* <Avatar className={classes.avatarHeader}>N</Avatar> */}
-                {/* <Typography gutterBottom variant="h5" component="h2">
+            {/* <Avatar className={classes.avatarHeader}>N</Avatar> */}
+            {/* <Typography gutterBottom variant="h5" component="h2">
                             Lizard
                          </Typography> */}
-                {/* </Paper>
+            {/* </Paper>
                 </Container> */}
 
-                {/* <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" className={classes.small} />
+            {/* <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" className={classes.small} />
                 <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
                 <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" className={classes.large} /> */}
-                {/* <Typography gutterBottom variant="h5" component="h2">
+            {/* <Typography gutterBottom variant="h5" component="h2">
                     Lizard
           </Typography> */}
-                {/* <Typography variant="body2" color="textSecondary" component="p">
+            {/* <Typography variant="body2" color="textSecondary" component="p">
             Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging
             across all continents except Antarctica
           </Typography> */}

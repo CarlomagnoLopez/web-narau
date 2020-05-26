@@ -5,19 +5,27 @@ const initialState = {
   created: false,
   desc: "",
   contentSignIn: "",
-  recovery: false
+  recovery: false,
+  // initialDataUser =  JSON.parse(localStorage.getItem("contentUser"))
   // sendVerification:false
 };
 
+// const initialDataUser =  JSON.parse(localStorage.getItem("contentUser"));
+
 export default function (state = initialState, action) {
   switch (action.type) {
-
+    // case UPDATE_ATTR: {
+    //   const { dataUser } = action.payload;
+    //   return {
+    //     ...state,
+    //   };
+    // }
     case SIGN_IN: {
       const { contentSignIn } = action.payload;
       if (contentSignIn.login) {
         localStorage.setItem("active", "true")
       }
-      
+
       // else {
       //   localStorage.setItem("active", "false")
       // }
