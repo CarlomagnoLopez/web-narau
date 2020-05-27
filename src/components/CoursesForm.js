@@ -65,11 +65,13 @@ const useStyles = makeStyles((theme) => ({
 
 const steps = ['Creacion de Servicio'];
 
-function getStepContent(step, handleNext) {
+function getStepContent(step, handleNext, currentDataService) {
   switch (step) {
     case 0:
       return <CourseForm
         handleNext={handleNext}
+        currentDataService={currentDataService}
+
       />;
     // case 1:
     //   return <PaymentForm />;
@@ -136,7 +138,7 @@ export default function InvoicesForm(props) {
               </React.Fragment>
             ) : ( */}
           <React.Fragment>
-            {getStepContent(activeStep, handleNext)}
+            {getStepContent(activeStep, handleNext, props.currentDataService)}
             {/* <div className={classes.buttons}>
               {activeStep !== 0 && (
                 <Button onClick={handleBack} className={classes.button}>

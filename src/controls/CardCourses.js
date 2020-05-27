@@ -61,7 +61,7 @@ export default function CardCourses(props) {
         <Grid item xs={4} >
             {/* <Paper className={classes.paperCursos}>{infoCourse.name}</Paper> */}
             <Card className={classes.root} raised>
-                <CardActionArea>
+                <CardActionArea onClick={props.openForm}>
                     <CardMedia
                         // children = {<div>hola</div>}
                         component="img"

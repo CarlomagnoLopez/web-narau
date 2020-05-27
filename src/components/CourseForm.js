@@ -65,6 +65,7 @@ export default function CoursesForm(props) {
           <Grid item xs={12}>
             <TextField
               required
+              defaultValue={props.nameService}
               id="nameService"
               name="nameService"
               label="Nombre del Servicio"
@@ -76,6 +77,7 @@ export default function CoursesForm(props) {
           </Grid>
           <Grid item xs={12} sm={6}>
             <TextField
+            defaultValue={props.serviceType}
               required
               id="serviceType"
               name="serviceType"

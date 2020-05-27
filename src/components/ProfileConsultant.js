@@ -196,6 +196,7 @@ export default function ProfileConsultant(props) {
     const [open, setOpen] = React.useState(false);
     const [openInvoices, setOpenInvoices] = React.useState(false);
     const [openCoursesForm, setOpenCoursesForm] = React.useState(false);
+    const [dataService, setDataService] = React.useState();
 
     const { currentAccount } = props;
 
@@ -260,7 +261,11 @@ export default function ProfileConsultant(props) {
         // console.log("show")
     }
 
-    const showFormCourse = () => {
+    const showFormCourse = (data) => {
+        // if(data)
+        if(data){
+            setDataService(data)
+        }
         setOpenCoursesForm(true)
         // console.log("show")
     }
@@ -398,6 +403,7 @@ export default function ProfileConsultant(props) {
                                         {dataCourse.map((infoCourse) => (
                                             // <div
                                             <CardCourses
+                                                openForm={() => { showFormCourse(infoCourse) }}
                                                 infoCourse={infoCourse}>
                                             </CardCourses>
 
@@ -445,7 +451,10 @@ export default function ProfileConsultant(props) {
                             <Container maxWidth="lg" className={classes.container}>
                                 <Grid container spacing={3}>
                                     {/* <div>invoices</div> */}
-                                    <CoursesForm closeFormCourse={closeFormCourse}></CoursesForm>
+                                    <CoursesForm
+                                        closeFormCourse={closeFormCourse}
+                                        currentDataService={dataService}
+                                    ></CoursesForm>
                                 </Grid>
 
                             </Container>
