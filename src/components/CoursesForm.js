@@ -65,10 +65,12 @@ const useStyles = makeStyles((theme) => ({
 
 const steps = ['Creacion de Servicio'];
 
-function getStepContent(step) {
+function getStepContent(step, handleNext) {
   switch (step) {
     case 0:
-      return <CourseForm />;
+      return <CourseForm
+        handleNext={handleNext}
+      />;
     // case 1:
     //   return <PaymentForm />;
     // case 2:
@@ -82,11 +84,11 @@ export default function InvoicesForm(props) {
   const classes = useStyles();
   const [activeStep, setActiveStep] = React.useState(0);
 
-  const handleNext = () => {
+  const handleNext = (data) => {
     if (activeStep === 1) {
-      props.closeFormCourse()
+      props.closeFormCourse(data)
     } else {
-      props.closeFormCourse()
+      props.closeFormCourse(data)
       // setActiveStep(activeStep + 1);
     }
 
@@ -121,8 +123,8 @@ export default function InvoicesForm(props) {
               </Step>
             ))}
           </Stepper>
-          <React.Fragment>
-            {activeStep === steps.length ? (
+          {/* <React.Fragment> */}
+          {/* {activeStep === steps.length ? (
               <React.Fragment>
                 <Typography variant="h5" gutterBottom>
                   Thank you for your order.
@@ -132,27 +134,27 @@ export default function InvoicesForm(props) {
                   send you an update when your order has shipped.
                 </Typography>
               </React.Fragment>
-            ) : (
-                <React.Fragment>
-                  {getStepContent(activeStep)}
-                  <div className={classes.buttons}>
-                    {activeStep !== 0 && (
-                      <Button onClick={handleBack} className={classes.button}>
-                        Atras
-                      </Button>
-                    )}
-                    <Button
-                      variant="contained"
-                      color="primary"
-                      onClick={handleNext}
-                      className={classes.button}
-                    >
-                      {activeStep === steps.length - 1 ? 'Finalizar' : 'Siguiente'}
-                    </Button>
-                  </div>
-                </React.Fragment>
+            ) : ( */}
+          <React.Fragment>
+            {getStepContent(activeStep, handleNext)}
+            {/* <div className={classes.buttons}>
+              {activeStep !== 0 && (
+                <Button onClick={handleBack} className={classes.button}>
+                  Atras
+                </Button>
               )}
+              <Button
+                variant="contained"
+                color="primary"
+                onClick={handleNext}
+                className={classes.button}
+              >
+                {activeStep === steps.length - 1 ? 'Finalizar' : 'Siguiente'}
+              </Button>
+            </div> */}
           </React.Fragment>
+          {/* )} */}
+          {/* </React.Fragment> */}
         </Paper>
         <Copyright />
       </main>

@@ -34,6 +34,10 @@ class ProfileUser extends React.Component {
 
 
     componentWillMount() {
+        this.startLoading();
+    }
+
+    startLoading = () => {
         fetch('https://ob5nizjire.execute-api.us-east-1.amazonaws.com/default/userdetail?role=' + this.state.currentAccountTemp.role + "&email=" + this.state.currentAccountTemp.email, {
             method: 'POST',
             headers: {
@@ -131,7 +135,35 @@ class ProfileUser extends React.Component {
 
     }
 
+    saveService = (data) => {
+        let payload = data;
+        this.setState({
+            loadingUpdate: true
+        }, (state, props) => {
+            fetch('https://ob5nizjire.execute-api.us-east-1.amazonaws.com/default//saveservice', {
+                method: 'PUT',
+                body: JSON.stringify(payload),
+                headers: {
+                    'Content-Type': 'application/json',
+                    'x-api-key': 'wD4FjaAoiG4bldvQ0oB6Q6fyIDqZCsfkaXCun0u6'
+                }
+            })
+                .then(res => res.json())
+                .then((data) => {
+                    // this.props.singUp(data.body);
 
+                    // this.updateMainDataAttr(data.body.dataUpdated["custom-attr"]);
+                    this.startLoading();
+                    this.setState({
+                        loadingUpdate: false
+                    })
+
+                    console.log(data)
+                })
+                .catch(console.log)
+        })
+
+    }
 
 
     render() {
@@ -186,6 +218,7 @@ class ProfileUser extends React.Component {
                             currentAccount={this.state.currentAccountTemp}
                             refreshBasicData={this.refreshBasicData}
                             refreshInvoiceData={this.refreshInvoiceData}
+                            saveService={this.saveService}
                             invoiceData={this.state.invoiceData}
                             serviceData={this.state.serviceData}
                         ></ProfileConsultant>

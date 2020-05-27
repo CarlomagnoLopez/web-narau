@@ -264,7 +264,14 @@ export default function ProfileConsultant(props) {
         setOpenCoursesForm(true)
         // console.log("show")
     }
-    const closeFormCourse = () => {
+    const closeFormCourse = (data) => {
+        console.log(data)
+        let payload = {
+            "pk": localStorage.getItem("partitionKey"),
+            "email": JSON.parse(localStorage.getItem("contentUser")).email,
+            "attr": data
+        }
+        props.saveService(payload)
         setOpenCoursesForm(false)
         // console.log("show")
     }
