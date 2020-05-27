@@ -11,23 +11,28 @@ import {
     useParams,
     useHistory
 } from "react-router-dom";
+import Skeleton from '@material-ui/lab/Skeleton';
 
 // import { useHistory } from "react-router-dom";
 import ProfileConsultant from "../components/ProfileConsultant";
+import BussyLoader from "../controls/BussyLoader";
 
 
 class ProfileUser extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            loading: false,
             activeSession: localStorage.getItem("active") === "true" ? true : false,
             currentAccountTemp: JSON.parse(localStorage.getItem("contentUser")),
-            currentAccount:"",
+            partitionKey: "",
+            loadingUpdate: false,
+            // currentAccount:"",
             loggingOut: false
         };
     }
 
-     
+
     componentWillMount() {
         fetch('https://ob5nizjire.execute-api.us-east-1.amazonaws.com/default/userdetail?role=' + this.state.currentAccountTemp.role + "&email=" + this.state.currentAccountTemp.email, {
             method: 'POST',
@@ -41,28 +46,91 @@ class ProfileUser extends React.Component {
 
                 console.log(data)
 
-                let jsonModel = JSON.stringify(data.body.data["custom-attr"]);
-
-                localStorage.setItem("contentUser", jsonModel);
-
                 this.setState({
-                    currentAccountTemp: JSON.parse(localStorage.getItem("contentUser"))
+                    partitionKey: data.body.data["custom-types"],
+                    invoiceData: data.body.invoice ? data.body.invoice["custom-attr"] : "",
+                    serviceData: data.body.service ? data.body.service : ""
                 })
-                // this.props.recoveryPsw(data);
-                // this.setState({
-                //     loadingRecoveryPassword: false,
-                //     forgotPassword: false,
-                //     successSendPassword: true
 
-                // })
-                // this.setState({
-                //   signupintructor: false,
-                //   signupempresa: false,
-                //   showLoader: false
-                // })
+                localStorage.setItem("partitionKey", this.state.partitionKey);
+
+                this.updateMainDataAttr(data.body.data["custom-attr"]);
+
+
             })
             .catch(console.log)
     }
+
+    updateMainDataAttr = (data) => {
+        let jsonModel = JSON.stringify(data);
+
+        localStorage.setItem("contentUser", jsonModel);
+
+        this.setState({
+            currentAccountTemp: JSON.parse(localStorage.getItem("contentUser")),
+            loading: true
+        })
+    }
+
+
+    refreshBasicData = (data) => {
+        let payload = data;
+        this.setState({
+            loadingUpdate: true
+        }, (state, props) => {
+            fetch('https://ob5nizjire.execute-api.us-east-1.amazonaws.com/default//saveattributes', {
+                method: 'PUT',
+                body: JSON.stringify(payload),
+                headers: {
+                    'Content-Type': 'application/json',
+                    'x-api-key': 'wD4FjaAoiG4bldvQ0oB6Q6fyIDqZCsfkaXCun0u6'
+                }
+            })
+                .then(res => res.json())
+                .then((data) => {
+                    // this.props.singUp(data.body);
+
+                    this.updateMainDataAttr(data.body.dataUpdated["custom-attr"]);
+                    this.setState({
+                        loadingUpdate: false
+                    })
+
+                    console.log(data)
+                })
+                .catch(console.log)
+        })
+
+    }
+
+    refreshInvoiceData = (data) => {
+        let payload = data;
+        this.setState({
+            loadingUpdate: true
+        }, (state, props) => {
+            fetch('https://ob5nizjire.execute-api.us-east-1.amazonaws.com/default//saveinvoice', {
+                method: 'PUT',
+                body: JSON.stringify(payload),
+                headers: {
+                    'Content-Type': 'application/json',
+                    'x-api-key': 'wD4FjaAoiG4bldvQ0oB6Q6fyIDqZCsfkaXCun0u6'
+                }
+            })
+                .then(res => res.json())
+                .then((data) => {
+                    // this.props.singUp(data.body);
+
+                    // this.updateMainDataAttr(data.body.dataUpdated["custom-attr"]);
+                    this.setState({
+                        loadingUpdate: false
+                    })
+
+                    console.log(data)
+                })
+                .catch(console.log)
+        })
+
+    }
+
 
 
 
@@ -72,11 +140,11 @@ class ProfileUser extends React.Component {
         // console.log(this)
         const currentRole = this.state.currentAccountTemp.role ? this.state.currentAccountTemp.role : "";
 
-        if (!this.state.activeSession || currentRole === "") {
+        if (!this.state.activeSession) {
 
-            this.setState({
-                activeSession: true
-            })
+            // this.setState({
+            //     activeSession: true
+            // })
             console.log("logging outs")
             return (
                 <Redirect
@@ -84,10 +152,45 @@ class ProfileUser extends React.Component {
                 />
             );
         }
+
+        if (!this.state.loading) {
+            return (
+                <div>
+                    <BussyLoader> </BussyLoader>
+
+                </div>
+
+            );
+
+        }
+
+        // if (this.state.loadingUpdate) {
+        //     return (
+        //         <div>
+        //             <Skeleton variant="text" />
+        //             <Skeleton variant="circle" width={40} height={40} />
+        //             <Skeleton variant="rect" width={210} height={118} />
+        //         </div>
+        //     );
+        // }
+        // refreshInvoiceData
         return (
             <div>
                 {currentRole === "consultant" &&
-                    <ProfileConsultant currentAccount={this.state.currentAccountTemp}></ProfileConsultant>
+                    <div>
+                        {this.state.loadingUpdate &&
+                            <BussyLoader> </BussyLoader>
+                        }
+
+                        <ProfileConsultant
+                            currentAccount={this.state.currentAccountTemp}
+                            refreshBasicData={this.refreshBasicData}
+                            refreshInvoiceData={this.refreshInvoiceData}
+                            invoiceData={this.state.invoiceData}
+                            serviceData={this.state.serviceData}
+                        ></ProfileConsultant>
+                    </div>
+
                 }
 
             </div>

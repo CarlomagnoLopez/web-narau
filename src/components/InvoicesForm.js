@@ -10,7 +10,7 @@ import StepLabel from '@material-ui/core/StepLabel';
 import Button from '@material-ui/core/Button';
 import Link from '@material-ui/core/Link';
 import Typography from '@material-ui/core/Typography';
-import AddressForm from './AddressForm';
+import FiscalForm from './FiscalForm';
 import PaymentForm from './PaymentForm';
 import Review from './Review';
 
@@ -66,33 +66,62 @@ const useStyles = makeStyles((theme) => ({
 
 const steps = ['Datos fiscales', 'Informacion de pago'];
 
-function getStepContent(step) {
+function getStepContent(step, props, handleNext, handleBack, dataUpdateInvoice) {
+  let invoiceData = props.invoiceData;
+  if (dataUpdateInvoice !== "") {
+    invoiceData = dataUpdateInvoice;
+  }
+
+  let paymentData = props.invoiceData;
+  if (dataUpdatePayment !== "") {
+    paymentData = dataUpdatePayment;
+  }
+
+
+
   switch (step) {
     case 0:
-      return <AddressForm />;
+
+      return <FiscalForm
+        // dataUpdateInvoice={dataUpdateInvoice}
+        invoiceData={invoiceData}
+        handleNext={handleNext}
+      />;
     case 1:
-      return <PaymentForm />;
+      return <PaymentForm
+        invoiceData={paymentData}
+        handleNext={handleNext}
+        handleBack={handleBack}
+      />;
     // case 2:
     //   return <Review />;
     default:
       throw new Error('Unknown step');
   }
 }
-
+let dataUpdateInvoice = "";
+let dataUpdatePayment = "";
 export default function InvoicesForm(props) {
   const classes = useStyles();
   const [activeStep, setActiveStep] = React.useState(0);
 
-  const handleNext = () => {
-    if(activeStep === 1){
-        props.closeFormInvoices()
-    }else{
-        setActiveStep(activeStep + 1);
+
+  const handleNext = (data) => {
+
+    if (activeStep === 1) {
+      dataUpdatePayment = data;
+      let payload = Object.assign(dataUpdateInvoice, dataUpdatePayment);
+      props.closeFormInvoices(payload)
+    } else {
+      // if(data = )
+      dataUpdateInvoice = data;
+      setActiveStep(activeStep + 1);
     }
-    
+
   };
 
-  const handleBack = () => {
+  const handleBack = (data) => {
+    dataUpdatePayment = data;
     setActiveStep(activeStep - 1);
   };
 
@@ -121,8 +150,8 @@ export default function InvoicesForm(props) {
               </Step>
             ))}
           </Stepper>
-          <React.Fragment>
-            {activeStep === steps.length ? (
+          {/* <React.Fragment> */}
+          {/* {activeStep === steps.length ? (
               <React.Fragment>
                 <Typography variant="h5" gutterBottom>
                   Thank you for your order.
@@ -132,29 +161,30 @@ export default function InvoicesForm(props) {
                   send you an update when your order has shipped.
                 </Typography>
               </React.Fragment>
-            ) : (
-              <React.Fragment>
-                {getStepContent(activeStep)}
-                <div className={classes.buttons}>
-                  {activeStep !== 0 && (
-                    <Button onClick={handleBack} className={classes.button}>
-                      Atras
-                    </Button>
-                  )}
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    onClick={handleNext}
-                    className={classes.button}
-                  >
-                    {activeStep === steps.length - 1 ? 'Finalizar' : 'Siguiente'}
-                  </Button>
-                </div>
-              </React.Fragment>
-            )}
+            ) : 
+            ( */}
+          <React.Fragment>
+            {getStepContent(activeStep, props, handleNext, handleBack, dataUpdateInvoice)}
+            {/* <div className={classes.buttons}>
+              {activeStep !== 0 && (
+                <Button onClick={handleBack} className={classes.button}>
+                  Atras
+                </Button>
+              )}
+              <Button
+                variant="contained"
+                color="primary"
+                onClick={handleNext}
+                className={classes.button}
+              >
+                {activeStep === steps.length - 1 ? 'Finalizar' : 'Siguiente'}
+              </Button>
+            </div> */}
           </React.Fragment>
+          {/* )} */}
+          {/* </React.Fragment> */}
         </Paper>
-        <Copyright />
+        {/* <Copyright /> */}
       </main>
     </React.Fragment>
   );

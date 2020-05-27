@@ -199,7 +199,7 @@ export default function ProfileConsultant(props) {
 
     const { currentAccount } = props;
 
-    let { aboutMe } = currentAccount;
+    let { aboutMe, training, experience, customers } = currentAccount;
     const handleDrawerOpen = () => {
         setOpen(true);
     };
@@ -216,29 +216,46 @@ export default function ProfileConsultant(props) {
     const fixedHeightPaperSide = clsx(classes.paperSide, classes.fixedHeight);
 
 
-    const openFormCourse = () => {
-        console.log("abriendo form")
-    }
+    // const openFormCourse = () => {
+    //     console.log("abriendo form")
+    // }
 
-    const dataCourse = [
-        {
-            name: "Calidad y gestion de recursos",
-            type: "Curos"
-        },
-        {
-            name: "Diseño y actualizacion paramétrica",
-            type: "Taller"
-        }, {
-            name: "Ciencia de datos",
-            type: "Seminario"
-        }
-    ]
+    console.log(props.serviceData);
+
+
+    const dataCourse = props.serviceData.map((item) => { return item["custom-attr"] })
+
+
+
+
+    // const dataCourse = [
+    //     {
+    //         name: "Calidad y gestion de recursos",
+    //         type: "Curos"
+    //     },
+    //     {
+    //         name: "Diseño y actualizacion paramétrica",
+    //         type: "Taller"
+    //     }, {
+    //         name: "Ciencia de datos",
+    //         type: "Seminario"
+    //     }
+    // ]
 
     const showFormInvoices = () => {
         setOpenInvoices(true)
         // console.log("show")
     }
-    const closeFormInvoices = () => {
+    const closeFormInvoices = (data) => {
+
+        let payload = {
+            "type": "invoice",
+            "email": JSON.parse(localStorage.getItem("contentUser")).email,
+            "attr": data
+        }
+        console.log(payload)
+
+        props.refreshInvoiceData(payload)
         setOpenInvoices(false)
         // console.log("show")
     }
@@ -270,29 +287,10 @@ export default function ProfileConsultant(props) {
             }
 
         }
-
+        props.refreshBasicData(data);
         // console.log(data)
 
-        fetch('https://ob5nizjire.execute-api.us-east-1.amazonaws.com/default//saveattributes', {
-            method: 'PUT',
-            body: JSON.stringify(data),
-            headers: {
-                'Content-Type': 'application/json',
-                'x-api-key': 'wD4FjaAoiG4bldvQ0oB6Q6fyIDqZCsfkaXCun0u6'
-            }
-        })
-            .then(res => res.json())
-            .then((data) => {
-                // this.props.singUp(data.body);
-                // this.setState({
-                //     signupintructor: false,
-                //     signupempresa: false,
-                //     showLoader: false
-                // })
 
-                console.log(data)
-            })
-            .catch(console.log)
     }
 
     return (
@@ -344,31 +342,35 @@ export default function ProfileConsultant(props) {
                                     <Paper spacing={3} elevation={2}>
                                         <CardSideContent
                                             text={aboutMe}
+                                            referenceRequest={"aboutMe"}
                                             title={"Sobre mi."}
-                                            // update={updateAttribute}
                                             request={requestUpdateAttribute}
-                                        // action={editCard}
-                                        // action={}
                                         ></CardSideContent>
                                         {/* </Paper> */}
                                         <Divider variant="middle" className={classes.divider} />
                                         {/* <Paper spacing={3} elevation={0}> */}
                                         <CardSideContent
-                                            text={"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."}
-                                            title={"Experiencia."}
+                                            text={experience}
+                                            referenceRequest={"experience"}
+                                            title={"Experiencia"}
+                                            request={requestUpdateAttribute}
                                         ></CardSideContent>
                                         {/* </Paper> */}
                                         <Divider variant="middle" className={classes.divider} />
                                         {/* <Paper spacing={3} elevation={0}> */}
                                         <CardSideContent
-                                            text={"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."}
-                                            title={"Entrenamientos."}
+                                            text={training}
+                                            referenceRequest={"training"}
+                                            title={"Entrenamiento"}
+                                            request={requestUpdateAttribute}
                                         ></CardSideContent>
                                         <Divider variant="middle" className={classes.divider} />
                                         {/* <Paper spacing={3} elevation={0}> */}
                                         <CardSideContent
-                                            text={"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."}
-                                            title={"Clientes."}
+                                            text={customers}
+                                            referenceRequest={"customers"}
+                                            title={"Clientes"}
+                                            request={requestUpdateAttribute}
                                         ></CardSideContent>
                                         <Divider variant="middle" className={classes.divider} />
                                         {/* <Paper spacing={3} elevation={0}> */}
@@ -423,7 +425,10 @@ export default function ProfileConsultant(props) {
                             <Container maxWidth="lg" className={classes.container}>
                                 <Grid container spacing={3}>
                                     {/* <div>invoices</div> */}
-                                    <InvoicesForm closeFormInvoices={closeFormInvoices}></InvoicesForm>
+                                    <InvoicesForm
+                                        closeFormInvoices={closeFormInvoices}
+                                        invoiceData={props.invoiceData}
+                                    ></InvoicesForm>
                                 </Grid>
 
                             </Container>

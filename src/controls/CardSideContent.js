@@ -32,7 +32,7 @@ export default function CardSideContent(props) {
         if (!isEdit) {
             setTypeCard(true);
         } else {
-            props.request(textValue, "aboutMe");
+            props.request(textValue, props.referenceRequest);
             setTypeCard(false);
         }
 
