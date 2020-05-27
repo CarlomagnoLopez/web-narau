@@ -10,8 +10,7 @@ import StepLabel from '@material-ui/core/StepLabel';
 import Button from '@material-ui/core/Button';
 import Link from '@material-ui/core/Link';
 import Typography from '@material-ui/core/Typography';
-import FiscalForm from './FiscalForm';
-import PaymentForm from './PaymentForm';
+import CourseForm from './CourseForm';
 import Review from './Review';
 
 function Copyright() {
@@ -64,64 +63,40 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const steps = ['Datos fiscales', 'Informacion de pago'];
+const steps = ['Creacion de Servicio'];
 
-function getStepContent(step, props, handleNext, handleBack, dataUpdateInvoice) {
-  let invoiceData = props.invoiceData;
-  if (dataUpdateInvoice !== "") {
-    invoiceData = dataUpdateInvoice;
-  }
-
-  let paymentData = props.invoiceData;
-  if (dataUpdatePayment !== "") {
-    paymentData = dataUpdatePayment;
-  }
-
-
-
+function getStepContent(step, handleNext, currentDataService) {
   switch (step) {
     case 0:
+      return <CourseForm
+        handleNext={handleNext}
+        currentDataService={currentDataService}
 
-      return <FiscalForm
-        // dataUpdateInvoice={dataUpdateInvoice}
-        invoiceData={invoiceData}
-        handleNext={handleNext}
       />;
-    case 1:
-      return <PaymentForm
-        invoiceData={paymentData}
-        handleNext={handleNext}
-        handleBack={handleBack}
-      />;
+    // case 1:
+    //   return <PaymentForm />;
     // case 2:
     //   return <Review />;
     default:
       throw new Error('Unknown step');
   }
 }
-let dataUpdateInvoice = "";
-let dataUpdatePayment = "";
+
 export default function InvoicesForm(props) {
   const classes = useStyles();
   const [activeStep, setActiveStep] = React.useState(0);
 
-
   const handleNext = (data) => {
-
     if (activeStep === 1) {
-      dataUpdatePayment = data;
-      let payload = Object.assign(dataUpdateInvoice, dataUpdatePayment);
-      props.closeFormInvoices(payload)
+      props.closeFormCourse(data)
     } else {
-      // if(data = )
-      dataUpdateInvoice = data;
-      setActiveStep(activeStep + 1);
+      props.closeFormCourse(data)
+      // setActiveStep(activeStep + 1);
     }
 
   };
 
-  const handleBack = (data) => {
-    dataUpdatePayment = data;
+  const handleBack = () => {
     setActiveStep(activeStep - 1);
   };
 
@@ -138,7 +113,7 @@ export default function InvoicesForm(props) {
       <main className={classes.layout}>
         <Paper className={classes.paper}>
           <Typography component="h1" variant="h4" align="center">
-            Datos de facturación.
+            Creacion de Servicio.
           </Typography>
           {/* <Typography component="h1" variant="subtitle-1" align="center">
            Captura la información solicitada.
@@ -161,10 +136,9 @@ export default function InvoicesForm(props) {
                   send you an update when your order has shipped.
                 </Typography>
               </React.Fragment>
-            ) : 
-            ( */}
+            ) : ( */}
           <React.Fragment>
-            {getStepContent(activeStep, props, handleNext, handleBack, dataUpdateInvoice)}
+            {getStepContent(activeStep, handleNext, props.currentDataService)}
             {/* <div className={classes.buttons}>
               {activeStep !== 0 && (
                 <Button onClick={handleBack} className={classes.button}>
@@ -184,7 +158,7 @@ export default function InvoicesForm(props) {
           {/* )} */}
           {/* </React.Fragment> */}
         </Paper>
-        {/* <Copyright /> */}
+        <Copyright />
       </main>
     </React.Fragment>
   );

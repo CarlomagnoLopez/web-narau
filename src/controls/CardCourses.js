@@ -52,7 +52,7 @@ export default function CardCourses(props) {
     const classTaller = clsx(classes.titleCourse, classes.colorTaller);
     const classSeminario = clsx(classes.titleCourse, classes.colorSeminario);
 
-    const { type } = infoCourse;
+    const { serviceType } = infoCourse;
 
     // const defineClass = `class${type}`
 
@@ -61,7 +61,7 @@ export default function CardCourses(props) {
         <Grid item xs={4} >
             {/* <Paper className={classes.paperCursos}>{infoCourse.name}</Paper> */}
             <Card className={classes.root} raised>
-                <CardActionArea>
+                <CardActionArea onClick={props.openForm}>
                     <CardMedia
                         // children = {<div>hola</div>}
                         component="img"
@@ -70,24 +70,24 @@ export default function CardCourses(props) {
                         image="../assets/imgex.jpg"
                     // title="Contemplative Reptile"
                     />
-                    {type === "Curos" &&
+                    {serviceType === "curso" &&
                         <CardContent className={classCuros}>
                             <Typography gutterBottom variant="h5" component="h2" >
-                                {infoCourse.name}
+                                {infoCourse.nameService}
                             </Typography>
                         </CardContent>
                     }
-                    {type === "Taller" &&
+                    {serviceType === "taller" &&
                         <CardContent className={classTaller}>
                             <Typography gutterBottom variant="h5" component="h2" >
-                                {infoCourse.name}
+                                {infoCourse.nameService}
                             </Typography>
                         </CardContent>
                     }
-                    {type === "Seminario" &&
+                    {serviceType === "asesoria" &&
                         <CardContent className={classSeminario}>
                             <Typography gutterBottom variant="h5" component="h2" >
-                                {infoCourse.name}
+                                {infoCourse.nameService}
                             </Typography>
                         </CardContent>
                     }

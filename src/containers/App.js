@@ -177,10 +177,10 @@ class App extends React.Component {
     return (
 
       <Redirect
-        push to="/profileconsultant/"
+        push to="/profileuser/"
       />
     )
-    // history.push("/profileconsultant");
+    // history.push("/ProfileUser");
   }
   // resetDialog = () =>{ 
 
@@ -302,33 +302,9 @@ class App extends React.Component {
         <div>
           {signin &&
             this.setContent(contentSignIn)
-            // <Redirect
-            //   push to="/profileconsultant/"  
-
-            // />
-            // from: string
-            // <Album
-            //   // startSignIn={this.startSignIn}
-            //   // changeEvent={this.startSignUp}
-            //   // validateForm={this.validateForm}
-            //   // startSignUpEmpresa={this.startSignUpEmpresa}
-
-            //   contentUser={contentSignIn}
-            // ></Album>
           }
         </div>
       </div>
-
-
-      // <div>
-      //   <input
-      //     onChange={e => this.updateInput(e.target.value)}
-      //     value={this.state.input}
-      //   />
-      //   <button className="add-todo" onClick={this.handleAddTodo}>
-      //     Add Todo
-      //   </button>
-      // </div>
     );
   }
 }

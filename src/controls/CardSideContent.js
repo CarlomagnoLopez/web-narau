@@ -26,17 +26,25 @@ export default function CardSideContent(props) {
 
     const [isEdit, setTypeCard] = React.useState(false);
     const [textValue, setTextValue] = React.useState(props.text);
+    const textChange = "";
 
-    const handleTypeCard = () => {
+    const handleTypeCard = (event) => {
         if (!isEdit) {
             setTypeCard(true);
         } else {
+            props.request(textValue, props.referenceRequest);
             setTypeCard(false);
         }
 
     };
 
     const handleChange = (event) => {
+        
+        // props.update(event.target.value);
+
+
+        console.log(textValue)
+        // textChange = event.target.value;
         setTextValue(event.target.value);
     };
 

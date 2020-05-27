@@ -1,4 +1,7 @@
 import React from 'react';
+import { connect } from "react-redux";
+import { updateAttr } from "../redux/actions";
+
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -43,6 +46,7 @@ import {
 import { mainListItems, secondaryListItems } from '../controls/listItems';
 import ProfileHeader from './ProfileHeader';
 import InvoicesForm from './InvoicesForm';
+import CoursesForm from './CoursesForm';
 // import Chart from './Chart';
 // import Deposits from './Deposits';
 // import Orders from './Orders';
@@ -175,11 +179,28 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function Profile(props) {
+
+
+// export default connect(
+//     mapStateToProps,
+//     { updateAttr }
+// )(ProfileConsultant);
+
+// const mapStateToProps = state => {
+//     // return { activeFilter: state.visibilityFilter };
+//     return state;
+// };
+export default function ProfileConsultant(props) {
     const { logOut } = props;
     const classes = useStyles();
     const [open, setOpen] = React.useState(false);
     const [openInvoices, setOpenInvoices] = React.useState(false);
+    const [openCoursesForm, setOpenCoursesForm] = React.useState(false);
+    const [dataService, setDataService] = React.useState();
+
+    const { currentAccount } = props;
+
+    let { aboutMe, training, experience, customers } = currentAccount;
     const handleDrawerOpen = () => {
         setOpen(true);
     };
@@ -196,59 +217,103 @@ export default function Profile(props) {
     const fixedHeightPaperSide = clsx(classes.paperSide, classes.fixedHeight);
 
 
-    const openFormCourse = () => {
-        console.log("abriendo form")
-    }
+    // const openFormCourse = () => {
+    //     console.log("abriendo form")
+    // }
 
-    const dataCourse = [
-        {
-            name: "Calidad y gestion de recursos",
-            type: "Curos"
-        },
-        {
-            name: "Diseño y actualizacion paramétrica",
-            type: "Taller"
-        }, {
-            name: "Ciencia de datos",
-            type: "Seminario"
-        }
-    ]
+    console.log(props.serviceData);
+
+
+    const dataCourse = props.serviceData.map((item) => { return item["custom-attr"] })
+
+
+
+
+    // const dataCourse = [
+    //     {
+    //         name: "Calidad y gestion de recursos",
+    //         type: "Curos"
+    //     },
+    //     {
+    //         name: "Diseño y actualizacion paramétrica",
+    //         type: "Taller"
+    //     }, {
+    //         name: "Ciencia de datos",
+    //         type: "Seminario"
+    //     }
+    // ]
 
     const showFormInvoices = () => {
         setOpenInvoices(true)
         // console.log("show")
     }
-    const closeFormInvoices = () => {
+    const closeFormInvoices = (data) => {
+
+        let payload = {
+            "type": "invoice",
+            "email": JSON.parse(localStorage.getItem("contentUser")).email,
+            "attr": data
+        }
+        console.log(payload)
+
+        props.refreshInvoiceData(payload)
         setOpenInvoices(false)
         // console.log("show")
     }
 
-    
-    // const editCard = (isEdit) => {
-    //     if (isEdit) {
-    //         // setTypeCard(true);
-    //     } else {
-    //         // setTypeCard(false);
-    //     }
+    const showFormCourse = (data) => {
+        // if(data)
+        if(data){
+            setDataService(data)
+        }
+        setOpenCoursesForm(true)
+        // console.log("show")
+    }
+    const closeFormCourse = (data) => {
+        console.log(data)
+        let payload = {
+            "pk": localStorage.getItem("partitionKey"),
+            "email": JSON.parse(localStorage.getItem("contentUser")).email,
+            "attr": data
+        }
+        props.saveService(payload)
+        setOpenCoursesForm(false)
+        // console.log("show")
+    }
+
+
+    // const updateAttribute = (data) => {
+    //     aboutMe = data;
     // }
+
+    const requestUpdateAttribute = (attr, name) => {
+
+        console.log(attr)
+        console.log(props)
+        let data = {
+            "role": props.currentAccount.role,
+            "email": props.currentAccount.email,
+            "updateAttribute": {
+                "name": name,
+                "value": attr
+            }
+
+        }
+        props.refreshBasicData(data);
+        // console.log(data)
+
+
+    }
+
     return (
         <div className={classes.root}>
             <CssBaseline />
             <AppBar position="absolute" classes className={clsx(classes.appBar, open && classes.appBarShift)}>
                 <Toolbar className={classes.toolbar}>
-                    {/* <IconButton
-                        edge="start"
-                        color="inherit"
-                        aria-label="open drawer"
-                        onClick={handleDrawerOpen}
-                        className={clsx(classes.menuButton, open && classes.menuButtonHidden)}
-                    >
-                        <MenuIcon />
-                    </IconButton> */}
                     <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
                         Narau
                     </Typography>
-                    <Avatar className={classes.orange}>N</Avatar>
+                    <Avatar className={classes.orange}>{currentAccount.firstName.substring(0, 1) + currentAccount.lastName.substring(0, 1)}</Avatar>
                     <Tooltip title="LogOut" aria-label="LogOut">
                         <IconButton color="inherit">
                             <Badge badgeContent={4} color="secondary">
@@ -273,14 +338,14 @@ export default function Profile(props) {
                     <Grid container spacing={3}>
                         <Grid item xs={12}>
                             <Paper className={classes.paper} elevation={0}>
-                                <ProfileHeader></ProfileHeader>
+                                <ProfileHeader currentAccount={currentAccount}></ProfileHeader>
                             </Paper>
                         </Grid>
                     </Grid>
 
                     <Container maxWidth="lg" className={classes.container}>
 
-                        {!openInvoices &&
+                        {!openInvoices && !openCoursesForm &&
                             <Grid container spacing={3}>
                                 <Grid item xs={12} md={4} lg={3}
                                     direction="column"
@@ -288,30 +353,36 @@ export default function Profile(props) {
                                     alignItems="center">
                                     <Paper spacing={3} elevation={2}>
                                         <CardSideContent
-                                            text={"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."}
+                                            text={aboutMe}
+                                            referenceRequest={"aboutMe"}
                                             title={"Sobre mi."}
-                                        // action={editCard}
-                                        // action={}
+                                            request={requestUpdateAttribute}
                                         ></CardSideContent>
                                         {/* </Paper> */}
                                         <Divider variant="middle" className={classes.divider} />
                                         {/* <Paper spacing={3} elevation={0}> */}
                                         <CardSideContent
-                                            text={"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."}
-                                            title={"Experiencia."}
+                                            text={experience}
+                                            referenceRequest={"experience"}
+                                            title={"Experiencia"}
+                                            request={requestUpdateAttribute}
                                         ></CardSideContent>
                                         {/* </Paper> */}
                                         <Divider variant="middle" className={classes.divider} />
                                         {/* <Paper spacing={3} elevation={0}> */}
                                         <CardSideContent
-                                            text={"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."}
-                                            title={"Entrenamientos."}
+                                            text={training}
+                                            referenceRequest={"training"}
+                                            title={"Entrenamiento"}
+                                            request={requestUpdateAttribute}
                                         ></CardSideContent>
                                         <Divider variant="middle" className={classes.divider} />
                                         {/* <Paper spacing={3} elevation={0}> */}
                                         <CardSideContent
-                                            text={"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."}
-                                            title={"Clientes."}
+                                            text={customers}
+                                            referenceRequest={"customers"}
+                                            title={"Clientes"}
+                                            request={requestUpdateAttribute}
                                         ></CardSideContent>
                                         <Divider variant="middle" className={classes.divider} />
                                         {/* <Paper spacing={3} elevation={0}> */}
@@ -332,6 +403,7 @@ export default function Profile(props) {
                                         {dataCourse.map((infoCourse) => (
                                             // <div
                                             <CardCourses
+                                                openForm={() => { showFormCourse(infoCourse) }}
                                                 infoCourse={infoCourse}>
                                             </CardCourses>
 
@@ -339,7 +411,7 @@ export default function Profile(props) {
 
 
                                         ))}
-                                        <CardAddCourses openForm={openFormCourse}
+                                        <CardAddCourses openForm={showFormCourse}
                                         >
                                         </CardAddCourses>
 
@@ -358,22 +430,6 @@ export default function Profile(props) {
                                         </Container>
 
                                     </Grid>
-
-                                    {/* <Grid container item xs={12} spacing={3}>
-
-                                    <Container maxWidth="lg" className={classes.container} >
-                                        <Grid item xs={12} container
-                                            direction="row"
-                                            justify="center"
-                                            alignItems="flex-start">
-
-                                            <StaticCalendar></StaticCalendar>
-                                        </Grid>
-
-
-                                    </Container>
-
-                                </Grid> */}
                                 </Grid>
                             </Grid>
 
@@ -382,7 +438,23 @@ export default function Profile(props) {
                             <Container maxWidth="lg" className={classes.container}>
                                 <Grid container spacing={3}>
                                     {/* <div>invoices</div> */}
-                                    <InvoicesForm  closeFormInvoices={closeFormInvoices}></InvoicesForm>
+                                    <InvoicesForm
+                                        closeFormInvoices={closeFormInvoices}
+                                        invoiceData={props.invoiceData}
+                                    ></InvoicesForm>
+                                </Grid>
+
+                            </Container>
+                        }
+
+                        {openCoursesForm &&
+                            <Container maxWidth="lg" className={classes.container}>
+                                <Grid container spacing={3}>
+                                    {/* <div>invoices</div> */}
+                                    <CoursesForm
+                                        closeFormCourse={closeFormCourse}
+                                        currentDataService={dataService}
+                                    ></CoursesForm>
                                 </Grid>
 
                             </Container>
@@ -402,3 +474,4 @@ export default function Profile(props) {
         </div >
     );
 }
+

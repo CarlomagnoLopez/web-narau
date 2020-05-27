@@ -56,7 +56,7 @@ export default function SignUpIntructor(props) {
   const { register, handleSubmit, watch, errors } = useForm();
   const onSubmit = data => {
     // console.log("data Valjues");
-    data.role = "user"
+    data.role = "consultant"
     props.validateForm(data);
     // console.log(data);
   };

@@ -6,7 +6,7 @@ import store from "./redux/store";
 
 import App from "./containers/App";
 import Verify from "./containers/Verify";
-import ProfileConsultant from "./containers/ProfileConsultant";
+import ProfileUser from "./containers/ProfileUser";
 import NoMatch from "./containers/NoMatch";
 import 'typeface-roboto';
 // import { BrowserRouter as Router, Route,browserHistory } from 'react-router-dom'
@@ -29,8 +29,8 @@ ReactDOM.render(
       <Switch>
         <Route path="/verify/:id" children={<ChildRecovery />} >
         </Route>
-        <Route path="/profileconsultant" >
-          <ProfileConsultant />
+        <Route path="/profileuser" >
+          <ProfileUser />
         </Route>
         <Route exact path="/">
           <App />
