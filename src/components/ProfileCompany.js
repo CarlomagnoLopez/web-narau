@@ -44,9 +44,10 @@ import {
 } from "react-router-dom";
 
 import { mainListItems, secondaryListItems } from '../controls/listItems';
-import ProfileHeader from './ProfileHeader';
+import ProfileHeaderCompany from './ProfileHeaderCompany';
 import InvoicesForm from './InvoicesForm';
 import CoursesForm from './CoursesForm';
+import CardCoursesCompany from '../controls/CardCoursesCompany';
 // import Chart from './Chart';
 // import Deposits from './Deposits';
 // import Orders from './Orders';
@@ -190,7 +191,7 @@ const useStyles = makeStyles((theme) => ({
 //     // return { activeFilter: state.visibilityFilter };
 //     return state;
 // };
-export default function ProfileConsultant(props) {
+export default function ProfileCompany(props) {
     const { logOut } = props;
     const classes = useStyles();
     const [open, setOpen] = React.useState(false);
@@ -313,7 +314,7 @@ export default function ProfileConsultant(props) {
                     <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
                         Narau
                     </Typography>
-                    <Avatar className={classes.orange}>{currentAccount.firstName.substring(0, 1) + currentAccount.lastName.substring(0, 1)}</Avatar>
+                    <Avatar className={classes.orange}>{currentAccount.empresa.substring(0, 1)}</Avatar>
                     <Tooltip title="LogOut" aria-label="LogOut">
                         <IconButton color="inherit">
                             <Badge badgeContent={4} color="secondary">
@@ -338,7 +339,7 @@ export default function ProfileConsultant(props) {
                     <Grid container spacing={3}>
                         <Grid item xs={12}>
                             <Paper className={classes.paper} elevation={0}>
-                                <ProfileHeader currentAccount={currentAccount}></ProfileHeader>
+                                <ProfileHeaderCompany currentAccount={currentAccount}></ProfileHeaderCompany>
                             </Paper>
                         </Grid>
                     </Grid>
@@ -355,7 +356,7 @@ export default function ProfileConsultant(props) {
                                         <CardSideContent
                                             text={aboutMe}
                                             referenceRequest={"aboutMe"}
-                                            title={"Sobre mi."}
+                                            title={"Sobre mi empresa."}
                                             request={requestUpdateAttribute}
                                         ></CardSideContent>
                                         {/* </Paper> */}
@@ -364,19 +365,19 @@ export default function ProfileConsultant(props) {
                                         <CardSideContent
                                             text={experience}
                                             referenceRequest={"experience"}
-                                            title={"Experiencia"}
+                                            title={"Experiencia empresarial"}
                                             request={requestUpdateAttribute}
                                         ></CardSideContent>
                                         {/* </Paper> */}
                                         <Divider variant="middle" className={classes.divider} />
                                         {/* <Paper spacing={3} elevation={0}> */}
-                                        <CardSideContent
+                                        {/* <CardSideContent
                                             text={training}
                                             referenceRequest={"training"}
                                             title={"Entrenamiento"}
                                             request={requestUpdateAttribute}
                                         ></CardSideContent>
-                                        <Divider variant="middle" className={classes.divider} />
+                                        <Divider variant="middle" className={classes.divider} /> */}
                                         {/* <Paper spacing={3} elevation={0}> */}
                                         <CardSideContent
                                             text={customers}
@@ -401,34 +402,27 @@ export default function ProfileConsultant(props) {
                                     alignItems="flex-start">
                                     <Grid container item xs={12} spacing={3}>
                                         {dataCourse.map((infoCourse,index) => (
-                                            <CardCourses
+                                            <CardCoursesCompany
                                                 key = {index}
-                                                openForm={() => { showFormCourse(infoCourse) }}
+                                                // openForm={() => { showFormCourse(infoCourse) }}
                                                 infoCourse={infoCourse}>
-                                            </CardCourses>
+                                            </CardCoursesCompany>
 
                                             // </div>
 
 
                                         ))}
-                                        <CardAddCourses openForm={showFormCourse}
-                                        >
-                                        </CardAddCourses>
+                                        {/* <CardAddCourses openForm={showFormCourse}>
+                                        </CardAddCourses> */}
 
-                                        <Container maxWidth="lg" className={classes.container} >
-                                            {/* <Paper className={fixedHeightPaper} > */}
+                                        {/* <Container maxWidth="lg" className={classes.container} >
                                             <Grid item xs={12} container
                                                 direction="row"
                                                 justify="center"
                                                 alignItems="flex-start">
-
                                                 <StaticCalendar></StaticCalendar>
                                             </Grid>
-
-                                            {/* </Paper> */}
-
-                                        </Container>
-
+                                        </Container> */}
                                     </Grid>
                                 </Grid>
                             </Grid>

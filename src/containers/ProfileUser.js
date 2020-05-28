@@ -15,6 +15,7 @@ import Skeleton from '@material-ui/lab/Skeleton';
 
 // import { useHistory } from "react-router-dom";
 import ProfileConsultant from "../components/ProfileConsultant";
+import ProfileCompany from "../components/ProfileCompany";
 import BussyLoader from "../controls/BussyLoader";
 
 
@@ -222,6 +223,24 @@ class ProfileUser extends React.Component {
                             invoiceData={this.state.invoiceData}
                             serviceData={this.state.serviceData}
                         ></ProfileConsultant>
+                    </div>
+
+                }
+
+                {currentRole === "company" &&
+                    <div>
+                        {this.state.loadingUpdate &&
+                            <BussyLoader> </BussyLoader>
+                        }
+
+                        <ProfileCompany 
+                            currentAccount={this.state.currentAccountTemp}
+                            refreshBasicData={this.refreshBasicData}
+                            refreshInvoiceData={this.refreshInvoiceData}
+                            saveService={this.saveService}
+                            invoiceData={this.state.invoiceData}
+                            serviceData={this.state.serviceData}
+                        ></ProfileCompany>
                     </div>
 
                 }
