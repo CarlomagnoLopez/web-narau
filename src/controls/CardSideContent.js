@@ -15,6 +15,7 @@ import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
 import SaveIcon from '@material-ui/icons/Save';
 import TextField from '@material-ui/core/TextField';
+import CancelIcon from '@material-ui/icons/Cancel';
 const useStyles = makeStyles((theme) => ({
     TextFieldClass: {
         width: "100%"
@@ -38,8 +39,14 @@ export default function CardSideContent(props) {
 
     };
 
+    const handleTypeCardClose = (event) => {
+        setTypeCard(false);
+
+
+    };
+
     const handleChange = (event) => {
-        
+
         // props.update(event.target.value);
 
 
@@ -59,17 +66,26 @@ export default function CardSideContent(props) {
                 }
                 action={
                     // nodeAction(isEdit)
+                    <div>
+                        < IconButton onClick={handleTypeCard}>
+                            {isEdit &&
+                                <SaveIcon></SaveIcon>
 
-                    < IconButton onClick={handleTypeCard}>
-                        {isEdit &&
-                            <SaveIcon></SaveIcon>
+                            }
+                            {!isEdit &&
+                                <EditIcon />
+                            }
 
-                        }
-                        {!isEdit &&
-                            <EditIcon />
-                        }
+                        </IconButton>
+                        <IconButton onClick={handleTypeCardClose}>
+                            {isEdit &&
+                                <CancelIcon></CancelIcon>
 
-                    </IconButton>
+                            }
+                        </IconButton>
+
+                    </div>
+
 
                 }
             />

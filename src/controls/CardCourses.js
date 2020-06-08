@@ -70,7 +70,7 @@ export default function CardCourses(props) {
                         image="../assets/imgex.jpg"
                     // title="Contemplative Reptile"
                     />
-                    {serviceType === "curso" &&
+                    {serviceType === "seminario" &&
                         <CardContent className={classCuros}>
                             <Typography gutterBottom variant="h5" component="h2" >
                                 {infoCourse.nameService}

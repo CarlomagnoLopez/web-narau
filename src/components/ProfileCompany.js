@@ -46,7 +46,7 @@ import {
 import { mainListItems, secondaryListItems } from '../controls/listItems';
 import ProfileHeaderCompany from './ProfileHeaderCompany';
 import InvoicesForm from './InvoicesForm';
-import CoursesForm from './CoursesForm';
+import LaunchCourse from './LaunchCourse';
 import CardCoursesCompany from '../controls/CardCoursesCompany';
 // import Chart from './Chart';
 // import Deposits from './Deposits';
@@ -196,7 +196,7 @@ export default function ProfileCompany(props) {
     const classes = useStyles();
     const [open, setOpen] = React.useState(false);
     const [openInvoices, setOpenInvoices] = React.useState(false);
-    const [openCoursesForm, setOpenCoursesForm] = React.useState(false);
+    const [openLaunchCourse, setOpenLaunchCourse] = React.useState(false);
     const [dataService, setDataService] = React.useState();
 
     const { currentAccount } = props;
@@ -267,7 +267,7 @@ export default function ProfileCompany(props) {
         if(data){
             setDataService(data)
         }
-        setOpenCoursesForm(true)
+        setOpenLaunchCourse(true)
         // console.log("show")
     }
     const closeFormCourse = (data) => {
@@ -278,7 +278,7 @@ export default function ProfileCompany(props) {
             "attr": data
         }
         props.saveService(payload)
-        setOpenCoursesForm(false)
+        setOpenLaunchCourse(false)
         // console.log("show")
     }
 
@@ -346,7 +346,7 @@ export default function ProfileCompany(props) {
 
                     <Container maxWidth="lg" className={classes.container}>
 
-                        {!openInvoices && !openCoursesForm &&
+                        {!openInvoices && !openLaunchCourse &&
                             <Grid container spacing={3}>
                                 <Grid item xs={12} md={4} lg={3} container
                                     direction="column"
@@ -441,14 +441,14 @@ export default function ProfileCompany(props) {
                             </Container>
                         }
 
-                        {openCoursesForm &&
+                        {openLaunchCourse &&
                             <Container maxWidth="lg" className={classes.container}>
                                 <Grid container spacing={3}>
                                     {/* <div>invoices</div> */}
-                                    <CoursesForm
+                                    <LaunchCourse
                                         closeFormCourse={closeFormCourse}
                                         currentDataService={dataService}
-                                    ></CoursesForm>
+                                    ></LaunchCourse>
                                 </Grid>
 
                             </Container>

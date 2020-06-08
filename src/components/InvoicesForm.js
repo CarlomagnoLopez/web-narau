@@ -66,7 +66,7 @@ const useStyles = makeStyles((theme) => ({
 
 const steps = ['Datos fiscales', 'Informacion de pago'];
 
-function getStepContent(step, props, handleNext, handleBack, dataUpdateInvoice) {
+function getStepContent(step, props, handleNext, handleBack, dataUpdateInvoice, closeInvoices) {
   let invoiceData = props.invoiceData;
   if (dataUpdateInvoice !== "") {
     invoiceData = dataUpdateInvoice;
@@ -86,6 +86,7 @@ function getStepContent(step, props, handleNext, handleBack, dataUpdateInvoice) 
         // dataUpdateInvoice={dataUpdateInvoice}
         invoiceData={invoiceData}
         handleNext={handleNext}
+        closeInvoices={closeInvoices}
       />;
     case 1:
       return <PaymentForm
@@ -164,7 +165,7 @@ export default function InvoicesForm(props) {
             ) : 
             ( */}
           <React.Fragment>
-            {getStepContent(activeStep, props, handleNext, handleBack, dataUpdateInvoice)}
+            {getStepContent(activeStep, props, handleNext, handleBack, dataUpdateInvoice, props.closeInvoices)}
             {/* <div className={classes.buttons}>
               {activeStep !== 0 && (
                 <Button onClick={handleBack} className={classes.button}>

@@ -47,7 +47,7 @@ const useStyles = makeStyles((theme) => ({
     width: '100%', // Fix IE 11 issue.
     marginTop: theme.spacing(1),
   },
-  rfcField:{
+  rfcField: {
     textTransform: "uppercase"
   }
 }));
@@ -55,7 +55,7 @@ export default function FiscalForm(props) {
   const { register, handleSubmit, watch, errors } = useForm();
 
   const classes = useStyles();
-  const { invoiceData } = props;
+  const { invoiceData, closeInvoices } = props;
   const onSubmit = data => {
     // console.log("data Valjues");
     // data.role = "user"
@@ -79,7 +79,7 @@ export default function FiscalForm(props) {
               name="razonSocial"
               label="Nombre o razón social"
               fullWidth
-              inputRef={register({ required: true})}
+              inputRef={register({ required: true })}
               error={errors.razonSocial ? true : false}
             // autoComplete="name"
             />
@@ -93,7 +93,7 @@ export default function FiscalForm(props) {
               label="RFC"
               fullWidth
               // classes={{input: classes.rfcField}}
-              inputRef={register({ required: true, pattern:/^([A-Z,Ñ,&]{3,4}([0-9]{2})(0[1-9]|1[0-2])(0[1-9]|1[0-9]|2[0-9]|3[0-1])[A-Z|\d]{3})$/ })}
+              inputRef={register({ required: true, pattern: /^([A-Z,Ñ,&]{3,4}([0-9]{2})(0[1-9]|1[0-2])(0[1-9]|1[0-9]|2[0-9]|3[0-1])[A-Z|\d]{3})$/ })}
               error={errors.rfc ? true : false}
             // autoComplete="lname"
             />
@@ -106,7 +106,7 @@ export default function FiscalForm(props) {
               name="calle"
               label="Calle"
               fullWidth
-              inputRef={register({ required: true})}
+              inputRef={register({ required: true })}
               error={errors.calle ? true : false}
             // autoComplete="billing address-line1"
             />
@@ -120,7 +120,7 @@ export default function FiscalForm(props) {
               name="numExt"
               label="Número exterior"
               fullWidth
-              inputRef={register({ required: false})}
+              inputRef={register({ required: false })}
               error={errors.numExt ? true : false}
             // autoComplete="fname"
             />
@@ -133,7 +133,7 @@ export default function FiscalForm(props) {
               name="numInt"
               label="Número interior"
               fullWidth
-              inputRef={register({ required: false})}
+              inputRef={register({ required: false })}
               error={errors.numInt ? true : false}
             // autoComplete="lname"
             />
@@ -147,7 +147,7 @@ export default function FiscalForm(props) {
               label="Colonia"
               fullWidth
               autoComplete="billing address-line2"
-              inputRef={register({ required: true})}
+              inputRef={register({ required: true })}
               error={errors.colonia ? true : false}
             />
           </Grid>
@@ -159,7 +159,7 @@ export default function FiscalForm(props) {
               name="cp"
               label="Codigo Postal"
               fullWidth
-              inputRef={register({ required: true})}
+              inputRef={register({ required: true })}
               error={errors.cp ? true : false}
             // autoComplete="billing postal-code"
             />
@@ -172,7 +172,7 @@ export default function FiscalForm(props) {
               name="state"
               label="Estado"
               fullWidth
-              inputRef={register({ required: true})}
+              inputRef={register({ required: true })}
               error={errors.state ? true : false}
 
             // autoComplete="billing country"
@@ -187,6 +187,16 @@ export default function FiscalForm(props) {
         </Grid>
 
         <div className={classes.buttons}>
+          <Button
+            variant="contained"
+            color="secondary"
+            // onClick={props.handleNext}
+            onClick={closeInvoices}
+            // type="submit"
+            className={classes.button}
+          >
+            {'Cancelar'}
+          </Button>
           <Button
             variant="contained"
             color="primary"
