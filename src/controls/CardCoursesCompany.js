@@ -14,6 +14,7 @@ import CardContent from '@material-ui/core/CardContent';
 import clsx from 'clsx';
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
+import NoteIcon from '@material-ui/icons/Note';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -69,8 +70,8 @@ export default function CardCoursesCompany(props) {
             {/* <Paper className={classes.paperCursos}>{infoCourse.name}</Paper> */}
             <Card className={classes.root} raised>
                 <CardActionArea
-                // onClick={props.openForm}
-                >
+                    onClick={props.openForm}
+                >   
                     <CardMedia
                         // children = {<div>hola</div>}
                         component="img"
@@ -85,7 +86,7 @@ export default function CardCoursesCompany(props) {
                                 {infoCourse.nameService}
                             </Typography>
                             <Fab className={classes.btnAddToCart} color="primary" aria-label="add">
-                                <AddIcon />
+                                <NoteIcon />
                             </Fab>
                         </CardContent>
                     }
@@ -95,7 +96,7 @@ export default function CardCoursesCompany(props) {
                                 {infoCourse.nameService}
                             </Typography>
                             <Fab className={classes.btnAddToCart} color="primary" aria-label="add">
-                                <AddIcon />
+                                <NoteIcon />
                             </Fab>
                         </CardContent>
                     }
@@ -105,7 +106,7 @@ export default function CardCoursesCompany(props) {
                                 {infoCourse.nameService}
                             </Typography>
                             <Fab className={classes.btnAddToCart} color="primary" aria-label="add">
-                                <AddIcon />
+                                <NoteIcon />
                             </Fab>
                         </CardContent>
                     }
