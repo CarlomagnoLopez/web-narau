@@ -29,7 +29,18 @@ class ProfileUser extends React.Component {
             partitionKey: "",
             loadingUpdate: false,
             // currentAccount:"",
-            loggingOut: false
+            loggingOut: false,
+            topicData: [
+                // {
+                //     tema: "Tema 1"
+                // },
+                // {
+                //     tema: "Tema 2"
+                // },
+                // {
+                //     tema: "Tema 3"
+                // }
+            ]
         };
     }
 
@@ -166,6 +177,32 @@ class ProfileUser extends React.Component {
 
     }
 
+    addTopic = (data) => {
+        // console.log("console log ")
+        // console.log(data)
+        // data.push({tema:"nuevo tema"})
+        this.setState({
+            topicData: data
+        })
+    }
+
+    deleteTopic = (data) => {
+        // console.log("console log ")
+        // console.log(data)
+        // data.push({tema:"nuevo tema"})
+        // this.setState({
+        //     topicData:data
+        // })
+        this.setState({
+            topicData: data
+        })
+    }
+
+    refreshDataTopics = (data) => {
+        this.setState({
+            topicData: data
+        })
+    }
 
     render() {
         // let { user } = useParams();
@@ -222,6 +259,10 @@ class ProfileUser extends React.Component {
                             saveService={this.saveService}
                             invoiceData={this.state.invoiceData}
                             serviceData={this.state.serviceData}
+                            addTopic={this.addTopic}
+                            deleteTopic={this.deleteTopic}
+                            topicData={this.state.topicData}
+                            refreshDataTopics={this.refreshDataTopics}
                         ></ProfileConsultant>
                     </div>
 
@@ -233,13 +274,14 @@ class ProfileUser extends React.Component {
                             <BussyLoader> </BussyLoader>
                         }
 
-                        <ProfileCompany 
+                        <ProfileCompany
                             currentAccount={this.state.currentAccountTemp}
                             refreshBasicData={this.refreshBasicData}
                             refreshInvoiceData={this.refreshInvoiceData}
                             saveService={this.saveService}
                             invoiceData={this.state.invoiceData}
                             serviceData={this.state.serviceData}
+
                         ></ProfileCompany>
                     </div>
 

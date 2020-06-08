@@ -65,12 +65,17 @@ const useStyles = makeStyles((theme) => ({
 
 const steps = ['Creacion de Servicio'];
 
-function getStepContent(step, handleNext, currentDataService) {
+function getStepContent(step, handleNext, currentDataService, handleClose, topicData, addTopic, deleteTopic, currentDataSortKey) {
   switch (step) {
     case 0:
       return <CourseForm
         handleNext={handleNext}
         currentDataService={currentDataService}
+        currentDataSortKey={currentDataSortKey}
+        handleClose={handleClose}
+        topicData={topicData}
+        addTopic={addTopic}
+        deleteTopic={deleteTopic}
 
       />;
     // case 1:
@@ -86,13 +91,18 @@ export default function InvoicesForm(props) {
   const classes = useStyles();
   const [activeStep, setActiveStep] = React.useState(0);
 
-  const handleNext = (data) => {
+  const handleNext = (data, sk) => {
     if (activeStep === 1) {
-      props.closeFormCourse(data)
+      props.closeFormCourse(data, sk)
     } else {
-      props.closeFormCourse(data)
+      props.closeFormCourse(data, sk)
       // setActiveStep(activeStep + 1);
     }
+
+  };
+
+  const handleClose = (data) => {
+    props.closeForm()
 
   };
 
@@ -100,24 +110,15 @@ export default function InvoicesForm(props) {
     setActiveStep(activeStep - 1);
   };
 
+
   return (
     <React.Fragment>
       <CssBaseline />
-      {/* <AppBar position="absolute" color="default" className={classes.appBar}>
-        <Toolbar>
-          <Typography variant="h6" color="inherit" noWrap>
-            Company name
-          </Typography>
-        </Toolbar>
-      </AppBar> */}
       <main className={classes.layout}>
         <Paper className={classes.paper}>
           <Typography component="h1" variant="h4" align="center">
             Creacion de Servicio.
           </Typography>
-          {/* <Typography component="h1" variant="subtitle-1" align="center">
-           Captura la información solicitada.
-          </Typography> */}
           <Stepper activeStep={activeStep} className={classes.stepper}>
             {steps.map((label) => (
               <Step key={label}>
@@ -125,38 +126,10 @@ export default function InvoicesForm(props) {
               </Step>
             ))}
           </Stepper>
-          {/* <React.Fragment> */}
-          {/* {activeStep === steps.length ? (
-              <React.Fragment>
-                <Typography variant="h5" gutterBottom>
-                  Thank you for your order.
-                </Typography>
-                <Typography variant="subtitle1">
-                  Your order number is #2001539. We have emailed your order confirmation, and will
-                  send you an update when your order has shipped.
-                </Typography>
-              </React.Fragment>
-            ) : ( */}
           <React.Fragment>
-            {getStepContent(activeStep, handleNext, props.currentDataService)}
-            {/* <div className={classes.buttons}>
-              {activeStep !== 0 && (
-                <Button onClick={handleBack} className={classes.button}>
-                  Atras
-                </Button>
-              )}
-              <Button
-                variant="contained"
-                color="primary"
-                onClick={handleNext}
-                className={classes.button}
-              >
-                {activeStep === steps.length - 1 ? 'Finalizar' : 'Siguiente'}
-              </Button>
-            </div> */}
+            {getStepContent(activeStep, handleNext, props.currentDataService, handleClose, props.topicData, props.addTopic, props.deleteTopic, props.currentDataSortKey)}
+
           </React.Fragment>
-          {/* )} */}
-          {/* </React.Fragment> */}
         </Paper>
         <Copyright />
       </main>

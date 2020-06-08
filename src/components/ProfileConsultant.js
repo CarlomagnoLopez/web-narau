@@ -46,7 +46,7 @@ import {
 import { mainListItems, secondaryListItems } from '../controls/listItems';
 import ProfileHeader from './ProfileHeader';
 import InvoicesForm from './InvoicesForm';
-import CoursesForm from './CoursesForm';
+import LaunchCourse from './LaunchCourse';
 // import Chart from './Chart';
 // import Deposits from './Deposits';
 // import Orders from './Orders';
@@ -180,23 +180,14 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-
-// export default connect(
-//     mapStateToProps,
-//     { updateAttr }
-// )(ProfileConsultant);
-
-// const mapStateToProps = state => {
-//     // return { activeFilter: state.visibilityFilter };
-//     return state;
-// };
 export default function ProfileConsultant(props) {
     const { logOut } = props;
     const classes = useStyles();
     const [open, setOpen] = React.useState(false);
     const [openInvoices, setOpenInvoices] = React.useState(false);
-    const [openCoursesForm, setOpenCoursesForm] = React.useState(false);
+    const [openLaunchCourse, setOpenLaunchCourse] = React.useState(false);
     const [dataService, setDataService] = React.useState();
+    const [dataSortKey, setDataSortKey] = React.useState();
 
     const { currentAccount } = props;
 
@@ -225,23 +216,8 @@ export default function ProfileConsultant(props) {
 
 
     const dataCourse = props.serviceData.map((item) => { return item["custom-attr"] })
+    const dataCourseId = props.serviceData.map((item) => { return item["custom-keys"].split(" | ")[2] })
 
-
-
-
-    // const dataCourse = [
-    //     {
-    //         name: "Calidad y gestion de recursos",
-    //         type: "Curos"
-    //     },
-    //     {
-    //         name: "Diseño y actualizacion paramétrica",
-    //         type: "Taller"
-    //     }, {
-    //         name: "Ciencia de datos",
-    //         type: "Seminario"
-    //     }
-    // ]
 
     const showFormInvoices = () => {
         setOpenInvoices(true)
@@ -261,23 +237,53 @@ export default function ProfileConsultant(props) {
         // console.log("show")
     }
 
-    const showFormCourse = (data) => {
-        // if(data)
-        if(data){
-            setDataService(data)
-        }
-        setOpenCoursesForm(true)
+    const closeInvoices = (data) => {
+
+        // let payload = {
+        //     "type": "invoice",
+        //     "email": JSON.parse(localStorage.getItem("contentUser")).email,
+        //     "attr": data
+        // }
+        // console.log(payload)
+
+        // props.refreshInvoiceData(payload)
+        setOpenInvoices(false)
         // console.log("show")
     }
-    const closeFormCourse = (data) => {
+
+    const showFormCourse = (data, sortKey) => {
+        // if(data)
+        if (data) {
+            props.refreshDataTopics(data.topics);
+            setDataService(data);
+            setDataSortKey(sortKey);
+        }
+        setOpenLaunchCourse(true)
+        // console.log("show")
+    }
+    const closeFormCourse = (data, sk) => {
         console.log(data)
         let payload = {
             "pk": localStorage.getItem("partitionKey"),
             "email": JSON.parse(localStorage.getItem("contentUser")).email,
             "attr": data
         }
+        if (sk) {
+            payload = {
+                "pk": localStorage.getItem("partitionKey"),
+                "email": JSON.parse(localStorage.getItem("contentUser")).email,
+                "attr": data,
+                "sk": sk
+            }
+        }
+
         props.saveService(payload)
-        setOpenCoursesForm(false)
+        setOpenLaunchCourse(false)
+        // console.log("show")
+    }
+
+    const closeForm = (data) => {
+        setOpenLaunchCourse(false)
         // console.log("show")
     }
 
@@ -345,7 +351,7 @@ export default function ProfileConsultant(props) {
 
                     <Container maxWidth="lg" className={classes.container}>
 
-                        {!openInvoices && !openCoursesForm &&
+                        {!openInvoices && !openLaunchCourse &&
                             <Grid container spacing={3}>
                                 <Grid item xs={12} md={4} lg={3} container
                                     direction="column"
@@ -400,10 +406,11 @@ export default function ProfileConsultant(props) {
                                     justify="center"
                                     alignItems="flex-start">
                                     <Grid container item xs={12} spacing={3}>
-                                        {dataCourse.map((infoCourse,index) => (
+                                        {dataCourse.map((infoCourse, index) => (
                                             <CardCourses
-                                                key = {index}
-                                                openForm={() => { showFormCourse(infoCourse) }}
+                                                // courseId={dataCourseId[index]}
+                                                key={index}
+                                                openForm={() => { showFormCourse(infoCourse, dataCourseId[index]) }}
                                                 infoCourse={infoCourse}>
                                             </CardCourses>
 
@@ -440,6 +447,7 @@ export default function ProfileConsultant(props) {
                                     {/* <div>invoices</div> */}
                                     <InvoicesForm
                                         closeFormInvoices={closeFormInvoices}
+                                        closeInvoices={closeInvoices}
                                         invoiceData={props.invoiceData}
                                     ></InvoicesForm>
                                 </Grid>
@@ -447,14 +455,19 @@ export default function ProfileConsultant(props) {
                             </Container>
                         }
 
-                        {openCoursesForm &&
+                        {openLaunchCourse &&
                             <Container maxWidth="lg" className={classes.container}>
                                 <Grid container spacing={3}>
                                     {/* <div>invoices</div> */}
-                                    <CoursesForm
+                                    <LaunchCourse
                                         closeFormCourse={closeFormCourse}
+                                        closeForm={closeForm}
                                         currentDataService={dataService}
-                                    ></CoursesForm>
+                                        currentDataSortKey={dataSortKey}
+                                        addTopic={props.addTopic}
+                                        deleteTopic={props.deleteTopic}
+                                        topicData={props.topicData}
+                                    ></LaunchCourse>
                                 </Grid>
 
                             </Container>

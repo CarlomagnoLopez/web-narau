@@ -114,6 +114,8 @@ export default function PaymentForm(props) {
           <Button
             onClick={handleSubmit(onSubmitBack)}
             // type="submit"
+            variant="contained"
+            color="secondary"
             className={classes.button}>
             Atras
             </Button>
