@@ -320,13 +320,13 @@ export default function ProfileConsultant(props) {
                         Narau
                     </Typography>
                     <Avatar className={classes.orange}>{currentAccount.firstName.substring(0, 1) + currentAccount.lastName.substring(0, 1)}</Avatar>
-                    <Tooltip title="LogOut" aria-label="LogOut">
+                    {/* <Tooltip title="LogOut" aria-label="LogOut">
                         <IconButton color="inherit">
                             <Badge badgeContent={4} color="secondary">
                                 <NotificationsIcon></NotificationsIcon>
                             </Badge>
                         </IconButton>
-                    </Tooltip>
+                    </Tooltip> */}
                     <Tooltip title="LogOut" aria-label="LogOut">
                         <IconButton color="inherit" onClick={closeSession}>
                             {/* <Badge badgeContent={4} color="secondary"> */}

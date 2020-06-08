@@ -32,8 +32,9 @@ import CardSideContent from "../controls/CardSideContent"
 import CardSideContentInvoices from "../controls/CardSideContentInvoices"
 import CardCourses from "../controls/CardCourses"
 import CardAddCourses from "../controls/CardAddCourses"
-import StaticCalendar from "../controls/StaticCalendar"
-
+import DetailCourse from "../components/DetailCourse"
+import WishList from "../components/WishList"
+import ShoppingBasketIcon from '@material-ui/icons/ShoppingBasket';
 import {
     BrowserRouter as Router,
     Switch,
@@ -197,7 +198,11 @@ export default function ProfileCompany(props) {
     const [open, setOpen] = React.useState(false);
     const [openInvoices, setOpenInvoices] = React.useState(false);
     const [openLaunchCourse, setOpenLaunchCourse] = React.useState(false);
+    const [openDetailCourse, setOpenDetailCourse] = React.useState(false);
     const [dataService, setDataService] = React.useState();
+    const [dataBadge, setDataBagde] = React.useState(0);
+    const [openWhishList, setOpenWhishList] = React.useState(false);
+    const [whishList, setWhishList] = React.useState([]);
 
     const { currentAccount } = props;
 
@@ -262,13 +267,13 @@ export default function ProfileCompany(props) {
         // console.log("show")
     }
 
-    const showFormCourse = (data) => {
+    const showInfoCourse = (data) => {
         // if(data)
-        if(data){
-            setDataService(data)
-        }
-        setOpenLaunchCourse(true)
-        // console.log("show")
+        // if(data){
+        setDataService(data)
+        // }
+        setOpenDetailCourse(true)
+        console.log("show")
     }
     const closeFormCourse = (data) => {
         console.log(data)
@@ -306,6 +311,24 @@ export default function ProfileCompany(props) {
 
     }
 
+    const handleCloseDetail = () => {
+        setOpenDetailCourse(false)
+    }
+
+    const openDrawer = () => {
+        setOpenWhishList(true)
+    }
+    const closeDrawer = () => {
+        setOpenWhishList(false)
+    }
+
+
+    const addToWishList = (dataService) => {
+        whishList.push(dataService);
+        setWhishList(whishList)
+        let totalItems = dataBadge + 1;
+        setDataBagde(totalItems)
+    }
     return (
         <div className={classes.root}>
             <CssBaseline />
@@ -314,11 +337,13 @@ export default function ProfileCompany(props) {
                     <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
                         Narau
                     </Typography>
-                    <Avatar className={classes.orange}>{currentAccount.empresa.substring(0, 1)}</Avatar>
-                    <Tooltip title="LogOut" aria-label="LogOut">
-                        <IconButton color="inherit">
-                            <Badge badgeContent={4} color="secondary">
-                                <NotificationsIcon></NotificationsIcon>
+                    <Tooltip title={currentAccount.empresa} aria-label={currentAccount.empresa}>
+                        <Avatar className={classes.orange}>{currentAccount.empresa.substring(0, 1)}</Avatar>
+                    </Tooltip>
+                    <Tooltip title="Lista de deseos" aria-label="Lista de deseos">
+                        <IconButton color="inherit" onClick={openDrawer}>
+                            <Badge badgeContent={dataBadge} color="secondary">
+                                <ShoppingBasketIcon></ShoppingBasketIcon>
                             </Badge>
                         </IconButton>
                     </Tooltip>
@@ -370,15 +395,6 @@ export default function ProfileCompany(props) {
                                         ></CardSideContent>
                                         {/* </Paper> */}
                                         <Divider variant="middle" className={classes.divider} />
-                                        {/* <Paper spacing={3} elevation={0}> */}
-                                        {/* <CardSideContent
-                                            text={training}
-                                            referenceRequest={"training"}
-                                            title={"Entrenamiento"}
-                                            request={requestUpdateAttribute}
-                                        ></CardSideContent>
-                                        <Divider variant="middle" className={classes.divider} /> */}
-                                        {/* <Paper spacing={3} elevation={0}> */}
                                         <CardSideContent
                                             text={customers}
                                             referenceRequest={"customers"}
@@ -401,10 +417,10 @@ export default function ProfileCompany(props) {
                                     justify="center"
                                     alignItems="flex-start">
                                     <Grid container item xs={12} spacing={3}>
-                                        {dataCourse.map((infoCourse,index) => (
+                                        {dataCourse.map((infoCourse, index) => (
                                             <CardCoursesCompany
-                                                key = {index}
-                                                // openForm={() => { showFormCourse(infoCourse) }}
+                                                key={index}
+                                                openForm={() => { showInfoCourse(infoCourse) }}
                                                 infoCourse={infoCourse}>
                                             </CardCoursesCompany>
 
@@ -440,19 +456,36 @@ export default function ProfileCompany(props) {
 
                             </Container>
                         }
+                        {openDetailCourse &&
+                            <DetailCourse
+                                show={openDetailCourse}
+                                dataService={dataService}
+                                handleCloseDetail={handleCloseDetail}
+                                addToWishList={addToWishList}
+                            ></DetailCourse>
+                        }
 
-                        {openLaunchCourse &&
+                        {openWhishList &&
+                            <WishList
+                                closeDrawer={closeDrawer}
+                                whishList={whishList}
+                            // open={true}
+                            ></WishList>
+                        }
+
+
+                        {/* {openLaunchCourse &&
+                       
+                        
                             <Container maxWidth="lg" className={classes.container}>
                                 <Grid container spacing={3}>
-                                    {/* <div>invoices</div> */}
                                     <LaunchCourse
                                         closeFormCourse={closeFormCourse}
                                         currentDataService={dataService}
                                     ></LaunchCourse>
                                 </Grid>
-
                             </Container>
-                        }
+                        } */}
 
 
 
