@@ -329,6 +329,15 @@ export default function ProfileCompany(props) {
         let totalItems = dataBadge + 1;
         setDataBagde(totalItems)
     }
+    const deleteToWishList = (itemDelete) => {
+
+        console.log("deleting...");
+        console.log(itemDelete)
+        whishList.splice(itemDelete, 1);
+        setWhishList(whishList)
+        let totalItems = dataBadge - 1;
+        setDataBagde(totalItems)
+    }
     return (
         <div className={classes.root}>
             <CssBaseline />
@@ -467,9 +476,9 @@ export default function ProfileCompany(props) {
 
                         {openWhishList &&
                             <WishList
+                                deleteToWishList={deleteToWishList}
                                 closeDrawer={closeDrawer}
                                 whishList={whishList}
-                            // open={true}
                             ></WishList>
                         }
 

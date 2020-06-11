@@ -11,15 +11,34 @@ import ListItemText from '@material-ui/core/ListItemText';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MailIcon from '@material-ui/icons/Mail';
 import Typography from '@material-ui/core/Typography';
+import ItemWishList from '../controls/ItemWishList';
+import Grid from '@material-ui/core/Grid';
+import Paper from '@material-ui/core/Paper';
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
     list: {
         width: 500,
     },
     fullList: {
         width: 'auto',
     },
-});
+    total: {
+        top: "80%",
+        height: "10%",
+        // position: "relative"
+
+    },
+    listItems: {
+        top: "0%",
+        height: "81%",
+        // position:"relative"
+    },
+    paper: {
+        padding: theme.spacing(2),
+        margin: 'auto',
+        maxWidth: 500,
+    },
+}));
 
 export default function WishList(props) {
     const classes = useStyles();
@@ -59,10 +78,15 @@ export default function WishList(props) {
             <Divider />
             <List>
                 {whishList.map((item, index) => (
-                    <ListItem button key={item.nameService}>
-                        {/* <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon> */}
-                        <ListItemText primary={item.nameService} />
-                    </ListItem>
+                    <ItemWishList
+                        item={item}
+                        index={index}
+                        deleteToWishList={props.deleteToWishList}
+                    ></ItemWishList>
+                    // <ListItem key={item.nameService}>
+                    //     <ListItemText primary={`Tema: ${item.nameService}`} secondary={`Modalidad: ${item.mode.toUpperCase()}`} />
+                    //     <ListItemText secondary={`Costo: $0.00`} />
+                    // </ListItem>
                 ))}
             </List>
         </div>
@@ -74,7 +98,34 @@ export default function WishList(props) {
             <React.Fragment key={"right"}>
                 <Button onClick={toggleDrawer("right", true)}>{"right"}</Button>
                 <Drawer anchor={"right"} open={state["right"]} onClose={toggleDrawer("right", false)}>
-                    {list("right")}
+                    <div className={classes.listItems}>
+                        {list("right")}
+                    </div>
+                    <div className={classes.total}>
+                        <Divider />
+                        <Paper className={classes.paper}>
+                            <Grid container spacing={2}>
+                                <Grid item xs={12} sm container>
+                                    <Grid item xs container direction="column" spacing={2}>
+                                        <Grid item xs>
+                                            <Typography gutterBottom variant="h6">
+                                                {" Gran total:"}
+                                            </Typography>
+                                        </Grid>
+                                        <Grid item spacing={2}>
+                                            <Button variant="contained" color="primary" fullWidth>
+                                                Proceder
+                                            </Button>
+                                        </Grid>
+                                    </Grid>
+                                    <Grid item>
+                                        <Typography variant="h6">$0.00</Typography>
+                                    </Grid>
+                                </Grid>
+                            </Grid>
+                        </Paper>
+                    </div>
+
                 </Drawer>
             </React.Fragment>
             {/* ))} */}
