@@ -113,6 +113,9 @@ export default function LaunchCourse(props) {
   const [type, setType] = React.useState('');
   const [mode, setMode] = React.useState('');
 
+
+  const { topicData } = props;
+
   const handleChange = (event) => {
     setType(event.target.value);
   };
@@ -126,7 +129,7 @@ export default function LaunchCourse(props) {
     // console.log("data Valjues");
     // data.role = "user"
     // props.validateForm(data);
-    data.topics = props.topicData;
+    data.topics = topicData;
     if (props.currentDataSortKey) {
       props.handleNext(data, props.currentDataSortKey);
     } else {
@@ -151,17 +154,22 @@ export default function LaunchCourse(props) {
 
   const addNewTopic = (data) => {
     // console.log(watch("topics"));
+    let _data =  data ? data : [];
 
-    data.push({ tema: watch("topics") })
+    _data.push({ tema: watch("topics") })
     setValue("topics", "")
-    props.addTopic(data)
+    props.addTopic(_data)
   }
 
   const modelReq = () => {
 
-    if (props.topicData.length === 0) {
-      return { required: true }
+    if (topicData) {
+      if (topicData.length === 0) {
+        return { required: true }
+      }
     }
+
+
     return { required: false }
   }
 
@@ -286,7 +294,7 @@ export default function LaunchCourse(props) {
             >
               <IconButton
                 // disabled={watch("topics") ? false : true}
-                onClick={() => { addNewTopic(props.topicData) }}>
+                onClick={() => { addNewTopic(topicData) }}>
                 <AddIcon
                   className={classes.extendedIcon}
                 // disabled={watch("topics") ? false : true}
@@ -302,7 +310,7 @@ export default function LaunchCourse(props) {
           justify="space-around"
           alignItems="center">
           <List dense={true}>
-            {props.topicData.map((item, index) => {
+            {topicData && topicData.map((item, index) => {
               return (<ListItem>
                 <ListItemAvatar>
                   <DoneIcon />
@@ -311,7 +319,7 @@ export default function LaunchCourse(props) {
                   primary={(index + 1) + " " + item.tema}
                 />
                 <ListItemSecondaryAction>
-                  <IconButton edge="end" aria-label="delete" onClick={() => { deleteTema(props.topicData, index) }}>
+                  <IconButton edge="end" aria-label="delete" onClick={() => { deleteTema(topicData, index) }}>
                     <DeleteIcon />
                   </IconButton>
                 </ListItemSecondaryAction>
