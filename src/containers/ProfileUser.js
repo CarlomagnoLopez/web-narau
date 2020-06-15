@@ -16,6 +16,7 @@ import Skeleton from '@material-ui/lab/Skeleton';
 // import { useHistory } from "react-router-dom";
 import ProfileConsultant from "../components/ProfileConsultant";
 import ProfileCompany from "../components/ProfileCompany";
+import ProfilleAdmin from "../components/ProfilleAdmin";
 import BussyLoader from "../controls/BussyLoader";
 
 
@@ -30,6 +31,9 @@ class ProfileUser extends React.Component {
             loadingUpdate: false,
             // currentAccount:"",
             loggingOut: false,
+            serviceAll: [],
+            userAll:[],
+            companyAll:[],
             topicData: [
                 // {
                 //     tema: "Tema 1"
@@ -46,7 +50,12 @@ class ProfileUser extends React.Component {
 
 
     componentWillMount() {
-        this.startLoading();
+        if (this.state.currentAccountTemp.role === "admin") {
+            this.startAdminLoading();
+        } else {
+            this.startLoading();
+        }
+
     }
 
     startLoading = () => {
@@ -94,7 +103,7 @@ class ProfileUser extends React.Component {
         this.setState({
             loadingUpdate: true
         }, (state, props) => {
-            fetch('https://ob5nizjire.execute-api.us-east-1.amazonaws.com/default//saveattributes', {
+            fetch('https://ob5nizjire.execute-api.us-east-1.amazonaws.com/default/saveattributes', {
                 method: 'PUT',
                 body: JSON.stringify(payload),
                 headers: {
@@ -123,7 +132,7 @@ class ProfileUser extends React.Component {
         this.setState({
             loadingUpdate: true
         }, (state, props) => {
-            fetch('https://ob5nizjire.execute-api.us-east-1.amazonaws.com/default//saveinvoice', {
+            fetch('https://ob5nizjire.execute-api.us-east-1.amazonaws.com/default/saveinvoice', {
                 method: 'PUT',
                 body: JSON.stringify(payload),
                 headers: {
@@ -147,7 +156,7 @@ class ProfileUser extends React.Component {
 
     }
 
-    saveService = (data) => {
+    saveWishList = (data) => {
         let payload = data;
         this.setState({
             loadingUpdate: true
@@ -169,6 +178,177 @@ class ProfileUser extends React.Component {
                     this.setState({
                         loadingUpdate: false
                     })
+
+                    console.log(data)
+                })
+                .catch(console.log)
+        })
+
+    }
+    startAdminLoading = () => {
+        this.startLoading();
+        this.getService();
+        this.getUser();
+    }
+    editService = (data) => {
+        let payload = data;
+        this.setState({
+            loadingUpdate: true
+        }, (state, props) => {
+            fetch('https://ob5nizjire.execute-api.us-east-1.amazonaws.com/default/serviceall', {
+                method: 'PUT',
+                body: JSON.stringify(payload),
+                headers: {
+                    'Content-Type': 'application/json',
+                    'x-api-key': 'wD4FjaAoiG4bldvQ0oB6Q6fyIDqZCsfkaXCun0u6'
+                }
+            })
+                .then(res => res.json())
+                .then((data) => {
+                    // this.props.singUp(data.body);
+
+                    // this.updateMainDataAttr(data.body.dataUpdated["custom-attr"]);
+                    this.startAdminLoading();
+                    this.setState({
+                        loadingUpdate: false
+                    })
+
+                    // console.log(data)
+                })
+                .catch(console.log)
+        })
+
+    }
+    saveService = (data) => {
+        let payload = data;
+        this.setState({
+            loadingUpdate: true
+        }, (state, props) => {
+            fetch('https://ob5nizjire.execute-api.us-east-1.amazonaws.com/default/saveservice', {
+                method: 'PUT',
+                body: JSON.stringify(payload),
+                headers: {
+                    'Content-Type': 'application/json',
+                    'x-api-key': 'wD4FjaAoiG4bldvQ0oB6Q6fyIDqZCsfkaXCun0u6'
+                }
+            })
+                .then(res => res.json())
+                .then((data) => {
+                    // this.props.singUp(data.body);
+
+                    // this.updateMainDataAttr(data.body.dataUpdated["custom-attr"]);
+                    this.startLoading();
+                    this.setState({
+                        loadingUpdate: false
+                    })
+
+                    console.log(data)
+                })
+                .catch(console.log)
+        })
+
+    }
+
+    getCompany = (data) => {
+        let payload = data;
+        this.setState({
+            loadingUpdate: true
+        }, (state, props) => {
+            fetch('https://ob5nizjire.execute-api.us-east-1.amazonaws.com/default/companyall', {
+                method: 'GET',
+                // body: JSON.stringify(payload),
+                headers: {
+                    'Content-Type': 'application/json',
+                    'x-api-key': 'wD4FjaAoiG4bldvQ0oB6Q6fyIDqZCsfkaXCun0u6'
+                }
+            })
+                .then(res => res.json())
+                .then((data) => {
+                    // this.props.singUp(data.body);
+
+                    // this.updateMainDataAttr(data.body.dataUpdated["custom-attr"]);
+                    // this.startLoading();
+
+                    this.setState({
+                        companyAll: data.body
+                    }, (props, state) => {
+                        this.setState({
+                            loadingUpdate: false
+                        })
+                    })
+
+
+                    console.log(data)
+                })
+                .catch(console.log)
+        })
+
+    }
+
+    getUser = (data) => {
+        let payload = data;
+        this.setState({
+            loadingUpdate: true
+        }, (state, props) => {
+            fetch('https://ob5nizjire.execute-api.us-east-1.amazonaws.com/default/userall', {
+                method: 'GET',
+                // body: JSON.stringify(payload),
+                headers: {
+                    'Content-Type': 'application/json',
+                    'x-api-key': 'wD4FjaAoiG4bldvQ0oB6Q6fyIDqZCsfkaXCun0u6'
+                }
+            })
+                .then(res => res.json())
+                .then((data) => {
+                    // this.props.singUp(data.body);
+
+                    // this.updateMainDataAttr(data.body.dataUpdated["custom-attr"]);
+                    // this.startLoading();
+
+                    this.setState({
+                        userAll: data.body
+                    }, (props, state) => {
+                        this.setState({
+                            loadingUpdate: false
+                        })
+                    })
+
+
+                    console.log(data)
+                })
+                .catch(console.log)
+        })
+
+    }
+
+    getService = (data) => {
+        let payload = data;
+        this.setState({
+            loadingUpdate: true
+        }, (state, props) => {
+            fetch('https://ob5nizjire.execute-api.us-east-1.amazonaws.com/default/serviceall', {
+                method: 'GET',
+                // body: JSON.stringify(payload),
+                headers: {
+                    'Content-Type': 'application/json',
+                    'x-api-key': 'wD4FjaAoiG4bldvQ0oB6Q6fyIDqZCsfkaXCun0u6'
+                }
+            })
+                .then(res => res.json())
+                .then((data) => {
+                    // this.props.singUp(data.body);
+
+                    // this.updateMainDataAttr(data.body.dataUpdated["custom-attr"]);
+                    // this.startLoading();
+
+                    this.setState({
+                        serviceAll: data.body
+                    }, (props, state) => {
+                        this.setState({
+                            loadingUpdate: false
+                        })
+                    })
+
 
                     console.log(data)
                 })
@@ -281,8 +461,37 @@ class ProfileUser extends React.Component {
                             saveService={this.saveService}
                             invoiceData={this.state.invoiceData}
                             serviceData={this.state.serviceData}
+                            saveWishList={this.saveWishList}
 
                         ></ProfileCompany>
+                    </div>
+
+                }
+
+                {currentRole === "admin" &&
+                    <div>
+                        {this.state.loadingUpdate &&
+                            <BussyLoader> </BussyLoader>
+                        }
+
+
+                        <ProfilleAdmin
+                            currentAccount={this.state.currentAccountTemp}
+                            getService={this.getService}
+                            getUser={this.getUser}
+                            getCompany={this.getCompany}
+                            serviceAll={this.state.serviceAll}
+                            userAll={this.state.userAll}
+                            companyAll={this.state.companyAll}
+                            saveService={this.editService}
+                        // refreshBasicData={this.refreshBasicData}
+                        // refreshInvoiceData={this.refreshInvoiceData}
+                        // saveService={this.saveService}
+                        // invoiceData={this.state.invoiceData}
+                        // serviceData={this.state.serviceData}
+                        // saveWishList={this.saveWishList}
+
+                        ></ProfilleAdmin>
                     </div>
 
                 }

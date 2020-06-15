@@ -27,7 +27,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-export default function DetailCourse(props) {
+export default function DetailCourseAdmin(props) {
   const classes = useStyles();
   const { dataService } = props;
   const { dataServiceId } = props;
@@ -63,10 +63,10 @@ export default function DetailCourse(props) {
             <Typography variant="h6" className={classes.title}>
               {dataService.nameService}
             </Typography>
-            <Button autoFocus color="inherit" onClick={addToWishList}>
+            {/* <Button autoFocus color="inherit" onClick={addToWishList}>
               <AddIcon></AddIcon>
               Añadir a lista de deseos
-            </Button>
+            </Button> */}
           </Toolbar>
         </AppBar>
         <List>

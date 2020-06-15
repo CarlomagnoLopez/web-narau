@@ -24,16 +24,16 @@ import NotificationsIcon from '@material-ui/icons/Notifications';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import Tooltip from '@material-ui/core/Tooltip';
 import Avatar from '@material-ui/core/Avatar';
-// import { mainListItems, secondaryListItems } from 'listItems';
 import { deepOrange, deepPurple } from '@material-ui/core/colors';
 // import { DatePicker } from "@material-ui/pickers";
-
+import BookIcon from '@material-ui/icons/Book';
 import CardSideContent from "../controls/CardSideContent"
 import CardSideContentInvoices from "../controls/CardSideContentInvoices"
 import CardCourses from "../controls/CardCourses"
 import CardAddCourses from "../controls/CardAddCourses"
 import DetailCourse from "../components/DetailCourse"
 import WishList from "../components/WishList"
+import ShoppingCart from "../components/ShoppingCart"
 import ShoppingBasketIcon from '@material-ui/icons/ShoppingBasket';
 import {
     BrowserRouter as Router,
@@ -44,7 +44,7 @@ import {
     useHistory
 } from "react-router-dom";
 
-import { mainListItems, secondaryListItems } from '../controls/listItems';
+
 import ProfileHeaderCompany from './ProfileHeaderCompany';
 import InvoicesForm from './InvoicesForm';
 import LaunchCourse from './LaunchCourse';
@@ -200,9 +200,13 @@ export default function ProfileCompany(props) {
     const [openLaunchCourse, setOpenLaunchCourse] = React.useState(false);
     const [openDetailCourse, setOpenDetailCourse] = React.useState(false);
     const [dataService, setDataService] = React.useState();
+    const [dataServiceId, setDataServiceId] = React.useState();
     const [dataBadge, setDataBagde] = React.useState(0);
+    const [dataBadgeCart, setDataBagdeCart] = React.useState(0);
     const [openWhishList, setOpenWhishList] = React.useState(false);
+    const [openShoppingCart, setOpenShoppingCart] = React.useState(false);
     const [whishList, setWhishList] = React.useState([]);
+    const [shoppingCart, setShoppingCart] = React.useState([]);
 
     const { currentAccount } = props;
 
@@ -230,7 +234,24 @@ export default function ProfileCompany(props) {
     console.log(props.serviceData);
 
 
-    const dataCourse = props.serviceData.map((item) => { return item["custom-attr"] })
+    // const dataCourse = props.serviceData.map((item) => { return item["custom-attr"]})
+    const dataCourse = [];
+
+    props.serviceData.map((item) => {
+        if (item.verified) {
+            dataCourse.push(item["custom-attr"])
+            return
+        }
+    })
+    const dataCourseId = [];
+    props.serviceData.map((item) => {
+        if (item.verified) {
+            dataCourseId.push(item["custom-keys"])
+            return item["custom-keys"]
+        }
+    })
+    // const dataCourseId = props.serviceData.map((item) => { return item["custom-keys"] })
+
 
 
 
@@ -267,10 +288,11 @@ export default function ProfileCompany(props) {
         // console.log("show")
     }
 
-    const showInfoCourse = (data) => {
+    const showInfoCourse = (data, dataId) => {
         // if(data)
         // if(data){
         setDataService(data)
+        setDataServiceId(dataId)
         // }
         setOpenDetailCourse(true)
         console.log("show")
@@ -322,21 +344,70 @@ export default function ProfileCompany(props) {
         setOpenWhishList(false)
     }
 
+    const openDrawerCart = () => {
+        setOpenShoppingCart(true)
+    }
+    const closeDrawerCart = () => {
+        setOpenShoppingCart(false)
+    }
 
+    const proceed = (dataToRequest) => {
+        console.log("proceed")
+    }
+
+    const addToModelCart = (dataService) => {
+        shoppingCart.push(dataService);
+        setShoppingCart(shoppingCart)
+        let totalItems = dataBadgeCart + 1;
+        setDataBagdeCart(totalItems)
+    }
     const addToWishList = (dataService) => {
         whishList.push(dataService);
         setWhishList(whishList)
         let totalItems = dataBadge + 1;
         setDataBagde(totalItems)
     }
-    const deleteToWishList = (itemDelete) => {
+    const deleteToWishList = (itemDelete, add) => {
+
+
+
+        if (add) {
+            console.log("deleting...");
+            console.log(itemDelete)
+            let addCart = whishList.splice(itemDelete, 1);
+            addToModelCart(addCart[0])
+            setWhishList(whishList)
+            let totalItems = dataBadge - 1;
+            setDataBagde(totalItems)
+
+        } else {
+            console.log("deleting...");
+            console.log(itemDelete)
+            whishList.splice(itemDelete, 1);
+            setWhishList(whishList)
+            let totalItems = dataBadge - 1;
+            setDataBagde(totalItems)
+        }
+    }
+
+    const deleteToCart = (itemDelete) => {
+
+
+
 
         console.log("deleting...");
         console.log(itemDelete)
-        whishList.splice(itemDelete, 1);
-        setWhishList(whishList)
-        let totalItems = dataBadge - 1;
+        shoppingCart.splice(itemDelete, 1);
+        setWhishList(shoppingCart)
+        let totalItems = dataBadgeCart - 1;
         setDataBagde(totalItems)
+
+    }
+    const addToCart = (item) => {
+        // addToModelCart(item)
+        deleteToWishList(item, true)
+
+
     }
     return (
         <div className={classes.root}>
@@ -352,7 +423,16 @@ export default function ProfileCompany(props) {
                     <Tooltip title="Lista de deseos" aria-label="Lista de deseos">
                         <IconButton color="inherit" onClick={openDrawer}>
                             <Badge badgeContent={dataBadge} color="secondary">
+                                {/* <ShoppingBasketIcon></ShoppingBasketIcon> */}
+                                <BookIcon></BookIcon>
+                            </Badge>
+                        </IconButton>
+                    </Tooltip>
+                    <Tooltip title="Carrito de compras" aria-label="Carrito de compras">
+                        <IconButton color="inherit" onClick={openDrawerCart}>
+                            <Badge badgeContent={dataBadgeCart} color="secondary">
                                 <ShoppingBasketIcon></ShoppingBasketIcon>
+                                {/* <BookIcon></BookIcon> */}
                             </Badge>
                         </IconButton>
                     </Tooltip>
@@ -429,7 +509,8 @@ export default function ProfileCompany(props) {
                                         {dataCourse.map((infoCourse, index) => (
                                             <CardCoursesCompany
                                                 key={index}
-                                                openForm={() => { showInfoCourse(infoCourse) }}
+                                                openForm={() => { showInfoCourse(infoCourse, dataCourseId[index]) }}
+                                                // dataCourseId={dataCourseId[dataCourseId]}
                                                 infoCourse={infoCourse}>
                                             </CardCoursesCompany>
 
@@ -469,6 +550,7 @@ export default function ProfileCompany(props) {
                             <DetailCourse
                                 show={openDetailCourse}
                                 dataService={dataService}
+                                dataServiceId={dataServiceId}
                                 handleCloseDetail={handleCloseDetail}
                                 addToWishList={addToWishList}
                             ></DetailCourse>
@@ -477,9 +559,19 @@ export default function ProfileCompany(props) {
                         {openWhishList &&
                             <WishList
                                 deleteToWishList={deleteToWishList}
+                                addToCart={addToCart}
                                 closeDrawer={closeDrawer}
                                 whishList={whishList}
+                            // proceed={proceed}
                             ></WishList>
+                        }
+                        {openShoppingCart &&
+                            <ShoppingCart
+                                deleteToCart={deleteToCart}
+                                closeDrawer={closeDrawerCart}
+                                shoppingCart={shoppingCart}
+                            // proceed={proceed}
+                            ></ShoppingCart>
                         }
 
 

@@ -69,7 +69,7 @@ export default function ProfileHeader(props) {
 
     const completeName = props.currentAccount.firstName + " " + props.currentAccount.lastName;
 
-    const avatarTitle =  props.currentAccount.firstName.substring(0, 1) + props.currentAccount.lastName.substring(0, 1)
+    const avatarTitle =  props.currentAccount.firstName.substring(0, 1).toUpperCase() + props.currentAccount.lastName.substring(0, 1).toUpperCase()
 
     return (
         <Card className={classes.root} >
