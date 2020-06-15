@@ -11,7 +11,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MailIcon from '@material-ui/icons/Mail';
 import Typography from '@material-ui/core/Typography';
-import ItemWishList from '../controls/ItemWishList';
+import ItemCart from '../controls/ItemCart';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 
@@ -40,7 +40,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function WishList(props) {
+export default function ShoppingCart(props) {
     const classes = useStyles();
     const [state, setState] = React.useState({
         top: false,
@@ -48,11 +48,11 @@ export default function WishList(props) {
         bottom: false,
         right: true,
     });
-    const { whishList } = props;
+    const { shoppingCart } = props;
 
     const proceedToRequest = () => {
-        if (whishList.length > 0) {
-            props.proceed(whishList)
+        if (shoppingCart.length > 0) {
+            props.proceed(shoppingCart)
         }
 
     }
@@ -80,17 +80,16 @@ export default function WishList(props) {
         // onKeyDown={toggleDrawer(anchor, false)}
         >
             <Typography variant="h6" align="center">
-                Lista de deseos
+                Carrito de compra
             </Typography>
             <Divider />
             <List>
-                {whishList.map((item, index) => (
-                    <ItemWishList
+                {shoppingCart.map((item, index) => (
+                    <ItemCart
                         item={item}
                         index={index}
-                        deleteToWishList={props.deleteToWishList}
-                        addToCart={props.addToCart}
-                    ></ItemWishList>
+                        deleteToCart={props.deleteToCart}
+                    ></ItemCart>
                     // <ListItem key={item.nameService}>
                     //     <ListItemText primary={`Tema: ${item.nameService}`} secondary={`Modalidad: ${item.mode.toUpperCase()}`} />
                     //     <ListItemText secondary={`Costo: $0.00`} />
@@ -120,11 +119,11 @@ export default function WishList(props) {
                                                 {" Gran total:"}
                                             </Typography>
                                         </Grid>
-                                        {/* <Grid item spacing={2}>
-                                            <Button variant="contained" color="primary" fullWidth onClick={proceedToRequest} disabled={whishList.length > 0 ? false : true}>
+                                        <Grid item spacing={2}>
+                                            <Button variant="contained" color="primary" fullWidth onClick={proceedToRequest} disabled={shoppingCart.length > 0 ? false : true}>
                                                 Proceder
                                             </Button>
-                                        </Grid> */}
+                                        </Grid>
                                     </Grid>
                                     <Grid item>
                                         <Typography variant="h6">$0.00</Typography>

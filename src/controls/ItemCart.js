@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function ItemWishList(props) {
+export default function ItemCart(props) {
     const classes = useStyles();
     const { item } = props;
     const { index } = props;
@@ -49,12 +49,12 @@ export default function ItemWishList(props) {
                                 </Typography>
                             </Grid>
                             <Grid item>
-                                <Button variant="contained" color="secondary" onClick={() => {props.deleteToWishList(index)}}>
+                                <Button variant="contained" color="secondary" onClick={() => {props.deleteToCart(index)}}>
                                     Eliminar
                                 </Button>
-                                <Button variant="contained" color="primary" onClick={() => {props.addToCart(index)}}>
+                                {/* <Button variant="contained" color="primary" onClick={() => {props.addToCart(index)}}>
                                     Agregar al carrito
-                                </Button>
+                                </Button> */}
                             </Grid>
                             {/* <Grid item>
                                 <Button variant="contained" color="default" onClick={() => {props.addToCart(index)}}>

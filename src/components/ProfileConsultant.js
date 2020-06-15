@@ -24,7 +24,6 @@ import NotificationsIcon from '@material-ui/icons/Notifications';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import Tooltip from '@material-ui/core/Tooltip';
 import Avatar from '@material-ui/core/Avatar';
-// import { mainListItems, secondaryListItems } from 'listItems';
 import { deepOrange, deepPurple } from '@material-ui/core/colors';
 // import { DatePicker } from "@material-ui/pickers";
 
@@ -43,7 +42,6 @@ import {
     useHistory
 } from "react-router-dom";
 
-import { mainListItems, secondaryListItems } from '../controls/listItems';
 import ProfileHeader from './ProfileHeader';
 import InvoicesForm from './InvoicesForm';
 import LaunchCourse from './LaunchCourse';
