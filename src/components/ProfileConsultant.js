@@ -44,6 +44,7 @@ import {
 
 import ProfileHeader from './ProfileHeader';
 import InvoicesForm from './InvoicesForm';
+import CreateCourse from './CreateCourse';
 import LaunchCourse from './LaunchCourse';
 // import Chart from './Chart';
 // import Deposits from './Deposits';
@@ -184,6 +185,7 @@ export default function ProfileConsultant(props) {
     const [open, setOpen] = React.useState(false);
     const [openInvoices, setOpenInvoices] = React.useState(false);
     const [openLaunchCourse, setOpenLaunchCourse] = React.useState(false);
+    const [openCreateCourse, setOpenCreateCourse] = React.useState(false);
     const [dataService, setDataService] = React.useState();
     const [dataSortKey, setDataSortKey] = React.useState();
 
@@ -249,6 +251,13 @@ export default function ProfileConsultant(props) {
         // console.log("show")
     }
 
+    const createCourse = () => {
+
+        setOpenCreateCourse(true)
+
+
+    }
+
     const showFormCourse = (data, sortKey) => {
         // if(data)
         if (data) {
@@ -283,6 +292,11 @@ export default function ProfileConsultant(props) {
     const closeForm = (data) => {
         setOpenLaunchCourse(false)
         // console.log("show")
+    }
+
+    const closeCreateCourse = () => {
+        setOpenCreateCourse(false)
+
     }
 
 
@@ -416,7 +430,7 @@ export default function ProfileConsultant(props) {
 
 
                                         ))}
-                                        <CardAddCourses openForm={showFormCourse}
+                                        <CardAddCourses openForm={createCourse}
                                         >
                                         </CardAddCourses>
 
@@ -458,6 +472,7 @@ export default function ProfileConsultant(props) {
                                 <Grid container spacing={3}>
                                     {/* <div>invoices</div> */}
                                     <LaunchCourse
+                                        
                                         closeFormCourse={closeFormCourse}
                                         closeForm={closeForm}
                                         currentDataService={dataService}
@@ -466,6 +481,34 @@ export default function ProfileConsultant(props) {
                                         deleteTopic={props.deleteTopic}
                                         topicData={props.topicData}
                                     ></LaunchCourse>
+                                </Grid>
+
+                            </Container>
+                        }
+
+                        {openCreateCourse &&
+                            <Container maxWidth="lg" className={classes.container}>
+                                <Grid container spacing={3}>
+                                    {/* <div>invoices</div> */}
+                                    <CreateCourse
+                                        closeCreateCourse={closeCreateCourse}
+                                        closeFormCourse={closeFormCourse}
+                                        images={props.images}
+                                        closeForm={closeForm}
+                                    >
+
+                                    </CreateCourse>
+                                    {/* <LaunchCourse
+                                        closeFormCourse={closeFormCourse}
+                                        closeForm={closeForm}
+                                        currentDataService={dataService}
+                                        currentDataSortKey={dataSortKey}
+                                        addTopic={props.addTopic}
+                                        deleteTopic={props.deleteTopic}
+                                        topicData={props.topicData}
+                                    ></LaunchCourse> */}
+
+
                                 </Grid>
 
                             </Container>

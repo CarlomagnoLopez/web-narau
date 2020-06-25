@@ -18,6 +18,7 @@ const useStyles = makeStyles((theme) => ({
         padding: theme.spacing(0),
         textAlign: 'center',
         color: theme.palette.text.secondary,
+        maxHeight: "179px"
         // backgroundImage: "url(../assets/imgex.jpg)",
 
     },
@@ -56,6 +57,8 @@ export default function CardCourses(props) {
 
     // const defineClass = `class${type}`
 
+    const imageService = infoCourse.img ? "https://imgcursos.s3.amazonaws.com/" + infoCourse.img : "../assets/imgex.jpg"
+
     return (
 
         <Grid item xs={4} >
@@ -67,7 +70,8 @@ export default function CardCourses(props) {
                         component="img"
                         // alt="Contemplative Reptile"
                         // height="140"
-                        image="../assets/imgex.jpg"
+                        // image="../assets/imgex.jpg"
+                        image={imageService}
                     // title="Contemplative Reptile"
                     />
                     {serviceType === "seminario" &&

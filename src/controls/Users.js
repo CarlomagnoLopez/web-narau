@@ -46,16 +46,18 @@ export default function Users(props) {
   const { userAll } = props;
   const classes = useStyles();
 
-  const activeService = (data) => {
-    data.verified = true;
-    props.saveService(data)
+  const activeUser = (data) => {
+    // data.verified = true;
+    // data["custom-attr"].verified = true;
+    props.saveUser(data)
     console.log(data)
 
 
   }
-  const deActiveService = (data) => {
-    data.verified = false;
-    props.saveService(data)
+  const deActiveUser = (data) => {
+    // data.verified = false;
+    // data["custom-attr"].verified =  false;
+    props.saveUser(data)
     console.log(data)
 
 
@@ -70,9 +72,9 @@ export default function Users(props) {
           <TableRow>
             <TableCell>Nombre</TableCell>
             <TableCell>Email</TableCell>
-            {/* <TableCell>Verificado</TableCell> */}
-            {/* <TableCell>Publicado</TableCell>
-            <TableCell>Acciones</TableCell> */}
+            <TableCell>Activo</TableCell>
+            {/* <TableCell>Publicado</TableCell>*/}
+            <TableCell>Acciones</TableCell>
 
             {/* <TableCell align="right">Sale Amount</TableCell> */}
           </TableRow>
@@ -82,28 +84,31 @@ export default function Users(props) {
             <TableRow key={row["custom-keys"]}>
               <TableCell>{row["custom-attr"].firstName + " " + row["custom-attr"].lastName}</TableCell>
               <TableCell>{row["custom-attr"].email}</TableCell>
-              {/* <TableCell>{row["custom-attr"].verified}</TableCell> */}
+              <TableCell>{row["custom-attr"].verified ? "Si" : "No"}</TableCell>
               {/* <TableCell>{row["custom-attr"].mode}</TableCell>
               <TableCell>{(row.verified ? "Si" : "No")}</TableCell> */}
-              {/* <TableCell>{
+              <TableCell>{
 
                 <div>
                   <Tooltip title="Ver Detalle" aria-label="detail">
                     <IconButton color="inherit" onClick={() => { showDetail(row) }}>
+                      {/* <IconButton color="inherit"> */}
                       <VisibilityIcon></VisibilityIcon>
                     </IconButton>
                   </Tooltip>
 
-                  {row.verified &&
+                  {row["custom-attr"].verified &&
                     <Tooltip title="Desactivar" aria-label="Desactivar" >
-                      <IconButton color="inherit" onClick={() => { deActiveService(row) }}>
+                      <IconButton color="inherit" onClick={() => { deActiveUser(row) }}>
+                        {/* <IconButton color="inherit" > */}
                         <ClearIcon></ClearIcon>
                       </IconButton>
                     </Tooltip>
                   }
-                  {!row.verified &&
+                  {!row["custom-attr"].verified &&
                     <Tooltip title="Activar" aria-label="Activar">
-                      <IconButton color="inherit" onClick={() => { activeService(row) }}>
+                      {/* <IconButton color="inherit" > */}
+                      <IconButton color="inherit" onClick={() => { activeUser(row) }}>
                         <CheckIcon></CheckIcon>
                       </IconButton>
                     </Tooltip>
@@ -114,7 +119,7 @@ export default function Users(props) {
                 </div>
 
 
-              }</TableCell> */}
+              }</TableCell>
               {/* // <TableCell>{row.paymentMethod}</TableCell>
               // <TableCell align="right">{row.amount}</TableCell> */}
             </TableRow>
