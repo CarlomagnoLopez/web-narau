@@ -186,7 +186,7 @@ export default function SignIn(props) {
                   required
                   fullWidth
                   id="firstName"
-                  // label="First Name"
+                  label="Nombre"
                   classes={{
                     root: "rootTextField"
                   }}
@@ -201,7 +201,7 @@ export default function SignIn(props) {
                   required
                   fullWidth
                   id="lastName"
-                  // label="Last Name"
+                  label="Apellido"
                   classes={{
                     root: "rootTextField"
                   }}
@@ -217,7 +217,7 @@ export default function SignIn(props) {
                   required
                   fullWidth
                   id="empresa"
-                  // label="Empresa"
+                  label="Empresa"
                   classes={{
                     root: "rootTextField"
                   }}
@@ -228,22 +228,22 @@ export default function SignIn(props) {
               </Grid>
               <Grid item xs={12}>
 
-                <FormControl id="employ"
+                <FormControl id="employ" classes={{
+                      root: "rootSelectField"
+                    }}
                   name="employ" variant="outlined" className={classes.formControl} fullWidth>
-                  {/* <InputLabel id="employ"
-                    name="employ">No. Employees</InputLabel> */}
+                  <InputLabel id="employ"
+                    name="employ">No. de empleados</InputLabel>
                   <Select
                     fullWidth
                     labelId="employ"
                     id="employ"
-                    // variant="outlined"
+                    variant="outlined"
                     name="employ"
                     value={age}
                     onChange={handleChange}
-                    // label="No. Employees"
-                    classes={{
-                      root: "rootSelectField"
-                    }}
+                    label="No. de empleados"
+                    
                   // inputRef={register({ required: true, maxLength: 20 })}
                   // error={errors.employ ? true : false}
                   >
@@ -262,7 +262,7 @@ export default function SignIn(props) {
                   required
                   fullWidth
                   id="rfc"
-                  // label="RFC"
+                  label="RFC"
                   classes={{
                     root: "rootTextField"
                   }}
@@ -277,7 +277,7 @@ export default function SignIn(props) {
                   required
                   fullWidth
                   id="address"
-                  // label="Address"
+                  label="Dirección"
                   classes={{
                     root: "rootTextField"
                   }}
@@ -292,7 +292,7 @@ export default function SignIn(props) {
                   required
                   fullWidth
                   id="puesto"
-                  // label="Position"
+                  label="Puesto"
                   classes={{
                     root: "rootTextField"
                   }}
@@ -307,7 +307,7 @@ export default function SignIn(props) {
                   required
                   fullWidth
                   id="email"
-                  // label="Email Address"
+                  label="Correo de contacto"
                   classes={{
                     root: "rootTextField"
                   }}
@@ -323,7 +323,7 @@ export default function SignIn(props) {
                   required
                   fullWidth
                   name="password"
-                  // label="Password"
+                  label="Contraseña"
                   classes={{
                     root: "rootTextField"
                   }}

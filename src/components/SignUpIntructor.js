@@ -182,7 +182,7 @@ export default function SignIn(props) {
                   required
                   fullWidth
                   id="firstName"
-                  // label="First Name"
+                  label="Nombre"
                   classes={{
                     root: "rootTextField"
                   }}
@@ -197,7 +197,7 @@ export default function SignIn(props) {
                   required
                   fullWidth
                   id="lastName"
-                  // label="Last Name"
+                  label="Apellidos"
                   classes={{
                     root: "rootTextField"
                   }}
@@ -213,7 +213,7 @@ export default function SignIn(props) {
                   required
                   fullWidth
                   id="phone"
-                  // label="Phone Contact"
+                  label="Telefono"
                   classes={{
                     root: "rootTextField"
                   }}
@@ -235,7 +235,7 @@ export default function SignIn(props) {
                     fullWidth
                     id="dateofbirth"
                     name="dateofbirth"
-                    // label="Date of birth"
+                    label="Fecha de nacimiento"
                     classes={{
                       root: "rootTextField"
                     }}
@@ -256,7 +256,7 @@ export default function SignIn(props) {
                   required
                   fullWidth
                   id="city"
-                  // label="City"
+                  label="Ciudad"
                   classes={{
                     root: "rootTextField"
                   }}
@@ -272,7 +272,7 @@ export default function SignIn(props) {
                   required
                   fullWidth
                   id="email"
-                  // label="Email Address"
+                  label="Correo electronico"
                   classes={{
                     root: "rootTextField"
                   }}
@@ -288,7 +288,7 @@ export default function SignIn(props) {
                   required
                   fullWidth
                   name="password"
-                  // label="Password"
+                  label="Contraseña"
                   classes={{
                     root: "rootTextField"
                   }}

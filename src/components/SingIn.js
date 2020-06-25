@@ -164,7 +164,7 @@ export default function SignIn(props) {
               classes={{
                 root: "rootTextField"
               }}
-              // label="Email Address"
+              label="Dirección de correo electrónico"
               name="email"
               autoComplete="email"
               autoFocus
@@ -180,7 +180,7 @@ export default function SignIn(props) {
               classes={{
                 root: "rootTextField"
               }}
-              // label="Password"
+              label="Contraseña"
               type="password"
               id="password"
               autoComplete="current-password"
