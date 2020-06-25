@@ -73,4 +73,47 @@
     color: #fff !important;
 }
 
+.rootTextField .MuiFormLabel-root {
+    color: rgba(255, 255, 255, 0.54);
 
+}
+
+.rootTextField .MuiFormLabel-root.Mui-focused {
+    color: rgba(255, 255, 255, 1);
+
+}
+
+.rootTextField  .MuiInputLabel-outlined.MuiInputLabel-shrink{
+    transform: translate(14px, -15px) scale(0.75);
+}
+.rootTextField .Mui-focused{
+    /* color: blueviolet;
+    border-radius: 4rem !important; */
+    
+}
+
+.rootTextField .MuiOutlinedInput-notchedOutline{
+    border-color:#fc5000 !important;
+}
+
+.rootSelectField .MuiOutlinedInput-notchedOutline{
+    border-color:#fc5000 !important;
+}
+
+.rootSelectField  .MuiInputLabel-outlined.MuiInputLabel-shrink {
+    transform: translate(14px, -15px) scale(0.75);
+}
+
+
+.rootSelectField .MuiFormLabel-root{
+    color: rgba(255, 255, 255, 0.54) !important;
+}
+
+.rootSelectField .MuiFormLabel-root.Mui-focused {
+    color: rgba(255, 255, 255, 1);
+
+}
+
+.rootSelectField .MuiSvgIcon-root{
+    color: rgba(255, 255, 255, 0.54) !important;
+}
