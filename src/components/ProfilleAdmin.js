@@ -29,6 +29,11 @@ import Orders from '../controls/Orders';
 import Tooltip from '@material-ui/core/Tooltip';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import DetailCourseAdmin from "../components/DetailCourseAdmin"
+import DetailUserAdmin from "../components/DetailUserAdmin"
+import DetailCompanyAdmin from "../components/DetailCompanyAdmin"
+// import DetailUserAdmin from "../components/DetailUserAdmin"
+import LaunchCourse from './LaunchCourse';
+
 
 import {
   BrowserRouter as Router,
@@ -144,6 +149,8 @@ export default function ProfileAdmin(props) {
   const [open, setOpen] = React.useState(true);
   const [activeView, setActiveView] = React.useState(1);
   const [openDetailCourse, setOpenDetailCourse] = React.useState(false);
+  const [openDetailUser, setOpenDetailUser] = React.useState(false);
+  const [openDetailCompany, setOpenDetailCompany] = React.useState(false);
   const [dataService, setDataService] = React.useState();
 
   const { serviceAll, userAll, companyAll } = props;
@@ -187,9 +194,28 @@ export default function ProfileAdmin(props) {
     setOpenDetailCourse(true);
   }
 
+  const showDetailUser = (data) => {
+    setDataService(data)
+    setOpenDetailUser(true);
+  }
+
+  const showDetailCompany = (data) => {
+    setDataService(data)
+    setOpenDetailCompany(true);
+  }
+
+
   const handleCloseDetail = () => {
     setOpenDetailCourse(false)
   }
+  const handleCloseDetailUser = () => {
+    setOpenDetailUser(false)
+  }
+
+  const handleCloseDetailCompany = () => {
+    setOpenDetailCompany(false)
+  }
+
 
   return (
     <div className={classes.root}>
@@ -243,15 +269,55 @@ export default function ProfileAdmin(props) {
         <List>{secondaryListItems}</List> */}
       </Drawer>
       {openDetailCourse &&
-        <DetailCourseAdmin
-          show={openDetailCourse}
+        // <DetailCourseAdmin
+        //   show={openDetailCourse}
+        //   dataService={dataService["custom-attr"]}
+        //   dataServiceId={dataService["custom-keys"].split(" | ")[2]}
+        //   handleCloseDetail={handleCloseDetail}
+        // // showDetail={showDetail}
+
+        // // addToWishList={addToWishList}
+        // ></DetailCourseAdmin>
+        <Container maxWidth="lg" className={classes.container}>
+          <Grid container spacing={3}>
+            {/* <div>invoices</div> */}
+            <LaunchCourse
+              role={"admin"}
+              closeFormCourse={""}
+              closeForm={handleCloseDetail}
+              currentDataService={dataService["custom-attr"]}
+              currentDataSortKey={dataService["custom-keys"].split(" | ")[2]}
+              addTopic={""}
+              deleteTopic={""}
+            // topicData={props.topicData}
+            ></LaunchCourse>
+          </Grid>
+
+        </Container>
+      }
+
+      {openDetailUser &&
+        <DetailUserAdmin
+          show={openDetailUser}
           dataService={dataService["custom-attr"]}
-          dataServiceId={dataService["custom-keys"].split(" | ")[2]}
-          handleCloseDetail={handleCloseDetail}
-        // showDetail={showDetail}
+          dataServiceId={dataService["custom-keys"]}
+          handleCloseDetail={handleCloseDetailUser}
+        // showDetail={showDetailUser}
 
         // addToWishList={addToWishList}
-        ></DetailCourseAdmin>
+        ></DetailUserAdmin>
+      }
+
+      {openDetailCompany &&
+        <DetailCompanyAdmin
+          show={openDetailCompany}
+          dataService={dataService["custom-attr"]}
+          dataServiceId={dataService["custom-keys"]}
+          handleCloseDetail={handleCloseDetailCompany}
+        // showDetail={showDetailUser}
+
+        // addToWishList={addToWishList}
+        ></DetailCompanyAdmin>
       }
       <main className={classes.content}>
         <div className={classes.appBarSpacer} />
@@ -274,8 +340,8 @@ export default function ProfileAdmin(props) {
         {activeView === 2 &&
           <UserListView
             userAll={userAll}
-          // showDetail={showDetail}
-          // saveService={props.saveService}
+            showDetail={showDetailUser}
+            saveUser={props.saveUser}
 
 
           >
@@ -284,8 +350,8 @@ export default function ProfileAdmin(props) {
         {activeView === 3 &&
           <CompanyListView
             companyAll={companyAll}
-          // showDetail={showDetail}
-          // saveService={props.saveService}
+            showDetail={showDetailCompany}
+            saveService={props.saveUser}
 
 
           >

@@ -156,8 +156,8 @@ export default function CompanyListView(props) {
                     <Paper className={classes.paper}>
                         <Companies
                             companyAll={companyAll}
-                            // showDetail={props.showDetail} 
-                            // saveService={props.saveService}
+                            showDetail={props.showDetail} 
+                            saveService={props.saveService}
                             />
                     </Paper>
                 </Grid>

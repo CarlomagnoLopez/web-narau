@@ -69,10 +69,10 @@ export default function Companies(props) {
         <TableHead>
           <TableRow>
             <TableCell>Nombre</TableCell>
-            <TableCell>Email</TableCell>
-            {/* <TableCell>Verificado</TableCell> */}
-            {/* <TableCell>Publicado</TableCell>
-            <TableCell>Acciones</TableCell> */}
+            <TableCell>RFC</TableCell>
+            <TableCell>Verificado</TableCell>
+            {/* <TableCell>Publicado</TableCell>*/}
+            <TableCell>Acciones</TableCell> 
 
             {/* <TableCell align="right">Sale Amount</TableCell> */}
           </TableRow>
@@ -83,9 +83,9 @@ export default function Companies(props) {
               <TableCell>{row["custom-attr"].empresa}</TableCell>
               <TableCell>{row["custom-attr"].rfc}</TableCell>
               {/* <TableCell>{row["custom-attr"].verified}</TableCell> */}
-              {/* <TableCell>{row["custom-attr"].mode}</TableCell>
-              <TableCell>{(row.verified ? "Si" : "No")}</TableCell> */}
-              {/* <TableCell>{
+              {/* <TableCell>{row["custom-attr"].mode}</TableCell>*/}
+              <TableCell>{(row["custom-attr"].verified ? "Si" : "No")}</TableCell> 
+              <TableCell>{
 
                 <div>
                   <Tooltip title="Ver Detalle" aria-label="detail">
@@ -96,14 +96,18 @@ export default function Companies(props) {
 
                   {row.verified &&
                     <Tooltip title="Desactivar" aria-label="Desactivar" >
-                      <IconButton color="inherit" onClick={() => { deActiveService(row) }}>
+                      <IconButton color="inherit"
+                       onClick={() => { deActiveService(row) }}
+                      >
                         <ClearIcon></ClearIcon>
                       </IconButton>
                     </Tooltip>
                   }
                   {!row.verified &&
                     <Tooltip title="Activar" aria-label="Activar">
-                      <IconButton color="inherit" onClick={() => { activeService(row) }}>
+                      <IconButton color="inherit"
+                      onClick={() => { activeService(row) }}
+                      >
                         <CheckIcon></CheckIcon>
                       </IconButton>
                     </Tooltip>
@@ -114,7 +118,7 @@ export default function Companies(props) {
                 </div>
 
 
-              }</TableCell> */}
+              }</TableCell>
               {/* // <TableCell>{row.paymentMethod}</TableCell>
               // <TableCell align="right">{row.amount}</TableCell> */}
             </TableRow>

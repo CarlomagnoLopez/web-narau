@@ -32,8 +32,8 @@ class ProfileUser extends React.Component {
             // currentAccount:"",
             loggingOut: false,
             serviceAll: [],
-            userAll:[],
-            companyAll:[],
+            userAll: [],
+            companyAll: [],
             topicData: [
                 // {
                 //     tema: "Tema 1"
@@ -53,6 +53,7 @@ class ProfileUser extends React.Component {
         if (this.state.currentAccountTemp.role === "admin") {
             this.startAdminLoading();
         } else {
+            this.getImages();
             this.startLoading();
         }
 
@@ -190,6 +191,69 @@ class ProfileUser extends React.Component {
         this.getService();
         this.getUser();
     }
+
+    getImages = (data) => {
+        console.log(data)
+        let payload = data;
+        this.setState({
+            loadingUpdate: true
+        }, (state, props) => {
+            fetch('https://ob5nizjire.execute-api.us-east-1.amazonaws.com/default/image', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'x-api-key': 'wD4FjaAoiG4bldvQ0oB6Q6fyIDqZCsfkaXCun0u6'
+                }
+            })
+                .then(res => res.json())
+                .then((data) => {
+                    // this.props.recoveryPsw(data);
+
+                    // this.startAdminLoading();
+                    this.setState({
+                        loadingUpdate: false,
+                        images: data.body
+                    })
+
+                    // console.log(data)
+                })
+                .catch(console.log)
+
+        })
+
+
+    }
+    editUser = (data) => {
+        console.log(data)
+        let payload = data;
+        this.setState({
+            loadingUpdate: true
+        }, (state, props) => {
+            fetch('https://ob5nizjire.execute-api.us-east-1.amazonaws.com/default//verifyuser?verify=' + payload.verifyLink, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'x-api-key': 'wD4FjaAoiG4bldvQ0oB6Q6fyIDqZCsfkaXCun0u6'
+                }
+            })
+                .then(res => res.json())
+                .then((data) => {
+                    // this.props.recoveryPsw(data);
+
+                    this.startAdminLoading();
+                    this.setState({
+                        loadingUpdate: false
+                    })
+
+                    // console.log(data)
+                })
+                .catch(console.log)
+
+        })
+
+
+    }
+
     editService = (data) => {
         let payload = data;
         this.setState({
@@ -443,6 +507,7 @@ class ProfileUser extends React.Component {
                             deleteTopic={this.deleteTopic}
                             topicData={this.state.topicData}
                             refreshDataTopics={this.refreshDataTopics}
+                            images={this.state.images}
                         ></ProfileConsultant>
                     </div>
 
@@ -484,6 +549,7 @@ class ProfileUser extends React.Component {
                             userAll={this.state.userAll}
                             companyAll={this.state.companyAll}
                             saveService={this.editService}
+                            saveUser={this.editUser}
                         // refreshBasicData={this.refreshBasicData}
                         // refreshInvoiceData={this.refreshInvoiceData}
                         // saveService={this.saveService}
