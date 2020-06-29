@@ -16,6 +16,8 @@ import IconButton from '@material-ui/core/IconButton';
 import SaveIcon from '@material-ui/icons/Save';
 import TextField from '@material-ui/core/TextField';
 import CancelIcon from '@material-ui/icons/Cancel';
+import "../css/stylesGlobalOverRide.css"
+
 const useStyles = makeStyles((theme) => ({
     TextFieldClass: {
         width: "100%"
@@ -67,6 +69,13 @@ export default function CardSideContent(props) {
                 action={
                     // nodeAction(isEdit)
                     <div>
+                        
+                        <IconButton onClick={handleTypeCardClose}>
+                            {isEdit &&
+                                <CancelIcon></CancelIcon>
+
+                            }
+                        </IconButton>
                         < IconButton onClick={handleTypeCard}>
                             {isEdit &&
                                 <SaveIcon></SaveIcon>
@@ -76,12 +85,6 @@ export default function CardSideContent(props) {
                                 <EditIcon />
                             }
 
-                        </IconButton>
-                        <IconButton onClick={handleTypeCardClose}>
-                            {isEdit &&
-                                <CancelIcon></CancelIcon>
-
-                            }
                         </IconButton>
 
                     </div>
@@ -97,15 +100,37 @@ export default function CardSideContent(props) {
                     {isEdit &&
 
                         <TextField
+                            // variant="outlined"
+                            // margin="normal"
+                            // required
+                            // fullWidth
+                            // id="email"
+                            // classes={{
+                            //   root: "rootTextField"
+                            // }}
+                            // label="Dirección de correo electrónico"
+                            // name="email"
+                            // autoComplete="email"
+                            // autoFocus
+                            // inputRef={register({ required: true, pattern: /[\w\.-]+@[\w\.-]+\.\w{2,4}/ })}
+                            // error={errors.email ? true : false}
+
+
+
                             id="outlined-multiline-static"
                             label={props.title}
                             multiline
                             rows={4}
-                            defaultValue="Default Value"
-                            variant="standard"
+                            // defaultValue="Default Value"
+                            variant="outlined"
+                            fullWidth
+                            margin="normal"
+                            classes={{
+                                root: "rootTextField"
+                            }}
                             value={textValue}
                             onChange={handleChange}
-                            className={classes.TextFieldClass}
+                        // className={classes.TextFieldClass}
                         />
                         // <TextField id="standard-basic" label={props.title} value={props.text} />
 

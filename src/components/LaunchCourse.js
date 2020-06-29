@@ -14,6 +14,8 @@ import CourseForm from './CourseForm';
 import Review from './Review';
 // import AppBar from '@material-ui/core/AppBar';
 import CloseIcon from '@material-ui/icons/Close';
+import SimpleRating from "../controls/SimpleRating"
+import Avatar from '@material-ui/core/Avatar';
 
 // import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
@@ -30,9 +32,10 @@ import CardMedia from '@material-ui/core/CardMedia';
 import Grid from '@material-ui/core/Grid';
 import Divider from '@material-ui/core/Divider';
 // import Paper from '@material-ui/core/Paper';
-
+import logo_login from '../assets/logos-narau-04.png';
+import "../css/stylesGlobalOverRide.css"
 import imageBen from '../assets/imageBen.png';
-
+import Chip from '@material-ui/core/Chip';
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
@@ -48,6 +51,9 @@ function Copyright() {
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
+
+// const imageProfileDynamo = JSON.parse(localStorage.getItem("contentUserCurrentAvatar"));
+
 const useStyles = makeStyles((theme) => ({
   appBar: {
     position: 'relative',
@@ -55,6 +61,13 @@ const useStyles = makeStyles((theme) => ({
     color: "#fff",
     boxShadow: "none",
     // pointerEvents: "none"
+  },
+  infoProfile: {
+    paddingTop: "10px"
+  },
+  infoProfileName: {
+    fontWeight: "bold",
+    fontSize: "20px"
   },
   layout: {
     width: 'auto',
@@ -66,9 +79,9 @@ const useStyles = makeStyles((theme) => ({
       marginRight: 'auto',
     },
   },
-  gridBen:{
-    color:"#fff",
-    backgroundColor:"#fc5000",
+  gridBen: {
+    color: "#fff",
+    backgroundColor: "#fc5000",
     width: "69%",
     margin: "39px",
     // color: #fff;
@@ -77,22 +90,38 @@ const useStyles = makeStyles((theme) => ({
 
   },
   paper: {
-    marginTop: theme.spacing(3),
+    marginTop: theme.spacing(0),
     marginBottom: theme.spacing(3),
     padding: theme.spacing(2),
     [theme.breakpoints.up(600 + theme.spacing(3) * 2)]: {
-      marginTop: theme.spacing(6),
+      marginTop: theme.spacing(0),
       marginBottom: theme.spacing(6),
       padding: theme.spacing(3),
     },
   },
   paperVideo: {
-    marginLeft: "161px",
-    marginTop: theme.spacing(0),
+    marginLeft: theme.spacing(3),
+    marginRight: theme.spacing(3),
+    marginTop: theme.spacing(2),
     marginBottom: theme.spacing(0),
     padding: theme.spacing(0),
     [theme.breakpoints.up(600 + theme.spacing(1) * 2)]: {
       marginTop: theme.spacing(2),
+      marginLeft: theme.spacing(3),
+      marginBottom: theme.spacing(2),
+      padding: theme.spacing(1),
+    },
+  },
+
+  paperVideoLeft: {
+    marginLeft: theme.spacing(3),
+    marginRight: theme.spacing(3),
+    marginTop: theme.spacing(2),
+    marginBottom: theme.spacing(0),
+    padding: theme.spacing(0),
+    [theme.breakpoints.up(600 + theme.spacing(1) * 2)]: {
+      marginTop: theme.spacing(2),
+      marginLeft: theme.spacing(3),
       marginBottom: theme.spacing(2),
       padding: theme.spacing(1),
     },
@@ -107,12 +136,12 @@ const useStyles = makeStyles((theme) => ({
       padding: theme.spacing(1),
     },
   },
-  rootCard: {
-    maxWidth: 345,
-    // marginTop: "53px"
-    marginLeft: "49px"
+  // rootCard: {
+  //   maxWidth: 345,
+  //   // marginTop: "53px"
+  //   // marginLeft: "49px"
 
-  },
+  // },
   stepper: {
     padding: theme.spacing(3, 0, 5),
   },
@@ -133,14 +162,19 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: "94%"
   },
   rootCard: {
-    maxWidth: "100%",
+    width: "100%",
   },
   media: {
     width: "100%",
-    height: 140,
+    height: 180,
   },
   typoservice: {
-    color: "#fc5000"
+    color: "#fc5000",
+    fontSize: "20px",
+    textTransform: "capitalize",
+  },
+  nameservice: {
+    fontWeight: "bold"
   },
   gridCustom: {
 
@@ -150,61 +184,98 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: "bolder"
   },
   buttonCustom: {
-    backgroundColor: "#66b32e",
-    color: "#fff",
-    width: "100%"
+    // backgroundColor: "#66b32e",
+    // color: "#fff",
+    // width: "100%",
+    // borderRadius: ".6rem",
+    // 'hover': {
+    //   backgroundColor: "#66b32e",
+    //   // width: "100%",
+    //   // color: "#fff",
+    // },
   },
-  dividerClass:{
-    margin:"10px"
-  }
+  dividerClass: {
+    margin: "10px"
+  },
+  logo: {
+    margin: "1rem",
+  },
+  logoTopBar: {
+    width: `95px`,
+  },
+  imageContainer: {
+    maxWidth: "100%",
+    padding: "0px"
+  },
+  imageCardContainer: {
+    borderRadius: "0px"
+  },
+  rootChipRlation: {
+    display: 'flex',
+    justifyContent: 'left',
+    flexWrap: 'wrap',
+    marginTop: "1rem",
+    marginBottom: "1rem",
+    '& > *': {
+      backgroundColor: "#b3b3b3",
+      margin: theme.spacing(0.5),
+      color: "#fff",
+      borderRadius: ".6rem"
+    },
+  },
+  rootChip: {
+    display: 'flex',
+    justifyContent: 'left',
+    flexWrap: 'wrap',
+    marginTop: "1rem",
+    marginBottom: "1rem",
+    '& > *': {
+      backgroundColor: "#fc5000",
+      margin: theme.spacing(0.5),
+      color: "#fff",
+      borderRadius: ".6rem"
+    },
+  },
+  avatarHeader: {
+    // backgroundImage: `url(${imageProfileDynamo})`,
+    backgroundImage: `url(${localStorage.getItem("contentUserCurrentAvatar")})`,
+    backgroundSize: "contain",
+    // top: "-6rem",
+    // color: theme.palette.getContrastText(deepOrange[500]),
+    backgroundColor: "#fc5000",
+    width: theme.spacing(10),
+    height: theme.spacing(10),
+    border: "solid"
+  },
+
 }));
 
-const steps = ['Creacion de Servicio'];
 
-function getStepContent(step, handleNext, currentDataService, handleClose, topicData, addTopic, deleteTopic, currentDataSortKey) {
-  switch (step) {
-    case 0:
-      return <CourseForm
-        handleNext={handleNext}
-        currentDataService={currentDataService}
-        currentDataSortKey={currentDataSortKey}
-        handleClose={handleClose}
-        topicData={topicData}
-        addTopic={addTopic}
-        deleteTopic={deleteTopic}
-
-      />;
-    // case 1:
-    //   return <PaymentForm />;
-    // case 2:
-    //   return <Review />;
-    default:
-      throw new Error('Unknown step');
-  }
-}
 
 export default function InvoicesForm(props) {
   const classes = useStyles();
   const [activeStep, setActiveStep] = React.useState(0);
+  const [openDialog, setOpenDialog] = React.useState(true);
 
-  const handleNext = (data, sk) => {
-    if (activeStep === 1) {
-      props.closeFormCourse(data, sk)
-    } else {
-      props.closeFormCourse(data, sk)
-      // setActiveStep(activeStep + 1);
-    }
+  // const handleNext = (data, sk) => {
+  //   if (activeStep === 1) {
+  //     props.closeFormCourse(data, sk)
+  //   } else {
+  //     props.closeFormCourse(data, sk)
+  //     // setActiveStep(activeStep + 1);
+  //   }
 
-  };
+  // };
 
   const handleClose = (data) => {
+    setOpenDialog(false)
     props.closeForm()
 
   };
 
-  const handleBack = () => {
-    setActiveStep(activeStep - 1);
-  };
+  // const handleBack = () => {
+  //   setActiveStep(activeStep - 1);
+  // };
 
   const convertCapitalize = (data) => {
 
@@ -217,6 +288,14 @@ export default function InvoicesForm(props) {
 
   }
 
+  const addToWishList = () => {
+    currentDataService.courseId = props.currentDataSortKey;
+    props.addToWishList(currentDataService)
+    // props.handleCloseDetail()
+    // setOpen(false);
+    handleClose();
+  }
+
 
   const imageService = props.currentDataService.img ? "https://imgcursos.s3.amazonaws.com/" + props.currentDataService.img : "../assets/imgex.jpg"
   const { currentDataService } = props;
@@ -227,15 +306,13 @@ export default function InvoicesForm(props) {
     <React.Fragment>
       <CssBaseline />
       <main className={classes.layout}>
-        <Dialog fullScreen open={true} onClose={handleClose} TransitionComponent={Transition}>
+        <Dialog fullScreen open={openDialog} onClose={handleClose} TransitionComponent={Transition}>
           <AppBar className={classes.appBar}>
             <Toolbar>
               <IconButton edge="start" color="inherit" disabled
-                // onClick={handleClose}
                 aria-label="close">
-                {/* <CloseIcon /> */}
-                <div>
-                  <img src={logo_sun} width="50" />
+                <div className={classes.logo}>
+                  <img src={logo_login} className={classes.logoTopBar} />
                 </div>
               </IconButton>
               <Typography variant="h6" className={classes.title}>
@@ -243,18 +320,17 @@ export default function InvoicesForm(props) {
               </Typography>
               <div className={classes.closeIcon}>
                 <IconButton edge="start" color="inherit" className={classes.buttonclose}
-                  onClick={props.closeForm}
+                  onClick={handleClose}
                   aria-label="close">
                   <CloseIcon />
 
                 </IconButton>
               </div>
 
-              {/* <ProgressCreateCourse handleClose={handleClose} currentStep={nextStep} totalPercent={totalPercent}></ProgressCreateCourse> */}
             </Toolbar>
           </AppBar>
-          <Container maxWidth="lg">
-            <Card className={classes.rootCard} >
+          <Container className={classes.imageContainer}>
+            <Card className={classes.imageCardContainer}>
               {/* <CardActionArea> */}
               <CardMedia
                 className={classes.media}
@@ -270,38 +346,58 @@ export default function InvoicesForm(props) {
               justify="flex-start"
               alignItems="flex-start"
             >
-              {/* <Grid item xs={12}>
-                <Paper className={classes.paper}>xs=12</Paper>
-              </Grid> */}
               <Grid item xs={12} sm={7}>
                 <Paper className={classes.paper} elevation={0}>
                   <Typography variant="subtitle2" className={classes.typoservice}>
-                    {currentDataService.serviceType.trim().toLowerCase().replace(/\w\S*/g, (w) => (w.replace(/^\w/, (c) => c.toUpperCase())))}
+                    {currentDataService.serviceType}
                   </Typography>
-                  <Typography variant="h6">
-                    {currentDataService.nameService.trim().toLowerCase().replace(/\w\S*/g, (w) => (w.replace(/^\w/, (c) => c.toUpperCase())))}
+                  <Typography variant="h5" className={classes.nameservice}>
+                    {currentDataService.nameService}
                   </Typography>
                   <Typography variant="subtitle1" >
-                    {currentDataService.subtitle.trim().toLowerCase().replace(/\w\S*/g, (w) => (w.replace(/^\w/, (c) => c.toUpperCase())))}
+                    {currentDataService.subtitle}
                   </Typography>
-
+                  <div className={classes.rootChip}>
+                    <Chip label="Habilidades soft" />
+                    <Chip label="Calidad" />
+                  </div>
                   <Grid container className={classes.gridCustom}
                     direction="row"
                     justify="space-between"
                     alignItems="center" spacing={0}>
+
                     <Grid item xs={8} sm={4}>
-                      <Paper elevation={0} className={classes.paperCustom}><Typography variant="subtitle1" >
-                        {`Modalidad: ${currentDataService.mode.toUpperCase()}`}
-                      </Typography></Paper>
+                      <Paper elevation={0} className={classes.paperCustom}>
+                        <Typography variant="subtitle1" className={classes.nameservice} >
+                          {"Modalidad: "} <span className="contentText">{
+                            currentDataService.mode === "presencial" ?
+                              <img className="imgPresential" /> :
+                              <img className="imgLine" />
+                          }
+                            {
+                              currentDataService.mode === "presencial" ?
+                                <span className="textPre">Presencial</span> :
+                                <span className="textPre">En linea</span>
+                            }
+                          </span>
+                          {/* ${currentDataService.mode.toUpperCase()} */}
+                        </Typography>
+                      </Paper>
+                      <Paper elevation={0} className={classes.paperCustom}>
+                        <Typography variant="subtitle1" className={classes.nameservice} >
+                          {"Tiempo estimado: "} {currentDataService.timeEstimated ? currentDataService.timeEstimated : ""}
+                          {/* ${currentDataService.mode.toUpperCase()} */}
+                        </Typography>
+                      </Paper>
                     </Grid>
                     <Grid item xs={4} sm={4}>
                       <Paper elevation={0} >
-                        {`Precio:`} <span className={classes.paperCustomCost} >
-                          mxn ${currentDataService.cost}
+                        {`Precio por servicio:`} <span className={classes.paperCustomCost} >
+                          MX ${currentDataService.cost}
                         </span>
                         {props.role !== "admin" &&
-                          <Button variant="contained" classes={{
-                            root: classes.buttonCustom
+                          <Button variant="contained" onClick={addToWishList} classes={{
+                            root: "buttonCustom"
                           }}
                           >Reservar</Button>
                         }
@@ -313,7 +409,8 @@ export default function InvoicesForm(props) {
                       {currentDataService.objetive !== "" &&
                         <Typography variant="subtitle1" >
 
-                          {convertCapitalize(currentDataService.objetive)}
+                          {/* {convertCapitalize(currentDataService.objetive)} */}
+                          {(currentDataService.objetive)}
                         </Typography>
 
                       }
@@ -389,13 +486,73 @@ export default function InvoicesForm(props) {
                   </Grid>
                 </Paper>
               </Grid>
-              <Grid item xs={12} sm={5}>
+
+
+
+              <Grid item xs={12} sm={5} >
+                <Paper className={classes.paperVideoLeft} elevation={0}>
+                  <Grid container spacing={2} xs={12}
+                    direction="row"
+                    justify="flex-start"
+                    alignItems="flex-start">
+                    <Grid item>
+                      <Avatar className={classes.avatarHeader} classes={{
+                        root: "rootAvatar"
+                      }}>
+                        {localStorage.getItem("contentUserCurrentAvatar") === "" ? "" : props.byUser["custom-attr"].firstName.substring(0, 1).toUpperCase()}       </Avatar>
+
+
+                    </Grid>
+                    <Grid item>
+                      <Typography gutterBottom variant="body2" className={classes.infoProfileName}>
+                        {props.byUser["custom-attr"].firstName + " " + props.byUser["custom-attr"].lastName}
+                      </Typography>
+                      <SimpleRating className={classes.ratingTwo} />
+                    </Grid>
+
+                  </Grid>
+
+                  <Grid item>
+                    <Typography gutterBottom variant="body2" className={classes.infoProfile}>
+                      {props.byUser["custom-attr"].aboutMe}
+                    </Typography>
+                  </Grid>
+                  <Grid item>
+                    <div className={classes.rootChip}>
+                      <Chip label="Ver perfil completo" />
+                    </div>
+                  </Grid>
+                </Paper>
                 <Paper className={classes.paperVideo} elevation={0}>
-                  {/* {currentDataService.video  &&
-                    // <Card className={classes.rootCard}> */}
-                  <video width="320" height="240" controls className={classes.video}>
-                    <source src={video} type="video/mp4" />
-                  </video>
+                  <Grid container spacing={2} xs={12}
+                    direction="row"
+                    justify="flex-start"
+                    alignItems="flex-start">
+
+                    <Grid item>
+                      <video width="320" height="240" controls className={classes.video}>
+                        <source src={video} type="video/mp4" />
+                      </video>
+
+
+                    </Grid>
+
+                    <Grid item>
+                      <Typography gutterBottom variant="body2" className={classes.infoProfileName}>
+                        Temas relacionados
+                      </Typography>
+                    </Grid>
+                    <Grid item>
+                    </Grid>
+                    <Grid item>
+                      <div className={classes.rootChipRlation}>
+                        <Chip label="Solución de problemas" />
+                        <Chip label="Trabajo en equipo" />
+                        <Chip label="Cultura organizacional" />
+                      </div>
+                    </Grid>
+                  </Grid>
+
                   {/* </Card>
                   } */}
                 </Paper>
@@ -409,23 +566,7 @@ export default function InvoicesForm(props) {
         </Dialog>
 
 
-        {/* <Paper className={classes.paper}>
-          <Typography component="h1" variant="h4" align="center">
-            Creacion de Servicio.
-          </Typography>
-          <Stepper activeStep={activeStep} className={classes.stepper}>
-            {steps.map((label) => (
-              <Step key={label}>
-                <StepLabel>{label}</StepLabel>
-              </Step>
-            ))}
-          </Stepper>
-          <React.Fragment>
-            {getStepContent(activeStep, handleNext, props.currentDataService, handleClose, props.topicData, props.addTopic, props.deleteTopic, props.currentDataSortKey)}
 
-          </React.Fragment>
-        </Paper>
-        <Copyright /> */}
       </main>
     </React.Fragment >
   );

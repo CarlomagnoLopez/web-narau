@@ -20,12 +20,27 @@ import CardActionArea from '@material-ui/core/CardActionArea';
 import CardMedia from '@material-ui/core/CardMedia';
 const useStyles = makeStyles((theme) => ({
     paperCursos: {
-        padding: theme.spacing(2),
+        padding: theme.spacing(4),
         textAlign: 'center',
         color: theme.palette.text.secondary,
         backgroundColor: "#f8a18366",
+        height:"175px",
+        maxHeight: "175px",
 
     },
+    root: {
+        padding: theme.spacing(0),
+        textAlign: 'center',
+        color: theme.palette.text.secondary,
+        height:"175px",
+        maxHeight: "175px",
+        borderRadius:"1rem"
+        // backgroundImage: "url(../assets/imgex.jpg)",
+
+    },
+    paperCursosIcon:{
+        fontSize:"118px"
+    }
 }));
 
 export default function CardAddCourses(props) {
@@ -42,7 +57,7 @@ export default function CardAddCourses(props) {
                   
                     <CardContent className={classes.paperCursos}>
                         <Typography gutterBottom variant="h5" component="h2" >
-                            <AddIcon fontSize="large"></AddIcon>
+                            <AddIcon className={classes.paperCursosIcon} fontSize="large"></AddIcon>
                         </Typography>
                     </CardContent>
                 </CardActionArea>

@@ -22,6 +22,7 @@ import AccessibilityIcon from '@material-ui/icons/Accessibility';
 import foco from '../assets/foco.png';
 import DoneIcon from '@material-ui/icons/Done';
 import money from '../assets/money.png';
+import timeClock from '../assets/narau-25.png';
 import viaje from '../assets/viaje.png';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import ComputerIcon from '@material-ui/icons/Computer';
@@ -139,9 +140,17 @@ export default function StepFourCreateCourse(props) {
 
     const { typeService, countRefresh } = props;
 
+    const editServicdeType = props.currentDataService;
+    const { currentDataService } = props;
+
+    const costEdit = currentDataService ? currentDataService.cost : "";
+    const costDEdit = currentDataService ? currentDataService.costD : "";
+    const timeEstimatedEdit = currentDataService ? currentDataService.timeEstimated : "";
+
     const [to, setTo] = React.useState("")
-    const [cost, setCost] = React.useState("")
-    const [costD, setCostD] = React.useState("")
+    const [cost, setCost] = React.useState(costEdit)
+    const [costD, setCostD] = React.useState(costDEdit)
+    const [timeEstimated, setTimeEstimated] = React.useState(timeEstimatedEdit)
     // const [topic, setTopic] = React.useState("")
 
     // const next = () => {
@@ -169,6 +178,9 @@ export default function StepFourCreateCourse(props) {
     const valueTypingCostDes = (value) => {
         setCostD(value.currentTarget.value)
     }
+    const valueTimeEstimated = (value) => {
+        setTimeEstimated(value.currentTarget.value)
+    }
 
     const next = () => {
         // console.log(modeService)
@@ -178,6 +190,9 @@ export default function StepFourCreateCourse(props) {
         },
         {
             costD: costD
+        },
+        {
+            timeEstimated: timeEstimated
         }
         ]
         props.handleNextStep(model)
@@ -202,6 +217,50 @@ export default function StepFourCreateCourse(props) {
                     <Paper className={classes.paper} elevation={0}>
                         <Grid container spacing={2}>
                             <Grid item>
+                                <img src={timeClock} width={120} />
+                            </Grid>
+                            <Grid item xs={12} sm container>
+                                <Grid item xs container direction="column" spacing={2}>
+                                    <Grid item xs>
+                                        <Typography gutterBottom variant="subtitle1">
+                                            Tiempo de tu {typeService}
+                                        </Typography>
+                                        <Typography variant="body2" color="textSecondary">
+                                            Estima todas las actividades
+                                        </Typography>
+                                    </Grid>
+                                </Grid>
+                                <Grid item>
+                                    {/* <Grid item xs> */}
+                                    <TextField
+                                        required
+                                        id="timeEstimated"
+                                        name="timeEstimated"
+                                        variant="filled"
+                                        defaultValue={editServicdeType ? props.currentDataService.timeEstimated : ""}
+
+                                        placeholder="ej: 1:30"
+                                        fullWidth
+                                        classes={{
+                                            root: "textFieldOverrideCost",
+                                        }}
+                                        onChange={valueTimeEstimated}
+                                        InputProps={{
+                                            startAdornment: <InputAdornment position="start">T</InputAdornment>,
+                                            endAdornment: <InputAdornment position="end">Hrs.</InputAdornment>
+                                        }}
+                                    />
+                                    {/* </Grid> */}
+
+                                </Grid>
+
+                            </Grid>
+
+                        </Grid>
+                    </Paper>
+                    <Paper className={classes.paper} elevation={0}>
+                        <Grid container spacing={2}>
+                            <Grid item>
                                 <img src={money} />
                             </Grid>
                             <Grid item xs={12} sm container>
@@ -214,31 +273,23 @@ export default function StepFourCreateCourse(props) {
                                             Monetiza tus conocimientos.
                                         </Typography>
                                     </Grid>
-                                    {/* <Grid item>
-                                        <Typography variant="body2" style={{ cursor: 'pointer' }}>
-                                            Remove
-                                        </Typography>
-                                    </Grid> */}
                                 </Grid>
                                 <Grid item>
                                     <TextField
                                         required
                                         id="cost"
                                         name="cost"
+                                        defaultValue={editServicdeType ? props.currentDataService.cost : ""}
                                         variant="filled"
                                         fullWidth
                                         classes={{
                                             root: "textFieldOverrideCost",
-
-
                                         }}
                                         onChange={valueTypingCost}
                                         InputProps={{
                                             startAdornment: <InputAdornment position="start">$</InputAdornment>,
                                             endAdornment: <InputAdornment position="end">mxn</InputAdornment>
                                         }}
-                                    // startAdornment={<InputAdornment position="start">$</InputAdornment>}
-                                    // onChange={valueTypingBenefits}
                                     />
                                 </Grid>
 
@@ -261,17 +312,14 @@ export default function StepFourCreateCourse(props) {
                                             Para distancias mayores a 10km. de tu domicilio
                                         </Typography>
                                     </Grid>
-                                    {/* <Grid item>
-                                        <Typography variant="body2" style={{ cursor: 'pointer' }}>
-                                            Remove
-                                        </Typography>
-                                    </Grid> */}
                                 </Grid>
                                 <Grid item>
                                     <TextField
                                         required
                                         id="costD"
                                         name="costD"
+                                        defaultValue={editServicdeType ? props.currentDataService.costD : ""}
+
                                         variant="filled"
                                         fullWidth
                                         classes={{
@@ -284,8 +332,6 @@ export default function StepFourCreateCourse(props) {
                                             startAdornment: <InputAdornment position="start">$</InputAdornment>,
                                             endAdornment: <InputAdornment position="end">mxn</InputAdornment>
                                         }}
-                                    // startAdornment={<InputAdornment position="start">$</InputAdornment>}
-                                    // onChange={valueTypingBenefits}
                                     />
                                 </Grid>
 
@@ -297,7 +343,7 @@ export default function StepFourCreateCourse(props) {
                                 <Button onClick={props.back} variant="contained"
 
                                 >Regresar</Button>
-                                {cost !== "" && costD !== "" &&
+                                {cost !== "" && costD !== "" && timeEstimated !== "" &&
                                     <Button onClick={next} variant="contained"
 
                                     >Continuar</Button>

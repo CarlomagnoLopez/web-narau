@@ -6,22 +6,24 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Slide from '@material-ui/core/Slide';
-
+import "../css/stylesGlobalOverRide.css"
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
 export default function AlertDialogSlide(props) {
-  // const [open, setOpen] = React.useState(TextareaAutosize);
+  const [open, setOpen] = React.useState();
 
   // const handleClickOpen = () => {
   //   setOpen(true);
   // };
 
-  // const handleClose = () => {
+  const handleClose = () => {
 
-  //   setOpen(false);
-  // };
+    props.handleCloseOpenConf();
+
+    // setOpen(false);
+  };
 
   return (
     <div>
@@ -29,19 +31,23 @@ export default function AlertDialogSlide(props) {
         open={props.show}
         TransitionComponent={Transition}
         keepMounted
-        onClose={props.handleClose}
+        classes={{root:"dialogConf"}}
+        onClose={handleClose}
         aria-labelledby="alert-dialog-slide-title"
         aria-describedby="alert-dialog-slide-description"
       >
-        <DialogTitle id="alert-dialog-slide-title">{"Narau Mx"}</DialogTitle>
+        <DialogTitle id="alert-dialog-slide-title">{props.desc}</DialogTitle>
         <DialogContent>
-          <DialogContentText id="alert-dialog-slide-description">{props.desc}
+          <DialogContentText id="alert-dialog-slide-description">{props.title}
+
 
           </DialogContentText>
         </DialogContent>
-        <DialogActions>
-          <Button onClick={props.handleClose} color="primary">
-            Agree
+        <DialogActions classes={{ root: "rootActions" }} >
+          <Button onClick={handleClose} color="primary" classes={{
+            root: "submitbtn"
+          }}>
+            Aceptar
           </Button>
         </DialogActions>
       </Dialog>
