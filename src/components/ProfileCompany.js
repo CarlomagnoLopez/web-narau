@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from "react-redux";
 import { updateAttr } from "../redux/actions";
+// import Avatar from '@material-ui/core/Avatar';
 
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
@@ -28,6 +29,7 @@ import { deepOrange, deepPurple } from '@material-ui/core/colors';
 // import { DatePicker } from "@material-ui/pickers";
 import BookIcon from '@material-ui/icons/Book';
 import CardSideContent from "../controls/CardSideContent"
+import SearchServices from "../controls/SearchServices"
 import CardSideContentInvoices from "../controls/CardSideContentInvoices"
 import CardCourses from "../controls/CardCourses"
 import CardAddCourses from "../controls/CardAddCourses"
@@ -44,6 +46,7 @@ import {
     useHistory
 } from "react-router-dom";
 
+import logo_login from '../assets/logos-narau-04.png';
 
 import ProfileHeaderCompany from './ProfileHeaderCompany';
 import InvoicesForm from './InvoicesForm';
@@ -67,7 +70,9 @@ function Copyright() {
     );
 }
 
+// const drawerWidth = 240;
 const drawerWidth = 240;
+const sizeTopBar = 95;
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -84,11 +89,13 @@ const useStyles = makeStyles((theme) => ({
         ...theme.mixins.toolbar,
     },
     appBar: {
+
+        backgroundColor: "#000",
         zIndex: theme.zIndex.drawer + 1,
         transition: theme.transitions.create(['width', 'margin'], {
             easing: theme.transitions.easing.sharp,
             duration: theme.transitions.duration.leavingScreen,
-        }),
+        })
     },
     appBarShift: {
         marginLeft: drawerWidth,
@@ -128,7 +135,8 @@ const useStyles = makeStyles((theme) => ({
         },
     },
     appBarSpacer: {
-        height: "64px"
+        height: "64px",
+        backgroundColor: "#000"
     },
     content: {
         flexGrow: 1,
@@ -178,6 +186,12 @@ const useStyles = makeStyles((theme) => ({
     divider: {
         margin: theme.spacing(2, 0),
         backgroundColor: "transparent"
+    },
+    logo: {
+        margin: "1rem",
+    },
+    logoTopBar: {
+        width: `${sizeTopBar}px`,
     },
 }));
 
@@ -234,7 +248,6 @@ export default function ProfileCompany(props) {
     console.log(props.serviceData);
 
 
-    // const dataCourse = props.serviceData.map((item) => { return item["custom-attr"]})
     const dataCourse = [];
 
     props.serviceData.map((item) => {
@@ -291,11 +304,20 @@ export default function ProfileCompany(props) {
     const showInfoCourse = (data, dataId) => {
         // if(data)
         // if(data){
-        setDataService(data)
-        setDataServiceId(dataId)
+
+        props.getByUser(dataId)
+        // if (props.byUser) {
+        setTimeout(() => {
+            setDataService(data)
+            setDataServiceId(dataId)
+
+            // }
+            setOpenDetailCourse(true)
+            console.log("show")
+        }, 1500);
+
         // }
-        setOpenDetailCourse(true)
-        console.log("show")
+
     }
     const closeFormCourse = (data) => {
         console.log(data)
@@ -334,7 +356,10 @@ export default function ProfileCompany(props) {
     }
 
     const handleCloseDetail = () => {
-        setOpenDetailCourse(false)
+        setTimeout(() => {
+            setOpenDetailCourse(false)
+
+        }, 300);
     }
 
     const openDrawer = () => {
@@ -409,13 +434,31 @@ export default function ProfileCompany(props) {
 
 
     }
+
+    const onTypeFilter = (value) => {
+        console.log(value)
+    }
+    const getFiltering = () => {
+
+        let arrFilter = []
+         props.serviceData.map((item) => {
+            if (item.verified) {
+                arrFilter.push(item["custom-attr"])
+            }
+
+        })
+        return arrFilter
+    }
     return (
         <div className={classes.root}>
             <CssBaseline />
             <AppBar position="absolute" className={clsx(classes.appBar, open && classes.appBarShift)}>
                 <Toolbar className={classes.toolbar}>
+                    <div className={classes.logo}>
+                        <img src={logo_login} className={classes.logoTopBar} />
+                    </div>
                     <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
-                        Narau
+                        {/* Narau */}
                     </Typography>
                     <Tooltip title={currentAccount.empresa} aria-label={currentAccount.empresa}>
                         <Avatar className={classes.orange}>{currentAccount.empresa.substring(0, 1)}</Avatar>
@@ -449,24 +492,29 @@ export default function ProfileCompany(props) {
             </AppBar>
             <main className={classes.content}>
                 <div className={classes.appBarSpacer} />
-                <Container maxWidth="xl" className={classes.container} >
-                    <Grid container spacing={3}>
-                        <Grid item xs={12}>
-                            <Paper className={classes.paper} elevation={0}>
-                                <ProfileHeaderCompany currentAccount={currentAccount}></ProfileHeaderCompany>
-                            </Paper>
-                        </Grid>
+                {/* <Container maxWidth="xl" className={classes.container} > */}
+                <Grid container spacing={3}>
+                    <Grid item xs={12}>
+                        <Paper className={classes.paper} elevation={0}>
+                            {/* <ProfileHeaderCompany currentAccount={currentAccount}></ProfileHeaderCompany> */}
+                            <ProfileHeaderCompany saveImageProfile={props.saveImageProfile} currentAccount={currentAccount} >
+
+                            </ProfileHeaderCompany>
+
+                        </Paper>
                     </Grid>
+                </Grid>
 
-                    <Container maxWidth="lg" className={classes.container}>
+                <Container maxWidth="lg" className={classes.container}>
 
-                        {!openInvoices && !openLaunchCourse &&
-                            <Grid container spacing={3}>
+                    {!openInvoices && !openLaunchCourse &&
+                        <Paper spacing={3} elevation={0}>
+                            <Grid container spacing={3} className={classes.rootRigthBar}>
                                 <Grid item xs={12} md={4} lg={3} container
                                     direction="column"
                                     justify="flex-start"
                                     alignItems="center">
-                                    <Paper spacing={3} elevation={2}>
+                                    <Paper spacing={3} elevation={6} classes={{ root: "rounded" }}>
                                         <CardSideContent
                                             text={aboutMe}
                                             referenceRequest={"aboutMe"}
@@ -506,13 +554,17 @@ export default function ProfileCompany(props) {
                                     justify="center"
                                     alignItems="flex-start">
                                     <Grid container item xs={12} spacing={3}>
+                                        <SearchServices dataFilter={dataCourse} onTypeFilter={onTypeFilter}></SearchServices>
+                                    </Grid>
+                                    <Grid container item xs={12} spacing={3}>
                                         {dataCourse.map((infoCourse, index) => (
-                                            <CardCoursesCompany
+                                            // <CardCoursesCompany
+                                            <CardCourses
                                                 key={index}
                                                 openForm={() => { showInfoCourse(infoCourse, dataCourseId[index]) }}
-                                                // dataCourseId={dataCourseId[dataCourseId]}
                                                 infoCourse={infoCourse}>
-                                            </CardCoursesCompany>
+                                            </CardCourses>
+                                            // </CardCoursesCompany>
 
                                             // </div>
 
@@ -533,49 +585,69 @@ export default function ProfileCompany(props) {
                                 </Grid>
                             </Grid>
 
-                        }
-                        {openInvoices &&
-                            <Container maxWidth="lg" className={classes.container}>
-                                <Grid container spacing={3}>
-                                    {/* <div>invoices</div> */}
-                                    <InvoicesForm
-                                        closeFormInvoices={closeFormInvoices}
-                                        invoiceData={props.invoiceData}
-                                    ></InvoicesForm>
-                                </Grid>
+                        </Paper>
 
-                            </Container>
-                        }
-                        {openDetailCourse &&
-                            <DetailCourse
-                                show={openDetailCourse}
-                                dataService={dataService}
-                                dataServiceId={dataServiceId}
-                                handleCloseDetail={handleCloseDetail}
-                                addToWishList={addToWishList}
-                            ></DetailCourse>
-                        }
+                    }
+                    {openInvoices &&
+                        <Container maxWidth="lg" className={classes.container}>
+                            <Grid container spacing={3}>
+                                {/* <div>invoices</div> */}
+                                <InvoicesForm
+                                    closeFormInvoices={closeFormInvoices}
+                                    invoiceData={props.invoiceData}
+                                ></InvoicesForm>
+                            </Grid>
 
-                        {openWhishList &&
-                            <WishList
-                                deleteToWishList={deleteToWishList}
-                                addToCart={addToCart}
-                                closeDrawer={closeDrawer}
-                                whishList={whishList}
-                            // proceed={proceed}
-                            ></WishList>
-                        }
-                        {openShoppingCart &&
-                            <ShoppingCart
-                                deleteToCart={deleteToCart}
-                                closeDrawer={closeDrawerCart}
-                                shoppingCart={shoppingCart}
-                            // proceed={proceed}
-                            ></ShoppingCart>
-                        }
+                        </Container>
+                    }
+                    {openDetailCourse &&
+                        // <DetailCourse
+                        //     show={openDetailCourse}
+                        //     dataService={dataService}
+                        //     dataServiceId={dataServiceId}
+                        //     handleCloseDetail={handleCloseDetail}
+                        //     addToWishList={addToWishList}
+                        // ></DetailCourse>
+                        <Container maxWidth="lg" className={classes.container}>
+                            <Grid container spacing={3}>
+                                <LaunchCourse
+                                    addToWishList={addToWishList}
+                                    // closeFormCourse={closeFormCourse}
+                                    // closeForm={closeForm}
+                                    byUser={props.byUser}
+                                    closeForm={handleCloseDetail}
+                                    currentDataService={dataService}
+                                    currentDataSortKey={dataServiceId}
+                                // addTopic={props.addTopic}
+                                // deleteTopic={props.deleteTopic}
+                                // topicData={props.topicData}
+                                ></LaunchCourse>
+                            </Grid>
+
+                        </Container>
+
+                    }
+
+                    {openWhishList &&
+                        <WishList
+                            deleteToWishList={deleteToWishList}
+                            addToCart={addToCart}
+                            closeDrawer={closeDrawer}
+                            whishList={whishList}
+                        // proceed={proceed}
+                        ></WishList>
+                    }
+                    {openShoppingCart &&
+                        <ShoppingCart
+                            deleteToCart={deleteToCart}
+                            closeDrawer={closeDrawerCart}
+                            shoppingCart={shoppingCart}
+                        // proceed={proceed}
+                        ></ShoppingCart>
+                    }
 
 
-                        {/* {openLaunchCourse &&
+                    {/* {openLaunchCourse &&
                        
                         
                             <Container maxWidth="lg" className={classes.container}>
@@ -592,12 +664,12 @@ export default function ProfileCompany(props) {
 
 
 
-                    </Container>
-
-                    <Box pt={4}>
-                        <Copyright />
-                    </Box>
                 </Container>
+
+                <Box pt={4}>
+                    <Copyright />
+                </Box>
+                {/* </Container> */}
             </main>
         </div >
     );

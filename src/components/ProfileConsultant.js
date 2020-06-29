@@ -26,13 +26,15 @@ import Tooltip from '@material-ui/core/Tooltip';
 import Avatar from '@material-ui/core/Avatar';
 import { deepOrange, deepPurple } from '@material-ui/core/colors';
 // import { DatePicker } from "@material-ui/pickers";
-
+import EditIcon from '@material-ui/icons/Edit';
+import SaveIcon from '@material-ui/icons/Save';
+import CancelIcon from '@material-ui/icons/Cancel';
 import CardSideContent from "../controls/CardSideContent"
 import CardSideContentInvoices from "../controls/CardSideContentInvoices"
 import CardCourses from "../controls/CardCourses"
 import CardAddCourses from "../controls/CardAddCourses"
 import StaticCalendar from "../controls/StaticCalendar"
-
+import logo_login from '../assets/logos-narau-04.png';
 import {
     BrowserRouter as Router,
     Switch,
@@ -65,8 +67,15 @@ function Copyright() {
 }
 
 const drawerWidth = 240;
+const sizeTopBar = 95;
 
 const useStyles = makeStyles((theme) => ({
+    disabledCalendar: {
+        pointerEvents: "none"
+    },
+    btnEdit: {
+        left: "78%"
+    },
     root: {
         display: 'flex',
     },
@@ -81,13 +90,18 @@ const useStyles = makeStyles((theme) => ({
         ...theme.mixins.toolbar,
     },
     appBar: {
+        backgroundColor: "#000",
         zIndex: theme.zIndex.drawer + 1,
         transition: theme.transitions.create(['width', 'margin'], {
             easing: theme.transitions.easing.sharp,
             duration: theme.transitions.duration.leavingScreen,
         }),
     },
+    logoTopBar: {
+        width: `${sizeTopBar}px`,
+    },
     appBarShift: {
+        backgroundColor: "#000",
         marginLeft: drawerWidth,
         width: `calc(100% - ${drawerWidth}px)`,
         transition: theme.transitions.create(['width', 'margin'], {
@@ -125,7 +139,8 @@ const useStyles = makeStyles((theme) => ({
         },
     },
     appBarSpacer: {
-        height: "64px"
+        height: "64px",
+        backgroundColor: "#000"
     },
     content: {
         flexGrow: 1,
@@ -171,11 +186,52 @@ const useStyles = makeStyles((theme) => ({
     orange: {
         color: theme.palette.getContrastText(deepOrange[500]),
         backgroundColor: deepOrange[500],
+        border: "solid 2px"
     },
     divider: {
         margin: theme.spacing(2, 0),
         backgroundColor: "transparent"
     },
+    logo: {
+        margin: "1rem",
+    },
+    rigthBar: {
+        borderRadius: "1rem !important",
+        // rounded:{
+        //     borderRadius: "1rem !important",
+        // }
+    },
+    stadistics: {
+        width: "100%",
+        padding: "10px",
+        margin: "14px",
+        borderRadius: "1rem"
+    },
+    calendarContainer: {
+        width: "100%",
+        // padding: "10px",
+        // margin: "14px",
+        // borderRadius: "1rem"
+    },
+    numbers: {
+        fontWeight: "bolder"
+    },
+    numbersDown: {
+        color: "rgba(0, 0, 0, 0.54)"
+    },
+    rootRigthBar: {
+        borderRadius: "1rem"
+    },
+    titleCurses: {
+        margin: theme.spacing(2),
+        fontWeight: "bolder"
+    },
+    numbersCont: {
+        paddingLeft: "40px",
+        height: "175px",
+        maxHeight: "175px",
+        paddingTop: "40px",
+    }
 }));
 
 
@@ -188,6 +244,12 @@ export default function ProfileConsultant(props) {
     const [openCreateCourse, setOpenCreateCourse] = React.useState(false);
     const [dataService, setDataService] = React.useState();
     const [dataSortKey, setDataSortKey] = React.useState();
+    const [servicesVerified, setServicesVerified] = React.useState(0);
+    const [servicesUnverified, setServicesUnverified] = React.useState(0);
+    const [disableCal, setDisableCal] = React.useState("disabledCalendar");
+    const [dateDis, setDateDis] = React.useState([])
+    const [flCont, setFlCont] = React.useState(0)
+    const [lastDates, setLastDates] = React.useState(props.dateDisposition)
 
     const { currentAccount } = props;
 
@@ -299,6 +361,11 @@ export default function ProfileConsultant(props) {
 
     }
 
+    const closeCreateCourseEdit = () => {
+        setOpenLaunchCourse(false)
+
+    }
+
 
     // const updateAttribute = (data) => {
     //     aboutMe = data;
@@ -323,15 +390,104 @@ export default function ProfileConsultant(props) {
 
     }
 
+
+    const getServiceunVerified = () => {
+
+        // let serviceVerified = 0;
+        let serviceUnverified = 0;
+
+        props.serviceData.map((item) => {
+            if (!item.verified) {
+                serviceUnverified = serviceUnverified + 1;
+            }
+            // else {
+            //     serviceUnverified = serviceUnverified + 1;
+            // }
+        })
+
+        // if (serviceVerified <= 9) {
+        //     serviceVerified = "0" + serviceVerified;
+        // }
+        if (serviceUnverified <= 9) {
+            serviceUnverified = "0" + serviceUnverified;
+        }
+
+        return serviceUnverified
+
+        // setServicesVerified(serviceVerified)
+        // setServicesUnverified(serviceUnverified)
+    }
+    const enableCalendar = () => {
+        setDisableCal("enableCal")
+    }
+    const disbleCalendar = () => {
+        setDisableCal("disabledCalendar")
+        props.saveDispositions(dateDis)
+    }
+
+    const disbleCalendarCancel = () => {
+        setDisableCal("disabledCalendar")
+        setLastDates(props.dateDisposition)
+        let cont = flCont + 1;
+        setFlCont(cont)
+        // props.saveDispositions(props.dateDisposition)
+    }
+
+
+
+    const getServiceVerified = () => {
+
+        let serviceVerified = 0;
+        // let serviceUnverified = 0;
+
+        props.serviceData.map((item) => {
+            if (item.verified) {
+                serviceVerified = serviceVerified + 1;
+            }
+            // else {
+            //     serviceUnverified = serviceUnverified + 1;
+            // }
+        })
+
+        if (serviceVerified <= 9) {
+            serviceVerified = "0" + serviceVerified;
+        }
+        // if (serviceUnverified <= 9) {
+        //     serviceUnverified = "0" + serviceUnverified;
+        // }
+
+        return serviceVerified
+
+        // setServicesVerified(serviceVerified)
+        // setServicesUnverified(serviceUnverified)
+    }
+
+
+    const saveDispositions = (dates) => {
+        // dateDis.push(dates)
+        setDateDis(dates)
+        // console.log(dateDis)
+        // props.saveDispositions(dateDis)
+
+    }
+
+
+    // getStadistics()
+
     return (
         <div className={classes.root}>
             <CssBaseline />
             <AppBar position="absolute" className={clsx(classes.appBar, open && classes.appBarShift)}>
                 <Toolbar className={classes.toolbar}>
+                    <div className={classes.logo}>
+                        <img src={logo_login} className={classes.logoTopBar} />
+                    </div>
                     <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
-                        Narau
+                        {/* Narau */}
                     </Typography>
-                    <Avatar className={classes.orange}>{currentAccount.firstName.substring(0, 1) + currentAccount.lastName.substring(0, 1)}</Avatar>
+                    <Tooltip title={currentAccount.firstName} aria-label={currentAccount.firstName}>
+                        <Avatar className={classes.orange}>{currentAccount.firstName.substring(0, 1).toUpperCase()}</Avatar>
+                    </Tooltip>
                     {/* <Tooltip title="LogOut" aria-label="LogOut">
                         <IconButton color="inherit">
                             <Badge badgeContent={4} color="secondary">
@@ -352,24 +508,26 @@ export default function ProfileConsultant(props) {
             </AppBar>
             <main className={classes.content}>
                 <div className={classes.appBarSpacer} />
-                <Container maxWidth="xl" className={classes.container} >
-                    <Grid container spacing={3}>
-                        <Grid item xs={12}>
-                            <Paper className={classes.paper} elevation={0}>
-                                <ProfileHeader currentAccount={currentAccount}></ProfileHeader>
-                            </Paper>
-                        </Grid>
+                <Grid container spacing={3}>
+                    <Grid item xs={12}>
+                        <Paper className={classes.paper} elevation={0}>
+                            <ProfileHeader saveImageProfile={props.saveImageProfile} currentAccount={currentAccount} invoiceData={props.invoiceData} ></ProfileHeader>
+                        </Paper>
                     </Grid>
+                </Grid>
 
-                    <Container maxWidth="lg" className={classes.container}>
+                {/* <Container maxWidth="xl" className={classes.container} > */}
 
-                        {!openInvoices && !openLaunchCourse &&
-                            <Grid container spacing={3}>
+                <Container maxWidth="lg" className={classes.container}>
+
+                    {!openInvoices && !openLaunchCourse &&
+                        <Paper spacing={3} elevation={0}>
+                            <Grid container spacing={3} className={classes.rootRigthBar}>
                                 <Grid item xs={12} md={4} lg={3} container
                                     direction="column"
                                     justify="flex-start"
                                     alignItems="center">
-                                    <Paper spacing={3} elevation={2}>
+                                    <Paper spacing={3} elevation={6} classes={{ root: "rounded" }}>
                                         <CardSideContent
                                             text={aboutMe}
                                             referenceRequest={"aboutMe"}
@@ -410,6 +568,14 @@ export default function ProfileConsultant(props) {
                                         ></CardSideContentInvoices>
                                     </Paper>
                                 </Grid>
+                                {/* <Grid
+                                item xs={12} md={8} lg={9} spacing={3}
+                                container
+                                direction="row"
+                                justify="center"
+                                alignItems="flex-start">
+                             
+                            </Grid> */}
 
                                 <Grid
                                     item xs={12} md={8} lg={9} spacing={3}
@@ -417,25 +583,82 @@ export default function ProfileConsultant(props) {
                                     direction="row"
                                     justify="center"
                                     alignItems="flex-start">
+
                                     <Grid container item xs={12} spacing={3}>
+                                        <Paper className={classes.stadistics} elevation={6}>
+                                            <Grid
+                                                container
+                                                direction="row"
+                                                justify="space-around"
+                                                alignItems="stretch"
+                                            >
+                                                {/* <Grid item xs={1} >
+                                                </Grid> */}
+                                                <Grid item xs={3} className={classes.numbersCont}>
+                                                    <Typography variant="h2" color="inherit" className={classes.numbers}>
+                                                        {getServiceVerified()}
+                                                    </Typography>
+                                                    <Typography variant="subtitile1" color="inherit" className={classes.numbersDown}>
+                                                        Servicios activos
+                                                    </Typography>
+                                                </Grid>
+                                                <Grid item xs={3} className={classes.numbersCont}>
+
+                                                    <Typography variant="h2" color="inherit" className={classes.numbers}>
+                                                        {getServiceunVerified()}
+                                                    </Typography>
+                                                    <Typography variant="subtitile1" color="inherit" className={classes.numbersDown}>
+                                                        Servicios inactivos
+                                                    </Typography>
+                                                </Grid>
+                                                <Grid item xs={3} className={classes.numbersCont}>
+                                                    <Typography variant="h2" color="inherit" className={classes.numbers}>
+                                                        00
+                                                    </Typography>
+                                                    <Typography variant="subtitile1" color="inherit" className={classes.numbersDown}>
+                                                        Servicios
+                                                        impartidos
+                                                    </Typography>
+                                                </Grid>
+                                                <Grid item xs={3} className={classes.numbersCont}>
+                                                    <Typography variant="h2" color="inherit" className={classes.numbers}>
+                                                        00
+                                                    </Typography>
+                                                    <Typography variant="subtitile1" color="inherit" className={classes.numbersDown}>
+                                                        Valoraciones
+                                                    </Typography>
+                                                </Grid>
+                                                {/* <Grid item xs={1} > */}
+                                                {/* </Grid> */}
+                                            </Grid>
+
+                                        </Paper>
+                                    </Grid>
+
+                                    <Grid container item xs={12} spacing={3}>
+                                        <Typography variant="h5" color="inherit" className={classes.titleCurses}>
+                                            Mis cursos
+                                        </Typography>
+                                    </Grid>
+
+                                    <Grid container item xs={12} spacing={3}>
+                                        <CardAddCourses openForm={createCourse}
+                                        >
+                                        </CardAddCourses>
                                         {dataCourse.map((infoCourse, index) => (
                                             <CardCourses
                                                 // courseId={dataCourseId[index]}
                                                 key={index}
                                                 openForm={() => { showFormCourse(infoCourse, dataCourseId[index]) }}
+                                                // openForm={createCourse}
                                                 infoCourse={infoCourse}>
                                             </CardCourses>
 
                                             // </div>
-
-
                                         ))}
-                                        <CardAddCourses openForm={createCourse}
-                                        >
-                                        </CardAddCourses>
 
-                                        <Container maxWidth="lg" className={classes.container} >
-                                            {/* <Paper className={fixedHeightPaper} > */}
+
+                                        {/* <Container maxWidth="lg" className={classes.container} >
                                             <Grid item xs={12} container
                                                 direction="row"
                                                 justify="center"
@@ -444,61 +667,163 @@ export default function ProfileConsultant(props) {
                                                 <StaticCalendar></StaticCalendar>
                                             </Grid>
 
+
+                                        </Container> */}
+
+                                    </Grid>
+
+                                    <Grid container item xs={12} spacing={0}>
+                                        <Grid item xs={6}>
+                                            {/* <Paper className={classes.paper}> */}
+                                            <Typography variant="h5" color="inherit" className={classes.titleCurses}>
+                                                Disponibilidad
+                                                </Typography>
                                             {/* </Paper> */}
+                                        </Grid>
+                                        <Grid item xs={6}>
+                                            {/* <IconButton onClick={handleTypeCardClose}>
+                                                <CancelIcon></CancelIcon>
+                                            </IconButton>
+                                            < IconButton className={classes.btnEdit}onClick={disbleCalendar}>
+                                                <SaveIcon></SaveIcon>
+                                            </IconButton> */}
 
-                                        </Container>
 
+                                            {/* <IconButton className={classes.btnEdit} onClick={enableCalendar}>
+                                                    Editar
+                                                </IconButton> */}
+
+                                            {disableCal === "disabledCalendar" ?
+                                                (
+                                                    <IconButton className={classes.btnEdit} onClick={enableCalendar}>
+                                                        <EditIcon />
+
+                                                    </IconButton>
+                                                ) : (
+                                                    <div className={classes.btnEdit}>
+                                                        <IconButton className={classes.btnEdit} onClick={disbleCalendarCancel}>
+                                                            <CancelIcon></CancelIcon>
+                                                        </IconButton>
+                                                        < IconButton className={classes.btnEdit} onClick={disbleCalendar}>
+                                                            <SaveIcon></SaveIcon>
+                                                        </IconButton>
+                                                    </div>
+
+                                                )
+                                            }
+                                        </Grid>
+
+                                    </Grid>
+
+                                    <Grid container item xs={12} spacing={3}>
+                                        <Paper className={classes.calendarContainer} elevation={0}>
+                                            <Grid
+                                                container
+                                                direction="row"
+                                                justify="space-around"
+                                                alignItems="stretch"
+                                            >
+                                                {/* <Grid item xs={1} >
+                                                </Grid> */}
+                                                <Grid item xs={12} >
+                                                    <Grid item xs={12} container
+                                                        direction="row"
+                                                        justify="center"
+                                                        alignItems="flex-start">
+
+                                                        <StaticCalendar
+                                                            classesEnherance={disableCal}
+                                                            saveDispositions={saveDispositions}
+                                                            // dateDisposition={props.dateDisposition}
+                                                            dateDisposition={lastDates}
+                                                            flCont={flCont}
+                                                        ></StaticCalendar>
+                                                    </Grid>
+                                                </Grid>
+                                                {/* <Grid item xs={3}>
+
+
+                                                </Grid>
+                                                <Grid item xs={3} >
+
+                                                </Grid>
+                                                <Grid item xs={3} >
+
+                                                </Grid> */}
+                                                {/* <Grid item xs={1} > */}
+                                                {/* </Grid> */}
+                                            </Grid>
+
+                                        </Paper>
                                     </Grid>
                                 </Grid>
                             </Grid>
 
-                        }
-                        {openInvoices &&
-                            <Container maxWidth="lg" className={classes.container}>
-                                <Grid container spacing={3}>
-                                    {/* <div>invoices</div> */}
-                                    <InvoicesForm
-                                        closeFormInvoices={closeFormInvoices}
-                                        closeInvoices={closeInvoices}
-                                        invoiceData={props.invoiceData}
-                                    ></InvoicesForm>
-                                </Grid>
+                        </Paper>
 
-                            </Container>
-                        }
+                    }
+                    {openInvoices &&
+                        <Container maxWidth="lg" className={classes.container}>
+                            <Grid container spacing={3}>
+                                {/* <div>invoices</div> */}
+                                <InvoicesForm
+                                    closeFormInvoices={closeFormInvoices}
+                                    closeInvoices={closeInvoices}
+                                    invoiceData={props.invoiceData}
+                                ></InvoicesForm>
+                            </Grid>
 
-                        {openLaunchCourse &&
-                            <Container maxWidth="lg" className={classes.container}>
-                                <Grid container spacing={3}>
-                                    {/* <div>invoices</div> */}
-                                    <LaunchCourse
-                                        
-                                        closeFormCourse={closeFormCourse}
-                                        closeForm={closeForm}
-                                        currentDataService={dataService}
-                                        currentDataSortKey={dataSortKey}
-                                        addTopic={props.addTopic}
-                                        deleteTopic={props.deleteTopic}
-                                        topicData={props.topicData}
-                                    ></LaunchCourse>
-                                </Grid>
+                        </Container>
+                    }
 
-                            </Container>
-                        }
+                    {openLaunchCourse &&
+                        <Container maxWidth="lg" className={classes.container}>
+                            <Grid container spacing={3}>
 
-                        {openCreateCourse &&
-                            <Container maxWidth="lg" className={classes.container}>
-                                <Grid container spacing={3}>
-                                    {/* <div>invoices</div> */}
-                                    <CreateCourse
-                                        closeCreateCourse={closeCreateCourse}
-                                        closeFormCourse={closeFormCourse}
-                                        images={props.images}
-                                        closeForm={closeForm}
-                                    >
+                                <CreateCourse
+                                    closeCreateCourse={closeCreateCourseEdit}
+                                    closeFormCourse={closeFormCourse}
+                                    images={props.images}
+                                    closeForm={closeForm}
+                                    currentDataService={dataService}
+                                    currentDataSortKey={dataSortKey}
 
-                                    </CreateCourse>
-                                    {/* <LaunchCourse
+                                // closeCreateCourse={closeCreateCourse}
+                                // closeFormCourse={closeFormCourse}
+                                // images={props.images}
+                                // closeForm={closeForm}
+                                >
+
+                                </CreateCourse>
+                                {/* <div>invoices</div> */}
+                                {/* <LaunchCourse
+
+                                    closeFormCourse={closeFormCourse}
+                                    closeForm={closeForm}
+                                    currentDataService={dataService}
+                                    currentDataSortKey={dataSortKey}
+                                    addTopic={props.addTopic}
+                                    deleteTopic={props.deleteTopic}
+                                    topicData={props.topicData}
+                                ></LaunchCourse> */}
+                            </Grid>
+
+                        </Container>
+                    }
+
+                    {openCreateCourse &&
+                        <Container maxWidth="lg" className={classes.container}>
+                            <Grid container spacing={3}>
+                                {/* <div>invoices</div> */}
+                                <CreateCourse
+                                    closeCreateCourse={closeCreateCourse}
+                                    closeFormCourse={closeFormCourse}
+                                    images={props.images}
+                                    closeForm={closeForm}
+                                >
+
+                                </CreateCourse>
+                                {/* <LaunchCourse
                                         closeFormCourse={closeFormCourse}
                                         closeForm={closeForm}
                                         currentDataService={dataService}
@@ -509,21 +834,21 @@ export default function ProfileConsultant(props) {
                                     ></LaunchCourse> */}
 
 
-                                </Grid>
+                            </Grid>
 
-                            </Container>
-                        }
-
-
+                        </Container>
+                    }
 
 
 
-                    </Container>
 
-                    <Box pt={4}>
-                        <Copyright />
-                    </Box>
+
                 </Container>
+
+                <Box pt={4}>
+                    <Copyright />
+                </Box>
+                {/* </Container> */}
             </main>
         </div >
     );

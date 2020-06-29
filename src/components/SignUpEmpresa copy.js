@@ -72,9 +72,12 @@ export default function SignUpEmpresa(props) {
         </Avatar>
         <Typography component="h1" variant="h5">
           Sign up Empresa
+
+
+
         </Typography>
         <form className={classes.form} noValidate onSubmit={handleSubmit(onSubmit)}>
-          <Grid container spacing={2}>
+          <Grid container>
             <Grid item xs={12} sm={6}>
               <TextField
                 autoComplete="fname"

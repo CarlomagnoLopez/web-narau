@@ -15,12 +15,18 @@ import clsx from 'clsx';
 
 const useStyles = makeStyles((theme) => ({
     root: {
-        padding: theme.spacing(0),
-        textAlign: 'center',
-        color: theme.palette.text.secondary,
-        maxHeight: "179px"
+        // padding: theme.spacing(0),
+        // textAlign: 'center',
+        // color: theme.palette.text.secondary,
+        maxHeight: "175px",
+        height: "175px",
+        borderRadius: "1rem"
         // backgroundImage: "url(../assets/imgex.jpg)",
 
+    },
+    rootCm: {
+        maxHeight: "175px",
+        height: "175px",
     },
     titleCourse: {
         position: "absolute",
@@ -28,20 +34,28 @@ const useStyles = makeStyles((theme) => ({
 
         // backgroundColor: infoCourse.colorback,
         top: "0%",
-        // padding: "0px",
+        padding: "0px",
         width: "100%",
         height: "100%",
+        
         textAlign: "start",
-        paddingTop: "6rem"
+        maxHeight: "175px",
+        // height: "175px",
+        padding: theme.spacing(2)
     },
     colorCourse: {
-        backgroundColor: "#ff572270",
+        backgroundColor: "#7175d8ba",
     },
     colorTaller: {
-        backgroundColor: "#ffc522c4",
+        backgroundColor: "#fc5000ba",
     },
     colorSeminario: {
-        backgroundColor: "#fc22ffc4",
+        backgroundColor: "#ff931eba",
+    },
+    alignBot: {
+        bottom: "1rem",
+        position: "absolute"
+
     }
 }));
 
@@ -63,9 +77,9 @@ export default function CardCourses(props) {
 
         <Grid item xs={4} >
             {/* <Paper className={classes.paperCursos}>{infoCourse.name}</Paper> */}
-            <Card className={classes.root} raised>
-                <CardActionArea onClick={props.openForm}>
-                    <CardMedia
+            <Card raised className={classes.root}>
+                <CardActionArea onClick={props.openForm} >
+                    <CardMedia 
                         // children = {<div>hola</div>}
                         component="img"
                         // alt="Contemplative Reptile"
@@ -76,21 +90,21 @@ export default function CardCourses(props) {
                     />
                     {serviceType === "seminario" &&
                         <CardContent className={classCuros}>
-                            <Typography gutterBottom variant="h5" component="h2" >
+                            <Typography gutterBottom variant="h5" component="h2" classes={{ root: classes.alignBot }}>
                                 {infoCourse.nameService}
                             </Typography>
                         </CardContent>
                     }
                     {serviceType === "taller" &&
                         <CardContent className={classTaller}>
-                            <Typography gutterBottom variant="h5" component="h2" >
+                            <Typography gutterBottom variant="h5" component="h2" classes={{ root: classes.alignBot }}>
                                 {infoCourse.nameService}
                             </Typography>
                         </CardContent>
                     }
                     {serviceType === "asesoria" &&
                         <CardContent className={classSeminario}>
-                            <Typography gutterBottom variant="h5" component="h2" >
+                            <Typography gutterBottom variant="h5" component="h2" classes={{ root: classes.alignBot }}>
                                 {infoCourse.nameService}
                             </Typography>
                         </CardContent>

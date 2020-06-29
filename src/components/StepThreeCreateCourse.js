@@ -121,9 +121,16 @@ export default function StepThreeCreateCourse(props) {
 
     const { typeService, countRefresh } = props;
 
-    const [to, setTo] = React.useState("")
-    const [benefits, setBenefits] = React.useState("")
-    const [topicData, setTopicData] = React.useState([])
+    const editServicdeType = props.currentDataService;
+    const { currentDataService } = props;
+
+    const  toEdit  = currentDataService ? currentDataService.to : "";
+    const  benefitsEdit  = currentDataService ? currentDataService.benefits : "";
+    const  topicsEdit  = currentDataService ? currentDataService.topics : [];
+
+    const [to, setTo] = React.useState(toEdit)
+    const [benefits, setBenefits] = React.useState(benefitsEdit)
+    const [topicData, setTopicData] = React.useState(topicsEdit)
     const [topic, setTopic] = React.useState("")
 
     // const next = () => {
@@ -215,6 +222,7 @@ export default function StepThreeCreateCourse(props) {
                                 // defaultValue={props.nameService}
                                 id="to"
                                 name="to"
+                                defaultValue={editServicdeType ? props.currentDataService.to : ""}
                                 // label="Nombre del Servicio"
                                 variant="filled"
                                 // value={to}
@@ -257,6 +265,8 @@ export default function StepThreeCreateCourse(props) {
                                 // defaultValue={props.nameService}
                                 id="benefits"
                                 name="benefits"
+                                defaultValue={editServicdeType ? props.currentDataService.benefits : ""}
+
                                 // label="Nombre del Servicio"
                                 variant="filled"
                                 fullWidth

@@ -67,10 +67,14 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 export default function StepOneCreateCourse(props) {
     const classes = useStyles();
     const [open, setOpen] = React.useState(true);
-    const [opneDesc, setOpenDesc] = React.useState();
+    const editServicdeType = props.currentDataService;
+    const [opneDesc, setOpenDesc] = React.useState(editServicdeType);
     const [openDesc1, setOpenDesc1] = React.useState(false);
     const [openDesc2, setOpenDesc2] = React.useState(false);
     const [openDesc3, setOpenDesc3] = React.useState(false);
+
+
+
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -86,7 +90,6 @@ export default function StepOneCreateCourse(props) {
 
 
         setOpenDesc1(true)
-        // setOpenDesc("asesoria")
 
         var planet1 = document.getElementById("planet_1");
         planet1.classList.add("animatePlanet_paused_1")
@@ -112,7 +115,6 @@ export default function StepOneCreateCourse(props) {
     }
     const stopPlanet_2 = (e) => {
         setOpenDesc2(true)
-        // setOpenDesc("taller")
 
 
         console.log("2222222")
@@ -142,7 +144,6 @@ export default function StepOneCreateCourse(props) {
 
     const stopPlanet_3 = (e) => {
         setOpenDesc3(true)
-        // setOpenDesc("seminario")
 
         console.log("333333")
 
@@ -193,7 +194,7 @@ export default function StepOneCreateCourse(props) {
 
 
     const next = () => {
-        props.handleNextStep({serviceType:opneDesc})
+        props.handleNextStep({ serviceType: opneDesc })
     }
     return (
         <div>
@@ -204,6 +205,12 @@ export default function StepOneCreateCourse(props) {
 
                 </div>
             </Typography>
+            {opneDesc &&
+                <Typography variant="subtitle1" className={classes.title}>
+                    Has seleccionado {opneDesc}
+                </Typography>
+            }
+
             <div className="sun_orbit">
             </div>
 

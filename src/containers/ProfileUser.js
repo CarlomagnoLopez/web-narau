@@ -34,6 +34,7 @@ class ProfileUser extends React.Component {
             serviceAll: [],
             userAll: [],
             companyAll: [],
+            byUser: [],
             topicData: [
                 // {
                 //     tema: "Tema 1"
@@ -75,12 +76,19 @@ class ProfileUser extends React.Component {
                 this.setState({
                     partitionKey: data.body.data["custom-types"],
                     invoiceData: data.body.invoice ? data.body.invoice["custom-attr"] : "",
-                    serviceData: data.body.service ? data.body.service : ""
+                    serviceData: data.body.service ? data.body.service : "",
+                    dateDisposition: data.body.data["custom-dates"] ? data.body.data["custom-dates"] : []
+                    // dateDisposition: data.body.data["custom-dates"] ? data.body.data["custom-dates"] : []
+                    // serviceData: data.body.service ? data.body.service : ""
                 })
 
                 localStorage.setItem("partitionKey", this.state.partitionKey);
 
                 this.updateMainDataAttr(data.body.data["custom-attr"]);
+                // if (data.body.data["custom-attr"].imgProfile) {
+                //     document.getElementsByClassName("uploadPicture")[0].src = data.body.data["custom-attr"].imgProfile;
+                // }
+
 
 
             })
@@ -91,6 +99,8 @@ class ProfileUser extends React.Component {
         let jsonModel = JSON.stringify(data);
 
         localStorage.setItem("contentUser", jsonModel);
+
+        localStorage.setItem("contentUserAvatarImg", JSON.parse(localStorage.getItem("contentUser")).imgProfile);
 
         this.setState({
             currentAccountTemp: JSON.parse(localStorage.getItem("contentUser")),
@@ -348,6 +358,48 @@ class ProfileUser extends React.Component {
         })
 
     }
+    getByUser = (data) => {
+        let payload = {
+            mail: data.split("|")[1].trim()
+        }
+
+        console.log(payload)
+        this.setState({
+            byUser: [],
+            loadingUpdate: true
+        }, (state, props) => {
+            fetch('https://ob5nizjire.execute-api.us-east-1.amazonaws.com/default/byuser', {
+                method: 'POST',
+                body: JSON.stringify(payload),
+                // body: JSON.stringify(payload),
+                headers: {
+                    'Content-Type': 'application/json',
+                    'x-api-key': 'wD4FjaAoiG4bldvQ0oB6Q6fyIDqZCsfkaXCun0u6'
+                }
+            })
+                .then(res => res.json())
+                .then((data) => {
+                    // this.props.singUp(data.body);
+
+                    // this.updateMainDataAttr(data.body.dataUpdated["custom-attr"]);
+                    // this.startLoading();
+                    // const imageProfileDynamo = JSON.parse(localStorage.getItem("contentUser")).imgProfile;
+                    localStorage.setItem("contentUserCurrentAvatar", JSON.stringify(data.body["custom-attr"].imgProfile));
+                    this.setState({
+                        byUser: data.body
+                    }, (props, state) => {
+                        this.setState({
+                            loadingUpdate: false
+                        })
+                    })
+
+
+                    console.log(data)
+                })
+                .catch(console.log)
+        })
+
+    }
 
     getUser = (data) => {
         let payload = data;
@@ -447,7 +499,70 @@ class ProfileUser extends React.Component {
             topicData: data
         })
     }
+    saveDispositions = (data) => {
+        console.log("saving dispositiosn....")
+        console.log(data)
+        let payload = {
+            pk: localStorage.getItem("partitionKey"),
+            attr: data
+        };
+        this.setState({
+            loadingUpdate: true
+        }, (state, props) => {
+            fetch('https://ob5nizjire.execute-api.us-east-1.amazonaws.com/default/savedisposition', {
+                method: 'PUT',
+                body: JSON.stringify(payload),
+                headers: {
+                    'Content-Type': 'application/json',
+                    'x-api-key': 'wD4FjaAoiG4bldvQ0oB6Q6fyIDqZCsfkaXCun0u6'
+                }
+            })
+                .then(res => res.json())
+                .then((data) => {
+                    // this.props.singUp(data.body);
+                    this.startLoading();
+                    // this.updateMainDataAttr(data.body.dataUpdated["custom-attr"]);
+                    this.setState({
+                        loadingUpdate: false
+                    })
 
+                    // console.log(data)
+                })
+                .catch(console.log)
+        })
+    }
+    saveImageProfile = (data) => {
+        // console.log("saving dispositiosn....")
+        console.log(data)
+        let payload = {
+            pk: localStorage.getItem("partitionKey"),
+            attr: data
+        };
+        this.setState({
+            loadingUpdate: true
+        }, (state, props) => {
+            fetch('https://ob5nizjire.execute-api.us-east-1.amazonaws.com/default/saveimageprofile', {
+                method: 'PUT',
+                body: JSON.stringify(payload),
+                headers: {
+                    'Content-Type': 'application/json',
+                    'x-api-key': 'wD4FjaAoiG4bldvQ0oB6Q6fyIDqZCsfkaXCun0u6'
+                }
+            })
+                .then(res => res.json())
+                .then((data) => {
+                    // this.props.singUp(data.body);
+                    this.startLoading();
+                    // this.updateMainDataAttr(data.body.dataUpdated["custom-attr"]);
+                    this.setState({
+                        loadingUpdate: false
+                    })
+
+                    // console.log(data)
+                })
+                .catch(console.log)
+        })
+    }
     render() {
         // let { user } = useParams();
 
@@ -497,6 +612,7 @@ class ProfileUser extends React.Component {
                         }
 
                         <ProfileConsultant
+                            saveDispositions={this.saveDispositions}
                             currentAccount={this.state.currentAccountTemp}
                             refreshBasicData={this.refreshBasicData}
                             refreshInvoiceData={this.refreshInvoiceData}
@@ -508,6 +624,8 @@ class ProfileUser extends React.Component {
                             topicData={this.state.topicData}
                             refreshDataTopics={this.refreshDataTopics}
                             images={this.state.images}
+                            dateDisposition={this.state.dateDisposition}
+                            saveImageProfile={this.saveImageProfile}
                         ></ProfileConsultant>
                     </div>
 
@@ -520,6 +638,8 @@ class ProfileUser extends React.Component {
                         }
 
                         <ProfileCompany
+                            byUser={this.state.byUser}
+                            getByUser={this.getByUser}
                             currentAccount={this.state.currentAccountTemp}
                             refreshBasicData={this.refreshBasicData}
                             refreshInvoiceData={this.refreshInvoiceData}
@@ -527,7 +647,7 @@ class ProfileUser extends React.Component {
                             invoiceData={this.state.invoiceData}
                             serviceData={this.state.serviceData}
                             saveWishList={this.saveWishList}
-
+                            saveImageProfile={this.saveImageProfile}
                         ></ProfileCompany>
                     </div>
 

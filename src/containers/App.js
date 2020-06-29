@@ -7,17 +7,20 @@ import {
 import BussyLoader from '../controls/BussyLoader';
 import AlertDialogSlide from '../controls/AlertDialogSlide';
 import AlertForgotPassword from '../controls/AlertForgotPassword';
+import AlertSendPassword from '../controls/AlertSendPassword';
 import { singIn, singUp, recoveryPsw } from "../redux/actions";
 import SignIn from "../components/SingIn";
 import SignUpIntructor from "../components/SignUpIntructor";
 import SignUpEmpresa from "../components/SignUpEmpresa";;
 
-
+localStorage.setItem("contentUserAvatarImg","");
+localStorage.setItem("contentUserCurrentAvatar","")
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      openConf: true,
       openAlertDialogSlide: true,
       // input: "" 
       signupintructor: false,
@@ -29,9 +32,9 @@ class App extends React.Component {
     };
   }
 
-  componentDidMount(){
-    localStorage.setItem("active","false");
-    localStorage.setItem("contentUser","");
+  componentDidMount() {
+    localStorage.setItem("active", "false");
+    localStorage.setItem("contentUser", "");
   }
 
   signInRequest = (data) => {
@@ -151,6 +154,12 @@ class App extends React.Component {
     })
   }
 
+  handleCloseSendPassword = () => {
+    this.setState({
+      successSendPassword: false
+    })
+  }
+
   showForgotPassword = () => {
     this.setState({
       forgotPassword: true
@@ -186,6 +195,14 @@ class App extends React.Component {
 
   // }
 
+  handleCloseOpenConf = () => {
+    this.setState({
+      openConf: false
+    })
+
+    window.location.href = "/";
+  }
+
   render() {
     // console.log("props")
     // console.log(this.props)
@@ -219,21 +236,24 @@ class App extends React.Component {
 
         <div>
           {forgotPassword &&
+
             <AlertForgotPassword
+              open={forgotPassword}
               handleClose={this.handleCloseForgotPassword}
               sendToEmail={this.sendToEmail}
               loading={this.state.loadingRecoveryPassword}
 
-            // showLoader={this.state.showLoader}
             ></AlertForgotPassword>
           }
         </div>
 
         <div>
-          {(created || desc === "duplicity") &&
+          {(created || desc === "duplicity") && this.state.openConf &&
             <AlertDialogSlide
-              desc={desc === "duplicity" ? "The email is already exist" : "We are verifing your information, We will send an email verification"}
-              show={true}
+              desc={desc === "duplicity" ? "Error" : "¡Ya casi estás dentro!"}
+              title={desc === "duplicity" ? "El correo ya existe" : "Estamos verificando tu informacion y hemos enviado un correo electrónico de confirmación. "}
+              show={this.state.openConf}
+              handleCloseOpenConf={this.handleCloseOpenConf}
             // resetDialog={this.resetDialog}
             // showLoader={this.state.showLoader}
             ></AlertDialogSlide>
@@ -243,9 +263,9 @@ class App extends React.Component {
         <div>
           {(desc === "noexist") &&
             <AlertDialogSlide
-              desc="You don't have access."
+              desc="No tiene acceso."
               show={this.state.openAlertDialogSlide}
-              handleClose={() => {
+              handleCloseOpenConf={() => {
                 this.setState({
                   openAlertDialogSlide: false
                 })
@@ -258,12 +278,14 @@ class App extends React.Component {
 
         <div>
           {(successSendPassword) &&
-            <AlertDialogSlide
-              desc={recovery ? "We send an email with your password." : "We don't have that email"}
-              show={true}
+            <AlertSendPassword
+              // desc={recovery ? "We send an email with your password." : "We don't have that email"}
+              // show={true}
+              open={true}
+              handleClose={this.handleCloseSendPassword}
             // resetDialog={this.resetDialog}
             // showLoader={this.state.showLoader}
-            ></AlertDialogSlide>
+            ></AlertSendPassword>
           }
         </div>
 

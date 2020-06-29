@@ -14,7 +14,7 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import { useForm } from "react-hook-form";
-import logo_login from '../assets/logo_login.png';
+import logo_login from '../assets/logos-narau-04.png';
 import back_log from '../assets/back-log.png';
 import {
   BrowserView,
@@ -71,13 +71,13 @@ const useStyles = makeStyles((theme) => ({
   paper: {
     // margin: theme.spacing(8, 4),
     // marginTop:"30%",
-    display: 'flex',
+    // display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
   },
   paperLogDesktop: {
     // margin: theme.spacing(8, 4),
-    marginTop: "30%",
+    marginTop: "20%",
     marginLeft: "20%"
   },
   paperdevice: {
@@ -90,14 +90,21 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.secondary.main,
   },
   form: {
-    width: '100%', // Fix IE 11 issue.
+    width: '85%', // Fix IE 11 issue.
     marginTop: theme.spacing(1),
   },
   submit: {
     margin: theme.spacing(3, 0, 2),
-    backgroundColor:"#fc5000",
-    color:"#fff"
+    backgroundColor: "#fc5000",
+    color: "#fff"
   },
+  logo: {
+    marginBottom: "2rem",
+  },
+  linkCreate:{
+    marginBottom:"2rem",
+    fontSize:"20px"
+  }
   // rootTextField:{
 
   // }
@@ -110,8 +117,8 @@ export default function SignIn(props) {
 
   // const { registerForgot, handleSubmitForgot, watchForgot, errorsForgot } = useForm();
 
-  const fixedHeightPaper = isMobile ? clsx(classes.paper, classes.paperdevice, ) : clsx(classes.paper, classes.paperLogDesktop);
-  const fixedHeightPaperGrid = isMobile ? clsx(classes.loginSquare, classes.imageDevice, ) : clsx(classes.loginSquare);
+  const fixedHeightPaper = isMobile ? clsx(classes.paper, classes.paperdevice,) : clsx(classes.paper, classes.paperLogDesktop);
+  const fixedHeightPaperGrid = isMobile ? clsx(classes.loginSquare, classes.imageDevice,) : clsx(classes.loginSquare);
 
   const onSubmit = data => {
     // console.log("data Valjues");
@@ -134,7 +141,7 @@ export default function SignIn(props) {
           {/* <LockOutlinedIcon />
              */}
           <div className={classes.logo}>
-            <img src={logo_login} style={{ width: "44%" }} />
+            <img src={logo_login} />
 
           </div>
           {/* </Avatar> */}
@@ -147,7 +154,7 @@ export default function SignIn(props) {
                 Forgot password?
                 </Link>
             </Grid> */}
-            <Grid item>
+            <Grid item className={classes.linkCreate}>
               {"¿Eres un nuevo usuario?"}
               <Link href="#" variant="subtitle1" classes={{ root: "link" }} onClick={props.startSignUp}>
                 Crear una cuenta
@@ -197,7 +204,7 @@ export default function SignIn(props) {
               variant="contained"
               // color="primary"
               classes={{
-                root:"submitbtn"
+                root: "submitbtn"
               }}
               className={classes.submit}
             >

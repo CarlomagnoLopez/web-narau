@@ -14,7 +14,7 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import { useForm } from "react-hook-form";
-import logo_login from '../assets/logo_login.png';
+import logo_login from '../assets/logos-narau-04.png';
 import back_log from '../assets/back-log.png';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import SwitchControl from '../controls/SwitchControl';
@@ -80,7 +80,7 @@ const useStyles = makeStyles((theme) => ({
   paper: {
     // margin: theme.spacing(8, 4),
     // marginTop:"30%",
-    display: 'flex',
+    // display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
   },
@@ -100,7 +100,7 @@ const useStyles = makeStyles((theme) => ({
   },
   form: {
     width: '100%', // Fix IE 11 issue.
-    marginTop: theme.spacing(1),
+    marginTop: theme.spacing(3),
   },
   submit: {
     margin: theme.spacing(3, 0, 2),
@@ -152,7 +152,7 @@ export default function SignIn(props) {
           {/* <LockOutlinedIcon />
              */}
           <div className={classes.logo}>
-            <img src={logo_login} style={{ width: "44%" }} />
+            <img src={logo_login}  />
 
           </div>
           {/* </Avatar> */}
@@ -173,7 +173,7 @@ export default function SignIn(props) {
             </Grid>
           </Grid>
           <form className={classes.form} noValidate onSubmit={handleSubmit(onSubmit)}>
-            <Grid container spacing={2}>
+            <Grid container spacing={1}>
               <Grid item xs={12} sm={6}>
                 <TextField
                   autoComplete="fname"

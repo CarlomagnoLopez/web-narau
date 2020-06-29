@@ -1,13 +1,65 @@
+
+.rootSearchTextField{
+    margin-top: 27px !important;
+}
+
+.rootSearchTextField .MuiInputBase-root{
+    border-radius: .5rem;
+    background-color:rgb(255, 255, 255);
+    color: #696969;
+    /* font-weight: bold; */
+
+
+}
+.rootSearchTextField .MuiOutlinedInput-input{
+    padding: 9.5px 14px;
+}
+.rootSearchTextField .MuiOutlinedInput-root{   
+
+    border-color:  rgb(201, 201, 201) !important;
+}
+.rootSearchTextField:hover {
+    border-color:  rgb(201, 201, 201) !important;
+}
+
+.rootSearchTextField .MuiFormLabel-root {
+    color: rgb(201, 201, 201)
+
+}
+
+.rootSearchTextField .MuiFormLabel-root.Mui-focused {
+    color: rgb(201, 201, 201);
+
+}
+.rootSearchTextField  .MuiInputLabel-outlined.MuiInputLabel-shrink{
+    transform: translate(0px, -1.5rem) scale(0.75);
+}
+.rootSearchTextField  .MuiInputLabel-outlined{
+    transform: translate(0px, -1.5rem) scale(0.75);
+}
+
+
+.rootSearchTextField .MuiOutlinedInput-notchedOutline{
+    border-color:#fc5000 !important;
+}
+
+
+/*  style for sign in-up forms */
+
 .rootTextField{
-    
+    margin-top: 27px !important;
 }
 
 .rootTextField .MuiInputBase-root{
-    border-radius: 1rem;
+    border-radius: .5rem;
     background-color:rgb(248, 207, 153);
-    color: #fff;
-    font-weight: bold;
+    color: #696969;
+    /* font-weight: bold; */
 
+
+}
+.rootTextField .MuiOutlinedInput-input{
+    padding: 9.5px 14px;
 }
 .rootTextField .MuiOutlinedInput-root{
     border-color: rgb(255, 255, 255)  !important;
@@ -16,15 +68,111 @@
     border-color: rgb(255, 255, 255)  !important;
 }
 
+.rootTextField .MuiFormLabel-root {
+    color: rgba(255, 255, 255, 1);
+
+}
+
+.rootTextField .MuiFormLabel-root.Mui-focused {
+    color: rgba(255, 255, 255, 1);
+
+}
+.rootTextField  .MuiInputLabel-outlined.MuiInputLabel-shrink{
+    transform: translate(0px, -1.5rem) scale(0.75);
+}
+.rootTextField  .MuiInputLabel-outlined{
+    transform: translate(0px, -1.5rem) scale(0.75);
+}
+
+
+.rootTextField .MuiOutlinedInput-notchedOutline{
+    border-color:#fc500000 !important;
+}
+
+/*  style for sign in-up forms */
+
+
+.dialogOrange{
+    background-color:  #ff931e !important;
+    /* color: #fff; */
+}
+
+.dialogOrange{
+    background-color: #ff931e !important;
+    /* color: #fff; */
+}
+
+
+.dialogOrange .MuiPaper-root {
+    background-color: #ff931e !important;
+    /* color: #fff; */
+}
+.dialogOrange .MuiContainer-root{
+    margin-top: 6rem;
+}
+
+/*  style for dialog psw forms */
+
+.rootActions {
+    justify-content: center !important;
+}
+
+.dialogBlack{
+    background-color: #000 !important;
+    /* color: #fff; */
+}
+.dialogBlack .MuiContainer-root{
+    margin-top: 6rem;
+}
+
+.dialogBlack .MuiPaper-root {
+    background-color: #000 !important;
+    /* color: #fff; */
+}
+
+
+.dialogBlack .MuiTypography-root{
+    color: #fff;
+}
+
+/*  style for dialog psw forms */
+
+/*  style for forgot psw forms */
+
+.rootTextFieldGray{
+    color: #000;
+    /* width: 80%;
+    left: 10%; */
+}
+.rootTextFieldGray input{
+        text-align: center;
+}
+
+.rootTextFieldGray .MuiInputBase-root{
+    background-color:rgb(232, 232, 232);
+    color: #000 !important;
+
+}
+
+/* .rootTextFieldGray   */
+
+.MuiOutlinedInput-roor .Mui-focused .MuiOutlinedInput-notchedOutline{
+    border-color: chartreuse !important;
+    border-width: 10px !important;
+}
+/*  style for forgot psw forms */
+
+
 .link{
     color: #fff !important;
-    font-size: 16px !important;
+    font-size: 24px !important;
     margin-left: 7px !important;
 }
 
 .link:hover{
-    text-decoration: none !important;
-    font-weight: bolder !important;
+    /* text-decoration: none !important; */
+    font-size: 24px !important;
+    /* font-weight: bolder !important; */
 }
 
 .linkForgo{
@@ -35,18 +183,10 @@
 }
 
 .linkForgo:hover{
-    text-decoration: underline !important;
-    font-weight: bolder !important;
+    /* text-decoration: underline !important; */
+    /* font-weight: bolder !important; */
 }
 
-/* .link .MuiLink-underlineHover:hover{
-    text-decoration: none !important;
-    font-weight: bolder !important;
-} */
-
-/* .rootTextField .Mui-focused .Mui-focused{
-    border-color: rgb(255, 255, 255);
-} */
 .primarySwitch .MuiTypography-root{
     /* background-color: antiquewhite; */
     color:#fff;
@@ -61,59 +201,174 @@
     /* background-color:#fc5000; */
 }
 
-.rootSelectField{
-    background-color: #f8cf99 !important;
-    border-radius: 1rem !important;
-    color: #fff !important;
-}
 
+/*  style for submit btn sign in-up forms */
 .submitbtn{
     
     background-color: #fc5000 !important;
     color: #fff !important;
 }
 
-.rootTextField .MuiFormLabel-root {
-    color: rgba(255, 255, 255, 0.54);
-
-}
-
-.rootTextField .MuiFormLabel-root.Mui-focused {
-    color: rgba(255, 255, 255, 1);
-
-}
-
-.rootTextField  .MuiInputLabel-outlined.MuiInputLabel-shrink{
-    transform: translate(14px, -15px) scale(0.75);
-}
-.rootTextField .Mui-focused{
-    /* color: blueviolet;
-    border-radius: 4rem !important; */
+.submitbtnRounded{
     
+    background-color: #fc5000 !important;
+    color: #fff !important;
+    border-radius: 1rem !important;
+    padding: 6px 26px !important;
+
+}
+/*  style for submit btn sign in-up forms */
+
+/*  style for select  sign in-up forms */
+.rootSelectField{
+    background-color: #f8cf99 !important;
+    border-radius: .5rem !important;
+    color: #fff !important;
+    margin-top: 27px !important;
 }
 
-.rootTextField .MuiOutlinedInput-notchedOutline{
-    border-color:#fc5000 !important;
-}
+
+
 
 .rootSelectField .MuiOutlinedInput-notchedOutline{
     border-color:#fc5000 !important;
 }
 
 .rootSelectField  .MuiInputLabel-outlined.MuiInputLabel-shrink {
-    transform: translate(14px, -15px) scale(0.75);
+    transform: translate(0px, -1.5rem) scale(0.75);
+}
+.rootSelectField  .MuiInputLabel-outlined {
+    transform: translate(0px, -1.5rem) scale(0.75);
 }
 
 
+
 .rootSelectField .MuiFormLabel-root{
-    color: rgba(255, 255, 255, 0.54) !important;
+    color: rgba(255, 255, 255, 1) !important;
 }
 
 .rootSelectField .MuiFormLabel-root.Mui-focused {
     color: rgba(255, 255, 255, 1);
 
 }
-
+.rootSelectField .MuiOutlinedInput-input{
+    padding: 9.5px 14px;
+}
 .rootSelectField .MuiSvgIcon-root{
-    color: rgba(255, 255, 255, 0.54) !important;
+    color: rgba(255, 255, 255,1) !important;
+}
+
+.rootSelectField .MuiOutlinedInput-notchedOutline{
+    border-color:#fc500000 !important;
+}
+/*  style for select  sign in-up forms */
+
+
+
+.dialogConf{
+    text-align: center;
+}
+.dialogConf p{
+    margin-left: 1rem;
+    margin-right: 1rem;
+}
+
+.rootAvatar{
+
+}
+
+
+.rootAvatar p{
+    position: absolute;
+    /* z-index: 1000; */
+    background-color: #fc5000;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    padding-top: 18px;
+    font-size: 1.2em;
+}
+.imageUpload{
+    background-size: contain;
+}
+
+.imageUpload .fileContainer{
+    background-color: rgba(255,255,255,0);
+    padding: 26px 30px;
+  
+} 
+.imageUpload .fileContainer .chooseFileButton{
+    background-color: rgba(255,255,255,0);
+    color: rgba(255,255,255,0);
+    padding: 200% 200%;
+}
+
+.imageUpload .fileContainer .chooseFileButton:hover{
+    background-color: rgba(255,255,255,0.3);
+    color: rgba(255,255,255,0.8);
+    padding: 200% 200%;
+}
+
+.imageUpload  .uploadPicturesWrapper{
+    position: absolute;
+    width: 106% !important;
+
+}
+
+.imageUpload  .uploadPictureContainer{
+    width: 100% !important;
+    height: 100% !important;
+    padding: 0 !important;
+    background: rgba(255,255,255,0) !important;
+    margin: 0 !important;
+}
+
+.imageUpload .deleteImage{
+    display: none;
+}
+
+.imageUpload .chooseFileButton{
+    z-index: 1;
+}
+
+.imageAvatarProfile{
+}
+
+.imgPresential{
+    width: 34px;
+    height: 22px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFkAAABECAYAAADqQ5nqAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA19JREFUeNrsnDty2zAQhikmRTrpBmaZTrxBlBOYOoGoE4TuUtplOuYG1Aks3wC6gdylpDuXYpcmoyw8qxlGEQEQb3l2ZzAamwT48cfiRS4xOR6PCZlbS0kC9/bRVkF/lpMMfipIC0hz/HcHiUHafng8NrGK4Jp9YtpdAOAMfu4hfZOc+gKpAOB9ZALXrtmNREaBWa/2VWwJsNsIxNVhX+t4tWmf3IyEfMuDzTO01RrsNbDn3kSGi/H+61Yj6xQrJ6QXc/aVJnvt05Mrg7xfAntz6ZPdRORbwxstAopc+MyfajY3G144CzjgTQ2L8eLJMQxcupb7LkNX5PZaFYYpGLNQDHMuMoC2uCIysZAV9WKY/+Br4DNdUIRckDCf7CYi3xvk3UBrOAQU2ZS99SIyXuhBs6lWAQU2Ye902FNDWO4Rm5GQRWAvNmFf6LCnFmD56ulOYSB84lO/mJ7CIfvSNbvSUzicwC9wfjgbGF0/QfqMc+jZ2SxiLxiReb5f/BwXFWCBnbO9Ctj5MSZiF4qMgLXmw5QxffRNv7+28Sg0JvZUAJljTa48tmAO/AjXbgwFjoo9FUAyC2t8XVvpCh0j+5AnNwEh+7A6T8uiY08veAIfcedJHFaP9OIo2VPLqyHr/dxIb65iZE8v9Gc3SVxWKHpxFpEX/8N+7slZEp9lls/zafklkfNYQRVsESH73Mqy2oNNkys3ioUjkUlkMhKZRCaRyUhkEpmMRCaRSWSydy1y995EDhET8VtynCmWwwKwywJddv+JjK+zRRGPTw5AW8nxRqUQDIl9lt2wZXuVHK+HuotiQGh+A6Ujb1gPHPs5MgajFLAXjlqhlP1icAsGhnDgUzRNe/p+DY7Z/hj7B5T9HV8f9StxqxNRhOxc0CwW9tEfSzoAfcDgP+cWip2mcDSFI5HJAovMp0tfr1QT6+zkydRdkMhkJDKJTCKTkcgkMhmJTCKTyGQkMolMIpPFKLLK/j1tor5PD/N4v88K5xxGsO9didyonIMvEmU31Vna3UrVtiPYZSEEnaqDjBYZXxyKxNv0hCuT4Qigt51QfDZbZN9J2E8VUUnYS9VdXHS3LOPf1t2dic0DX5a4G8rpPO4R/NxNr5vp8O88xC4ucE1esesz9t0AeyZgV44H+SvAAJyaXeI47XBEAAAAAElFTkSuQmCC')
+}
+
+.imgLine{
+    width: 34px;
+    height: 22px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-image:url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFkAAABECAYAAADqQ5nqAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAZtJREFUeNrs3MFNwzAUgOFn4MahHYGeOSScOMIIZYNILMAGwAYZoUyAEPcKNoAJKBuEQ4/UPCs5IFSESYgT7P+XokptVUufLLeWGhtrrWzr/cxM9eFKr0KvidBPvTqr3Vv78PUFsw25AXZvzrD7dUcK/fT5iZ1v3lgC3LrSdyZbrNqnM9n4zGT6w0AGGWQCGWSQCeR/117XDzCzXMzxPFogu67E3pcDI5+XYg5PokV2W7eNw+4AzXLhA70/ZU3mi49ABhlkAhlkkAlkkAlkkEEmkEEGmUAGmUAGGWQCGWQCGWSQCWSQk67zvzrtchG30LqSTce/znKzZA9xsyRrMsgEMsggE8ggU3vkG2ha9+iFrDuWQh+upT4hivy702vuta0eMt3SH0h9TNplX9vc0I0KWYFzqY9Km/Qww9yZbVXSyM1ZdCvp76C/Z71Oh4Ae06+LhfR7kmLWjJHmTG7W4ZdAw810Nq9SnMkXAccKfjjHWJCLSMcaB7IuFYWEPdU2a5anpGay+7Z/CzieGytP9ndyrIEMMsjk2YcAAwAAzm4fCv3AAwAAAABJRU5ErkJggg==')
+ 
+}
+
+.textPre{
+    font-size: 12px;
+    color: gray;
+}
+
+.contentText{
+    margin-left: 17px;
+}
+.buttonCustom{
+    background-color: #66b32e !important;
+    color: #fff !important;
+    width: 100% !important;
+    border-radius: .5rem !important;
+}
+
+.buttonCustom:hover{
+    background-color: #66b32e !important;
+    color: #fff;
+    width: 100%;
+    border-radius: .5rem;
 }
