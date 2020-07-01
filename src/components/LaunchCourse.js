@@ -236,7 +236,9 @@ const useStyles = makeStyles((theme) => ({
       borderRadius: ".6rem"
     },
   },
-  avatarHeader: {
+      avatarHeader: {
+backgroundRepeat: "no-repeat", backgroundSize: "cover !important",
+
     // backgroundImage: `url(${imageProfileDynamo})`,
     backgroundImage: `url(${localStorage.getItem("contentUserCurrentAvatar")})`,
     backgroundSize: "contain",

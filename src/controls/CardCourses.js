@@ -44,17 +44,18 @@ const useStyles = makeStyles((theme) => ({
         padding: theme.spacing(2)
     },
     colorCourse: {
-        backgroundColor: "#7175d8ba",
+        backgroundColor: "rgba(113, 117, 216, .8)",
     },
     colorTaller: {
-        backgroundColor: "#fc5000ba",
+        backgroundColor: "rgba(252, 80, 0, .8)",
     },
     colorSeminario: {
-        backgroundColor: "#ff931eba",
+        backgroundColor: "rgba(255, 147, 30, .8)",
     },
-    alignBot: {
+    cardService: {
         bottom: "1rem",
-        position: "absolute"
+        position: "absolute",
+        fontWeight: "bold !important"
 
     }
 }));
@@ -90,21 +91,21 @@ export default function CardCourses(props) {
                     />
                     {serviceType === "seminario" &&
                         <CardContent className={classCuros}>
-                            <Typography gutterBottom variant="h5" component="h2" classes={{ root: classes.alignBot }}>
+                            <Typography gutterBottom variant="h5" component="h2" classes={{ root: classes.cardService }}>
                                 {infoCourse.nameService}
                             </Typography>
                         </CardContent>
                     }
                     {serviceType === "taller" &&
                         <CardContent className={classTaller}>
-                            <Typography gutterBottom variant="h5" component="h2" classes={{ root: classes.alignBot }}>
+                            <Typography gutterBottom variant="h5" component="h2" classes={{ root: classes.cardService }}>
                                 {infoCourse.nameService}
                             </Typography>
                         </CardContent>
                     }
                     {serviceType === "asesoria" &&
                         <CardContent className={classSeminario}>
-                            <Typography gutterBottom variant="h5" component="h2" classes={{ root: classes.alignBot }}>
+                            <Typography gutterBottom variant="h5" component="h2" classes={{ root: classes.cardService }}>
                                 {infoCourse.nameService}
                             </Typography>
                         </CardContent>

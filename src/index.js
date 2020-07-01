@@ -8,6 +8,8 @@ import App from "./containers/App";
 import Verify from "./containers/Verify";
 import ProfileUser from "./containers/ProfileUser";
 import NoMatch from "./containers/NoMatch";
+import "./css/stylesGlobalOverRide.css"
+
 import 'typeface-roboto';
 // import { BrowserRouter as Router, Route,browserHistory } from 'react-router-dom'
 import {

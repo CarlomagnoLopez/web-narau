@@ -62,7 +62,9 @@ const useStyles = makeStyles(
             color: `${(isMobile) ? "#000" : "#fff"}`,
             fontWeight: "bolder"
         },
-        avatarHeader: {
+            avatarHeader: {
+backgroundRepeat: "no-repeat", backgroundSize: "cover !important",
+
             // backgroundImage: `url(${imageProfileDynamo})`,
             backgroundImage: `url(${localStorage.getItem("contentUserAvatarImg")})`,
             backgroundSize: "contain",
