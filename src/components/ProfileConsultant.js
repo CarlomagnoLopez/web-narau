@@ -32,6 +32,7 @@ import CancelIcon from '@material-ui/icons/Cancel';
 import CardSideContent from "../controls/CardSideContent"
 import CardSideContentInvoices from "../controls/CardSideContentInvoices"
 import CardCourses from "../controls/CardCourses"
+import CustomerValorations from "../components/CustomerValorations"
 import CardAddCourses from "../controls/CardAddCourses"
 import StaticCalendar from "../controls/StaticCalendar"
 import logo_login from '../assets/logos-narau-04.png';
@@ -250,6 +251,7 @@ export default function ProfileConsultant(props) {
     const [dateDis, setDateDis] = React.useState([])
     const [flCont, setFlCont] = React.useState(0)
     const [lastDates, setLastDates] = React.useState(props.dateDisposition)
+    const [showCustomerValorations, setShowCustomerValorations] = React.useState(false)
 
     const { currentAccount } = props;
 
@@ -471,6 +473,12 @@ export default function ProfileConsultant(props) {
 
     }
 
+    const openCustomerValorations = () => {
+        // console.log("open raiting")
+        setShowCustomerValorations(true)
+
+    }
+
 
     // getStadistics()
 
@@ -511,7 +519,7 @@ export default function ProfileConsultant(props) {
                 <Grid container spacing={3}>
                     <Grid item xs={12}>
                         <Paper className={classes.paper} elevation={0}>
-                            <ProfileHeader saveImageProfile={props.saveImageProfile} currentAccount={currentAccount} invoiceData={props.invoiceData} ></ProfileHeader>
+                            <ProfileHeader openCustomerValorations={openCustomerValorations} saveImageProfile={props.saveImageProfile} currentAccount={currentAccount} invoiceData={props.invoiceData} ></ProfileHeader>
                         </Paper>
                     </Grid>
                 </Grid>
@@ -837,6 +845,17 @@ export default function ProfileConsultant(props) {
                             </Grid>
 
                         </Container>
+                    }
+
+                    {showCustomerValorations &&
+                        <CustomerValorations
+                            valorations={props.valorations}
+                            currentAccount={currentAccount}
+                            setShowCustomerValorations={setShowCustomerValorations}
+                            getServiceVerified={getServiceVerified}
+                            getServiceunVerified={getServiceunVerified}
+                        ></CustomerValorations>
+
                     }
 
 

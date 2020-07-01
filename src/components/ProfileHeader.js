@@ -20,7 +20,8 @@ import CloseIcon from '@material-ui/icons/Close';
 import AccessTimeIcon from '@material-ui/icons/AccessTime';
 import DoneIcon from '@material-ui/icons/Done';
 import "../css/stylesGlobalOverRide.css"
-import defaultImage from '../assets/imgex.png';
+// import defaultImage from '../assets/imgex.png';
+import defaultImage from '../assets/perfil-img_08.jpg';
 import UploadImages from '../controls/ImageUpload.js';
 
 // import "../css/stylesGlobalOverRide.css"
@@ -63,8 +64,10 @@ const useStyles = makeStyles(
             fontWeight: "bolder"
         },
         avatarHeader: {
+            backgroundRepeat: "no-repeat", backgroundSize: "cover !important",
+
             // backgroundImage: `url(${imageProfileDynamo})`,
-            backgroundImage: `url(${localStorage.getItem("contentUserAvatarImg") })`,
+            backgroundImage: `url(${localStorage.getItem("contentUserAvatarImg")})`,
             backgroundSize: "contain",
             // top: "-6rem",
             color: theme.palette.getContrastText(deepOrange[500]),
@@ -251,8 +254,8 @@ export default function ProfileHeader(props) {
             <Card className={classes.root} >
                 <CardMedia
                     className={classes.media}
-                    image = "https://imgcursos.s3.amazonaws.com/img2.jpg"
-                    // image={defaultImage}
+                    // image="https://imgcursos.s3.amazonaws.com/img2.jpg"
+                image={defaultImage}
                 />
             </Card>
             <Container maxWidth="lg" className={classes.containerInfo}>
@@ -296,7 +299,8 @@ export default function ProfileHeader(props) {
                                             {`Miembro desde: ${dateCreatedRender}`}
                                         </Typography>
                                     </p>
-                                    <SimpleRating className={classes.ratingTwo} />
+                                    <SimpleRating className={classes.ratingTwo} openCustomerValorations={props.openCustomerValorations} />
+                                  
                                 </Grid>
 
                             </Grid>

@@ -39,7 +39,9 @@ const useStyles = makeStyles(
             color: "#000",
             fontWeight: "bolder"
         },
-        avatarHeader: {
+            avatarHeader: {
+backgroundRepeat: "no-repeat", backgroundSize: "cover !important",
+
             top: "-4rem",
             color: theme.palette.getContrastText(deepOrange[500]),
             backgroundColor: deepOrange[500],

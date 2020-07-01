@@ -37,13 +37,13 @@ const useStyles = makeStyles((theme) => ({
         paddingTop: "6rem"
     },
     colorCourse: {
-        backgroundColor: "#ff572270",
+        backgroundColor: "rgba(113, 117, 216, 0.8)",
     },
     colorTaller: {
-        backgroundColor: "#ffc522c4",
+        backgroundColor: "rgba(252, 80, 0, .8)",
     },
     colorSeminario: {
-        backgroundColor: "#fc22ffc4",
+        backgroundColor: "rgba(255, 147, 30, 0.8)",
     }
     , btnAddToCart: {
         position: "inherit",

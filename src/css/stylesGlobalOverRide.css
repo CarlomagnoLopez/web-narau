@@ -1,4 +1,46 @@
 
+    @font-face {
+        font-family: "works";
+        src: url("../assets/font/WorkSans-Regular.ttf");
+      }
+      
+
+body { font-family: "works" !important }
+
+body .MuiInputBase-input{
+    font-family: "works" !important ;
+}
+
+body .MuiInputLabel-root{
+    font-family: "works" !important ;
+}
+
+
+body .MuiTypography-subtitle1{
+    font-family: "works" !important ;
+}
+
+
+body .MuiButton-label{
+    font-family: "works" !important ;
+
+}
+
+body .MuiTypography-root{
+    font-family: "works" !important ;
+    /* font-weight: bold !important; */
+
+}
+
+
+body .cardService{
+    font-family: "works" !important ;
+    font-weight: bold !important;
+}
+ 
+
+
+
 .rootSearchTextField{
     margin-top: 27px !important;
 }
@@ -274,6 +316,7 @@
 }
 
 .rootAvatar{
+    background-size: cover !important;
 
 }
 
@@ -371,4 +414,9 @@
     color: #fff;
     width: 100%;
     border-radius: .5rem;
+}
+
+.gridClick{
+    cursor: pointer;
+    text-align: center;
 }
