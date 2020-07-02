@@ -420,3 +420,7 @@ body .cardService{
     cursor: pointer;
     text-align: center;
 }
+
+.contentTextContainer{
+    display: flex;
+}

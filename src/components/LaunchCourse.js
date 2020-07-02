@@ -81,11 +81,11 @@ const useStyles = makeStyles((theme) => ({
   },
   gridBen: {
     color: "#fff",
-    backgroundColor: "#fc5000",
+    backgroundColor: localStorage.getItem("colorDefaul"),
     width: "69%",
     margin: "39px",
     // color: #fff;
-    // background-color: #fc5000;
+    // background-color:localStorage.getItem("colorDefaul")
     borderRadius: "1rem"
 
   },
@@ -169,7 +169,7 @@ const useStyles = makeStyles((theme) => ({
     height: 180,
   },
   typoservice: {
-    color: "#fc5000",
+    color: localStorage.getItem("colorDefaul"),
     fontSize: "20px",
     textTransform: "capitalize",
   },
@@ -180,7 +180,7 @@ const useStyles = makeStyles((theme) => ({
 
   },
   paperCustomCost: {
-    color: "#fc5000",
+    color: localStorage.getItem("colorDefaul"),
     fontWeight: "bolder"
   },
   buttonCustom: {
@@ -230,21 +230,21 @@ const useStyles = makeStyles((theme) => ({
     marginTop: "1rem",
     marginBottom: "1rem",
     '& > *': {
-      backgroundColor: "#fc5000",
+      backgroundColor: localStorage.getItem("colorDefaul"),
       margin: theme.spacing(0.5),
       color: "#fff",
       borderRadius: ".6rem"
     },
   },
-      avatarHeader: {
-backgroundRepeat: "no-repeat", backgroundSize: "cover !important",
+  avatarHeader: {
+    backgroundRepeat: "no-repeat", backgroundSize: "cover !important",
 
     // backgroundImage: `url(${imageProfileDynamo})`,
     backgroundImage: `url(${localStorage.getItem("contentUserCurrentAvatar")})`,
     backgroundSize: "contain",
     // top: "-6rem",
     // color: theme.palette.getContrastText(deepOrange[500]),
-    backgroundColor: "#fc5000",
+    backgroundColor: localStorage.getItem("colorDefaul"),
     width: theme.spacing(10),
     height: theme.spacing(10),
     border: "solid"
@@ -258,6 +258,7 @@ export default function InvoicesForm(props) {
   const classes = useStyles();
   const [activeStep, setActiveStep] = React.useState(0);
   const [openDialog, setOpenDialog] = React.useState(true);
+  const [imageBase, setImage] = React.useState(localStorage.getItem("contentUserCurrentAvatar"))
 
   // const handleNext = (data, sk) => {
   //   if (activeStep === 1) {
@@ -302,6 +303,8 @@ export default function InvoicesForm(props) {
   const imageService = props.currentDataService.img ? "https://imgcursos.s3.amazonaws.com/" + props.currentDataService.img : "../assets/imgex.jpg"
   const { currentDataService } = props;
   const video = currentDataService.video ? currentDataService.video : "https://imgcursos.s3.amazonaws.com/vide_demo.mp4"
+
+
 
   console.log(currentDataService)
   return (
@@ -371,16 +374,16 @@ export default function InvoicesForm(props) {
                     <Grid item xs={8} sm={4}>
                       <Paper elevation={0} className={classes.paperCustom}>
                         <Typography variant="subtitle1" className={classes.nameservice} >
-                          {"Modalidad: "} <span className="contentText">{
+                           <span className="contentText">{
                             currentDataService.mode === "presencial" ?
-                              <img className="imgPresential" /> :
-                              <img className="imgLine" />
+                              <div className="contentTextContainer">{"Modalidad: "}<div className="imgPresential"> </div> <span>Presencial</span></div> :
+                              <div className="contentTextContainer">{"Modalidad: "}<div className="imgLine" ></div> <span>En linea</span></div>
                           }
-                            {
+                            {/* {
                               currentDataService.mode === "presencial" ?
                                 <span className="textPre">Presencial</span> :
                                 <span className="textPre">En linea</span>
-                            }
+                            } */}
                           </span>
                           {/* ${currentDataService.mode.toUpperCase()} */}
                         </Typography>
@@ -499,9 +502,10 @@ export default function InvoicesForm(props) {
                     alignItems="flex-start">
                     <Grid item>
                       <Avatar className={classes.avatarHeader} classes={{
-                        root: "rootAvatar"
+                        root: "rootAvatar" 
                       }}>
-                        {localStorage.getItem("contentUserCurrentAvatar") === "" ? "" : props.byUser["custom-attr"].firstName.substring(0, 1).toUpperCase()}       </Avatar>
+                        {localStorage.getItem("contentUserCurrentAvatar") ===  "undefined"? props.byUser["custom-attr"].firstName.substring(0, 1).toUpperCase():  ""}   
+                            </Avatar>
 
 
                     </Grid>
