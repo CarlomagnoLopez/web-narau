@@ -307,18 +307,20 @@ export default function ProfileCompany(props) {
 
         props.getByUser(dataId)
         // if (props.byUser) {
-        setTimeout(() => {
-            setDataService(data)
-            setDataServiceId(dataId)
+        // setTimeout(() => {
+        setDataService(data)
+        setDataServiceId(dataId)
 
-            // }
-            setOpenDetailCourse(true)
-            console.log("show")
-        }, 1500);
+        // }
+        setOpenDetailCourse(true)
+        console.log("show")
+        // }, 1500);
 
         // }
 
     }
+
+
     const closeFormCourse = (data) => {
         console.log(data)
         let payload = {
@@ -441,13 +443,39 @@ export default function ProfileCompany(props) {
     const getFiltering = () => {
 
         let arrFilter = []
-         props.serviceData.map((item) => {
+        props.serviceData.map((item) => {
             if (item.verified) {
                 arrFilter.push(item["custom-attr"])
             }
 
         })
         return arrFilter
+    }
+
+    const currentColorService = () => {
+
+        let color = "#fc5000";
+        switch (dataService.serviceType) {
+
+            case "taller":
+                color = "#fc5000"
+
+
+
+                break;
+            case "taller":
+                color = "#7175d8"
+                break
+            case "asesoria":
+                color = "#ff931e"
+                break
+
+
+        }
+
+        localStorage.setItem("colorDefaul", color)
+        return color
+
     }
     return (
         <div className={classes.root}>
@@ -600,7 +628,7 @@ export default function ProfileCompany(props) {
 
                         </Container>
                     }
-                    {openDetailCourse &&
+                    {openDetailCourse && props.byUser["custom-attr"] &&
                         // <DetailCourse
                         //     show={openDetailCourse}
                         //     dataService={dataService}
@@ -614,6 +642,7 @@ export default function ProfileCompany(props) {
                                     addToWishList={addToWishList}
                                     // closeFormCourse={closeFormCourse}
                                     // closeForm={closeForm}
+                                    colorDefault={currentColorService()}
                                     byUser={props.byUser}
                                     closeForm={handleCloseDetail}
                                     currentDataService={dataService}
