@@ -656,8 +656,10 @@ export default function ProfileConsultant(props) {
                                         {dataCourse.map((infoCourse, index) => (
                                             <CardCourses
                                                 // courseId={dataCourseId[index]}
+                                                role={"consultant"}
                                                 key={index}
                                                 openForm={() => { showFormCourse(infoCourse, dataCourseId[index]) }}
+                                                // openFormDetail={() => { showInfoCourseDetail(infoCourse, dataCourseId[index]) }}
                                                 // openForm={createCourse}
                                                 infoCourse={infoCourse}>
                                             </CardCourses>

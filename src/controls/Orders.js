@@ -69,7 +69,7 @@ export default function Orders(props) {
         <TableHead>
           <TableRow>
             <TableCell>Fecha de creacion</TableCell>
-            <TableCell>Titulo del servisio</TableCell>
+            <TableCell>Titulo del servicio</TableCell>
             <TableCell>Tipo de servicio</TableCell>
             <TableCell>Publicado</TableCell>
             <TableCell>Acciones</TableCell>

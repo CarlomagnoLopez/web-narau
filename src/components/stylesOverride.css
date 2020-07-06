@@ -178,3 +178,95 @@
     pointer-events: all;
 
 }
+
+
+
+
+.calendarCustomCompany{
+
+}
+
+.calendarCustomCompany .DayPicker-Month{
+  display: block !important;
+  box-shadow: 6px 8px 17px 4px #d0cbcb !important;
+  border-radius: 1rem !important;
+  padding: 2rem;
+}
+
+/* .calendarCustomCompany .DayPicker-{
+  display: block !important;
+  box-shadow: 6px 8px 17px 4px #d0cbcb !important;
+  border-radius: 1rem !important;
+} */
+
+.calendarCustomCompany  .DayPicker-wrapper{
+  outline: -webkit-focus-ring-color auto 0px;
+
+}
+
+.calendarCustomCompany .DayPicker-Caption{
+    color: #000;
+    font-weight: bolder;
+    margin-left: 1rem;
+    text-align: center;
+    
+}
+.calendarCustomCompany .DayPicker-Caption div{
+font-weight: bold;
+}
+
+.calendarCustomCompany  .DayPicker-Weekday{
+  color: #ff931e !important;
+  font-weight: bolder;
+  /* margin-left: 1rem; */
+}
+
+
+.calendarCustomCompany  .DayPicker-Day--selected:not(.DayPicker-Day--disabled):not(.DayPicker-Day--outside){
+  position: relative;
+  background-color: #66b32e;
+  border-radius: .7rem;
+  color: #000;
+  outline: -webkit-focus-ring-color auto 0px ;
+}
+
+.calendarCustomCompany .DayPicker-NavButton--next{
+  /* background-color: #ff931e; */
+  outline: -webkit-focus-ring-color auto 0px ;
+  top: calc(50% - 4rem) !important;
+  left: 98%;
+  background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABwAAAA3CAYAAAAfZiphAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAIgSURBVFhH7ZjXjgIxDEX3/7+NDqI3iSK66B28uiNHml2mOIlB+7BH4oH7cjRxEnvmiz7M3xDudju63W78T5cX4ePxoGKxSN1ulxNdIp9wvV5TJpOh1WrFiR6xNez3+1QoFOh6vXKiQ6zwfr9TqVSiVqvFiQ6xQrDdboOlnc/nnPiTKASDwYByuRydz2dO/EgVYtdWKhVqNBr0fD45dSdVCA6HA2WzWZpMJpy4IxKC0WgUSE+nEyduiIVYzmq1Gvx8llYsBHg6POV4PObEHishQB0hRV1dsBZiOev1erBzsYNtsRYCnEmcTZxRW5yEALcPbiHcRjY4CwHuWdy3uHeleAnRSdBR0FmkeAkBeiaWFj1UgrcQYDrAlCAZS1SEEEHY6XQ4iUdFCMxYslwuOYlGTQiwefL5fOJYoirE8SiXy4ljiaoQYKZNGkvUhQD3LM5nVBtTF5rNs1gsOPmJqvByuQSbptfrcfKKmhDLV6vVUtuWmnA4HAYt63g8chKNitDUTTIwewtRN+xI6duWlzA8bkh7opcQdcNAlVa3MM7CzWYT1G02m3Eiw0loOr2kHf3GWoi64cUGl7TNLGOwFpp3jI8Mwq51CyMW+tQtjEjoW7cwIiHelnzqFiZVaD4sTKdTTvxIFKJuGP/a7TYn/sQKUbdms2n97pBGrNDUbb/fc6JDpNDUTeOrxW9ehFjKd3zyMkQ+IZbxY99L382/UBmib5QpykaibuwnAAAAAElFTkSuQmCC')
+}
+.calendarCustomCompany .DayPicker-NavButton--prev{
+  /* background-color: #ff931e; */
+  outline: -webkit-focus-ring-color auto 0px ;
+  top: calc(50% - 4rem) !important;
+  left: -26%;
+  background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABsAAAA+CAYAAADatWDQAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAIgSURBVFhH7ZjXisMwEEX3/78tvRdSSCO996blijHI2LJVZvfJBwLZeTk415oZ7Y/4RzIZC5nMmPv9Lq7XK/0VhlX2+XxEo9EQzWaTKmFYZaPRSBQKBXG73agShk223W5FLpcTm82GKlFYZMipWCyK4XBIlXi8Zd/vV+ZUr9dlZkl4y9JyUvGS7XY7mdN6vaZKMs6yx+MhcxoMBlRJx0mGnHCWarVaak4qTrLxeCxz0nUKHday/X4vc1qtVlQxx0oW5NTv96lih7EMObVaLZnT+/2mqh3GsslkIvL5vHVOKkYyn5xUUmXIqVQqOeekkigLcqpWq845qSTKgpwulwtV/NDKDoeDzGm5XFLFn1jZ8/mUOfV6ParwEJEhp3a7zZaTSkQ2nU5Zc1IJyV6vlxR1Oh2q8KJ9MpPJa0tsZtgp8MF3TiIygP6Hp5vNZlThIVYG5vM5+4uilakjxWb0J6GVASyfGP9YAzhIlAGMFbSt4/FIFXdSZaDb7YpKpeLdUYxk6JUmu3waRjIQ3FIwtV0xlgFMgXK5LNuaC1YySCBzHT1WMhAsP0mXPh3WMoAXBS8MXhwbnGQ4AjgKOBI2OMnA6XSy3iWdZSC4zaCtmeAlQ4NGo0bDNpl9XjKAEYRRhJGUhrcMYMhCmHbpYJGZrhIsMoAFCU+HhUkHmwwsFgt5HM7nM1XCsMrwE2Kbxs8ZB6sM4D735/+VMyGTsZDJGBDiF7cR4Cv1GczAAAAAAElFTkSuQmCC')
+}
+
+.calendarCustomCompany .DayPicker-NavButton{
+  width: 6.25em;
+  height: 6.25em;
+  
+}
+
+.gridButtons{
+    /* color: chartreuse; */
+}
+.btnBack{
+    margin: 10px !important;
+    background-color: #fff !important;
+    border-radius: 1rem !important;
+    border: 1px solid !important;
+    border-color: #696969 !important;
+}
+.btnNext{
+    margin: 10px !important;
+    background-color: #fc5000 !important;
+    border-radius: 1rem !important;
+    border: 1px solid !important;
+    border-color: #fc5000 !important;
+    color: #fff !important;
+
+}

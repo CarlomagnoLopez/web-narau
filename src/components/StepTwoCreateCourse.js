@@ -251,7 +251,7 @@ export default function StepTwoCreateCourse(props) {
                     <Grid item xs={12}>
 
                         <Typography variant="h6" className={classes.title}>
-                            ¿En qué modalidad inpartiras el {typeService}?
+                            ¿En qué modalidad impartiras el {typeService}?
                         <div className={classes.subt}>
 
                             </div>
@@ -353,7 +353,7 @@ export default function StepTwoCreateCourse(props) {
                                             <Grid item xs>
                                                 <Typography className={classes.titleDesc}>
                                                     ¡Tu aportación es única! Asegúrate de incluír:
-                    </Typography>
+                                                </Typography>
                                             </Grid>
                                             <Grid item>
                                                 <Typography variant="body2">

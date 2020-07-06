@@ -124,9 +124,9 @@ export default function StepThreeCreateCourse(props) {
     const editServicdeType = props.currentDataService;
     const { currentDataService } = props;
 
-    const  toEdit  = currentDataService ? currentDataService.to : "";
-    const  benefitsEdit  = currentDataService ? currentDataService.benefits : "";
-    const  topicsEdit  = currentDataService ? currentDataService.topics : [];
+    const toEdit = currentDataService ? currentDataService.to : "";
+    const benefitsEdit = currentDataService ? currentDataService.benefits : "";
+    const topicsEdit = currentDataService ? currentDataService.topics : [];
 
     const [to, setTo] = React.useState(toEdit)
     const [benefits, setBenefits] = React.useState(benefitsEdit)
@@ -290,7 +290,17 @@ export default function StepThreeCreateCourse(props) {
                             {{
                                 root: classes.typography
                             }}>
-                            Diseña un temario
+                            <span>
+                            {typeService === "asesoria" &&
+                                    "Actividades Clave"
+
+                            }
+
+                            {typeService !== "asesoria" &&
+                                    "Diseña un temario"
+
+                            }
+                            </span>
                             {/* <div className={classes.subt}>
 
                             </div> */}

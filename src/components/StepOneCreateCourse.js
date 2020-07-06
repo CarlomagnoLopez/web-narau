@@ -227,15 +227,15 @@ export default function StepOneCreateCourse(props) {
             </div>
 
             <div id="planet_3" className="animatePlanet_3" onMouseOver={stopPlanet_3} onMouseLeave={playPlanet}
-                onClick={() => { selectService1("seminario") }} >
+                onClick={() => { selectService1("conferencia") }} >
             </div>
             <div>
                 {openDesc1 &&
-                    <div id="boxDescA" className="boxDesc colorAsesoria"> Asesoria <br></br><span >Click en continuar para crear un Asesoria</span></div>
+                    <div id="boxDescA" className="boxDesc colorAsesoria"> Asesoría <br></br><span >Click en continuar para crear un Asesoria</span></div>
                 }
 
                 {openDesc3 &&
-                    <div id="boxDescC" className="boxDesc colorSeminario"> Seminario <br></br><span >Click en continuar para crear un seminario</span></div>
+                    <div id="boxDescC" className="boxDesc colorConferencia"> Conferencia <br></br><span >Click en continuar para crear una conferencia</span></div>
                 }
                 {openDesc2 &&
                     <div id="boxDescT" className="boxDesc colorTaller"> Taller <br></br><span >Click en continuar para crear un taller</span></div>

@@ -255,7 +255,7 @@ export default function ProfileHeader(props) {
                 <CardMedia
                     className={classes.media}
                     // image="https://imgcursos.s3.amazonaws.com/img2.jpg"
-                image={defaultImage}
+                    image={defaultImage}
                 />
             </Card>
             <Container maxWidth="lg" className={classes.containerInfo}>
@@ -268,17 +268,24 @@ export default function ProfileHeader(props) {
                                 justify="flex-start"
                                 alignItems="flex-start">
                                 <Grid item>
-                                    <StyledBadge badgeContent={
-                                        completedProfile ? <DoneIcon className={classes.done} fontSize="medium"></DoneIcon>
-                                            : <AccessTimeIcon className={classes.war} fontSize="medium"></AccessTimeIcon>
+                                    <StyledBadge
+                                     badgeContent={
+                                        completedProfile ? 
+                                        <DoneIcon className={classes.done} fontSize="medium"></DoneIcon> :
+                                        <AccessTimeIcon className={classes.war} fontSize="medium"></AccessTimeIcon>
                                     } color="secondary">
-                                        <Avatar className={classes.avatarHeader} classes={{
-                                            root: "rootAvatar"
-                                        }}>
+                                        <Avatar className={classes.avatarHeader}
+                                            // src={JSON.parse(localStorage.getItem("contentUser")).imgProfile}
+                                            classes={{
+                                                root: "rootAvatar"
+                                            }}>
                                             {(JSON.parse(localStorage.getItem("contentUser")).imgProfile ? "" : <Typography gutterBottom variant="body2">
                                                 {avatarTitle}
                                             </Typography>)}
 
+                                            {/* <Typography gutterBottom variant="body2">
+                                                {avatarTitle}
+                                            </Typography> */}
                                             <UploadImages saveImage={saveImage}></UploadImages>
                                         </Avatar>
 
@@ -300,7 +307,7 @@ export default function ProfileHeader(props) {
                                         </Typography>
                                     </p>
                                     <SimpleRating className={classes.ratingTwo} openCustomerValorations={props.openCustomerValorations} />
-                                  
+
                                 </Grid>
 
                             </Grid>

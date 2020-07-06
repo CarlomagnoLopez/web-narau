@@ -5,6 +5,8 @@ import MuiAlert from '@material-ui/lab/Alert';
 import { makeStyles } from '@material-ui/core/styles';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Card from '@material-ui/core/Card';
+import CardHeader from '@material-ui/core/CardHeader';
+import IconButton from '@material-ui/core/IconButton';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
@@ -12,12 +14,18 @@ import CardActionArea from '@material-ui/core/CardActionArea';
 import CardMedia from '@material-ui/core/CardMedia';
 import CardContent from '@material-ui/core/CardContent';
 import clsx from 'clsx';
+import EditIcon from '@material-ui/icons/Edit';
+import BookIcon from '@material-ui/icons/Book';
 
+import MoreVertIcon from '@material-ui/icons/MoreVert'
+import VisibilityIcon from '@material-ui/icons/Visibility';
+import FavoriteIcon from '@material-ui/icons/Favorite';
 const useStyles = makeStyles((theme) => ({
     root: {
         // padding: theme.spacing(0),
         // textAlign: 'center',
         // color: theme.palette.text.secondary,
+        position: "relative",
         maxHeight: "175px",
         height: "175px",
         borderRadius: "1rem"
@@ -37,7 +45,7 @@ const useStyles = makeStyles((theme) => ({
         padding: "0px",
         width: "100%",
         height: "100%",
-        
+
         textAlign: "start",
         maxHeight: "175px",
         // height: "175px",
@@ -49,14 +57,28 @@ const useStyles = makeStyles((theme) => ({
     colorTaller: {
         backgroundColor: "rgba(252, 80, 0, .8)",
     },
-    colorSeminario: {
+    colorConferencia: {
         backgroundColor: "rgba(255, 147, 30, .8)",
     },
     cardService: {
-        bottom: "1rem",
+        bottom: "0rem",
         position: "absolute",
-        fontWeight: "bold !important"
+        fontWeight: "bold !important",
+        right: "1rem",
+        fontSize: "1.3rem",
+        left: "1rem"
 
+    },
+    cssCh: {
+        position: "absolute",
+        zIndex: "100"
+    },
+    cssCa: {
+        pointerEvents: "none",
+        height: "100%",
+        '& > *': {
+            height: "100%",
+        }
     }
 }));
 
@@ -66,7 +88,7 @@ export default function CardCourses(props) {
 
     const classCuros = clsx(classes.titleCourse, classes.colorCourse);
     const classTaller = clsx(classes.titleCourse, classes.colorTaller);
-    const classSeminario = clsx(classes.titleCourse, classes.colorSeminario);
+    const classConferencia = clsx(classes.titleCourse, classes.colorConferencia);
 
     const { serviceType } = infoCourse;
 
@@ -74,13 +96,78 @@ export default function CardCourses(props) {
 
     const imageService = infoCourse.img ? "https://imgcursos.s3.amazonaws.com/" + infoCourse.img : "../assets/imgex.jpg"
 
+    let classService = "";
+
+    switch (serviceType) {
+        case "conferencia":
+            classService = classCuros;
+            break;
+        case "taller":
+            classService = classTaller;
+            break;
+        case "asesoria":
+            classService = classConferencia;
+            break;
+
+        // default:
+        //     break;
+    }
+
+
+    //   const addToWishList = () => {
+    //     currentDataService.courseId = props.currentDataSortKey;
+    //     props.addToWishList(currentDataService)
+    //     // props.handleCloseDetail()
+    //     // setOpen(false);
+    //     // handleClose();
+    //   }
+
+
     return (
 
         <Grid item xs={4} >
             {/* <Paper className={classes.paperCursos}>{infoCourse.name}</Paper> */}
             <Card raised className={classes.root}>
-                <CardActionArea onClick={props.openForm} >
-                    <CardMedia 
+
+                {!props.role &&
+                    <CardHeader className={classes.cssCh}
+                        action={
+
+                            <div>
+                                <IconButton aria-label="settings" onClick={props.openForm}>
+                                    <VisibilityIcon />
+                                </IconButton>
+                                <IconButton aria-label="settings" onClick={props.addToWishList}>
+                                    <BookIcon></BookIcon>
+                                </IconButton>
+                            </div>
+
+                        }
+                    />
+
+                }
+
+                {props.role &&
+                    <CardHeader className={classes.cssCh}
+                        action={
+
+                            <div>
+                                <IconButton aria-label="settings" onClick={props.openForm}>
+                                    <EditIcon />
+                                </IconButton>
+                                {/* <IconButton aria-label="settings" onClick={props.addToWishList}>
+                                    <VisibilityIcon />
+                                </IconButton> */}
+                            </div>
+
+                        }
+                    />
+
+                }
+
+
+                <CardActionArea onClick={props.openForm} className={classes.cssCa}>
+                    <CardMedia
                         // children = {<div>hola</div>}
                         component="img"
                         // alt="Contemplative Reptile"
@@ -89,13 +176,13 @@ export default function CardCourses(props) {
                         image={imageService}
                     // title="Contemplative Reptile"
                     />
-                    {serviceType === "seminario" &&
-                        <CardContent className={classCuros}>
-                            <Typography gutterBottom variant="h5" component="h2" classes={{ root: classes.cardService }}>
-                                {infoCourse.nameService}
-                            </Typography>
-                        </CardContent>
-                    }
+                    {/* {serviceType === "seminario" && */}
+                    <CardContent className={classService}>
+                        <Typography gutterBottom variant="h5" component="h2" classes={{ root: classes.cardService }}>
+                            {infoCourse.nameService}
+                        </Typography>
+                    </CardContent>
+                    {/* }
                     {serviceType === "taller" &&
                         <CardContent className={classTaller}>
                             <Typography gutterBottom variant="h5" component="h2" classes={{ root: classes.cardService }}>
@@ -109,7 +196,7 @@ export default function CardCourses(props) {
                                 {infoCourse.nameService}
                             </Typography>
                         </CardContent>
-                    }
+                    } */}
 
 
                 </CardActionArea>
