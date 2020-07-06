@@ -51,6 +51,7 @@ import logo_login from '../assets/logos-narau-04.png';
 import ProfileHeaderCompany from './ProfileHeaderCompany';
 import InvoicesForm from './InvoicesForm';
 import LaunchCourse from './LaunchCourse';
+import LaunchReservedService from './LaunchReservedService';
 import CardCoursesCompany from '../controls/CardCoursesCompany';
 // import Chart from './Chart';
 // import Deposits from './Deposits';
@@ -221,6 +222,8 @@ export default function ProfileCompany(props) {
     const [openShoppingCart, setOpenShoppingCart] = React.useState(false);
     const [whishList, setWhishList] = React.useState([]);
     const [shoppingCart, setShoppingCart] = React.useState([]);
+    const [reservedService, setReservedService] = React.useState([]);
+    const [openReservedService, setOpenReservedService] = React.useState(false);
 
     const { currentAccount } = props;
 
@@ -363,7 +366,12 @@ export default function ProfileCompany(props) {
 
         }, 300);
     }
+    const handleCloseReservered = () => {
+        setTimeout(() => {
+            setOpenReservedService(false)
 
+        }, 300);
+    }
     const openDrawer = () => {
         setOpenWhishList(true)
     }
@@ -388,12 +396,20 @@ export default function ProfileCompany(props) {
         let totalItems = dataBadgeCart + 1;
         setDataBagdeCart(totalItems)
     }
-    const addToWishList = (dataService) => {
+    const addToWishList = (dataService, id) => {
+        dataService.courseId = id;
         whishList.push(dataService);
         setWhishList(whishList)
         let totalItems = dataBadge + 1;
         setDataBagde(totalItems)
     }
+    const showReservedService = (reserveServioce) => {
+        setReservedService(reserveServioce)
+        setOpenReservedService(true)
+        // console.log("open reservations")
+
+    }
+
     const deleteToWishList = (itemDelete, add) => {
 
 
@@ -459,11 +475,8 @@ export default function ProfileCompany(props) {
 
             case "taller":
                 color = "#fc5000"
-
-
-
                 break;
-            case "taller":
+            case "conferencia":
                 color = "#7175d8"
                 break
             case "asesoria":
@@ -477,6 +490,17 @@ export default function ProfileCompany(props) {
         return color
 
     }
+
+    const sendServiceRequest = (payload) => {
+        console.log(payload);
+        payload.customerPk = localStorage.getItem("partitionKey");
+        handleCloseDetail();
+
+        props.sendServideRequest(payload)
+
+    }
+
+
     return (
         <div className={classes.root}>
             <CssBaseline />
@@ -499,14 +523,13 @@ export default function ProfileCompany(props) {
                             </Badge>
                         </IconButton>
                     </Tooltip>
-                    <Tooltip title="Carrito de compras" aria-label="Carrito de compras">
+                    {/* <Tooltip title="Carrito de compras" aria-label="Carrito de compras">
                         <IconButton color="inherit" onClick={openDrawerCart}>
                             <Badge badgeContent={dataBadgeCart} color="secondary">
                                 <ShoppingBasketIcon></ShoppingBasketIcon>
-                                {/* <BookIcon></BookIcon> */}
                             </Badge>
                         </IconButton>
-                    </Tooltip>
+                    </Tooltip> */}
                     <Tooltip title="LogOut" aria-label="LogOut">
                         <IconButton color="inherit" onClick={closeSession}>
                             {/* <Badge badgeContent={4} color="secondary"> */}
@@ -538,7 +561,7 @@ export default function ProfileCompany(props) {
                     {!openInvoices && !openLaunchCourse &&
                         <Paper spacing={3} elevation={0}>
                             <Grid container spacing={3} className={classes.rootRigthBar}>
-                                <Grid item xs={12} md={4} lg={3} container
+                                {/* <Grid item xs={12} md={4} lg={3} container
                                     direction="column"
                                     justify="flex-start"
                                     alignItems="center">
@@ -549,16 +572,13 @@ export default function ProfileCompany(props) {
                                             title={"Sobre mi empresa."}
                                             request={requestUpdateAttribute}
                                         ></CardSideContent>
-                                        {/* </Paper> */}
                                         <Divider variant="middle" className={classes.divider} />
-                                        {/* <Paper spacing={3} elevation={0}> */}
                                         <CardSideContent
                                             text={experience}
                                             referenceRequest={"experience"}
                                             title={"Experiencia empresarial"}
                                             request={requestUpdateAttribute}
                                         ></CardSideContent>
-                                        {/* </Paper> */}
                                         <Divider variant="middle" className={classes.divider} />
                                         <CardSideContent
                                             text={customers}
@@ -567,13 +587,10 @@ export default function ProfileCompany(props) {
                                             request={requestUpdateAttribute}
                                         ></CardSideContent>
                                         <Divider variant="middle" className={classes.divider} />
-                                        {/* <Paper spacing={3} elevation={0}> */}
-                                        <CardSideContentInvoices showFormInvoices={showFormInvoices}
-                                            // text={"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."}
-                                            title={"Facturacion"}
+                                        <CardSideContentInvoices showFormInvoices={showFormInvoices} title={"Facturacion"}
                                         ></CardSideContentInvoices>
                                     </Paper>
-                                </Grid>
+                                </Grid> */}
 
                                 <Grid
                                     item xs={12} md={8} lg={9} spacing={3}
@@ -589,6 +606,7 @@ export default function ProfileCompany(props) {
                                             // <CardCoursesCompany
                                             <CardCourses
                                                 key={index}
+                                                addToWishList={() => { addToWishList(infoCourse, dataCourseId[index]) }}
                                                 openForm={() => { showInfoCourse(infoCourse, dataCourseId[index]) }}
                                                 infoCourse={infoCourse}>
                                             </CardCourses>
@@ -598,17 +616,6 @@ export default function ProfileCompany(props) {
 
 
                                         ))}
-                                        {/* <CardAddCourses openForm={showFormCourse}>
-                                        </CardAddCourses> */}
-
-                                        {/* <Container maxWidth="lg" className={classes.container} >
-                                            <Grid item xs={12} container
-                                                direction="row"
-                                                justify="center"
-                                                alignItems="flex-start">
-                                                <StaticCalendar></StaticCalendar>
-                                            </Grid>
-                                        </Container> */}
                                     </Grid>
                                 </Grid>
                             </Grid>
@@ -642,6 +649,7 @@ export default function ProfileCompany(props) {
                                     addToWishList={addToWishList}
                                     // closeFormCourse={closeFormCourse}
                                     // closeForm={closeForm}
+                                    showReservedService={showReservedService}
                                     colorDefault={currentColorService()}
                                     byUser={props.byUser}
                                     closeForm={handleCloseDetail}
@@ -651,6 +659,25 @@ export default function ProfileCompany(props) {
                                 // deleteTopic={props.deleteTopic}
                                 // topicData={props.topicData}
                                 ></LaunchCourse>
+                            </Grid>
+
+                        </Container>
+
+                    }
+
+                    {openReservedService && 
+                        <Container maxWidth="lg" className={classes.container}>
+                            <Grid container spacing={3}>
+                                <LaunchReservedService
+                                    addToWishList={addToWishList}
+                                    // showReservedService={showReservedService}
+                                    sendServiceRequest={sendServiceRequest}
+                                    colorDefault={currentColorService()}
+                                    byUser={props.byUser}
+                                    closeForm={handleCloseReservered}
+                                    currentDataService={dataService}
+                                    currentDataSortKey={dataServiceId}
+                                ></LaunchReservedService>
                             </Grid>
 
                         </Container>
@@ -676,18 +703,6 @@ export default function ProfileCompany(props) {
                     }
 
 
-                    {/* {openLaunchCourse &&
-                       
-                        
-                            <Container maxWidth="lg" className={classes.container}>
-                                <Grid container spacing={3}>
-                                    <LaunchCourse
-                                        closeFormCourse={closeFormCourse}
-                                        currentDataService={dataService}
-                                    ></LaunchCourse>
-                                </Grid>
-                            </Container>
-                        } */}
 
 
 

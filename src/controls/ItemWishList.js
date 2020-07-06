@@ -53,7 +53,7 @@ export default function ItemWishList(props) {
                                     Eliminar
                                 </Button>
                                 <Button variant="contained" color="primary" onClick={() => {props.addToCart(index)}}>
-                                    Agregar al carrito
+                                    Reservar
                                 </Button>
                             </Grid>
                             {/* <Grid item>

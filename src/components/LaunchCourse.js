@@ -34,7 +34,9 @@ import Divider from '@material-ui/core/Divider';
 // import Paper from '@material-ui/core/Paper';
 import logo_login from '../assets/logos-narau-04.png';
 import "../css/stylesGlobalOverRide.css"
-import imageBen from '../assets/imageBen.png';
+import imageBenTal from '../assets/narau-01.png';
+import imageBenSem from '../assets/narau-02.png';
+import imageBenAse from '../assets/narau-03.png';
 import Chip from '@material-ui/core/Chip';
 function Copyright() {
   return (
@@ -290,6 +292,10 @@ export default function InvoicesForm(props) {
 
 
   }
+  const reservedService = () => {
+    currentDataService.courseId = props.currentDataSortKey;
+    props.showReservedService(currentDataService);
+  }
 
   const addToWishList = () => {
     currentDataService.courseId = props.currentDataSortKey;
@@ -300,11 +306,63 @@ export default function InvoicesForm(props) {
   }
 
 
+
+
   const imageService = props.currentDataService.img ? "https://imgcursos.s3.amazonaws.com/" + props.currentDataService.img : "../assets/imgex.jpg"
   const { currentDataService } = props;
   const video = currentDataService.video ? currentDataService.video : "https://imgcursos.s3.amazonaws.com/vide_demo.mp4"
 
+  let modeService = "";
 
+
+  switch (currentDataService.mode) {
+    case "presencial":
+      modeService = "Presencial";
+      break;
+    case "mixto":
+      modeService = "Mixto";
+
+      break;
+    case "online":
+      modeService = "En linea";
+      break;
+  }
+  let imgClass = "";
+  let imageBen = "";
+  switch (currentDataService.serviceType) {
+    case "Conferencia":
+      // if(currentDataService.mode === "mixto"){
+      //   imgClass = "imgSemonline imgSempresencial"
+      // }else{
+      imageBen = imageBenSem;
+      imgClass = "imgSem" + currentDataService.mode
+      // }
+
+      break;
+    case "taller":
+      // if(currentDataService.mode === "mixto"){
+      //   imgClass = "imgTalonline imgTalpresencial"
+      // }else{
+      imageBen = imageBenTal;
+
+      imgClass = "imgTal" + currentDataService.mode
+      // }
+
+      break;
+    case "asesoria":
+      // if(currentDataService.mode === "mixto"){
+      //   imgClass = "imgAseonline imgAsepresencial"
+      // }else{
+      imageBen = imageBenAse;
+
+      imgClass = "imgAse" + currentDataService.mode
+      // }
+      break;
+  }
+
+
+
+  // currentDataService.mode ? 
 
   console.log(currentDataService)
   return (
@@ -374,16 +432,15 @@ export default function InvoicesForm(props) {
                     <Grid item xs={8} sm={4}>
                       <Paper elevation={0} className={classes.paperCustom}>
                         <Typography variant="subtitle1" className={classes.nameservice} >
-                           <span className="contentText">{
-                            currentDataService.mode === "presencial" ?
-                              <div className="contentTextContainer">{"Modalidad: "}<div className="imgPresential"> </div> <span>Presencial</span></div> :
-                              <div className="contentTextContainer">{"Modalidad: "}<div className="imgLine" ></div> <span>En linea</span></div>
-                          }
+                          <span className="contentText">
                             {/* {
-                              currentDataService.mode === "presencial" ?
-                                <span className="textPre">Presencial</span> :
-                                <span className="textPre">En linea</span>
-                            } */}
+                              currentDataService.mode === "presencial" ? */}
+                            <div className="contentTextContainer">{"Modalidad: "}<div className={imgClass}></div>
+                              <span>{modeService}</span></div>
+                            {/* :
+                                <div className="contentTextContainer">{"Modalidad: "}<div className="imgLine" ></div>
+                                  <span>En linea</span></div> */}
+                            {/* } */}
                           </span>
                           {/* ${currentDataService.mode.toUpperCase()} */}
                         </Typography>
@@ -391,7 +448,6 @@ export default function InvoicesForm(props) {
                       <Paper elevation={0} className={classes.paperCustom}>
                         <Typography variant="subtitle1" className={classes.nameservice} >
                           {"Tiempo estimado: "} {currentDataService.timeEstimated ? currentDataService.timeEstimated : ""}
-                          {/* ${currentDataService.mode.toUpperCase()} */}
                         </Typography>
                       </Paper>
                     </Grid>
@@ -401,7 +457,7 @@ export default function InvoicesForm(props) {
                           MX ${currentDataService.cost}
                         </span>
                         {props.role !== "admin" &&
-                          <Button variant="contained" onClick={addToWishList} classes={{
+                          <Button variant="contained" onClick={reservedService} classes={{
                             root: "buttonCustom"
                           }}
                           >Reservar</Button>
@@ -426,7 +482,7 @@ export default function InvoicesForm(props) {
                         {"Dirigido a: "}
                       </Typography>
                       <Typography variant="subtitle1" >
-                        {currentDataService.to.trim().toLowerCase().replace(/\w\S*/g, (w) => (w.replace(/^\w/, (c) => c.toUpperCase())))}
+                        {currentDataService.to}
                       </Typography>
                       <Divider></Divider>
                       <p></p>
@@ -466,8 +522,6 @@ export default function InvoicesForm(props) {
                       <Grid container spacing={2} className={classes.gridBen}>
                         <Grid item>
                           <img src={imageBen} width={"80px"} />
-
-
                         </Grid>
                         <Grid item xs={12} sm container>
                           <Divider orientation="vertical" flexItem className={classes.dividerClass}></Divider>
@@ -502,10 +556,10 @@ export default function InvoicesForm(props) {
                     alignItems="flex-start">
                     <Grid item>
                       <Avatar className={classes.avatarHeader} classes={{
-                        root: "rootAvatar" 
+                        root: "rootAvatar"
                       }}>
-                        {localStorage.getItem("contentUserCurrentAvatar") ===  "undefined"? props.byUser["custom-attr"].firstName.substring(0, 1).toUpperCase():  ""}   
-                            </Avatar>
+                        {localStorage.getItem("contentUserCurrentAvatar") === "undefined" ? props.byUser["custom-attr"].firstName.substring(0, 1).toUpperCase() : ""}
+                      </Avatar>
 
 
                     </Grid>

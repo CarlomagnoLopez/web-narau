@@ -42,7 +42,7 @@ const useStyles = makeStyles((theme) => ({
     colorTaller: {
         backgroundColor: "rgba(252, 80, 0, .8)",
     },
-    colorSeminario: {
+    colorConferencia: {
         backgroundColor: "rgba(255, 147, 30, 0.8)",
     }
     , btnAddToCart: {
@@ -58,7 +58,7 @@ export default function CardCoursesCompany(props) {
 
     const classCuros = clsx(classes.titleCourse, classes.colorCourse);
     const classTaller = clsx(classes.titleCourse, classes.colorTaller);
-    const classSeminario = clsx(classes.titleCourse, classes.colorSeminario);
+    const classConferencia = clsx(classes.titleCourse, classes.colorConferencia);
 
     const { serviceType } = infoCourse;
 
@@ -80,7 +80,7 @@ export default function CardCoursesCompany(props) {
                         image="../assets/imgex.jpg"
                     // title="Contemplative Reptile"
                     />
-                    {serviceType === "seminario" &&
+                    {serviceType === "conferencia" &&
                         <CardContent className={classCuros}>
                             <Typography gutterBottom variant="h5" component="h2" >
                                 {infoCourse.nameService}
@@ -101,7 +101,7 @@ export default function CardCoursesCompany(props) {
                         </CardContent>
                     }
                     {serviceType === "asesoria" &&
-                        <CardContent className={classSeminario}>
+                        <CardContent className={classConferencia}>
                             <Typography gutterBottom variant="h5" component="h2" >
                                 {infoCourse.nameService}
                             </Typography>

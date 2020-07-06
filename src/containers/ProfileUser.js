@@ -500,6 +500,41 @@ class ProfileUser extends React.Component {
             topicData: data
         })
     }
+
+    sendServideRequest = (data) => {
+        console.log("saving service....")
+        console.log(data)
+        // let payload = {
+        //     pk: localStorage.getItem("partitionKey"),
+        //     attr: data
+        // };
+
+        let payload = data;
+        this.setState({
+            loadingUpdate: true
+        }, (state, props) => {
+            fetch('https://ob5nizjire.execute-api.us-east-1.amazonaws.com/default/reservation', {
+                method: 'POST',
+                body: JSON.stringify(payload),
+                headers: {
+                    'Content-Type': 'application/json',
+                    'x-api-key': 'wD4FjaAoiG4bldvQ0oB6Q6fyIDqZCsfkaXCun0u6'
+                }
+            })
+                .then(res => res.json())
+                .then((data) => {
+                    // this.props.singUp(data.body);
+                    // this.startLoading();
+                    // this.updateMainDataAttr(data.body.dataUpdated["custom-attr"]);
+                    this.setState({
+                        loadingUpdate: false
+                    })
+
+                    // console.log(data)
+                })
+                .catch(console.log)
+        })
+    }
     saveDispositions = (data) => {
         console.log("saving dispositiosn....")
         console.log(data)
@@ -634,57 +669,58 @@ class ProfileUser extends React.Component {
                 }
 
                 {
-    currentRole === "company" &&
-    <div>
-        {this.state.loadingUpdate &&
-            <BussyLoader> </BussyLoader>
-        }
+                    currentRole === "company" &&
+                    <div>
+                        {this.state.loadingUpdate &&
+                            <BussyLoader> </BussyLoader>
+                        }
 
-        <ProfileCompany
-            byUser={this.state.byUser}
-            getByUser={this.getByUser}
-            currentAccount={this.state.currentAccountTemp}
-            refreshBasicData={this.refreshBasicData}
-            refreshInvoiceData={this.refreshInvoiceData}
-            saveService={this.saveService}
-            invoiceData={this.state.invoiceData}
-            serviceData={this.state.serviceData}
-            saveWishList={this.saveWishList}
-            saveImageProfile={this.saveImageProfile}
-        ></ProfileCompany>
-    </div>
+                        <ProfileCompany
+                            byUser={this.state.byUser}
+                            getByUser={this.getByUser}
+                            currentAccount={this.state.currentAccountTemp}
+                            refreshBasicData={this.refreshBasicData}
+                            refreshInvoiceData={this.refreshInvoiceData}
+                            saveService={this.saveService}
+                            invoiceData={this.state.invoiceData}
+                            serviceData={this.state.serviceData}
+                            saveWishList={this.saveWishList}
+                            saveImageProfile={this.saveImageProfile}
+                            sendServideRequest={this.sendServideRequest}
+                        ></ProfileCompany>
+                    </div>
 
-}
+                }
 
-{
-    currentRole === "admin" &&
-    <div>
-        {this.state.loadingUpdate &&
-            <BussyLoader> </BussyLoader>
-        }
+                {
+                    currentRole === "admin" &&
+                    <div>
+                        {this.state.loadingUpdate &&
+                            <BussyLoader> </BussyLoader>
+                        }
 
 
-        <ProfilleAdmin
-            currentAccount={this.state.currentAccountTemp}
-            getService={this.getService}
-            getUser={this.getUser}
-            getCompany={this.getCompany}
-            serviceAll={this.state.serviceAll}
-            userAll={this.state.userAll}
-            companyAll={this.state.companyAll}
-            saveService={this.editService}
-            saveUser={this.editUser}
-        // refreshBasicData={this.refreshBasicData}
-        // refreshInvoiceData={this.refreshInvoiceData}
-        // saveService={this.saveService}
-        // invoiceData={this.state.invoiceData}
-        // serviceData={this.state.serviceData}
-        // saveWishList={this.saveWishList}
+                        <ProfilleAdmin
+                            currentAccount={this.state.currentAccountTemp}
+                            getService={this.getService}
+                            getUser={this.getUser}
+                            getCompany={this.getCompany}
+                            serviceAll={this.state.serviceAll}
+                            userAll={this.state.userAll}
+                            companyAll={this.state.companyAll}
+                            saveService={this.editService}
+                            saveUser={this.editUser}
+                        // refreshBasicData={this.refreshBasicData}
+                        // refreshInvoiceData={this.refreshInvoiceData}
+                        // saveService={this.saveService}
+                        // invoiceData={this.state.invoiceData}
+                        // serviceData={this.state.serviceData}
+                        // saveWishList={this.saveWishList}
 
-        ></ProfilleAdmin>
-    </div>
+                        ></ProfilleAdmin>
+                    </div>
 
-}
+                }
 
             </div >
 

@@ -204,9 +204,9 @@ export default function LaunchCourse(props) {
                   onChange={handleChange}
                   className={classes.select}
                 >
-                  <MenuItem value={"asesoria"}>Asesoria</MenuItem>
+                  <MenuItem value={"asesoria"}>Asesoría</MenuItem>
                   <MenuItem value={"taller"}>Taller</MenuItem>
-                  <MenuItem value={"seminario"}>Seminario</MenuItem>
+                  <MenuItem value={"conferencia"}>Conferencia</MenuItem>
                 </TextField>
               }
               control={control}
