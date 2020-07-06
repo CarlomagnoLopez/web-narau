@@ -32,7 +32,8 @@ export default function SimpleRating(props) {
           <Rating
             readOnly
             name="simple-controlled"
-            value={value}
+            value={5}
+            // value={value}
             onChange={(event, newValue) => {
               setValue(newValue);
             }}
