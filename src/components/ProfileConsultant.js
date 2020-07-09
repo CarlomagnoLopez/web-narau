@@ -645,7 +645,7 @@ export default function ProfileConsultant(props) {
 
                                     <Grid container item xs={12} spacing={3}>
                                         <Typography variant="h5" color="inherit" className={classes.titleCurses}>
-                                            Mis cursos
+                                            Mis servicios
                                         </Typography>
                                     </Grid>
 
