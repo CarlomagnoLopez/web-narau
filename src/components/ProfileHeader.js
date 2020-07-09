@@ -269,11 +269,11 @@ export default function ProfileHeader(props) {
                                 alignItems="flex-start">
                                 <Grid item>
                                     <StyledBadge
-                                     badgeContent={
-                                        completedProfile ? 
-                                        <DoneIcon className={classes.done} fontSize="medium"></DoneIcon> :
-                                        <AccessTimeIcon className={classes.war} fontSize="medium"></AccessTimeIcon>
-                                    } color="secondary">
+                                        badgeContent={
+                                            completedProfile ?
+                                                <DoneIcon className={classes.done} fontSize="medium"></DoneIcon> :
+                                                <AccessTimeIcon className={classes.war} fontSize="medium"></AccessTimeIcon>
+                                        } color="secondary">
                                         <Avatar className={classes.avatarHeader}
                                             // src={JSON.parse(localStorage.getItem("contentUser")).imgProfile}
                                             classes={{
