@@ -258,9 +258,16 @@ export default function StepSixCreateCourse(props) {
                     <Grid item xs={4} >
                         {video !== "" &&
                             <Card className={classes.rootCard}>
-                                <video width="320" height="240" controls className={classes.video}>
+                                {/* <video width="320" height="240" controls className={classes.video}>
+                                    <source src="https://www.youtube.com/watch?v=XH2UBlyiLOI" 
+                                    controls="controls" 
+                                    class="video-stream" 
+                                    x-webkit-airplay="allow"  />
                                     <source src={video} type="video/mp4" />
-                                </video>
+                                </video> */}
+                                <iframe width="320" height="240" className={classes.video}
+                                    src={video}>
+                                </iframe>
                             </Card>
                         }
 
