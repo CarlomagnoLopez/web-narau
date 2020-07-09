@@ -590,10 +590,12 @@ export default function InvoicesForm(props) {
                     alignItems="flex-start">
 
                     <Grid item>
-                      <video width="320" height="240" controls className={classes.video}>
+                      {/* <video width="320" height="240" controls className={classes.video}>
                         <source src={video} type="video/mp4" />
-                      </video>
-
+                      </video> */}
+                      <iframe width="320" height="240" className={classes.video}
+                        src={video}>
+                      </iframe>
 
                     </Grid>
 
