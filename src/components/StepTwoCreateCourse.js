@@ -213,10 +213,10 @@ export default function StepTwoCreateCourse(props) {
                                                             El título sea breve y lo más concreto posible.
 
                                                 </li>
-                                                        <li>
+                                                        {/* <li>
                                                             Incluyas para quién va dirigido (gerentes, ventas, sistemas, etc.)
 
-                                                        </li>
+                                                        </li> */}
                                                         <li>
                                                             Utilices términos de fácil entendimiento.
 
@@ -408,7 +408,7 @@ export default function StepTwoCreateCourse(props) {
                             defaultValue={editServicdeType ? props.currentDataService.subtitle : ""}
 
                             fullWidth
-                            placeholder="ej: logra la satisfacción y fidelización de los clientes a través de técnicas y estrategias de clase mundial. "
+                            placeholder="ej: Logra la satisfacción y fidelización de los clientes a través de técnicas y estrategias de clase mundial. "
                             classes={{
                                 root: "textFieldOverride",
 

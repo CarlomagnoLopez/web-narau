@@ -47,14 +47,16 @@ export default function Companies(props) {
   const classes = useStyles();
 
   const activeService = (data) => {
-    data.verified = true;
+    // data.verified = true;
+    data["custom-attr"].verified =  true;
     props.saveService(data)
     console.log(data)
 
 
   }
   const deActiveService = (data) => {
-    data.verified = false;
+    // data.verified = false;
+    data["custom-attr"].verified =  false;
     props.saveService(data)
     console.log(data)
 
@@ -94,7 +96,7 @@ export default function Companies(props) {
                     </IconButton>
                   </Tooltip>
 
-                  {row.verified &&
+                  {row["custom-attr"].verified &&
                     <Tooltip title="Desactivar" aria-label="Desactivar" >
                       <IconButton color="inherit"
                        onClick={() => { deActiveService(row) }}
@@ -103,7 +105,7 @@ export default function Companies(props) {
                       </IconButton>
                     </Tooltip>
                   }
-                  {!row.verified &&
+                  {!row["custom-attr"].verified &&
                     <Tooltip title="Activar" aria-label="Activar">
                       <IconButton color="inherit"
                       onClick={() => { activeService(row) }}
