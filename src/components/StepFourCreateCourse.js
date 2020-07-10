@@ -188,9 +188,9 @@ export default function StepFourCreateCourse(props) {
         let model = [{
             cost: cost
         },
-        {
-            costD: costD
-        },
+        // {
+        //     costD: costD
+        // },
         {
             timeEstimated: timeEstimated
         }
@@ -299,7 +299,7 @@ export default function StepFourCreateCourse(props) {
                     </Paper>
                     <Paper className={classes.paper} elevation={0}>
                         <Grid container spacing={2}>
-                            <Grid item>
+                            {/* <Grid item>
                                 <img src={viaje} />
                             </Grid>
                             <Grid item xs={12} sm container>
@@ -335,7 +335,7 @@ export default function StepFourCreateCourse(props) {
                                     />
                                 </Grid>
 
-                            </Grid>
+                            </Grid> */}
                             <Grid item xs={12} container
                                 direction="row"
                                 justify="center"
@@ -343,7 +343,9 @@ export default function StepFourCreateCourse(props) {
                                 <Button onClick={props.back} variant="contained"
 
                                 >Regresar</Button>
-                                {cost !== "" && costD !== "" && timeEstimated !== "" &&
+                                {cost !== ""
+                                //  && costD !== ""
+                                  && timeEstimated !== "" &&
                                     <Button onClick={next} variant="contained"
 
                                     >Continuar</Button>

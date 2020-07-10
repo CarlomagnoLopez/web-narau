@@ -190,13 +190,18 @@ export default function ProfileAdmin(props) {
   }
 
   const showDetail = (data) => {
+    props.getByUser(data["custom-keys"])
     setDataService(data)
-    setOpenDetailCourse(true);
+    setTimeout(() => {
+      setOpenDetailCourse(true);
+    }, 4000);
+   
   }
 
   const showDetailUser = (data) => {
     setDataService(data)
-    setOpenDetailUser(true);
+    // setOpenDetailUser(true);
+    props.showUserNoEdit(data)
   }
 
   const showDetailCompany = (data) => {
@@ -282,8 +287,21 @@ export default function ProfileAdmin(props) {
           <Grid container spacing={3}>
             {/* <div>invoices</div> */}
             <LaunchCourse
+
+              // addToWishList={addToWishList}
+              // // showReservedService={showReservedService}
+              // colorDefault={currentColorService()}
+              // byUser={props.byUser}
+              // closeForm={handleCloseDetail}
+              // currentDataService={dataService}
+              // currentDataSortKey={dataServiceId}
+
+
+              addToWishList={""}
+              showReservedService={""}
               role={"admin"}
-              closeFormCourse={""}
+              byUser={props.byUser}
+              // closeFormCourse={""}
               closeForm={handleCloseDetail}
               currentDataService={dataService["custom-attr"]}
               currentDataSortKey={dataService["custom-keys"].split(" | ")[2]}

@@ -48,7 +48,7 @@ export default function Users(props) {
 
   const activeUser = (data) => {
     // data.verified = true;
-    // data["custom-attr"].verified = true;
+    data["custom-attr"].verified = true;
     props.saveUser(data)
     console.log(data)
 
@@ -56,7 +56,7 @@ export default function Users(props) {
   }
   const deActiveUser = (data) => {
     // data.verified = false;
-    // data["custom-attr"].verified =  false;
+    data["custom-attr"].verified =  false;
     props.saveUser(data)
     console.log(data)
 

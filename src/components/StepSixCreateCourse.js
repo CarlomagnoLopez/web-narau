@@ -223,7 +223,8 @@ export default function StepSixCreateCourse(props) {
         <div>
 
             <Typography variant="h6" className={classes.title}>
-                Tienes un video para tu {typeService}
+                Añade un video para tu presentación
+                 {/* {typeService} */}
                 <div className={classes.subt}>
 
                 </div>

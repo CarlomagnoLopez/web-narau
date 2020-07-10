@@ -15,6 +15,7 @@ import Skeleton from '@material-ui/lab/Skeleton';
 
 // import { useHistory } from "react-router-dom";
 import ProfileConsultant from "../components/ProfileConsultant";
+import ProfileConsultantAdmin from "../components/ProfileConsultantAdmin";
 import ProfileCompany from "../components/ProfileCompany";
 import ProfilleAdmin from "../components/ProfilleAdmin";
 import BussyLoader from "../controls/BussyLoader";
@@ -59,6 +60,57 @@ class ProfileUser extends React.Component {
         }
 
     }
+
+    showUserNoEdit = (currentUser) => {
+        this.setState({
+            currentUser: currentUser,
+            // ebleToShow:true
+        }, (props, state) => {
+            this.startLoadingFromAdmin()
+        })
+
+
+    }
+
+
+    startLoadingFromAdmin = () => {
+        fetch('https://ob5nizjire.execute-api.us-east-1.amazonaws.com/default/userdetail?role=' + this.state.currentUser["custom-attr"].role + "&email=" + this.state.currentUser["custom-attr"].email, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'x-api-key': 'wD4FjaAoiG4bldvQ0oB6Q6fyIDqZCsfkaXCun0u6'
+            }
+        })
+            .then(res => res.json())
+            .then((data) => {
+
+                console.log(data)
+
+                this.setState({
+                    partitionKey: data.body.data["custom-types"],
+                    invoiceData: data.body.invoice ? data.body.invoice["custom-attr"] : "",
+                    serviceData: data.body.service ? data.body.service : "",
+                    dateDisposition: data.body.data["custom-dates"] ? data.body.data["custom-dates"] : [],
+                    valorations: data.body.data["custom-valorations"] ? data.body.data["custom-valorations"] : [],
+                    ebleToShow: true
+                    // dateDisposition: data.body.data["custom-dates"] ? data.body.data["custom-dates"] : []
+                    // serviceData: data.body.service ? data.body.service : ""
+                })
+
+                localStorage.setItem("partitionKey", this.state.partitionKey);
+
+                this.updateMainDataAttr(data.body.data["custom-attr"]);
+                // if (data.body.data["custom-attr"].imgProfile) {
+                //     document.getElementsByClassName("uploadPicture")[0].src = data.body.data["custom-attr"].imgProfile;
+                // }
+
+
+
+            })
+            .catch(console.log)
+    }
+
+
 
     startLoading = () => {
         fetch('https://ob5nizjire.execute-api.us-east-1.amazonaws.com/default/userdetail?role=' + this.state.currentAccountTemp.role + "&email=" + this.state.currentAccountTemp.email, {
@@ -240,8 +292,9 @@ class ProfileUser extends React.Component {
         this.setState({
             loadingUpdate: true
         }, (state, props) => {
-            fetch('https://ob5nizjire.execute-api.us-east-1.amazonaws.com/default//verifyuser?verify=' + payload.verifyLink, {
+            fetch('https://ob5nizjire.execute-api.us-east-1.amazonaws.com/default/edituser', {
                 method: 'POST',
+                body: JSON.stringify(payload),
                 headers: {
                     'Content-Type': 'application/json',
                     'x-api-key': 'wD4FjaAoiG4bldvQ0oB6Q6fyIDqZCsfkaXCun0u6'
@@ -599,6 +652,10 @@ class ProfileUser extends React.Component {
                 .catch(console.log)
         })
     }
+
+
+
+
     render() {
         // let { user } = useParams();
 
@@ -701,6 +758,8 @@ class ProfileUser extends React.Component {
 
 
                         <ProfilleAdmin
+                            byUser={this.state.byUser}
+                            getByUser={this.getByUser}
                             currentAccount={this.state.currentAccountTemp}
                             getService={this.getService}
                             getUser={this.getUser}
@@ -710,14 +769,39 @@ class ProfileUser extends React.Component {
                             companyAll={this.state.companyAll}
                             saveService={this.editService}
                             saveUser={this.editUser}
-                        // refreshBasicData={this.refreshBasicData}
-                        // refreshInvoiceData={this.refreshInvoiceData}
-                        // saveService={this.saveService}
-                        // invoiceData={this.state.invoiceData}
-                        // serviceData={this.state.serviceData}
-                        // saveWishList={this.saveWishList}
+                            showUserNoEdit={this.showUserNoEdit}
+
 
                         ></ProfilleAdmin>
+                    </div>
+
+                }
+
+                {this.state.ebleToShow &&
+                    <div>
+                        {this.state.loadingUpdate &&
+                            <BussyLoader> </BussyLoader>
+                        }
+
+                        <ProfileConsultantAdmin
+                            valorations={this.state.valorations}
+                            saveDispositions={this.saveDispositions}
+                            currentAccount={this.state.currentAccountTemp}
+                            refreshBasicData={this.refreshBasicData}
+                            refreshInvoiceData={this.refreshInvoiceData}
+                            saveService={this.saveService}
+                            invoiceData={this.state.invoiceData}
+                            serviceData={this.state.serviceData}
+                            addTopic={this.addTopic}
+                            deleteTopic={this.deleteTopic}
+                            topicData={this.state.topicData}
+                            refreshDataTopics={this.refreshDataTopics}
+                            images={this.state.images}
+                            dateDisposition={this.state.dateDisposition}
+                            saveImageProfile={this.saveImageProfile}
+
+                        // completaData={this.state.currentUser}
+                        ></ProfileConsultantAdmin>
                     </div>
 
                 }

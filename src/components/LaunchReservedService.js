@@ -709,7 +709,7 @@ export default function LaunchReservedService(props) {
                   alignItems="baseline" className="gridButtons">
 
                   <Typography gutterBottom variant="body1" >
-                    Al dar click en Enviar, tu información de Contacto será compartida con el consultor para que puedan establecer comunicación.
+                    Al dar click en Enviar, tu información de contacto será compartida con el consultor para que puedan establecer comunicación.
                   </Typography>
                 </Grid>
                 <Grid item xs={12} container
