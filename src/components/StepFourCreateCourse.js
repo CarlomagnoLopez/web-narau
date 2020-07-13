@@ -297,65 +297,24 @@ export default function StepFourCreateCourse(props) {
 
                         </Grid>
                     </Paper>
-                    <Paper className={classes.paper} elevation={0}>
-                        <Grid container spacing={2}>
-                            {/* <Grid item>
-                                <img src={viaje} />
-                            </Grid>
-                            <Grid item xs={12} sm container>
-                                <Grid item xs container direction="column" spacing={2}>
-                                    <Grid item xs>
-                                        <Typography gutterBottom variant="subtitle1">
-                                            Agregar tarifa por desplazamiento
-                                        </Typography>
-                                        <Typography variant="body2" color="textSecondary">
-                                            Para distancias mayores a 10km. de tu domicilio
-                                        </Typography>
-                                    </Grid>
-                                </Grid>
-                                <Grid item>
-                                    <TextField
-                                        required
-                                        id="costD"
-                                        name="costD"
-                                        defaultValue={editServicdeType ? props.currentDataService.costD : ""}
 
-                                        variant="filled"
-                                        fullWidth
-                                        classes={{
-                                            root: "textFieldOverrideCost",
+                    <Grid item xs={12} container
+                        direction="row"
+                        justify="center"
+                        alignItems="baseline">
+                        <Button onClick={props.back} variant="contained"
+
+                        >Regresar</Button>
+                        {cost !== ""
+                            //  && costD !== ""
+                            && timeEstimated !== "" &&
+                            <Button onClick={next} variant="contained"
+
+                            >Continuar</Button>
+                        }
 
 
-                                        }}
-                                        onChange={valueTypingCostDes}
-                                        InputProps={{
-                                            startAdornment: <InputAdornment position="start">$</InputAdornment>,
-                                            endAdornment: <InputAdornment position="end">mxn</InputAdornment>
-                                        }}
-                                    />
-                                </Grid>
-
-                            </Grid> */}
-                            <Grid item xs={12} container
-                                direction="row"
-                                justify="center"
-                                alignItems="baseline">
-                                <Button onClick={props.back} variant="contained"
-
-                                >Regresar</Button>
-                                {cost !== ""
-                                //  && costD !== ""
-                                  && timeEstimated !== "" &&
-                                    <Button onClick={next} variant="contained"
-
-                                    >Continuar</Button>
-                                }
-
-
-                            </Grid>
-
-                        </Grid>
-                    </Paper>
+                    </Grid>
                 </Grid>
 
             </form >
