@@ -29,8 +29,8 @@ ReactDOM.render(
     <Router>
       {/* {rootActiveAcount && */}
       <Switch>
-        <Route path="/verify/:id" children={<ChildRecovery />} >
-        </Route>
+        {/* <Route path="/verify/:id" children={<ChildRecovery />} >
+        </Route> */}
         <Route path="/profileuser" >
           <ProfileUser />
         </Route>

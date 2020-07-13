@@ -11,10 +11,11 @@ import AlertSendPassword from '../controls/AlertSendPassword';
 import { singIn, singUp, recoveryPsw } from "../redux/actions";
 import SignIn from "../components/SingIn";
 import SignUpIntructor from "../components/SignUpIntructor";
-import SignUpEmpresa from "../components/SignUpEmpresa";;
+import SignUpEmpresa from "../components/SignUpEmpresa";
+import LandingPage from "../components/LandingPage";
 
-localStorage.setItem("contentUserAvatarImg","");
-localStorage.setItem("contentUserCurrentAvatar","")
+localStorage.setItem("contentUserAvatarImg", "");
+localStorage.setItem("contentUserCurrentAvatar", "")
 
 class App extends React.Component {
   constructor(props) {
@@ -28,7 +29,11 @@ class App extends React.Component {
       showLoader: false,
       forgotPassword: false,
       loadingRecoveryPassword: false,
-      successSendPassword: false
+      successSendPassword: false,
+      landingPage: true,
+      initLogin: false,
+      // landingPage: false,
+      // initLogin:true
     };
   }
 
@@ -82,6 +87,31 @@ class App extends React.Component {
         // })
       })
       .catch(console.log)
+  }
+
+
+  getServices = (data) => {
+    // fetch('https://ob5nizjire.execute-api.us-east-1.amazonaws.com/default/usersignup', {
+    //   method: 'PUT',
+    //   // mode: 'CORS',
+    //   body: JSON.stringify(data),
+    //   headers: {
+    //     'Content-Type': 'application/json',
+    //     'x-api-key': 'wD4FjaAoiG4bldvQ0oB6Q6fyIDqZCsfkaXCun0u6'
+    //   }
+    // })
+    //   .then(res => res.json())
+    //   .then((data) => {
+    //     this.props.singUp(data.body);
+    //     this.setState({
+    //       signupintructor: false,
+    //       signupempresa: false,
+    //       showLoader: false
+    //     })
+
+    //     console.log(data)
+    //   })
+    //   .catch(console.log)
   }
 
   signUppRequest = (data) => {
@@ -203,6 +233,13 @@ class App extends React.Component {
     window.location.href = "/";
   }
 
+  handleSendRequestOne = () => {
+    this.setState({
+      initLogin:true,
+      landingPage:false
+    })
+  }
+
   render() {
     // console.log("props")
     // console.log(this.props)
@@ -225,108 +262,123 @@ class App extends React.Component {
 
     return (
       <div>
-        <div>
-          {showLoader &&
-            <BussyLoader
+        {this.state.landingPage &&
+          <LandingPage handleSendRequestOne= {this.handleSendRequestOne}>
+          </LandingPage>
+        }
+        {this.state.initLogin &&
+          <div>
+            <div>
+              {showLoader &&
+                <BussyLoader
 
-            // showLoader={this.state.showLoader}
-            ></BussyLoader>
-          }
-        </div>
+                // showLoader={this.state.showLoader}
+                ></BussyLoader>
+              }
+            </div>
 
-        <div>
-          {forgotPassword &&
+            <div>
+              {forgotPassword &&
 
-            <AlertForgotPassword
-              open={forgotPassword}
-              handleClose={this.handleCloseForgotPassword}
-              sendToEmail={this.sendToEmail}
-              loading={this.state.loadingRecoveryPassword}
+                <AlertForgotPassword
+                  open={forgotPassword}
+                  handleClose={this.handleCloseForgotPassword}
+                  sendToEmail={this.sendToEmail}
+                  loading={this.state.loadingRecoveryPassword}
 
-            ></AlertForgotPassword>
-          }
-        </div>
+                ></AlertForgotPassword>
+              }
+            </div>
 
-        <div>
-          {(created || desc === "duplicity") && this.state.openConf &&
-            <AlertDialogSlide
-              desc={desc === "duplicity" ? "Error" : "¡Ya casi estás dentro!"}
-              title={desc === "duplicity" ? "El correo ya existe" : "Estamos verificando tu informacion y hemos enviado un correo electrónico de confirmación. "}
-              show={this.state.openConf}
-              handleCloseOpenConf={this.handleCloseOpenConf}
-            // resetDialog={this.resetDialog}
-            // showLoader={this.state.showLoader}
-            ></AlertDialogSlide>
-          }
-        </div>
+            <div>
+              {(created || desc === "duplicity") && this.state.openConf &&
+                <AlertDialogSlide
+                  desc={desc === "duplicity" ? "Error" : "¡Ya casi estás dentro!"}
+                  title={desc === "duplicity" ? "El correo ya existe" : "Estamos verificando tu informacion y hemos enviado un correo electrónico de confirmación. "}
+                  show={this.state.openConf}
+                  handleCloseOpenConf={this.handleCloseOpenConf}
+                // resetDialog={this.resetDialog}
+                // showLoader={this.state.showLoader}
+                ></AlertDialogSlide>
+              }
+            </div>
 
-        <div>
-          {(desc === "noexist") &&
-            <AlertDialogSlide
-              desc="No tiene acceso."
-              show={this.state.openAlertDialogSlide}
-              handleCloseOpenConf={() => {
-                this.setState({
-                  openAlertDialogSlide: false
-                })
-              }}
-            // resetDialog={this.resetDialog}
-            // showLoader={this.state.showLoader}
-            ></AlertDialogSlide>
-          }
-        </div>
+            <div>
+              {(desc === "noexist") &&
+                <AlertDialogSlide
+                  desc="No tiene acceso."
+                  show={this.state.openAlertDialogSlide}
+                  handleCloseOpenConf={() => {
+                    this.setState({
+                      openAlertDialogSlide: false
+                    })
+                  }}
+                // resetDialog={this.resetDialog}
+                // showLoader={this.state.showLoader}
+                ></AlertDialogSlide>
+              }
+            </div>
 
-        <div>
-          {(successSendPassword) &&
-            <AlertSendPassword
-              // desc={recovery ? "We send an email with your password." : "We don't have that email"}
-              // show={true}
-              open={true}
-              handleClose={this.handleCloseSendPassword}
-            // resetDialog={this.resetDialog}
-            // showLoader={this.state.showLoader}
-            ></AlertSendPassword>
-          }
-        </div>
+            <div>
+              {(successSendPassword) &&
+                <AlertSendPassword
+                  // desc={recovery ? "We send an email with your password." : "We don't have that email"}
+                  // show={true}
+                  open={true}
+                  handleClose={this.handleCloseSendPassword}
+                // resetDialog={this.resetDialog}
+                // showLoader={this.state.showLoader}
+                ></AlertSendPassword>
+              }
+            </div>
 
 
-        <div>
-          {!login && !signupintructor && !signupempresa &&
-            <SignIn
-              showForgotPassword={this.showForgotPassword}
-              // signInRequest={this.signInRequest}
-              startSignUp={this.startSignUp}
-              validateForm={this.validateFormSignIn}
-            ></SignIn>
-          }
-        </div>
+            <div>
+              {!login && !signupintructor && !signupempresa &&
+                <SignIn
+                  showForgotPassword={this.showForgotPassword}
+                  // signInRequest={this.signInRequest}
+                  startSignUp={this.startSignUp}
+                  validateForm={this.validateFormSignIn}
+                ></SignIn>
+              }
+            </div>
 
-        <div>
-          {signupintructor && !signupempresa &&
-            <SignUpIntructor
-              startSignIn={this.startSignIn}
-              changeEvent={this.startSignUpEmpresa}
-              validateForm={this.validateForm}
-            ></SignUpIntructor>
-          }
-        </div>
-        <div>
-          {!signupintructor && signupempresa &&
-            <SignUpEmpresa
-              startSignIn={this.startSignIn}
-              changeEvent={this.startSignUp}
-              validateForm={this.validateForm}
-            // startSignUpEmpresa={this.startSignUpEmpresa}
-            ></SignUpEmpresa>
-          }
-        </div>
+            <div>
+              {signupintructor && !signupempresa &&
+                <SignUpIntructor
+                  startSignIn={this.startSignIn}
+                  changeEvent={this.startSignUpEmpresa}
+                  validateForm={this.validateForm}
+                ></SignUpIntructor>
+              }
+            </div>
+            <div>
+              {!signupintructor && signupempresa &&
+                <SignUpEmpresa
+                  startSignIn={this.startSignIn}
+                  changeEvent={this.startSignUp}
+                  validateForm={this.validateForm}
+                // startSignUpEmpresa={this.startSignUpEmpresa}
+                ></SignUpEmpresa>
+              }
+            </div>
 
-        <div>
-          {signin &&
-            this.setContent(contentSignIn)
-          }
-        </div>
+            <div>
+              {signin &&
+                this.setContent(contentSignIn)
+              }
+            </div>
+          </div>
+
+
+
+        }
+
       </div>
+
+
+
     );
   }
 }
