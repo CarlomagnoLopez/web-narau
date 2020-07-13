@@ -270,3 +270,34 @@ font-weight: bold;
     color: #fff !important;
 
 }
+.btnRegisterLandiing{
+  margin: 10px !important;
+  background-color: #fc5000 !important;
+  border-radius: .5rem !important;
+  border: 1px solid !important;
+  border-color: #fc5000 !important;
+  color: #fff !important;
+  font-weight: bold !important;
+
+
+}
+
+.btnInitLandiing{
+  margin: 10px !important;
+  background-color: #000 !important;
+  border-radius: .5rem !important;
+  border: 1px solid !important;
+  border-color: #fff !important;
+  color: #fff !important;
+  font-weight: bold !important;
+
+
+}
+
+.headLanding{
+  color: #fff;
+  height: 400px;
+  width: 100%;
+  background-color: #f19d2d !important;
+  flex-grow: 1;
+}
