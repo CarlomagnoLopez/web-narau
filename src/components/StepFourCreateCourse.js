@@ -144,12 +144,12 @@ export default function StepFourCreateCourse(props) {
     const { currentDataService } = props;
 
     const costEdit = currentDataService ? currentDataService.cost : "";
-    const costDEdit = currentDataService ? currentDataService.costD : "";
+    // const costDEdit = currentDataService ? currentDataService.costD : "";
     const timeEstimatedEdit = currentDataService ? currentDataService.timeEstimated : "";
 
     const [to, setTo] = React.useState("")
     const [cost, setCost] = React.useState(costEdit)
-    const [costD, setCostD] = React.useState(costDEdit)
+    const [costD, setCostD] = React.useState("")
     const [timeEstimated, setTimeEstimated] = React.useState(timeEstimatedEdit)
     // const [topic, setTopic] = React.useState("")
 

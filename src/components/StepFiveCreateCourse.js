@@ -189,9 +189,9 @@ export default function StepFiveCreateCourse(props) {
         let model = [{
             cost: cost
         },
-        {
-            costD: costD
-        }
+        // {
+        //     costD: costD
+        // }
         ]
         props.handleNextStep(model)
     }
