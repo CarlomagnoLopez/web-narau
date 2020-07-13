@@ -109,8 +109,8 @@ export default function CreateCourse(props) {
         break;
       case 3:
         payload.cost = data[0].cost;
-        payload.costD = data[1].costD;
-        payload.timeEstimated = data[2].timeEstimated;
+        // payload.costD = data[1].costD;
+        payload.timeEstimated = data[1].timeEstimated;
         break;
       case 4:
         payload.img = data;
