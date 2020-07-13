@@ -141,11 +141,16 @@ export default function StepFourCreateCourse(props) {
     const { typeService, countRefresh } = props;
 
     const editServicdeType = props.currentDataService;
-    const { currentDataService } = props;
+    const { currentDataService, payload } = props;
 
-    const costEdit = currentDataService ? currentDataService.cost : "";
+    let costEdit = currentDataService ? currentDataService.cost : "";
     // const costDEdit = currentDataService ? currentDataService.costD : "";
-    const timeEstimatedEdit = currentDataService ? currentDataService.timeEstimated : "";
+    let timeEstimatedEdit = currentDataService ? currentDataService.timeEstimated : "";
+    if (editServicdeType) {
+        costEdit = payload ? payload.cost : "";
+        timeEstimatedEdit = payload ? payload.timeEstimated : "";
+    }
+
 
     const [to, setTo] = React.useState("")
     const [cost, setCost] = React.useState(costEdit)
@@ -237,7 +242,7 @@ export default function StepFourCreateCourse(props) {
                                         id="timeEstimated"
                                         name="timeEstimated"
                                         variant="filled"
-                                        defaultValue={editServicdeType ? props.currentDataService.timeEstimated : ""}
+                                        defaultValue={editServicdeType ? props.currentDataService.timeEstimated : timeEstimatedEdit}
 
                                         placeholder="ej: 1:30"
                                         fullWidth
@@ -279,7 +284,7 @@ export default function StepFourCreateCourse(props) {
                                         required
                                         id="cost"
                                         name="cost"
-                                        defaultValue={editServicdeType ? props.currentDataService.cost : ""}
+                                        defaultValue={editServicdeType ? props.currentDataService.cost : costEdit}
                                         variant="filled"
                                         fullWidth
                                         classes={{
