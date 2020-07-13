@@ -122,11 +122,18 @@ export default function StepThreeCreateCourse(props) {
     const { typeService, countRefresh } = props;
 
     const editServicdeType = props.currentDataService;
-    const { currentDataService } = props;
+    const { currentDataService, payload } = props;
 
-    const toEdit = currentDataService ? currentDataService.to : "";
-    const benefitsEdit = currentDataService ? currentDataService.benefits : "";
-    const topicsEdit = currentDataService ? currentDataService.topics : [];
+    let toEdit = currentDataService ? currentDataService.to : "";
+    let benefitsEdit = currentDataService ? currentDataService.benefits : "";
+    let topicsEdit = currentDataService ? currentDataService.topics : [];
+    if (!editServicdeType) {
+        toEdit = payload ? payload.to : "";
+        benefitsEdit = payload ? payload.benefits : "";
+        topicsEdit = payload.topics ? payload.topics : [];
+    }
+
+
 
     const [to, setTo] = React.useState(toEdit)
     const [benefits, setBenefits] = React.useState(benefitsEdit)
@@ -222,7 +229,7 @@ export default function StepThreeCreateCourse(props) {
                                 // defaultValue={props.nameService}
                                 id="to"
                                 name="to"
-                                defaultValue={editServicdeType ? props.currentDataService.to : ""}
+                                defaultValue={editServicdeType ? props.currentDataService.to : toEdit}
                                 // label="Nombre del Servicio"
                                 variant="filled"
                                 // value={to}
@@ -265,7 +272,7 @@ export default function StepThreeCreateCourse(props) {
                                 // defaultValue={props.nameService}
                                 id="benefits"
                                 name="benefits"
-                                defaultValue={editServicdeType ? props.currentDataService.benefits : ""}
+                                defaultValue={editServicdeType ? props.currentDataService.benefits : benefitsEdit}
 
                                 // label="Nombre del Servicio"
                                 variant="filled"
@@ -291,15 +298,15 @@ export default function StepThreeCreateCourse(props) {
                                 root: classes.typography
                             }}>
                             <span>
-                            {typeService === "asesoria" &&
+                                {typeService === "asesoria" &&
                                     "Actividades Clave"
 
-                            }
+                                }
 
-                            {typeService !== "asesoria" &&
+                                {typeService !== "asesoria" &&
                                     "Diseña un temario"
 
-                            }
+                                }
                             </span>
                             {/* <div className={classes.subt}>
 

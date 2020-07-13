@@ -80,8 +80,8 @@ export default function CreateCourse(props) {
   const handleClose = () => {
     // setOpen(false);
 
-  
-      props.closeCreateCourse()
+
+    props.closeCreateCourse()
 
     // }
   };
@@ -122,11 +122,11 @@ export default function CreateCourse(props) {
 
 
         if (currentDataService) {
-          props.closeFormCourse(payload,currentDataSortKey);
+          props.closeFormCourse(payload, currentDataSortKey);
         } else {
           props.closeFormCourse(payload);
         }
-       
+
 
         break;
       default:
@@ -190,20 +190,20 @@ export default function CreateCourse(props) {
 
           }
           {nextStep === 1 &&
-            <StepTwoCreateCourse currentDataService={currentDataService} back={back} typeService={typeService} handleNextStep={handleNextStep}></StepTwoCreateCourse>
+            <StepTwoCreateCourse currentDataService={currentDataService} payload={payload} back={back} typeService={typeService} handleNextStep={handleNextStep}></StepTwoCreateCourse>
           }
           {nextStep === 2 &&
-            <StepThreeCreateCourse currentDataService={currentDataService} back={back} typeService={typeService} handleNextStep={handleNextStep} countRefresh={countRefresh}></StepThreeCreateCourse>
+            <StepThreeCreateCourse currentDataService={currentDataService}  payload={payload} back={back} typeService={typeService} handleNextStep={handleNextStep} countRefresh={countRefresh}></StepThreeCreateCourse>
           }
           {nextStep === 3 &&
-            <StepFourCreateCourse currentDataService={currentDataService} back={back} typeService={typeService} handleNextStep={handleNextStep} countRefresh={countRefresh}></StepFourCreateCourse>
+            <StepFourCreateCourse currentDataService={currentDataService}  payload={payload} back={back} typeService={typeService} handleNextStep={handleNextStep} countRefresh={countRefresh}></StepFourCreateCourse>
           }
           {nextStep === 4 &&
-            <StepFiveCreateCourse currentDataService={currentDataService} back={back} images={props.images} typeService={typeService} handleNextStep={handleNextStep} countRefresh={countRefresh}></StepFiveCreateCourse>
+            <StepFiveCreateCourse currentDataService={currentDataService}  payload={payload} back={back} images={props.images} typeService={typeService} handleNextStep={handleNextStep} countRefresh={countRefresh}></StepFiveCreateCourse>
           }
 
           {nextStep === 5 &&
-            <StepSixCreateCourse currentDataService={currentDataService} back={back} typeService={typeService} handleNextStep={handleNextStep} countRefresh={countRefresh}></StepSixCreateCourse>
+            <StepSixCreateCourse currentDataService={currentDataService}  payload={payload} back={back} typeService={typeService} handleNextStep={handleNextStep} countRefresh={countRefresh}></StepSixCreateCourse>
           }
         </Container>
       </Dialog>

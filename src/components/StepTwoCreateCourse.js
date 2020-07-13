@@ -92,11 +92,22 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 export default function StepTwoCreateCourse(props) {
     const classes = useStyles();
     const editServicdeType = props.currentDataService;
-    const { currentDataService } = props;
-    const  modeEdit  = currentDataService ? currentDataService.mode : "";
-    const  objetiveEdit  = currentDataService ? currentDataService.objetive : "";
-    const  nameServiceEdit  = currentDataService ? currentDataService.nameService : "";
-    const subtitleEDit = currentDataService ? currentDataService.subtitle : "";
+    const { currentDataService, payload } = props;
+    let modeEdit = currentDataService ? currentDataService.mode : "";
+    let objetiveEdit = currentDataService ? currentDataService.objetive : "";
+    let nameServiceEdit = currentDataService ? currentDataService.nameService : "";
+    let subtitleEDit = currentDataService ? currentDataService.subtitle : "";
+
+    if (!editServicdeType) {
+        modeEdit = payload ? payload.mode : "";
+        objetiveEdit = payload ? payload.objetive : "";
+        nameServiceEdit = payload ? payload.nameService : "";
+        subtitleEDit = payload ? payload.subtitle : "";
+    }
+
+
+
+
 
     const [titleService, setTitleService] = React.useState(nameServiceEdit)
     const [objetive, setObjService] = React.useState(objetiveEdit)
@@ -170,7 +181,7 @@ export default function StepTwoCreateCourse(props) {
                     <Grid item xs={12}>
                         <TextField
                             required
-                            defaultValue={editServicdeType ? props.currentDataService.nameService : ""}
+                            defaultValue={editServicdeType ? props.currentDataService.nameService : nameServiceEdit}
                             id="nameService"
                             name="nameService"
                             // label="Nombre del Servicio"
@@ -325,7 +336,7 @@ export default function StepTwoCreateCourse(props) {
                             id="objetivo"
                             name="objetivo"
                             variant="filled"
-                            defaultValue={editServicdeType ? props.currentDataService.objetive : ""}
+                            defaultValue={editServicdeType ? props.currentDataService.objetive : objetiveEdit}
                             fullWidth
                             placeholder="Escribe un objetivo aquí"
                             classes={{
@@ -405,7 +416,7 @@ export default function StepTwoCreateCourse(props) {
                             id="subtitle"
                             name="subtitle"
                             variant="filled"
-                            defaultValue={editServicdeType ? props.currentDataService.subtitle : ""}
+                            defaultValue={editServicdeType ? props.currentDataService.subtitle : subtitleEDit}
 
                             fullWidth
                             placeholder="ej: Logra la satisfacción y fidelización de los clientes a través de técnicas y estrategias de clase mundial. "

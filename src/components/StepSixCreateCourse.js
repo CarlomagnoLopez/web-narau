@@ -163,9 +163,14 @@ export default function StepSixCreateCourse(props) {
 
     const { typeService, countRefresh } = props;
     const editServicdeType = props.currentDataService;
-    const { currentDataService } = props;
+    const { currentDataService ,payload} = props;
 
-    const videoEdit = currentDataService ? currentDataService.video : "";
+    let videoEdit = currentDataService ? currentDataService.video : "";
+
+    if (editServicdeType) {
+     videoEdit = payload ? payload.video : "";
+
+    }
 
     const [to, setTo] = React.useState("")
     const [cost, setCost] = React.useState("")
@@ -243,7 +248,7 @@ export default function StepSixCreateCourse(props) {
                             required
                             id="video"
                             name="video"
-                            defaultValue={editServicdeType ? props.currentDataService.video : ""}
+                            defaultValue={editServicdeType ? props.currentDataService.video : videoEdit}
 
                             fullWidth
                             value={video}
