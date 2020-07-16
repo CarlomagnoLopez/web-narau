@@ -42,7 +42,10 @@ import imageBenAse from '../assets/narau-03.png';
 import Chip from '@material-ui/core/Chip';
 import StaticCalendarCompany from "../controls/StaticCalendarCompany"
 import foco from '../assets/foco_orange.png';
-
+import { withStyles } from '@material-ui/core/styles';
+import { green } from '@material-ui/core/colors';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Checkbox from '@material-ui/core/Checkbox';
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
@@ -325,7 +328,15 @@ const useStyles = makeStyles((theme) => ({
   }
 
 }));
-
+const GreenCheckbox = withStyles({
+  root: {
+    color: green[400],
+    '&$checked': {
+      color: green[600],
+    },
+  },
+  checked: {},
+})((props) => <Checkbox color="default" {...props} />);
 
 
 export default function LaunchReservedService(props) {
@@ -340,6 +351,37 @@ export default function LaunchReservedService(props) {
   const [selectedCustomerDate, setSelectedDate] = React.useState("")
   const [lastDates, setLastDates] = React.useState(props.byUser["custom-dates"])
 
+  const [state, setState] = React.useState({
+    checkedPresencial: false,
+    checkedOnline: false,
+    // checkedF: true,
+    // checkedG: true,
+  });
+
+  const handleChange = (event) => {
+    if (event.target.name === "checkedPresencial") {
+      setState({
+        checkedOnline: false,
+        checkedPresencial: true,
+
+      });
+    }
+    if (event.target.name === "checkedOnline") {
+      setState({
+        checkedOnline: true,
+        checkedPresencial: false,
+
+      });
+    }
+    // enableButton(true)
+
+
+    if (selectedCustomerDate !== "") {
+      setEnableButton(true)
+    }
+    // setState({ ...state, [event.target.name]: event.target.checked });
+
+  };
 
 
   // const handleNext = (data, sk) => {
@@ -442,7 +484,12 @@ export default function LaunchReservedService(props) {
 
 
   const enableButton = (value) => {
+    // console.log(selectedCustomerDate)
+    // console.log(state)
+    // if (state.checkedOnline || state.checkedPresencial) {
     setEnableButton(value)
+    // }
+
 
   }
 
@@ -454,14 +501,14 @@ export default function LaunchReservedService(props) {
 
   const handleSendRequest = () => {
 
-      let payloadServiceRequest = {
-         date: selectedCustomerDate,
-         message:valueMessage,  
-         byUser:props.byUser,
-         serviceKey: props.currentDataSortKey      
-      } 
-      props.sendServiceRequest(payloadServiceRequest)
-      handleClose();
+    let payloadServiceRequest = {
+      date: selectedCustomerDate,
+      message: valueMessage,
+      byUser: props.byUser,
+      serviceKey: props.currentDataSortKey
+    }
+    props.sendServiceRequest(payloadServiceRequest)
+    handleClose();
   }
 
   const valueTyping = (value) => {
@@ -480,7 +527,19 @@ export default function LaunchReservedService(props) {
 
     setSelectedDate(selectedDate.toISOString())
     // console.log(selectedDate)
+    // setTimeout(() => {
+    // enableButton(selectedDate.toISOString())
+    if (currentDataService.mode === "mixto") {
+      if (state.checkedOnline || state.checkedPresencial) {
+        setEnableButton(true)
+      }
+    }else{
+      setEnableButton(true)
+    }
+
+    // }, 300);
   }
+
   return (
     <React.Fragment>
       <CssBaseline />
@@ -528,12 +587,38 @@ export default function LaunchReservedService(props) {
                 >
                   <Grid item xs={12} sm={5}>
                     <Paper className={classes.paper} elevation={0}>
-                      <Typography variant="h5" className={classes.nameservice}>
-                        El servicio se recibira en la modalidad:
-                       </Typography>
-                      <Typography variant="h4" className={classes.nameserviceType}>
-                        {currentDataService.mode}
-                      </Typography>
+
+                      {currentDataService.mode === "mixto" &&
+                        <div>
+                          <Typography variant="h5" className={classes.nameservice}>
+                            Seleccione la modalidad:
+                          </Typography>
+                          {/* <Typography variant="h4" className={classes.nameserviceType}>
+                            {currentDataService.mode}
+                          </Typography> */}
+                          <FormControlLabel
+                            control={<GreenCheckbox checked={state.checkedPresencial} onChange={handleChange} name="checkedPresencial" />}
+                            label="Presencial"
+                          />
+                          <FormControlLabel
+                            control={<GreenCheckbox checked={state.checkedOnline} onChange={handleChange} name="checkedOnline" />}
+                            label="En linea"
+                          />
+                        </div>
+
+                      }
+
+                      {currentDataService.mode !== "mixto" &&
+                        <div>
+                          <Typography variant="h5" className={classes.nameservice}>
+                            El servicio se recibira en la modalidad:
+                          </Typography>
+                          <Typography variant="h4" className={classes.nameserviceType}>
+                            {currentDataService.mode}
+                          </Typography>
+                        </div>
+                      }
+
                     </Paper>
 
                   </Grid>
@@ -555,7 +640,6 @@ export default function LaunchReservedService(props) {
                         // saveDispositions={saveDispositions}
                         // dateDisposition={props.dateDisposition}
                         saveDate={saveDate}
-                        enableButton={enableButton}
                         dateDisposition={lastDates}
                         flCont={flCont}
                       ></StaticCalendarCompany>
