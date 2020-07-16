@@ -66,14 +66,15 @@ export default class StaticCalendarCompany extends React.Component {
     this.setState({
       selectedDay: modifiers.selected ? undefined : day,
     },(props,state) => {
-      if(this.state.selectedDay){
-        this.props.enableButton(true)
-      }else{
-        this.props.enableButton(false)
-
-      }
-
       this.props.saveDate(this.state.selectedDay)
+      // if(this.state.selectedDay){
+      //   this.props.enableButton(true)
+      // }else{
+      //   this.props.enableButton(false)
+
+      // }
+
+      
       // console.log(this.state.selectedDay)
     });
 

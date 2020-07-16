@@ -330,7 +330,7 @@ export default function InvoicesForm(props) {
   let imgClass = "";
   let imageBen = "";
   switch (currentDataService.serviceType) {
-    case "Conferencia":
+    case "conferencia":
       // if(currentDataService.mode === "mixto"){
       //   imgClass = "imgSemonline imgSempresencial"
       // }else{
