@@ -48,7 +48,7 @@ import {
 import ProfileHeader from './ProfileHeader';
 import InvoicesForm from './InvoicesForm';
 import CreateCourse from './CreateCourse';
-import LaunchCourse from './LaunchCourse';
+import LaunchCourseConsultant from './LaunchCourseConsultant';
 // import Chart from './Chart';
 // import Deposits from './Deposits';
 // import Orders from './Orders';
@@ -252,6 +252,9 @@ export default function ProfileConsultant(props) {
     const [flCont, setFlCont] = React.useState(0)
     const [lastDates, setLastDates] = React.useState(props.dateDisposition)
     const [showCustomerValorations, setShowCustomerValorations] = React.useState(false)
+    // const [dataService, setDataService] = React.useState();
+    const [dataServiceId, setDataServiceId] = React.useState();
+    const [openDetailCourse, setOpenDetailCourse] = React.useState(false);
 
     const { currentAccount } = props;
 
@@ -479,6 +482,27 @@ export default function ProfileConsultant(props) {
 
     }
 
+    const showInfoCourse = (data, dataId) => {
+        // if(data)
+        // if(data){
+
+        // props.getByUser(dataId)
+        // if (props.byUser) {
+        // setTimeout(() => {
+        console.log(currentAccount)
+        setDataService(data)
+        setDataServiceId(dataId)
+
+        // }
+        setOpenDetailCourse(true)
+        console.log("show")
+        // }, 1500);
+
+        // }
+
+    }
+
+
 
     // getStadistics()
 
@@ -557,7 +581,7 @@ export default function ProfileConsultant(props) {
                                         <CardSideContent
                                             text={training}
                                             referenceRequest={"training"}
-                                            title={"Entrenamiento"}
+                                            title={"Entrenamientos"}
                                             request={requestUpdateAttribute}
                                         ></CardSideContent>
                                         <Divider variant="middle" className={classes.divider} />
@@ -659,6 +683,7 @@ export default function ProfileConsultant(props) {
                                                 role={"consultant"}
                                                 key={index}
                                                 openForm={() => { showFormCourse(infoCourse, dataCourseId[index]) }}
+                                                openFormView={() => { showInfoCourse(infoCourse, dataCourseId[index]) }}
                                                 // openFormDetail={() => { showInfoCourseDetail(infoCourse, dataCourseId[index]) }}
                                                 // openForm={createCourse}
                                                 infoCourse={infoCourse}>
@@ -785,7 +810,35 @@ export default function ProfileConsultant(props) {
 
                         </Container>
                     }
+                    {openDetailCourse &&
+                        // <DetailCourse
+                        //     show={openDetailCourse}
+                        //     dataService={dataService}
+                        //     dataServiceId={dataServiceId}
+                        //     handleCloseDetail={handleCloseDetail}
+                        //     addToWishList={addToWishList}
+                        // ></DetailCourse>
+                        <Container maxWidth="lg" className={classes.container}>
+                            <Grid container spacing={3}>
+                                <LaunchCourseConsultant
+                                    // addToWishList={addToWishList}
+                                    // closeFormCourse={closeFormCourse}
+                                    // closeForm={closeForm}
+                                    // showReservedService={showReservedService}
+                                    colorDefault={"#ff931e"}
+                                    byUser={currentAccount}
+                                    closeForm={() => {setOpenDetailCourse(false)}}
+                                    currentDataService={dataService}
+                                    currentDataSortKey={dataServiceId}
+                                // addTopic={props.addTopic}
+                                // deleteTopic={props.deleteTopic}
+                                // topicData={props.topicData}
+                                ></LaunchCourseConsultant>
+                            </Grid>
 
+                        </Container>
+
+                    }
                     {openLaunchCourse &&
                         <Container maxWidth="lg" className={classes.container}>
                             <Grid container spacing={3}>

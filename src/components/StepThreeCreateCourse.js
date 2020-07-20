@@ -396,11 +396,11 @@ export default function StepThreeCreateCourse(props) {
                         direction="row"
                         justify="center"
                         alignItems="baseline">
-                        <Button onClick={props.back} variant="contained"
+                        <Button onClick={props.back} variant="contained"  className="btnBack"
 
                         >Regresar</Button>
                         {to !== "" && benefits !== "" && topicData.length !== 0 &&
-                            <Button onClick={next} variant="contained"
+                            <Button onClick={next} variant="contained"  className="btnNext"
 
                             >Continuar</Button>
                         }

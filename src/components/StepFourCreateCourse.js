@@ -307,13 +307,13 @@ export default function StepFourCreateCourse(props) {
                         direction="row"
                         justify="center"
                         alignItems="baseline">
-                        <Button onClick={props.back} variant="contained"
+                        <Button onClick={props.back} variant="contained"  className="btnBack"
 
                         >Regresar</Button>
                         {cost !== ""
                             //  && costD !== ""
                             && timeEstimated !== "" &&
-                            <Button onClick={next} variant="contained"
+                            <Button onClick={next} variant="contained"  className="btnNext"
 
                             >Continuar</Button>
                         }

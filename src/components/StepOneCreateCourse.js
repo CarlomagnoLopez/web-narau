@@ -54,7 +54,13 @@ const useStyles = makeStyles((theme) => ({
     buttonSelect: {
         top: "83%",
         left: "calc(50% - 34px)",
-        position: "absolute"
+        position: "absolute",
+        margin: "10px !important",
+        backgroundColor: "#fc5000 !important",
+        borderRadius: "1rem !important",
+        border: "1px solid !important",
+        borderColor: "#fc5000 !important",
+        color: "#fff !important"
     }
 
 
@@ -243,7 +249,7 @@ export default function StepOneCreateCourse(props) {
             </div>
 
             {opneDesc &&
-                <Button onClick={next} variant="contained" className={classes.buttonSelect} classes={{
+                <Button onClick={next} variant="contained" className={classes.buttonSelect}   classes={{
                     root: classes.rootButton
                 }}
 

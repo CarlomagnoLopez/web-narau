@@ -13,6 +13,8 @@ import IconButton from '@material-ui/core/IconButton';
 import Tooltip from '@material-ui/core/Tooltip';
 import CheckIcon from '@material-ui/icons/Check';
 import ClearIcon from '@material-ui/icons/Clear';
+import moment from 'moment'
+import 'moment/locale/es';
 // Generate Order Data
 function createData(id, date, name, shipTo, paymentMethod, amount) {
   return { id, date, name, shipTo, paymentMethod, amount };
@@ -37,6 +39,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
+// const momentRe = moment;
 
 export default function Orders(props) {
   const showDetail = (data) => {
@@ -44,6 +47,14 @@ export default function Orders(props) {
     console.log(data)
   }
   const { serviceAll } = props;
+
+  const esM = moment;
+  esM().locale("es")
+  // console.log(esM.format('LLLL'))
+
+  // if(serviceAll.length > 0){
+  //   console.log(serviceAll[0]["custom-attr"].date)
+  // }
   const classes = useStyles();
 
   const activeService = (data) => {
@@ -80,7 +91,7 @@ export default function Orders(props) {
         <TableBody>
           {serviceAll.map((row) => (
             <TableRow key={row["custom-keys"]}>
-              <TableCell>{row["custom-attr"].date}</TableCell>
+              <TableCell>{row["custom-attr"].date ? esM(row["custom-attr"].date).format("LL")  : "" }</TableCell>
               <TableCell>{row["custom-attr"].nameService}</TableCell>
               <TableCell>{row["custom-attr"].mode}</TableCell>
               <TableCell>{(row.verified ? "Si" : "No")}</TableCell>

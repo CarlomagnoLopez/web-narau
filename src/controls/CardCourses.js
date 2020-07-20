@@ -152,6 +152,9 @@ export default function CardCourses(props) {
                         action={
 
                             <div>
+                                 <IconButton aria-label="settings" onClick={props.openFormView}>
+                                    <VisibilityIcon />
+                                </IconButton>
                                 <IconButton aria-label="settings" onClick={props.openForm}>
                                     <EditIcon />
                                 </IconButton>

@@ -435,12 +435,12 @@ export default function StepTwoCreateCourse(props) {
                         justify="center"
                         alignItems="baseline">
 
-                        <Button onClick={back} variant="contained"
+                        <Button onClick={back} variant="contained" className="btnBack"
 
                         >Regresar</Button>
 
-                        {titleService !== "" && modeService !== "" && objetive !== "" && lemaService !== "" &&
-                            <Button onClick={next} variant="contained"
+                        {titleService !== "" && modeService !== "" && objetive !== "" && lemaService !== "" && titleService && modeService  && objetive && lemaService  &&
+                            <Button onClick={next} variant="contained" className="btnNext"
 
                             >Continuar</Button>
                         }

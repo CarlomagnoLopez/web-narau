@@ -512,3 +512,8 @@ body .cardService{
   .bgBlack{
       background-color: black;
   }
+
+
+  .backImgContainer{
+    /* background-image:url(''); */
+  }

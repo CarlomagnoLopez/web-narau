@@ -13,6 +13,7 @@ import Typography from '@material-ui/core/Typography';
 import Slide from '@material-ui/core/Slide';
 
 import logo_sun from '../assets/sun_logo.png';
+import backImg from '../assets/narau-36.png';
 
 
 import "./styles.css"
@@ -57,9 +58,21 @@ const useStyles = makeStyles((theme) => ({
 
   },
   buttonSelect: {
-    top: "83%",
+    top: "76%",
     left: "calc(50% - 34px)",
     position: "absolute"
+  },
+
+  backImg:{
+    backgroundImage: `url(${backImg})`,
+    filter: "sepia(.6)",
+    // background-image: url(/static/media/narau-36.a1b21596.png);
+    width: "100%",
+    position: "absolute",
+    height: "100%",
+    top: "0px",
+    left: "0px",
+    backgroundSize: "100%"
   }
 
 
@@ -182,6 +195,12 @@ export default function CreateCourse(props) {
             <ProgressCreateCourse handleClose={handleClose} currentStep={nextStep} totalPercent={totalPercent}></ProgressCreateCourse>
           </Toolbar>
         </AppBar>
+        {
+          nextStep === 4 && 
+          <div className={classes.backImg}>
+
+          </div>
+        }
         <Container maxWidth="md">
           {nextStep === 0 &&
             <StepOneCreateCourse currentDataService={
@@ -193,17 +212,17 @@ export default function CreateCourse(props) {
             <StepTwoCreateCourse currentDataService={currentDataService} payload={payload} back={back} typeService={typeService} handleNextStep={handleNextStep}></StepTwoCreateCourse>
           }
           {nextStep === 2 &&
-            <StepThreeCreateCourse currentDataService={currentDataService}  payload={payload} back={back} typeService={typeService} handleNextStep={handleNextStep} countRefresh={countRefresh}></StepThreeCreateCourse>
+            <StepThreeCreateCourse currentDataService={currentDataService} payload={payload} back={back} typeService={typeService} handleNextStep={handleNextStep} countRefresh={countRefresh}></StepThreeCreateCourse>
           }
           {nextStep === 3 &&
-            <StepFourCreateCourse currentDataService={currentDataService}  payload={payload} back={back} typeService={typeService} handleNextStep={handleNextStep} countRefresh={countRefresh}></StepFourCreateCourse>
+            <StepFourCreateCourse currentDataService={currentDataService} payload={payload} back={back} typeService={typeService} handleNextStep={handleNextStep} countRefresh={countRefresh}></StepFourCreateCourse>
           }
           {nextStep === 4 &&
-            <StepFiveCreateCourse currentDataService={currentDataService}  payload={payload} back={back} images={props.images} typeService={typeService} handleNextStep={handleNextStep} countRefresh={countRefresh}></StepFiveCreateCourse>
+            <StepFiveCreateCourse currentDataService={currentDataService} payload={payload} back={back} images={props.images} typeService={typeService} handleNextStep={handleNextStep} countRefresh={countRefresh}></StepFiveCreateCourse>
           }
 
           {nextStep === 5 &&
-            <StepSixCreateCourse currentDataService={currentDataService}  payload={payload} back={back} typeService={typeService} handleNextStep={handleNextStep} countRefresh={countRefresh}></StepSixCreateCourse>
+            <StepSixCreateCourse currentDataService={currentDataService} payload={payload} back={back} typeService={typeService} handleNextStep={handleNextStep} countRefresh={countRefresh}></StepSixCreateCourse>
           }
         </Container>
       </Dialog>

@@ -287,6 +287,7 @@ export default function StepSixCreateCourse(props) {
                                 </CardActionArea>
                             </Card> */}
                     </Grid>
+                    <br></br>
                     <Grid item xs={12} container
                         direction="row"
                         justify="center"
@@ -298,11 +299,11 @@ export default function StepSixCreateCourse(props) {
 
 
                         </Grid>
-                        <Button onClick={props.back} variant="contained"
+                        <Button onClick={props.back} variant="contained" className="btnBack"
 
                         >Regresar</Button>
                         {/* {to !== "" && benefits !== "" && topicData.length !== 0 && */}
-                        <Button onClick={next} variant="contained" className={classes.margins}
+                        <Button onClick={next} variant="contained" className={classes.margins} className="btnNext"
 
                         >Continuar</Button>
                         {/* } */}
