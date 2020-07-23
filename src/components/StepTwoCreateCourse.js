@@ -363,7 +363,7 @@ export default function StepTwoCreateCourse(props) {
                                         <Grid item xs container direction="column" spacing={2}>
                                             <Grid item xs>
                                                 <Typography className={classes.titleDesc}>
-                                                    ¡Tu aportación es única! Asegúrate de incluír:
+                                                    ¡Tu aportación es única! Asegúrate de incluir:
                                                 </Typography>
                                             </Grid>
                                             <Grid item>

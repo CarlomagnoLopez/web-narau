@@ -237,7 +237,7 @@ export default function StepOneCreateCourse(props) {
             </div>
             <div>
                 {openDesc1 &&
-                    <div id="boxDescA" className="boxDesc colorAsesoria"> Asesoría <br></br><span >Click en continuar para crear un Asesoria</span></div>
+                    <div id="boxDescA" className="boxDesc colorAsesoria"> Asesoría <br></br><span >Click en continuar para crear un Asesoría</span></div>
                 }
 
                 {openDesc3 &&
