@@ -360,7 +360,9 @@ export default function InvoicesForm(props) {
       break;
   }
 
-
+const showProfileConsultant = () => {
+  console.log("profile")
+}
 
   // currentDataService.mode ? 
 
@@ -447,10 +449,10 @@ export default function InvoicesForm(props) {
                       </Paper>
                       <Paper elevation={0} className={classes.paperCustom}>
                         <Typography variant="subtitle1" className={classes.nameservice} >
-                          {"Tiempo estimado: "} 
+                          {"Tiempo estimado: "}
                         </Typography>
                         <Typography variant="subtitle1" className={classes.nameservice} >
-                           {currentDataService.timeEstimated ? currentDataService.timeEstimated : ""} {"Horas."}
+                          {currentDataService.timeEstimated ? currentDataService.timeEstimated : ""} {"Horas."}
                         </Typography>
                       </Paper>
                     </Grid>
@@ -471,11 +473,17 @@ export default function InvoicesForm(props) {
 
                     <Grid item xs={12} sm={12}>
                       {currentDataService.objetive !== "" &&
-                        <Typography variant="subtitle1" >
+                        <div>
+                          <Typography variant="h6" >
+                            {"Objetivo: "}
+                          </Typography>
+                          <Typography variant="subtitle1" >
 
-                          {/* {convertCapitalize(currentDataService.objetive)} */}
-                          {(currentDataService.objetive)}
-                        </Typography>
+                            {/* {convertCapitalize(currentDataService.objetive)} */}
+                            {(currentDataService.objetive)}
+                          </Typography>
+                        </div>
+
 
                       }
                       <Divider></Divider>
@@ -582,7 +590,7 @@ export default function InvoicesForm(props) {
                   </Grid>
                   <Grid item>
                     <div className={classes.rootChip}>
-                      <Chip label="Ver perfil completo" />
+                      <Chip label="Ver perfil completo" onClick={showProfileConsultant}/>
                     </div>
                   </Grid>
                 </Paper>
