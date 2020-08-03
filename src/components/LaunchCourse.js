@@ -447,7 +447,10 @@ export default function InvoicesForm(props) {
                       </Paper>
                       <Paper elevation={0} className={classes.paperCustom}>
                         <Typography variant="subtitle1" className={classes.nameservice} >
-                          {"Tiempo estimado: "} {currentDataService.timeEstimated ? currentDataService.timeEstimated : ""}
+                          {"Tiempo estimado: "} 
+                        </Typography>
+                        <Typography variant="subtitle1" className={classes.nameservice} >
+                           {currentDataService.timeEstimated ? currentDataService.timeEstimated : ""} {"Horas."}
                         </Typography>
                       </Paper>
                     </Grid>

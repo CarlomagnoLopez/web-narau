@@ -12,7 +12,7 @@ export default class StaticCalendarCompany extends React.Component {
     super(props);
     this.handleDayClick = this.handleDayClick.bind(this);
     this.state = {
-      selectedDay:null,
+      selectedDay: null,
       flCont: 0
     };
   }
@@ -65,7 +65,7 @@ export default class StaticCalendarCompany extends React.Component {
     }
     this.setState({
       selectedDay: modifiers.selected ? undefined : day,
-    },(props,state) => {
+    }, (props, state) => {
       this.props.saveDate(this.state.selectedDay)
       // if(this.state.selectedDay){
       //   this.props.enableButton(true)
@@ -74,21 +74,24 @@ export default class StaticCalendarCompany extends React.Component {
 
       // }
 
-      
+
       // console.log(this.state.selectedDay)
     });
 
 
-   
-    
+
+
   }
 
 
   convertDays(dates) {
     let dateConverted = []
-    dates.map((item) => {
-      dateConverted.push(new Date(item))
-    })
+    if (dates) {
+      dates.map((item) => {
+        dateConverted.push(new Date(item))
+      })
+    }
+
 
     console.log(dateConverted);
 
