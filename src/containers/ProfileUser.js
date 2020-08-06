@@ -2,6 +2,20 @@ import React from "react";
 import { connect } from "react-redux";
 import { singIn, singUp, recoveryPsw } from "../redux/actions";
 import Button from '@material-ui/core/Button';
+// import Button from '@material-ui/core/Button';
+import Dialog from '@material-ui/core/Dialog';
+import { makeStyles } from '@material-ui/core/styles';
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
+import IconButton from '@material-ui/core/IconButton';
+import logo_login from '../assets/logos-narau-04.png';
+import Typography from '@material-ui/core/Typography';
+import CloseIcon from '@material-ui/icons/Close';
+
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
 import {
     BrowserRouter as Router,
     Switch,
@@ -11,6 +25,8 @@ import {
     useParams,
     useHistory
 } from "react-router-dom";
+
+
 import Skeleton from '@material-ui/lab/Skeleton';
 
 // import { useHistory } from "react-router-dom";
@@ -21,6 +37,21 @@ import ProfilleAdmin from "../components/ProfilleAdmin";
 import BussyLoader from "../controls/BussyLoader";
 
 
+import "../css/stylesGlobalOverRide.css"
+
+
+// const useStyles = makeStyles((theme) => ({
+
+
+//     appBar: {
+//         position: 'relative',
+//         backgroundColor: "#000",
+//         color: "#fff",
+//         boxShadow: "none",
+//         // pointerEvents: "none"
+//     },
+// }))
+// const classes = useStyles();
 class ProfileUser extends React.Component {
     constructor(props) {
         super(props);
@@ -63,8 +94,10 @@ class ProfileUser extends React.Component {
 
     showUserNoEdit = (currentUser) => {
         this.setState({
-            currentUser: currentUser,
-            // ebleToShow:true
+            currentUserNoEdit: currentUser,
+            // ebleToShow: true
+            loadingUpdate: true
+            // loading: true
         }, (props, state) => {
             this.startLoadingFromAdmin()
         })
@@ -74,7 +107,7 @@ class ProfileUser extends React.Component {
 
 
     startLoadingFromAdmin = () => {
-        fetch('https://ob5nizjire.execute-api.us-east-1.amazonaws.com/default/userdetail?role=' + this.state.currentUser["custom-attr"].role + "&email=" + this.state.currentUser["custom-attr"].email, {
+        fetch('https://ob5nizjire.execute-api.us-east-1.amazonaws.com/default/userdetail?role=' + this.state.currentUserNoEdit["custom-attr"].role + "&email=" + this.state.currentUserNoEdit["custom-attr"].email, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -87,19 +120,38 @@ class ProfileUser extends React.Component {
                 console.log(data)
 
                 this.setState({
-                    partitionKey: data.body.data["custom-types"],
-                    invoiceData: data.body.invoice ? data.body.invoice["custom-attr"] : "",
-                    serviceData: data.body.service ? data.body.service : "",
-                    dateDisposition: data.body.data["custom-dates"] ? data.body.data["custom-dates"] : [],
-                    valorations: data.body.data["custom-valorations"] ? data.body.data["custom-valorations"] : [],
-                    ebleToShow: true
-                    // dateDisposition: data.body.data["custom-dates"] ? data.body.data["custom-dates"] : []
+                    partitionKeyNoEdit: data.body.data["custom-types"],
+                    invoiceDataNoEdit: data.body.invoice ? data.body.invoice["custom-attr"] : "",
+                    serviceDataNoEdit: data.body.service ? data.body.service : "",
+                    dateDispositionNoEdit: data.body.data["custom-dates"] ? data.body.data["custom-dates"] : [],
+                    valorationsNoEdit: data.body.data["custom-valorations"] ? data.body.data["custom-valorations"] : [],
+
+                    // dateDispositiondateDisposition: data.body.data["custom-dates"] ? data.body.data["custom-dates"] : []
                     // serviceData: data.body.service ? data.body.service : ""
                 })
 
-                localStorage.setItem("partitionKey", this.state.partitionKey);
+                localStorage.setItem("partitionKeyNoEdit", this.state.partitionKeyNoEdit);
 
-                this.updateMainDataAttr(data.body.data["custom-attr"]);
+                // this.updateMainDataAttr(data.body.data["custom-attr"]);
+
+
+                let jsonModel = JSON.stringify(data.body.data["custom-attr"]);
+
+                localStorage.setItem("contentUserNoEdit", jsonModel);
+
+                localStorage.setItem("contentUserAvatarImgNoEdit", JSON.parse(localStorage.getItem("contentUserNoEdit")).imgProfile);
+
+                this.setState({
+                    currentAccountTempNoEdit: JSON.parse(localStorage.getItem("contentUserNoEdit")),
+                    loading: true,
+
+                }, (state, props) => {
+                    this.setState({
+                        ebleToShow: true,
+                        loadingUpdate: false
+
+                    })
+                })
                 // if (data.body.data["custom-attr"].imgProfile) {
                 //     document.getElementsByClassName("uploadPicture")[0].src = data.body.data["custom-attr"].imgProfile;
                 // }
@@ -655,7 +707,14 @@ class ProfileUser extends React.Component {
 
 
 
+    handleCloseNoEdit = (data) => {
+        // setOpenDialog(false)
+        this.setState({
+            ebleToShow: false
+        })
+        // props.closeForm()
 
+    };
     render() {
         // let { user } = useParams();
 
@@ -773,38 +832,71 @@ class ProfileUser extends React.Component {
 
 
                         ></ProfilleAdmin>
+
+
+
                     </div>
 
                 }
-
                 {this.state.ebleToShow &&
-                    <div>
-                        {this.state.loadingUpdate &&
+                    < div >
+                        {
+                            this.state.loadingUpdate &&
                             <BussyLoader> </BussyLoader>
                         }
+                        <Dialog fullScreen open={true}
+                            onClose={this.handleCloseNoEdit}
+                        >
 
-                        <ProfileConsultantAdmin
-                            valorations={this.state.valorations}
-                            saveDispositions={this.saveDispositions}
-                            currentAccount={this.state.currentAccountTemp}
-                            refreshBasicData={this.refreshBasicData}
-                            refreshInvoiceData={this.refreshInvoiceData}
-                            saveService={this.saveService}
-                            invoiceData={this.state.invoiceData}
-                            serviceData={this.state.serviceData}
-                            addTopic={this.addTopic}
-                            deleteTopic={this.deleteTopic}
-                            topicData={this.state.topicData}
-                            refreshDataTopics={this.refreshDataTopics}
-                            images={this.state.images}
-                            dateDisposition={this.state.dateDisposition}
-                            saveImageProfile={this.saveImageProfile}
+                            <AppBar className={"appBarNoEdit"}>
+                                <Toolbar>
+                                    <IconButton edge="start" color="inherit" disabled
+                                        aria-label="close">
+                                        <div className={"logoNoEdit"}>
+                                            <img src={logo_login} className={"logoTopBarNoEdit"} />
+                                        </div>
+                                    </IconButton>
+                                    <Typography variant="h6">
+                                        {/* Narau */}
+                                    </Typography>
+                                    <div className={"closeIconNoEdit"}>
+                                        <IconButton edge="start" color="inherit" className={"buttoncloseNoEdit"}
+                                            onClick={this.handleCloseNoEdit}
+                                            aria-label="close">
+                                            <CloseIcon />
 
-                        // completaData={this.state.currentUser}
-                        ></ProfileConsultantAdmin>
+                                        </IconButton>
+                                    </div>
+
+                                </Toolbar>
+                            </AppBar>
+                            <ProfileConsultantAdmin
+                                valorations={this.state.valorationsNoEdit}
+                                saveDispositions={""}
+                                currentAccount={this.state.currentAccountTempNoEdit}
+                                refreshBasicData={""}
+                                refreshInvoiceData={""}
+                                saveService={""}
+                                invoiceData={this.state.invoiceDataNoEdit}
+                                serviceData={this.state.serviceDataNoEdit}
+                                addTopic={""}
+                                deleteTopic={""}
+                                topicData={this.state.topicDataNoEdit}
+                                refreshDataTopics={""}
+                                images={this.state.images}
+                                dateDisposition={this.state.dateDispositionNoEdit}
+                                saveImageProfile={""}
+
+                            // completaData={this.state.currentUser}
+                            ></ProfileConsultantAdmin>
+                        </Dialog>
+
+
                     </div>
 
                 }
+
+
 
             </div >
 
@@ -812,6 +904,7 @@ class ProfileUser extends React.Component {
 
     }
 }
+
 // const mapStateToProps = state => {
 //   // return { activeFilter: state.visibilityFilter };
 //   return state;

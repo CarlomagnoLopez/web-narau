@@ -15,6 +15,7 @@ import CardMedia from '@material-ui/core/CardMedia';
 import CardContent from '@material-ui/core/CardContent';
 import clsx from 'clsx';
 import EditIcon from '@material-ui/icons/Edit';
+import DeleteIcon from '@material-ui/icons/Delete';
 import BookIcon from '@material-ui/icons/Book';
 
 import MoreVertIcon from '@material-ui/icons/MoreVert'
@@ -122,11 +123,12 @@ export default function CardCourses(props) {
     //     // handleClose();
     //   }
 
+    console.log(props.deleted)
 
     return (
-
         <Grid item xs={4} >
             {/* <Paper className={classes.paperCursos}>{infoCourse.name}</Paper> */}
+            
             <Card raised className={classes.root}>
 
                 {!props.role &&
@@ -152,12 +154,15 @@ export default function CardCourses(props) {
                         action={
 
                             <div>
+                                <IconButton aria-label="settings" onClick={props.openFormView}>
+                                    <VisibilityIcon />
+                                </IconButton>
                                 <IconButton aria-label="settings" onClick={props.openForm}>
                                     <EditIcon />
                                 </IconButton>
-                                {/* <IconButton aria-label="settings" onClick={props.addToWishList}>
-                                    <VisibilityIcon />
-                                </IconButton> */}
+                                <IconButton aria-label="settings" onClick={props.deleteService}>
+                                    <DeleteIcon />
+                                </IconButton>
                             </div>
 
                         }
@@ -168,60 +173,21 @@ export default function CardCourses(props) {
 
                 <CardActionArea onClick={props.openForm} className={classes.cssCa}>
                     <CardMedia
-                        // children = {<div>hola</div>}
                         component="img"
-                        // alt="Contemplative Reptile"
-                        // height="140"
-                        // image="../assets/imgex.jpg"
                         image={imageService}
-                    // title="Contemplative Reptile"
                     />
-                    {/* {serviceType === "seminario" && */}
                     <CardContent className={classService}>
                         <Typography gutterBottom variant="h5" component="h2" classes={{ root: classes.cardService }}>
                             {infoCourse.nameService}
                         </Typography>
                     </CardContent>
-                    {/* }
-                    {serviceType === "taller" &&
-                        <CardContent className={classTaller}>
-                            <Typography gutterBottom variant="h5" component="h2" classes={{ root: classes.cardService }}>
-                                {infoCourse.nameService}
-                            </Typography>
-                        </CardContent>
-                    }
-                    {serviceType === "asesoria" &&
-                        <CardContent className={classSeminario}>
-                            <Typography gutterBottom variant="h5" component="h2" classes={{ root: classes.cardService }}>
-                                {infoCourse.nameService}
-                            </Typography>
-                        </CardContent>
-                    } */}
-
 
                 </CardActionArea>
 
             </Card>
         </Grid>
-        // <Card>
-        //     <CardHeader
-        //         title={
-        //             <Typography gutterBottom variant="subtitle2" component="div">
-        //                 {props.title}
-        //             </Typography>
-        //         }
-        //         action={
-        //             <IconButton>
-        //                 <EditIcon />
-        //             </IconButton>
-        //         }
-        //     />
-        //     <CardContent>
-        //         <Typography color="textSecondary" gutterBottom>
-        //             {props.text}
-        //         </Typography>
-        //     </CardContent>
-        // </Card>
+
+
     );
 }
 

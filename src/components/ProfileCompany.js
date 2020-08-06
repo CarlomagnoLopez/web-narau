@@ -37,6 +37,8 @@ import DetailCourse from "../components/DetailCourse"
 import WishList from "../components/WishList"
 import ShoppingCart from "../components/ShoppingCart"
 import ShoppingBasketIcon from '@material-ui/icons/ShoppingBasket';
+import MuiAlert from '@material-ui/lab/Alert';
+import Snackbar from '@material-ui/core/Snackbar';
 import {
     BrowserRouter as Router,
     Switch,
@@ -74,8 +76,16 @@ function Copyright() {
 // const drawerWidth = 240;
 const drawerWidth = 240;
 const sizeTopBar = 95;
-
+function Alert(props) {
+    return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
 const useStyles = makeStyles((theme) => ({
+    rootalert: {
+        width: '100%',
+        '& > * + *': {
+            marginTop: theme.spacing(2),
+        },
+    },
     root: {
         display: 'flex',
     },
@@ -224,6 +234,7 @@ export default function ProfileCompany(props) {
     const [shoppingCart, setShoppingCart] = React.useState([]);
     const [reservedService, setReservedService] = React.useState([]);
     const [openReservedService, setOpenReservedService] = React.useState(false);
+    const [noDates, setNoDates] = React.useState(false);
 
     const { currentAccount } = props;
 
@@ -404,8 +415,19 @@ export default function ProfileCompany(props) {
         setDataBagde(totalItems)
     }
     const showReservedService = (reserveServioce) => {
-        setReservedService(reserveServioce)
-        setOpenReservedService(true)
+        if (props.byUser["custom-dates"]) {
+            setReservedService(reserveServioce)
+            setOpenReservedService(true)
+        } else {
+            // return ()
+            setOpenDetailCourse(false)
+            // setTimeout(() => {
+                
+                setNoDates(true)
+
+            // }, 300);
+        }
+
         // console.log("open reservations")
 
     }
@@ -499,8 +521,8 @@ export default function ProfileCompany(props) {
         props.sendServideRequest(payload)
 
     }
-
-
+    const vertical = 'top';
+    const horizontal = 'center';
     return (
         <div className={classes.root}>
             <CssBaseline />
@@ -665,7 +687,7 @@ export default function ProfileCompany(props) {
 
                     }
 
-                    {openReservedService && 
+                    {openReservedService &&
                         <Container maxWidth="lg" className={classes.container}>
                             <Grid container spacing={3}>
                                 <LaunchReservedService
@@ -682,6 +704,15 @@ export default function ProfileCompany(props) {
 
                         </Container>
 
+                    }
+                    {noDates &&
+                        <div className={classes.rootalert}>
+                            <Snackbar anchorOrigin={{ vertical, horizontal }} open={true} autoHideDuration={6000} onClose={() => { setNoDates(false) }}>
+                                <Alert onClose={() => { setNoDates(false) }} severity="warning">
+                                    El consultor no tiene fechas disponibles.
+                                </Alert>
+                            </Snackbar>
+                        </div>
                     }
 
                     {openWhishList &&

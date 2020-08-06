@@ -512,3 +512,33 @@ body .cardService{
   .bgBlack{
       background-color: black;
   }
+
+
+  .backImgContainer{
+    /* background-image:url(''); */
+  }
+
+
+  .appBarNoEdit{
+    position: relative !important;
+    background-color: #000 !important;
+    color:#fff !important;
+    box-shadow: none !important;
+  }
+
+  .logoNoEdit{
+    margin: 1rem !important;
+  }
+
+  .logoTopBarNoEdit{
+    width: 95px !important;
+  }
+
+  .closeIconNoEdit {
+    position: absolute !important;
+    width: 100% !important;
+  }
+
+  .buttoncloseNoEdit{
+    margin-left: 94% !important;
+  }

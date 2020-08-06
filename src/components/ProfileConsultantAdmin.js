@@ -45,7 +45,7 @@ import {
     useHistory
 } from "react-router-dom";
 
-import ProfileHeader from './ProfileHeader';
+import ProfileHeaderNoEdit from './ProfileHeaderNoEdit';
 import InvoicesForm from './InvoicesForm';
 import CreateCourse from './CreateCourse';
 import LaunchCourse from './LaunchCourse';
@@ -485,41 +485,32 @@ export default function ProfileConsultantAdmin(props) {
     return (
         <div className={classes.root}>
             <CssBaseline />
-            <AppBar position="absolute" className={clsx(classes.appBar, open && classes.appBarShift)}>
+            {/* <AppBar position="absolute" className={clsx(classes.appBar, open && classes.appBarShift)}>
                 <Toolbar className={classes.toolbar}>
                     <div className={classes.logo}>
                         <img src={logo_login} className={classes.logoTopBar} />
                     </div>
                     <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
-                        {/* Narau */}
+                    
                     </Typography>
                     <Tooltip title={currentAccount.firstName} aria-label={currentAccount.firstName}>
                         <Avatar className={classes.orange}>{currentAccount.firstName.substring(0, 1).toUpperCase()}</Avatar>
                     </Tooltip>
-                    {/* <Tooltip title="LogOut" aria-label="LogOut">
-                        <IconButton color="inherit">
-                            <Badge badgeContent={4} color="secondary">
-                                <NotificationsIcon></NotificationsIcon>
-                            </Badge>
-                        </IconButton>
-                    </Tooltip> */}
                     <Tooltip title="LogOut" aria-label="LogOut">
                         <IconButton color="inherit" onClick={closeSession}>
-                            {/* <Badge badgeContent={4} color="secondary"> */}
                             <ExitToAppIcon />
-                            {/* </Badge> */}
                         </IconButton>
                     </Tooltip>
 
 
                 </Toolbar>
-            </AppBar>
+            </AppBar> */}
             <main className={classes.content}>
-                <div className={classes.appBarSpacer} />
+                {/* <div className={classes.appBarSpacer} /> */}
                 <Grid container spacing={3}>
                     <Grid item xs={12}>
                         <Paper className={classes.paper} elevation={0}>
-                            <ProfileHeader openCustomerValorations={openCustomerValorations} saveImageProfile={props.saveImageProfile} currentAccount={currentAccount} invoiceData={props.invoiceData} ></ProfileHeader>
+                            <ProfileHeaderNoEdit openCustomerValorations={openCustomerValorations} saveImageProfile={props.saveImageProfile} currentAccount={currentAccount} invoiceData={props.invoiceData} ></ProfileHeaderNoEdit>
                         </Paper>
                     </Grid>
                 </Grid>

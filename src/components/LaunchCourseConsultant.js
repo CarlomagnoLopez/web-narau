@@ -242,7 +242,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundRepeat: "no-repeat", backgroundSize: "cover !important",
 
     // backgroundImage: `url(${imageProfileDynamo})`,
-    backgroundImage: `url(${localStorage.getItem("contentUserCurrentAvatar")})`,
+    backgroundImage: `url(${localStorage.getItem("contentUserAvatarImg")})`,
     backgroundSize: "contain",
     // top: "-6rem",
     // color: theme.palette.getContrastText(deepOrange[500]),
@@ -360,9 +360,7 @@ export default function InvoicesForm(props) {
       break;
   }
 
-const showProfileConsultant = () => {
-  console.log("profile")
-}
+
 
   // currentDataService.mode ? 
 
@@ -449,10 +447,7 @@ const showProfileConsultant = () => {
                       </Paper>
                       <Paper elevation={0} className={classes.paperCustom}>
                         <Typography variant="subtitle1" className={classes.nameservice} >
-                          {"Tiempo estimado: "}
-                        </Typography>
-                        <Typography variant="subtitle1" className={classes.nameservice} >
-                          {currentDataService.timeEstimated ? currentDataService.timeEstimated : ""} {"Horas."}
+                          {"Tiempo estimado: "} {currentDataService.timeEstimated ? currentDataService.timeEstimated : ""}
                         </Typography>
                       </Paper>
                     </Grid>
@@ -461,29 +456,23 @@ const showProfileConsultant = () => {
                         {`Precio por servicio:`} <span className={classes.paperCustomCost} >
                           MX ${currentDataService.cost}
                         </span>
-                        {props.role !== "admin" &&
+                        {/* {props.role !== "admin" &&
                           <Button variant="contained" onClick={reservedService} classes={{
                             root: "buttonCustom"
                           }}
                           >Reservar</Button>
-                        }
+                        } */}
 
                       </Paper>
                     </Grid>
 
                     <Grid item xs={12} sm={12}>
                       {currentDataService.objetive !== "" &&
-                        <div>
-                          <Typography variant="h6" >
-                            {"Objetivo: "}
-                          </Typography>
-                          <Typography variant="subtitle1" >
+                        <Typography variant="subtitle1" >
 
-                            {/* {convertCapitalize(currentDataService.objetive)} */}
-                            {(currentDataService.objetive)}
-                          </Typography>
-                        </div>
-
+                          {/* {convertCapitalize(currentDataService.objetive)} */}
+                          {(currentDataService.objetive)}
+                        </Typography>
 
                       }
                       <Divider></Divider>
@@ -569,14 +558,14 @@ const showProfileConsultant = () => {
                       <Avatar className={classes.avatarHeader} classes={{
                         root: "rootAvatar"
                       }}>
-                        {localStorage.getItem("contentUserCurrentAvatar") === "undefined" ? props.byUser["custom-attr"].firstName.substring(0, 1).toUpperCase() : ""}
+                        {localStorage.getItem("contentUserAvatarImg") === "undefined" ? props.byUser.firstName.substring(0, 1).toUpperCase() : ""}
                       </Avatar>
 
 
                     </Grid>
                     <Grid item>
                       <Typography gutterBottom variant="body2" className={classes.infoProfileName}>
-                        {props.byUser["custom-attr"].firstName + " " + props.byUser["custom-attr"].lastName}
+                        {props.byUser.firstName + " " + props.byUser.lastName}
                       </Typography>
                       <SimpleRating className={classes.ratingTwo} />
                     </Grid>
@@ -585,14 +574,14 @@ const showProfileConsultant = () => {
 
                   <Grid item>
                     <Typography gutterBottom variant="body2" className={classes.infoProfile}>
-                      {props.byUser["custom-attr"].aboutMe}
+                      {props.byUser.aboutMe}
                     </Typography>
                   </Grid>
-                  <Grid item>
+                  {/* <Grid item>
                     <div className={classes.rootChip}>
-                      <Chip label="Ver perfil completo" onClick={showProfileConsultant}/>
+                      <Chip label="Ver perfil completo" />
                     </div>
-                  </Grid>
+                  </Grid> */}
                 </Paper>
                 <Paper className={classes.paperVideo} elevation={0}>
                   <Grid container spacing={2} xs={12}

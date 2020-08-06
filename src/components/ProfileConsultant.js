@@ -48,7 +48,7 @@ import {
 import ProfileHeader from './ProfileHeader';
 import InvoicesForm from './InvoicesForm';
 import CreateCourse from './CreateCourse';
-import LaunchCourse from './LaunchCourse';
+import LaunchCourseConsultant from './LaunchCourseConsultant';
 // import Chart from './Chart';
 // import Deposits from './Deposits';
 // import Orders from './Orders';
@@ -252,6 +252,9 @@ export default function ProfileConsultant(props) {
     const [flCont, setFlCont] = React.useState(0)
     const [lastDates, setLastDates] = React.useState(props.dateDisposition)
     const [showCustomerValorations, setShowCustomerValorations] = React.useState(false)
+    // const [dataService, setDataService] = React.useState();
+    const [dataServiceId, setDataServiceId] = React.useState();
+    const [openDetailCourse, setOpenDetailCourse] = React.useState(false);
 
     const { currentAccount } = props;
 
@@ -281,6 +284,7 @@ export default function ProfileConsultant(props) {
 
     const dataCourse = props.serviceData.map((item) => { return item["custom-attr"] })
     const dataCourseId = props.serviceData.map((item) => { return item["custom-keys"].split(" | ")[2] })
+    const courseDeleted = props.serviceData.map((item) => { return item["deleted"] })
 
 
     const showFormInvoices = () => {
@@ -351,6 +355,20 @@ export default function ProfileConsultant(props) {
         props.saveService(payload)
         setOpenLaunchCourse(false)
         // console.log("show")
+    }
+
+    const deleteService = (data, sortKey) => {
+        console.log("deleting...")
+
+        let payload = {
+            "pk": localStorage.getItem("partitionKey"),
+            "email": JSON.parse(localStorage.getItem("contentUser")).email,
+            "attr": data,
+            "sk": sortKey,
+            "delete": true
+
+        }
+        props.saveService(payload)
     }
 
     const closeForm = (data) => {
@@ -479,6 +497,27 @@ export default function ProfileConsultant(props) {
 
     }
 
+    const showInfoCourse = (data, dataId) => {
+        // if(data)
+        // if(data){
+
+        // props.getByUser(dataId)
+        // if (props.byUser) {
+        // setTimeout(() => {
+        console.log(currentAccount)
+        setDataService(data)
+        setDataServiceId(dataId)
+
+        // }
+        setOpenDetailCourse(true)
+        console.log("show")
+        // }, 1500);
+
+        // }
+
+    }
+
+
 
     // getStadistics()
 
@@ -557,7 +596,7 @@ export default function ProfileConsultant(props) {
                                         <CardSideContent
                                             text={training}
                                             referenceRequest={"training"}
-                                            title={"Entrenamiento"}
+                                            title={"Entrenamientos"}
                                             request={requestUpdateAttribute}
                                         ></CardSideContent>
                                         <Divider variant="middle" className={classes.divider} />
@@ -653,19 +692,30 @@ export default function ProfileConsultant(props) {
                                         <CardAddCourses openForm={createCourse}
                                         >
                                         </CardAddCourses>
-                                        {dataCourse.map((infoCourse, index) => (
-                                            <CardCourses
-                                                // courseId={dataCourseId[index]}
-                                                role={"consultant"}
-                                                key={index}
-                                                openForm={() => { showFormCourse(infoCourse, dataCourseId[index]) }}
-                                                // openFormDetail={() => { showInfoCourseDetail(infoCourse, dataCourseId[index]) }}
-                                                // openForm={createCourse}
-                                                infoCourse={infoCourse}>
-                                            </CardCourses>
+                                        {dataCourse.map((infoCourse, index) => {
 
-                                            // </div>
-                                        ))}
+                                            if(!courseDeleted[index]){
+                                                return (
+                                                    <CardCourses
+                                                        // courseId={dataCourseId[index]}
+                                                        role={"consultant"}
+                                                        key={index}
+                                                        openForm={() => { showFormCourse(infoCourse, dataCourseId[index]) }}
+                                                        openFormView={() => { showInfoCourse(infoCourse, dataCourseId[index]) }}
+                                                        deleteService={() => { deleteService(infoCourse, dataCourseId[index]) }}
+                                                        deleted={courseDeleted[index]}
+                                                        // openFormDetail={() => { showInfoCourseDetail(infoCourse, dataCourseId[index]) }}
+                                                        // openForm={createCourse}
+                                                        infoCourse={infoCourse}>
+                                                    </CardCourses>
+    
+                                                    // </div>
+                                                )
+                                            }
+                                           
+                                        }
+
+                                        )}
 
 
                                         {/* <Container maxWidth="lg" className={classes.container} >
@@ -785,7 +835,35 @@ export default function ProfileConsultant(props) {
 
                         </Container>
                     }
+                    {openDetailCourse &&
+                        // <DetailCourse
+                        //     show={openDetailCourse}
+                        //     dataService={dataService}
+                        //     dataServiceId={dataServiceId}
+                        //     handleCloseDetail={handleCloseDetail}
+                        //     addToWishList={addToWishList}
+                        // ></DetailCourse>
+                        <Container maxWidth="lg" className={classes.container}>
+                            <Grid container spacing={3}>
+                                <LaunchCourseConsultant
+                                    // addToWishList={addToWishList}
+                                    // closeFormCourse={closeFormCourse}
+                                    // closeForm={closeForm}
+                                    // showReservedService={showReservedService}
+                                    colorDefault={"#ff931e"}
+                                    byUser={currentAccount}
+                                    closeForm={() => { setOpenDetailCourse(false) }}
+                                    currentDataService={dataService}
+                                    currentDataSortKey={dataServiceId}
+                                // addTopic={props.addTopic}
+                                // deleteTopic={props.deleteTopic}
+                                // topicData={props.topicData}
+                                ></LaunchCourseConsultant>
+                            </Grid>
 
+                        </Container>
+
+                    }
                     {openLaunchCourse &&
                         <Container maxWidth="lg" className={classes.container}>
                             <Grid container spacing={3}>

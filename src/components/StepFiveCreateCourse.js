@@ -49,6 +49,7 @@ const useStyles = makeStyles((theme) => ({
         backgroundColor: "#000"
     },
     title: {
+        marginBottom: "20px",
         textAlign: "center",
         marginLeft: theme.spacing(2),
         flex: 1,
@@ -138,7 +139,31 @@ const useStyles = makeStyles((theme) => ({
         height: 140,
     },
     containerImage: {
-        paddingTop: "24px"
+        marginTop: "14px",
+        height: "506px",
+        // overflow: "auto",
+        paddingTop: "8px",
+        background: "white",
+        position: "absolute",
+        width: "max-content",
+        boxShadow: "0px 0px 12px 7px #6969698f",
+        borderRadius: "7px"
+
+    },
+    backWhite: {
+
+        backgroundColor: "#fff"
+    },
+    paperRoot: {
+        backgroundColor: "#fff"
+
+    },
+    containerList: {
+        overflow: "auto",
+        height: "75%"
+    },
+    footerBack:{
+        marginTop:"15px"
     }
 
 }));
@@ -189,9 +214,9 @@ export default function StepFiveCreateCourse(props) {
         let model = [{
             cost: cost
         },
-        // {
-        //     costD: costD
-        // }
+            // {
+            //     costD: costD
+            // }
         ]
         props.handleNextStep(model)
     }
@@ -200,17 +225,48 @@ export default function StepFiveCreateCourse(props) {
     // console.log(to)
     // console.log(benefits)
 
-    return (
-        <div>
+    const renderCardImage = () => {
 
+        let imgService = props.images.filter((itemImage) => {
+            if (itemImage["custom-keys"] === "imgsall") {
+                return itemImage["services"]
+            }
+
+        })
+        // temp1[0].services.map((itemService) => {
+        //     console.log(itemService.values)
+        // })
+        return imgService[0].services.map((itemService) => {
+            return (<Grid item xs={4} >
+                <Card className={classes.rootCard} raised> 
+                    <CardActionArea onClick={() => props.handleNextStep(itemService["values"])}>
+                        <CardMedia
+                            className={classes.media}
+                            image={"https://imgcursos.s3.amazonaws.com/" + itemService["values"]}
+                        // title="Contemplative Reptile"
+                        />
+                    </CardActionArea>
+                </Card>
+            </Grid>)
+        })
+
+
+    }
+    return (
+        <div className={classes.containerImage}>
+            {/* <Paper elevation={8} className={classes.paperRoot}> */}
+            {/* <div className={classes.backWhite}>
+
+                </div> */}
             <Typography variant="h6" className={classes.title}>
                 Y por último, selecciona una imagen para ilustrar tu tema
-                <div className={classes.subt}>
+                    <div className={classes.subt}>
 
                 </div>
             </Typography>
             {/* <Grid container spacing={3}> */}
-            <Container maxWidth="md" className={classes.containerImage}>
+
+            <Container maxWidth="md" className={classes.containerList}>
 
                 <Grid item
                     container
@@ -218,21 +274,30 @@ export default function StepFiveCreateCourse(props) {
                     justify="center"
                     alignItems="center">
                     <Grid container item xs={12} spacing={3}>
+                        {
+                            renderCardImage(props.images)
+                        }
 
-                        {props.images.map((itemImage) => {
-                            return (<Grid item xs={4} >
-                                <Card className={classes.rootCard}>
-                                    <CardActionArea onClick={() => props.handleNextStep(itemImage["custom-keys"])}>
-                                        <CardMedia
-                                            className={classes.media}
-                                            image={"https://imgcursos.s3.amazonaws.com/" + itemImage["custom-keys"]}
-                                        // title="Contemplative Reptile"
-                                        />
-                                    </CardActionArea>
-                                </Card>
-                            </Grid>)
-                        })}
-                        <Grid item xs={12} container
+                        {/* {
+                        props.images.map((itemImage) => {
+                            console.log(itemImage["services"])
+
+                            if (itemImage["custom-keys"] === "services") {
+                                return (<Grid item xs={4} >
+                                    <Card className={classes.rootCard}>
+                                        <CardActionArea onClick={() => props.handleNextStep(itemImage["services"])}>
+                                            <CardMedia
+                                                className={classes.media}
+                                                image={"https://imgcursos.s3.amazonaws.com/" + itemImage["services"]}
+                                            // title="Contemplative Reptile"
+                                            />
+                                        </CardActionArea>
+                                    </Card>
+                                </Grid>)
+                            }
+
+                        })} */}
+                        {/* <Grid item xs={12} container
                             direction="row"
                             justify="center"
                             alignItems="baseline">
@@ -240,7 +305,7 @@ export default function StepFiveCreateCourse(props) {
                             <Button onClick={props.back} variant="contained"
 
                             >Regresar</Button>
-                        </Grid>
+                        </Grid> */}
                         {/* <Grid item xs={4} >
                             <Card className={classes.rootCard}>
                                 <CardActionArea>
@@ -280,6 +345,16 @@ export default function StepFiveCreateCourse(props) {
 
 
             </Container>
+            <Grid item xs={12} container
+                direction="row"
+                justify="center"
+                alignItems="baseline" className={classes.footerBack} >
+
+                <Button onClick={props.back} variant="contained" className="btnBack"
+
+                >Regresar</Button>
+            </Grid>
+            {/* </Paper> */}
 
         </div >
     );
