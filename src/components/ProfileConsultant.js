@@ -578,7 +578,8 @@ export default function ProfileConsultant(props) {
                                         <CardSideContent
                                             text={aboutMe}
                                             referenceRequest={"aboutMe"}
-                                            title={"Sobre mi."}
+                                            title={"Sobre mi"}
+                                            palaceHolder={"Coméntales a nuestros clientes acerca de ti, puedes incluir información como profesión, estado civil, áreas de donde tienes experiencia."}
                                             request={requestUpdateAttribute}
                                         ></CardSideContent>
                                         {/* </Paper> */}
@@ -586,6 +587,7 @@ export default function ProfileConsultant(props) {
                                         {/* <Paper spacing={3} elevation={0}> */}
                                         <CardSideContent
                                             text={experience}
+                                            palaceHolder={"Resume tu experiencia profesional, puedes mencionar los años del experiencia, áreas en las que te desempeñas etc. (Puesto / Empresa / Tiempo / Proyecto)"}
                                             referenceRequest={"experience"}
                                             title={"Experiencia"}
                                             request={requestUpdateAttribute}
@@ -595,6 +597,7 @@ export default function ProfileConsultant(props) {
                                         {/* <Paper spacing={3} elevation={0}> */}
                                         <CardSideContent
                                             text={training}
+                                            palaceHolder={"Menciona si tienes alguna otra certificación."}
                                             referenceRequest={"training"}
                                             title={"Entrenamientos"}
                                             request={requestUpdateAttribute}
@@ -605,6 +608,7 @@ export default function ProfileConsultant(props) {
                                             text={customers}
                                             referenceRequest={"customers"}
                                             title={"Clientes"}
+                                            palaceHolder={"Menciona tus clientes más importantes."}
                                             request={requestUpdateAttribute}
                                         ></CardSideContent>
                                         <Divider variant="middle" className={classes.divider} />
