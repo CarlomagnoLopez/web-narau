@@ -202,6 +202,16 @@ export default function StepFourCreateCourse(props) {
         ]
         props.handleNextStep(model)
     }
+
+    const writeModeService = (value) => {
+        switch (value) {
+            case "asesoria":
+                return "asesoría";
+                break;
+            default:
+                return value
+        }
+    }
     // console.log("-->")
     // console.log(topicData.length)
     // console.log(to)
@@ -228,7 +238,7 @@ export default function StepFourCreateCourse(props) {
                                 <Grid item xs container direction="column" spacing={2}>
                                     <Grid item xs>
                                         <Typography gutterBottom variant="subtitle1">
-                                            Tiempo de tu {typeService}
+                                            Tiempo de tu {writeModeService(typeService)}
                                         </Typography>
                                         <Typography variant="body2" color="textSecondary">
                                             Estima todas las actividades
@@ -272,7 +282,7 @@ export default function StepFourCreateCourse(props) {
                                 <Grid item xs container direction="column" spacing={2}>
                                     <Grid item xs>
                                         <Typography gutterBottom variant="subtitle1">
-                                            Tarifa por {typeService}
+                                            Tarifa por {writeModeService(typeService)}
                                         </Typography>
                                         <Typography variant="body2" color="textSecondary">
                                             Monetiza tus conocimientos.

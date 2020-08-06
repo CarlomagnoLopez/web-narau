@@ -191,7 +191,24 @@ export default function StepThreeCreateCourse(props) {
     // console.log(topicData.length)
     // console.log(to)
     // console.log(benefits)
-
+    const writeModeService = (value) => {
+        switch (value) {
+            case "asesoria":
+                return "asesoría";
+                break;
+            default:
+                return value
+        }
+    }
+    const writeModeServiceSub = (value) => {
+        switch (value) {
+            case "asesoria":
+                return "la ";
+                break;
+            default:
+                return "el "
+        }
+    }
     return (
         <div>
 
@@ -210,7 +227,7 @@ export default function StepThreeCreateCourse(props) {
                             {{
                                 root: classes.typography
                             }}>
-                            ¿A quién va dirigido tu  {typeService}?
+                            ¿A quién va dirigido tu  {writeModeService(typeService)}?
                             {/* <div className={classes.subt}>
 
                             </div> */}
@@ -253,7 +270,7 @@ export default function StepThreeCreateCourse(props) {
                             {{
                                 root: classes.typography
                             }}>
-                            ¿Cuáles serán sus beneficios al tomar tu  {typeService}?
+                            ¿Cuáles serán sus beneficios al tomar tu {writeModeService(typeService)}?
                             {/* <div className={classes.subt}>
 
                             </div> */}
@@ -396,11 +413,11 @@ export default function StepThreeCreateCourse(props) {
                         direction="row"
                         justify="center"
                         alignItems="baseline">
-                        <Button onClick={props.back} variant="contained"  className="btnBack"
+                        <Button onClick={props.back} variant="contained" className="btnBack"
 
                         >Regresar</Button>
                         {to !== "" && benefits !== "" && topicData.length !== 0 &&
-                            <Button onClick={next} variant="contained"  className="btnNext"
+                            <Button onClick={next} variant="contained" className="btnNext"
 
                             >Continuar</Button>
                         }
