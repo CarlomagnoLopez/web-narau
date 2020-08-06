@@ -202,6 +202,16 @@ export default function StepOneCreateCourse(props) {
     const next = () => {
         props.handleNextStep({ serviceType: opneDesc })
     }
+
+    const writeModeService = (value) => {
+        switch (value) {
+            case "asesoria":
+                return "asesoría";
+                break;
+            default:
+                return value
+        }
+    }
     return (
         <div>
 
@@ -213,7 +223,7 @@ export default function StepOneCreateCourse(props) {
             </Typography>
             {opneDesc &&
                 <Typography variant="subtitle1" className={classes.title}>
-                    Has seleccionado {opneDesc}
+                    Has seleccionado {writeModeService(opneDesc)}
                 </Typography>
             }
 

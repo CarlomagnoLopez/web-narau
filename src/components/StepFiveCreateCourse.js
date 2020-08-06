@@ -252,6 +252,16 @@ export default function StepFiveCreateCourse(props) {
 
 
     }
+
+    const writeModeService = (value) => {
+        switch (value) {
+            case "asesoria":
+                return "asesoría";
+                break;
+            default:
+                return value
+        }
+    }
     return (
         <div className={classes.containerImage}>
             {/* <Paper elevation={8} className={classes.paperRoot}> */}

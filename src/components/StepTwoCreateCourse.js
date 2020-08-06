@@ -162,6 +162,25 @@ export default function StepTwoCreateCourse(props) {
 
     }
 
+    const writeModeService = (value) => {
+        switch (value) {
+            case "asesoria":
+                return "asesoría";
+                break;
+            default:
+                return value
+        }
+    }
+    const writeModeServiceSub = (value) => {
+        switch (value) {
+            case "asesoria":
+                return "la ";
+                break;
+            default:
+                return "el "
+        }
+    }
+    // {writeModeServiceSub(typeService)}
 
     return (
         <div>
@@ -169,7 +188,7 @@ export default function StepTwoCreateCourse(props) {
 
 
             <Typography variant="h6" className={classes.title}>
-                Escribe un título para tu {typeService}
+                Escribe un título para tu {writeModeService(typeService)}
                 <div className={classes.subt}>
 
                 </div>
@@ -256,13 +275,14 @@ export default function StepTwoCreateCourse(props) {
                         {modeService &&
                             <Alert variant="outlined" severity="success">
                                 Modalidad seleccionada: {modeService.toUpperCase()}
+                                {/* Modalidad seleccionada: {() => { writeModeService(modeService) }} */}
                             </Alert>
                         }
                     </Grid>
                     <Grid item xs={12}>
 
                         <Typography variant="h6" className={classes.title}>
-                            ¿En qué modalidad impartiras el {typeService}?
+                            ¿En qué modalidad impartirás {writeModeServiceSub(typeService)} {writeModeService(typeService)}?
                         <div className={classes.subt}>
 
                             </div>
@@ -324,7 +344,7 @@ export default function StepTwoCreateCourse(props) {
                     <Grid item xs={12}>
 
                         <Typography variant="h6" className={classes.title}>
-                            Cuéntanos sobre el objetivo de tu {typeService}:
+                            Cuéntanos sobre el objetivo de tu {writeModeService(typeService)}:
                         <div className={classes.subt}>
 
                             </div>
@@ -383,7 +403,7 @@ export default function StepTwoCreateCourse(props) {
 
                             </li>
                                                         <li>
-                                                            Contextos en donde puede se puede aplicar tu tema.
+                                                            Contextos en dónde se puede aplicar tu tema.
                             </li>
                                                     </ul>
 
@@ -404,7 +424,7 @@ export default function StepTwoCreateCourse(props) {
                     <Grid item xs={12}>
 
                         <Typography variant="h6" className={classes.title}>
-                            Cuentanos como indentificamos tu {typeService}:
+                            Cuéntanos  como indentificamos tu {writeModeService(typeService)}:
                             <div className={classes.subt}>
 
                             </div>
@@ -439,7 +459,7 @@ export default function StepTwoCreateCourse(props) {
 
                         >Regresar</Button>
 
-                        {titleService !== "" && modeService !== "" && objetive !== "" && lemaService !== "" && titleService && modeService  && objetive && lemaService  &&
+                        {titleService !== "" && modeService !== "" && objetive !== "" && lemaService !== "" && titleService && modeService && objetive && lemaService &&
                             <Button onClick={next} variant="contained" className="btnNext"
 
                             >Continuar</Button>
