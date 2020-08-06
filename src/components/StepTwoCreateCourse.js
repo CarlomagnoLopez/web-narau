@@ -176,6 +176,9 @@ export default function StepTwoCreateCourse(props) {
             case "asesoria":
                 return "la ";
                 break;
+            case "conferencia":
+                return "la ";
+                break;
             default:
                 return "el "
         }
