@@ -417,7 +417,7 @@ export default function ProfileConsultant(props) {
         let serviceUnverified = 0;
 
         props.serviceData.map((item) => {
-            if (!item.verified) {
+            if (!item.verified && !item.deleted) {
                 serviceUnverified = serviceUnverified + 1;
             }
             // else {
@@ -461,7 +461,8 @@ export default function ProfileConsultant(props) {
         // let serviceUnverified = 0;
 
         props.serviceData.map((item) => {
-            if (item.verified) {
+            // if (!item.verified && !item.deleted) {
+            if (item.verified && !item.deleted) {
                 serviceVerified = serviceVerified + 1;
             }
             // else {

@@ -146,7 +146,7 @@ export default function StepFourCreateCourse(props) {
     let costEdit = currentDataService ? currentDataService.cost : "";
     // const costDEdit = currentDataService ? currentDataService.costD : "";
     let timeEstimatedEdit = currentDataService ? currentDataService.timeEstimated : "";
-    if (editServicdeType) {
+    if (editServicdeType && payload.cost && payload.timeEstimated) {
         costEdit = payload ? payload.cost : "";
         timeEstimatedEdit = payload ? payload.timeEstimated : "";
     }
