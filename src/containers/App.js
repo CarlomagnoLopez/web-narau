@@ -32,8 +32,8 @@ class App extends React.Component {
       successSendPassword: false,
       // landingPage: false,
       // initLogin: true,
-      landingPage: false,
-      initLogin:true
+      landingPage: true,
+      initLogin:false
     };
   }
 
