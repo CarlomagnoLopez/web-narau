@@ -329,8 +329,8 @@ export default function StepTwoCreateCourse(props) {
                             }}>
 
                                 {/* <IconButton> */}
-                                <ComputerIcon />
-                                <AccessibilityIcon />
+                                <ComputerIcon fontSize="large"/>
+                                <AccessibilityIcon fontSize="large" />
 
                                 {/* </IconButton> */}
                                 <Typography variant="subtitle1">
