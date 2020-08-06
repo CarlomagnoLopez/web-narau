@@ -69,7 +69,7 @@ export default function CardSideContent(props) {
                 action={
                     // nodeAction(isEdit)
                     <div>
-                        
+
                         <IconButton onClick={handleTypeCardClose}>
                             {isEdit &&
                                 <CancelIcon></CancelIcon>
@@ -116,6 +116,7 @@ export default function CardSideContent(props) {
                             // error={errors.email ? true : false}
 
 
+                            // placeholder={props.palaceHolder}
 
                             id="outlined-multiline-static"
                             label={props.title}
@@ -137,7 +138,13 @@ export default function CardSideContent(props) {
                     }
                     {!isEdit &&
                         <Typography color="textSecondary" gutterBottom>
-                            {textValue}
+                            {textValue && textValue !== "" &&
+                                <span>{textValue} </span>
+                            }
+
+                            {!textValue && textValue === "" &&
+                                <span>{props.palaceHolder} </span>
+                            }
                         </Typography>
                     }
 

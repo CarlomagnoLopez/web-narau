@@ -530,7 +530,8 @@ export default function ProfileConsultantAdmin(props) {
                                         <CardSideContent
                                             text={aboutMe}
                                             referenceRequest={"aboutMe"}
-                                            title={"Sobre mi."}
+                                            title={"Sobre mi"}
+                                         
                                             request={requestUpdateAttribute}
                                         ></CardSideContent>
                                         {/* </Paper> */}
