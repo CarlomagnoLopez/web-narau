@@ -580,13 +580,13 @@ export default function ProfileCompany(props) {
         let payload = {
             comment: currentComment,
             raiting: currentRaiting,
-            relatedInfo:currentEvaluation,
-            relatedCompanyInfo:props.currentAccount
+            relatedInfo: currentEvaluation,
+            relatedCompanyInfo: props.currentAccount
         }
         console.log(payload)
 
         props.addValoration(payload)
-        
+
 
     }
 
@@ -832,7 +832,7 @@ export default function ProfileCompany(props) {
                             {/* <DialogContent></DialogContent> */}
                             <DialogContent>
                                 <DialogContentText>
-                                    Calificalo:
+                                    Califícalo:
                                 </DialogContentText>
                                 <Rating name="half-rating" onChange={(value) => { changeRaiting(value) }} />
                                 <TextField
