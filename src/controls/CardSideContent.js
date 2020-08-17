@@ -57,6 +57,14 @@ export default function CardSideContent(props) {
         setTextValue(event.target.value);
     };
 
+    const message = () => {
+
+        if(textValue){
+            return textValue
+        }
+        return props.palaceHolder
+    }
+
     return (
         <Card elevation={0}>
             <CardHeader
@@ -138,13 +146,18 @@ export default function CardSideContent(props) {
                     }
                     {!isEdit &&
                         <Typography color="textSecondary" gutterBottom>
-                            {textValue && textValue !== "" &&
+                            {
+                                <span>
+                                    {message()}
+                                </span>
+                            }
+                            {/* {textValue && textValue !== "" && 
                                 <span>{textValue} </span>
                             }
 
-                            {!textValue && textValue === "" &&
+                            {!textValue && textValue === "" && typeof(textValue) === "undefined" && 
                                 <span>{props.palaceHolder} </span>
-                            }
+                            } */}
                         </Typography>
                     }
 

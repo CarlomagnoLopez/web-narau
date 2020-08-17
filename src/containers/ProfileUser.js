@@ -86,9 +86,15 @@ class ProfileUser extends React.Component {
         if (this.state.currentAccountTemp.role === "admin") {
             this.startAdminLoading();
         } else {
+            if (this.state.currentAccountTemp.role === "company") {
+                this.requestHistory(this.state.currentAccountTemp);
+            }
             this.getImages();
             this.startLoading();
+
         }
+
+
 
     }
 
@@ -705,6 +711,40 @@ class ProfileUser extends React.Component {
         })
     }
 
+    addValoration = (data) => {
+        // console.log("saving dispositiosn....")
+        console.log(data)
+        // let payload = {
+        //     pk: localStorage.getItem("partitionKey"),
+        //     attr: data
+        // };
+        this.setState({
+            loadingUpdate: true
+        }, (state, props) => {
+            fetch('https://ob5nizjire.execute-api.us-east-1.amazonaws.com/default/savevaloration', {
+                method: 'PUT',
+                body: JSON.stringify(data),
+                headers: {
+                    'Content-Type': 'application/json',
+                    'x-api-key': 'wD4FjaAoiG4bldvQ0oB6Q6fyIDqZCsfkaXCun0u6'
+                }
+            })
+                .then(res => res.json())
+                .then((data) => {
+                    // this.props.singUp(data.body);
+                    // this.startLoading();
+                    // this.updateMainDataAttr(data.body.dataUpdated["custom-attr"]);
+                    this.setState({
+                        loadingUpdate: false
+                    })
+
+                    // console.log(data)
+                })
+                .catch(console.log)
+        })
+    }
+
+
 
 
     handleCloseNoEdit = (data) => {
@@ -715,6 +755,41 @@ class ProfileUser extends React.Component {
         // props.closeForm()
 
     };
+
+    requestHistory = (data) => {
+        let payload = data;
+        this.setState({
+            loadingUpdate: true
+        }, (state, props) => {
+            fetch('https://ob5nizjire.execute-api.us-east-1.amazonaws.com/default/historyservice?email=' + payload.email, {
+                method: 'POST',
+                // body: JSON.stringify(payload),
+                headers: {
+                    'Content-Type': 'application/json',
+                    'x-api-key': 'wD4FjaAoiG4bldvQ0oB6Q6fyIDqZCsfkaXCun0u6'
+                }
+            })
+                .then(res => res.json())
+                .then((data) => {
+                    // this.props.singUp(data.body);
+
+                    // this.updateMainDataAttr(data.body.dataUpdated["custom-attr"]);
+                    // this.startLoading();
+
+                    this.setState({
+                        historyService: data.body
+                    }, (props, state) => {
+                        this.setState({
+                            loadingUpdate: false
+                        })
+                    })
+
+
+                    console.log(data)
+                })
+                .catch(console.log)
+        })
+    }
     render() {
         // let { user } = useParams();
 
@@ -803,6 +878,8 @@ class ProfileUser extends React.Component {
                             saveWishList={this.saveWishList}
                             saveImageProfile={this.saveImageProfile}
                             sendServideRequest={this.sendServideRequest}
+                            historyService={this.state.historyService}
+                            addValoration={this.addValoration}
                         ></ProfileCompany>
                     </div>
 
