@@ -59,6 +59,7 @@ const useStyles = makeStyles(
         // },
         title: {
             // top: "-4rem",
+            // maxWidth: "50%",
             position: "relative",
             color: `${(isMobile) ? "#000" : "#fff"}`,
             fontWeight: "bolder"
@@ -296,10 +297,14 @@ export default function ProfileHeader(props) {
 
                                 </Grid>
                                 <Grid item>
-                                    <Typography className={classes.title} gutterBottom variant="h5" component="div">
+                                    <Typography className={classes.title} gutterBottom variant="h5" component="div" >
 
-                                        {completeName}
+                                        {completeName.substring(0, 15)}
+
+                                        {/* {props.currentAccount.firstName} */}
+
                                     </Typography>
+                                  
                                     <p>
                                         <br></br>
                                         <Typography gutterBottom variant="subtitle1" component="div" className={classes.rating}>
