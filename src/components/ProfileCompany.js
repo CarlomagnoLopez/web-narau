@@ -745,7 +745,7 @@ export default function ProfileCompany(props) {
                                                                                 className={classes.textNameBy}
                                                                                 color="textPrimary"
                                                                             >
-                                                                                <span className={classes.commentBy}>Instrcutor:</span>
+                                                                                <span className={classes.commentBy}>Instructor:</span>
                                                                                 {" " + item.userProvide.firstName + " " + item.userProvide.lastName}
                                                                             </Typography>
                                                                             {/* <Rating name="half-rating"  /> */}
