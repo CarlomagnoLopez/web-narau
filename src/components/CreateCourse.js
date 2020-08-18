@@ -130,8 +130,10 @@ export default function CreateCourse(props) {
         break;
       case 5:
 
-        handleClose();
+      
         payload.video = data[0].video;
+
+        handleClose();
 
 
         if (currentDataService) {

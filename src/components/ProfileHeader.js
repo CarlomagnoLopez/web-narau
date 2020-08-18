@@ -59,6 +59,7 @@ const useStyles = makeStyles(
         // },
         title: {
             // top: "-4rem",
+            // maxWidth: "50%",
             position: "relative",
             color: `${(isMobile) ? "#000" : "#fff"}`,
             fontWeight: "bolder"
@@ -192,6 +193,8 @@ export default function ProfileHeader(props) {
     const { completedProfile } = props.currentAccount;
     const { currentAccount } = props;
 
+    const [sumTotal, setSumTotal] = React.useState(0)
+
     const getPercent = (values) => {
         let large = values.length;
         let cont = 0;
@@ -247,6 +250,57 @@ export default function ProfileHeader(props) {
         props.saveImageProfile(document.getElementsByClassName("uploadPicture")[0].src)
     }
 
+
+
+    const totalValorations = () => {
+
+        // if (props.valorations) {
+        let ratings = {
+        };
+
+        props.valorations.map((item, index) => {
+            ratings["R_" + index] = parseInt(item.qualification)
+        })
+
+        const starTotal = 10;
+
+
+
+        let total = 0;
+        let sumTotal = 0;
+        for (const rating in ratings) {
+            // 2
+            sumTotal++
+            const starPercentage = (ratings[rating] / starTotal) * 100;
+            // 3
+            // const starPercentageRounded = `${(Math.round(starPercentage / 10) * 10)}%`;
+            const starPercentageRounded = (Math.round(starPercentage / 10) * 10);
+            // 4
+            total += starPercentageRounded;
+
+        }
+
+        let showTotal = Math.round((total / sumTotal) / 10)
+
+
+        // setSumTotal(showTotal)
+
+        // }
+
+
+
+        return showTotal
+
+
+    }
+    // totalValorations();
+
+
+
+    // const total = totalValorations();
+
+    // console.log(total)
+
     return (
         <div>
 
@@ -296,17 +350,21 @@ export default function ProfileHeader(props) {
 
                                 </Grid>
                                 <Grid item>
-                                    <Typography className={classes.title} gutterBottom variant="h5" component="div">
+                                    <Typography className={classes.title} gutterBottom variant="h5" component="div" >
 
-                                        {completeName}
+                                        {completeName.substring(0, 15)}
+
+                                        {/* {props.currentAccount.firstName} */}
+
                                     </Typography>
+
                                     <p>
                                         <br></br>
                                         <Typography gutterBottom variant="subtitle1" component="div" className={classes.rating}>
                                             {`Miembro desde: ${dateCreatedRender}`}
                                         </Typography>
                                     </p>
-                                    <SimpleRating className={classes.ratingTwo} openCustomerValorations={props.openCustomerValorations} />
+                                    <SimpleRating totalValorations={totalValorations} valorations={props.valorations} className={classes.ratingTwo} openCustomerValorations={props.openCustomerValorations} setFunc={true}/>
 
                                 </Grid>
 

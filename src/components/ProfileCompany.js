@@ -9,9 +9,12 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import Drawer from '@material-ui/core/Drawer';
 import Box from '@material-ui/core/Box';
 import AppBar from '@material-ui/core/AppBar';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import Toolbar from '@material-ui/core/Toolbar';
 import List from '@material-ui/core/List';
 import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
 import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
 import Badge from '@material-ui/core/Badge';
@@ -39,6 +42,12 @@ import ShoppingCart from "../components/ShoppingCart"
 import ShoppingBasketIcon from '@material-ui/icons/ShoppingBasket';
 import MuiAlert from '@material-ui/lab/Alert';
 import Snackbar from '@material-ui/core/Snackbar';
+import TextField from '@material-ui/core/TextField';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
 import {
     BrowserRouter as Router,
     Switch,
@@ -55,6 +64,8 @@ import InvoicesForm from './InvoicesForm';
 import LaunchCourse from './LaunchCourse';
 import LaunchReservedService from './LaunchReservedService';
 import CardCoursesCompany from '../controls/CardCoursesCompany';
+import Rating from '@material-ui/lab/Rating';
+import { ListItemText } from '@material-ui/core';
 // import Chart from './Chart';
 // import Deposits from './Deposits';
 // import Orders from './Orders';
@@ -204,6 +215,30 @@ const useStyles = makeStyles((theme) => ({
     logoTopBar: {
         width: `${sizeTopBar}px`,
     },
+    gridHistoty: {
+        width: "100%"
+    },
+    avatarCustomer: {
+        width: theme.spacing(8),
+        height: theme.spacing(8),
+        marginRight: "1rem"
+    },
+    textNameBy: {
+        fontWeight: "bold"
+    },
+    commentBy: {
+        color: "#b3b3b3"
+    },
+    en: {
+        display: 'inline',
+    },
+    nameServieClass: {
+        color: " #ff931e",
+        // textTransform: "uppercase",
+        display: 'inline',
+        fontWeight: "bolder"
+    },
+
 }));
 
 
@@ -222,6 +257,7 @@ export default function ProfileCompany(props) {
     const classes = useStyles();
     const [open, setOpen] = React.useState(false);
     const [openInvoices, setOpenInvoices] = React.useState(false);
+    const [openEvaluation, setOpenEvaluation] = React.useState(false);
     const [openLaunchCourse, setOpenLaunchCourse] = React.useState(false);
     const [openDetailCourse, setOpenDetailCourse] = React.useState(false);
     const [dataService, setDataService] = React.useState();
@@ -235,6 +271,10 @@ export default function ProfileCompany(props) {
     const [reservedService, setReservedService] = React.useState([]);
     const [openReservedService, setOpenReservedService] = React.useState(false);
     const [noDates, setNoDates] = React.useState(false);
+
+    const [currentEvaluation, setCurrentEvaluation] = React.useState("");
+    const [currentRaiting, setCurrentRaiting] = React.useState("");
+    const [currentComment, setCurrentComment] = React.useState("");
 
     const { currentAccount } = props;
 
@@ -422,8 +462,8 @@ export default function ProfileCompany(props) {
             // return ()
             setOpenDetailCourse(false)
             // setTimeout(() => {
-                
-                setNoDates(true)
+
+            setNoDates(true)
 
             // }, 300);
         }
@@ -523,6 +563,53 @@ export default function ProfileCompany(props) {
     }
     const vertical = 'top';
     const horizontal = 'center';
+
+    const showEvaluation = (item) => {
+        setCurrentEvaluation(item)
+        setOpenEvaluation(true)
+    }
+    const closeEvaluation = () => {
+        setOpenEvaluation(false)
+    }
+
+    const sendEvaluation = () => {
+        console.log(currentEvaluation)
+        console.log(currentComment)
+        console.log(currentRaiting)
+        setOpenEvaluation(false)
+        let payload = {
+            comment: currentComment,
+            raiting: currentRaiting,
+            relatedInfo: currentEvaluation,
+            relatedCompanyInfo: props.currentAccount
+        }
+        console.log(payload)
+
+        props.addValoration(payload)
+
+
+    }
+
+    const changeComment = (value) => {
+        console.log(currentEvaluation)
+        console.log(value.currentTarget.value)
+        setCurrentComment(value.currentTarget.value)
+
+        // set
+    }
+
+
+    const changeRaiting = (value) => {
+        console.log(currentEvaluation)
+        console.log(value.currentTarget.value)
+        setCurrentRaiting(value.currentTarget.value)
+
+        // set
+    }
+
+    // const requestHistory = () => {
+    //     props.historyService(currentAccount)
+    // }
     return (
         <div className={classes.root}>
             <CssBaseline />
@@ -621,9 +708,98 @@ export default function ProfileCompany(props) {
                                     justify="center"
                                     alignItems="flex-start">
                                     <Grid container item xs={12} spacing={3}>
-                                        <SearchServices dataFilter={dataCourse} onTypeFilter={onTypeFilter}></SearchServices>
+                                        {/* <SearchServices dataFilter={dataCourse} onTypeFilter={onTypeFilter}></SearchServices> */}
+                                        <Grid className={classes.gridHistoty}
+                                        // item xs={12}  container
+                                        //     direction="row"
+                                        //     justify="center"
+                                        //     alignItems="baseline"
+                                        >
+                                            <Typography
+                                                // component="span"
+                                                variant="h5"
+                                                // className={classes.commentBy}
+                                                color="textPrimary"
+                                            >
+                                                Historial de servicios
+                                            </Typography>
+                                            <br></br>
+
+                                            <Paper className={classes.paper} elevation={8}>
+                                                <List className={classes.rootList}>
+
+                                                    {props.historyService && props.historyService.map((item) => (
+                                                        <div>
+                                                            <ListItem alignItems="flex-start">
+                                                                <ListItemAvatar>
+                                                                    <Avatar className={classes.avatarCustomer} src={item.userProvide.imgProfile}>
+                                                                        {item.userProvide.firstName.substring(0, 1).toUpperCase()}
+                                                                    </Avatar>
+                                                                </ListItemAvatar>
+                                                                {/* <ListItemText></ListItemText> */}
+                                                                <ListItemText
+                                                                    primary={
+                                                                        <React.Fragment>
+                                                                            <Typography
+                                                                                variant="body2"
+                                                                                className={classes.textNameBy}
+                                                                                color="textPrimary"
+                                                                            >
+                                                                                <span className={classes.commentBy}>Instructor:</span>
+                                                                                {" " + item.userProvide.firstName + " " + item.userProvide.lastName}
+                                                                            </Typography>
+                                                                            {/* <Rating name="half-rating"  /> */}
+                                                                            {/* <Rating></Rating> */}
+                                                                        </React.Fragment>
+                                                                    }
+                                                                    secondary={
+                                                                        <React.Fragment>
+                                                                            {/* <Typography
+                                                                                // component="span"
+                                                                                variant="body2"
+                                                                                className={classes.commentBy}
+                                                                                color="textPrimary"
+                                                                            >
+                                                                                {item.comment}
+                                                                            </Typography> */}
+
+
+
+                                                                            <p>
+                                                                                {/* <Typography variant="body2" className={classes.en}>
+                                                                                        {"En: "}
+                                                                                    </Typography> */}
+                                                                                <Typography variant="body2" className={classes.nameServieClass}>
+                                                                                    <span className={classes.commentBy}>{"Servicio: "}</span>  {item.serviceProvide.nameService}
+                                                                                </Typography>
+                                                                            </p>
+                                                                            <Button variant="contained" className="btnNext"
+                                                                                onClick={() => { showEvaluation(item) }}
+
+                                                                            >Evaluar servicio</Button>
+
+                                                                        </React.Fragment>
+                                                                    }
+                                                                />
+
+                                                            </ListItem>
+                                                            <Divider variant="inset" component="li" />
+                                                        </div>
+                                                    ))}
+
+
+                                                </List>
+
+                                            </Paper>
+
+
+
+                                            {/* <Button variant="contained" className="btnBack"
+
+                                            >Historial de servicios</Button> */}
+                                        </Grid>
                                     </Grid>
-                                    <Grid container item xs={12} spacing={3}>
+                                    {/* <Grid container item xs={12} spacing={3}>
                                         {dataCourse.map((infoCourse, index) => (
                                             // <CardCoursesCompany
                                             <CardCourses
@@ -638,12 +814,53 @@ export default function ProfileCompany(props) {
 
 
                                         ))}
-                                    </Grid>
+                                    </Grid> */}
                                 </Grid>
                             </Grid>
 
                         </Paper>
 
+                    }
+
+
+                    {openEvaluation &&
+
+                        <Dialog open={true} onClose={closeEvaluation} aria-labelledby="form-dialog-title">
+                            {/* <Dialog></Dialog> */}
+                            <DialogTitle id="form-dialog-title">Ayudanos a mejorar:</DialogTitle>
+
+                            {/* <DialogContent></DialogContent> */}
+                            <DialogContent>
+                                <DialogContentText>
+                                    Califícalo:
+                                </DialogContentText>
+                                <Rating name="half-rating" onChange={(value) => { changeRaiting(value) }} precision={0.5}/>
+                                <TextField
+
+
+                                    // autoComplete="fname"
+                                    name="comentario"
+                                    variant="outlined"
+                                    required
+                                    fullWidth
+                                    id="comentario"
+                                    // label="Comentanos:"
+                                    placeholder="Comentario"
+                                    classes={{
+                                        root: "rootTextField"
+                                    }}
+                                    onChange={(value) => { changeComment(value) }}
+                                />
+                            </DialogContent>
+                            <DialogActions>
+                                <Button onClick={sendEvaluation} className="btnNext">
+                                    Enviar
+                                </Button>
+                                <Button onClick={closeEvaluation} className="btnBack">
+                                    CANCELAR
+                                </Button>
+                            </DialogActions>
+                        </Dialog>
                     }
                     {openInvoices &&
                         <Container maxWidth="lg" className={classes.container}>

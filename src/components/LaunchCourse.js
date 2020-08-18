@@ -452,7 +452,7 @@ const showProfileConsultant = () => {
                           {"Tiempo estimado: "}
                         </Typography>
                         <Typography variant="subtitle1" className={classes.nameservice} >
-                          {currentDataService.timeEstimated ? currentDataService.timeEstimated : ""} {"Horas."}
+                          {currentDataService.timeEstimated ? currentDataService.timeEstimated : ""} {"Hrs."}
                         </Typography>
                       </Paper>
                     </Grid>

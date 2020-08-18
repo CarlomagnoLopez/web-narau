@@ -167,7 +167,7 @@ export default function StepSixCreateCourse(props) {
 
     let videoEdit = currentDataService ? currentDataService.video : "";
 
-    if (editServicdeType) {
+    if (editServicdeType && payload.video) {
      videoEdit = payload ? payload.video : "";
 
     }
@@ -262,7 +262,7 @@ export default function StepSixCreateCourse(props) {
                         />
                     </Grid>
                     <Grid item xs={4} >
-                        {video !== "" &&
+                        {video !== "" && video &&
                             <Card className={classes.rootCard}>
                                 {/* <video width="320" height="240" controls className={classes.video}>
                                     <source src="https://www.youtube.com/watch?v=XH2UBlyiLOI" 

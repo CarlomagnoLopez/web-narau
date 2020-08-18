@@ -176,6 +176,9 @@ export default function StepTwoCreateCourse(props) {
             case "asesoria":
                 return "la ";
                 break;
+            case "conferencia":
+                return "la ";
+                break;
             default:
                 return "el "
         }
@@ -326,8 +329,8 @@ export default function StepTwoCreateCourse(props) {
                             }}>
 
                                 {/* <IconButton> */}
-                                <ComputerIcon />
-                                <AccessibilityIcon />
+                                <ComputerIcon fontSize="large"/>
+                                <AccessibilityIcon fontSize="large" />
 
                                 {/* </IconButton> */}
                                 <Typography variant="subtitle1">
