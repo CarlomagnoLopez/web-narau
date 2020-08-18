@@ -834,7 +834,7 @@ export default function ProfileCompany(props) {
                                 <DialogContentText>
                                     Califícalo:
                                 </DialogContentText>
-                                <Rating name="half-rating" onChange={(value) => { changeRaiting(value) }} />
+                                <Rating name="half-rating" onChange={(value) => { changeRaiting(value) }} precision={0.5}/>
                                 <TextField
 
 

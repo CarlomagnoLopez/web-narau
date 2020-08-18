@@ -14,6 +14,19 @@ export default function SimpleRating(props) {
       props.openCustomerValorations()
     }
   }
+  const totalStars = () => {
+
+    if(props.setFunc) {
+      return props.totalValorations(props.valorations)
+    }
+
+    return "5"
+        
+   
+
+  }
+
+  // const va
 
   return (
     <div>
@@ -32,7 +45,9 @@ export default function SimpleRating(props) {
           <Rating
             readOnly
             name="simple-controlled"
-            value={5}
+            precision={0.5}
+            // value={props.totalValorations(props.valorations)}
+            value={totalStars()}
             // value={value}
             onChange={(event, newValue) => {
               setValue(newValue);

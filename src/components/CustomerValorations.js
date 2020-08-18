@@ -305,10 +305,10 @@ const useStyles = makeStyles((theme) => ({
   en: {
     display: 'inline',
   },
-  avatarCustomer:{
+  avatarCustomer: {
     width: theme.spacing(8),
     height: theme.spacing(8),
-    marginRight:"1rem"
+    marginRight: "1rem"
   }
 
 
@@ -344,17 +344,60 @@ export default function CustomerValorations(props) {
 
   const getValorationsNumber = (data) => {
 
-    if(props.valorations){
-      if(props.valorations.length < 10){
-        return ("0"+props.valorations.length)
-      }else{
+    if (props.valorations) {
+      if (props.valorations.length < 10) {
+        return ("0" + props.valorations.length)
+      } else {
         return props.valorations.length
       }
-    }else{
+    } else {
       return "00"
     }
-    
+
     // props.valorations ? props.valorations.length : "00"
+  }
+
+
+  const totalValorations = () => {
+
+    // if (props.valorations) {
+    let ratings = {
+    };
+
+    props.valorations.map((item, index) => {
+      ratings["R_" + index] = parseInt(item.qualification)
+    })
+
+    const starTotal = 10;
+
+
+
+    let total = 0;
+    let sumTotal = 0;
+    for (const rating in ratings) {
+      // 2
+      sumTotal++
+      const starPercentage = (ratings[rating] / starTotal) * 100;
+      // 3
+      // const starPercentageRounded = `${(Math.round(starPercentage / 10) * 10)}%`;
+      const starPercentageRounded = (Math.round(starPercentage / 10) * 10);
+      // 4
+      total += starPercentageRounded;
+
+    }
+
+    let showTotal = Math.round((total / sumTotal) / 10)
+
+
+    // setSumTotal(showTotal)
+
+    // }
+
+
+
+    return showTotal
+
+
   }
 
   // const 
@@ -379,6 +422,7 @@ export default function CustomerValorations(props) {
 
   // console.log(currentDataService)
   const completeName = props.currentAccount.firstName + " " + props.currentAccount.lastName;
+  const avatarTitle = props.currentAccount.firstName.substring(0, 1).toUpperCase() + props.currentAccount.lastName.substring(0, 1).toUpperCase()
 
   return (
     <React.Fragment>
@@ -401,14 +445,17 @@ export default function CustomerValorations(props) {
 
                     <Avatar className={classes.avatarHeader} src={localStorage.getItem("contentUserAvatarImg")} classes={{
                       root: "rootAvatar"
-                    }}></Avatar>
+                    }}>
+
+                      {avatarTitle}
+                    </Avatar>
                     <Typography>
                       <Typography className={classes.titleName} gutterBottom variant="h5" component="div">
 
                         {completeName}
                       </Typography>
                     </Typography>
-                    <SimpleRating className={classes.ratingTwo} />
+                    <SimpleRating className={classes.ratingTwo} totalValorations={totalValorations} valorations={props.valorations} setFunc={true}/>
                     <div className={classes.infoData}>
                       <Typography variant="h2" color="inherit" className={classes.numbers}>
                         {getValorationsNumber(props.valorations)}

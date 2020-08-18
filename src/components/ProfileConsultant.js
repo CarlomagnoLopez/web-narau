@@ -518,6 +518,20 @@ export default function ProfileConsultant(props) {
 
     }
 
+    const getValorationsNumber = () => {
+
+        if (props.valorations) {
+            if (props.valorations.length < 10) {
+                return ("0" + props.valorations.length)
+            } else {
+                return props.valorations.length
+            }
+        } else {
+            return "00"
+        }
+
+        // props.valorations ? props.valorations.length : "00"
+    }
 
 
     // getStadistics()
@@ -559,7 +573,7 @@ export default function ProfileConsultant(props) {
                 <Grid container spacing={3}>
                     <Grid item xs={12}>
                         <Paper className={classes.paper} elevation={0}>
-                            <ProfileHeader openCustomerValorations={openCustomerValorations} saveImageProfile={props.saveImageProfile} currentAccount={currentAccount} invoiceData={props.invoiceData} ></ProfileHeader>
+                            <ProfileHeader openCustomerValorations={openCustomerValorations} saveImageProfile={props.saveImageProfile} currentAccount={currentAccount} invoiceData={props.invoiceData} valorations={props.valorations}></ProfileHeader>
                         </Paper>
                     </Grid>
                 </Grid>
@@ -674,7 +688,10 @@ export default function ProfileConsultant(props) {
                                                 </Grid>
                                                 <Grid item xs={3} className={classes.numbersCont}>
                                                     <Typography variant="h2" color="inherit" className={classes.numbers}>
-                                                        00
+                                                        {/* 00 */}
+                                                        {getValorationsNumber()}
+
+
                                                     </Typography>
                                                     <Typography variant="subtitile1" color="inherit" className={classes.numbersDown}>
                                                         Valoraciones
@@ -699,7 +716,7 @@ export default function ProfileConsultant(props) {
                                         </CardAddCourses>
                                         {dataCourse.map((infoCourse, index) => {
 
-                                            if(!courseDeleted[index]){
+                                            if (!courseDeleted[index]) {
                                                 return (
                                                     <CardCourses
                                                         // courseId={dataCourseId[index]}
@@ -713,11 +730,11 @@ export default function ProfileConsultant(props) {
                                                         // openForm={createCourse}
                                                         infoCourse={infoCourse}>
                                                     </CardCourses>
-    
+
                                                     // </div>
                                                 )
                                             }
-                                           
+
                                         }
 
                                         )}
@@ -939,6 +956,7 @@ export default function ProfileConsultant(props) {
                             setShowCustomerValorations={setShowCustomerValorations}
                             getServiceVerified={getServiceVerified}
                             getServiceunVerified={getServiceunVerified}
+                            valorations={props.valorations}
                         ></CustomerValorations>
 
                     }
