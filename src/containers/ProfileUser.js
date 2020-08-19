@@ -405,6 +405,36 @@ class ProfileUser extends React.Component {
         })
 
     }
+
+    saveServiceAttach = (data) => {
+        let payload = data;
+        this.setState({
+            loadingUpdate: true
+        }, (state, props) => {
+            fetch('https://ob5nizjire.execute-api.us-east-1.amazonaws.com/default/saveservice', {
+                method: 'PUT',
+                body: JSON.stringify(payload),
+                headers: {
+                    'Content-Type': 'application/json',
+                    'x-api-key': 'wD4FjaAoiG4bldvQ0oB6Q6fyIDqZCsfkaXCun0u6'
+                }
+            })
+                .then(res => res.json())
+                .then((data) => {
+                    // this.props.singUp(data.body);
+
+                    // this.updateMainDataAttr(data.body.dataUpdated["custom-attr"]);
+                    // this.startLoading();
+                    this.setState({
+                        loadingUpdate: false
+                    })
+
+                    console.log(data)
+                })
+                .catch(console.log)
+        })
+
+    }
     saveService = (data) => {
         let payload = data;
         this.setState({
@@ -904,6 +934,7 @@ class ProfileUser extends React.Component {
                             userAll={this.state.userAll}
                             companyAll={this.state.companyAll}
                             saveService={this.editService}
+                            saveServiceAttach={this.saveServiceAttach}
                             saveUser={this.editUser}
                             showUserNoEdit={this.showUserNoEdit}
 

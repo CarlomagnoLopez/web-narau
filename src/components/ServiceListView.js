@@ -159,6 +159,7 @@ export default function ServiceListView(props) {
                             showDetail={props.showDetail} 
                             saveService={props.saveService}
                             openUserList={props.openUserList}
+                            openAssignList={props.openAssignList}
                             currentService={props.currentService}
                             />
                     </Paper>

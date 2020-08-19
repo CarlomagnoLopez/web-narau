@@ -127,8 +127,14 @@ export default function Orders(props) {
     // console.log("si")
     props.currentService(row)
     props.openUserList(true)
-    // props.openUserList()
   }
+
+  const openAssignList = (row) => {
+    // console.log("si")
+    props.currentService(row)
+    props.openAssignList(true)
+  }
+
 
   return (
     <React.Fragment>
@@ -207,9 +213,9 @@ export default function Orders(props) {
                       </Tooltip>
                     }
                     {/* {row["custom-attr"].shared && */}
-                    <Tooltip title="Vincular consultor" aria-label="Vincular">
+                    <Tooltip title="Asignar consultor" aria-label="Vincular">
                       <IconButton color="inherit"
-                        onClick={() => { openUserList() }}
+                        onClick={() => { openAssignList(row) }}
                       >
                         <GroupAddIcon></GroupAddIcon>
                       </IconButton>
