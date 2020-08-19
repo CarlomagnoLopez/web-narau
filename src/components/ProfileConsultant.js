@@ -930,6 +930,7 @@ export default function ProfileConsultant(props) {
                                     closeFormCourse={closeFormCourse}
                                     images={props.images}
                                     closeForm={closeForm}
+                                    asociated={props.currentAccount.isAsociate}
                                 >
 
                                 </CreateCourse>

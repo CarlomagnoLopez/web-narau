@@ -134,6 +134,56 @@ body .cardService{
 /*  style for sign in-up forms */
 
 
+
+/*  style for autocomplete forms */
+
+.rootTextFieldAutoComplete{
+    margin-top: 15px !important;
+    margin-bottom: 27px !important;
+}
+
+.rootTextFieldAutoComplete .MuiInputBase-root{
+    border-radius: .5rem;
+    background-color:rgb(248, 207, 153);
+    color: #696969;
+    /* font-weight: bold; */
+
+
+}
+.rootTextFieldAutoComplete .MuiOutlinedInput-input{
+    padding: 9.5px 14px;
+}
+.rootTextFieldAutoComplete .MuiOutlinedInput-root{
+    border-color: rgb(255, 255, 255)  !important;
+}
+.rootTextFieldAutoComplete:hover {
+    border-color: rgb(255, 255, 255)  !important;
+}
+
+.rootTextFieldAutoComplete .MuiFormLabel-root {
+    color: rgba(255, 255, 255, 1);
+
+}
+
+.rootTextFieldAutoComplete .MuiFormLabel-root.Mui-focused {
+    color: rgba(255, 255, 255, 1);
+
+}
+.rootTextFieldAutoComplete  .MuiInputLabel-outlined.MuiInputLabel-shrink{
+    transform: translate(0px, -1.5rem) scale(0.75);
+}
+.rootTextFieldAutoComplete  .MuiInputLabel-outlined{
+    transform: translate(0px, -1.5rem) scale(0.75);
+}
+
+
+.rootTextFieldAutoComplete .MuiOutlinedInput-notchedOutline{
+    border-color:#fc500000 !important;
+}
+
+/*  style for autocomplete forms */
+
+
 .dialogOrange{
     background-color:  #ff931e !important;
     /* color: #fff; */
