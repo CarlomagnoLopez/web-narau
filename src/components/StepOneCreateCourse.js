@@ -175,6 +175,10 @@ export default function StepOneCreateCourse(props) {
     const [openDesc3, setOpenDesc3] = React.useState(false);
 
 
+    let notme = false;
+    if (props.currentDataService2) {
+        notme = props.currentDataService2.notme;
+    }
 
 
     const handleClickOpen = () => {
@@ -329,7 +333,7 @@ export default function StepOneCreateCourse(props) {
                             <Grid item xs={4} >
                                 <Paper className={classes.paperTaller}>
                                     {/* <div className={classes.backTaller}> */}
-                                    <ButtonBase className={classes.image} onClick={() => { selectService1("taller") }}>
+                                    <ButtonBase className={classes.image} onClick={() => { selectService1("taller") }} disabled = {notme}> 
                                         <Typography variant="h6" className={classes.titleCard}>
                                             Taller
                                         </Typography>
@@ -341,7 +345,7 @@ export default function StepOneCreateCourse(props) {
                             </Grid>
                             <Grid item xs={4}>
                                 <Paper className={classes.paperAsesoria}>
-                                    <ButtonBase className={classes.image} onClick={() => { selectService1("asesoria") }}>
+                                    <ButtonBase className={classes.image} onClick={() => { selectService1("asesoria") }}  disabled = {notme}>
                                         <Typography variant="h6" className={classes.titleCard}>
                                             Asesoría
                                         </Typography>
@@ -352,7 +356,7 @@ export default function StepOneCreateCourse(props) {
                             <Grid item xs={4}>
                                 <Paper className={classes.paperAprendizajeOnline}>
 
-                                    <ButtonBase className={classes.image} onClick={() => { selectService1("conferencia") }}>
+                                    <ButtonBase className={classes.image} onClick={() => { selectService1("conferencia") }}  disabled = {notme}>
                                         <Typography variant="h6" className={classes.titleCard}>
                                             Conferencias
                                         </Typography>
@@ -366,7 +370,7 @@ export default function StepOneCreateCourse(props) {
                         <React.Fragment>
                             <Grid item xs={4}>
                                 <Paper className={classes.paperAsesoriaPersonalizada}>
-                                    <ButtonBase className={classes.image}>
+                                    <ButtonBase className={classes.image}  disabled = {notme}>
                                         <Typography variant="h6" className={classes.titleCard}>
                                             Asesoría
                                             personalizada
@@ -377,7 +381,7 @@ export default function StepOneCreateCourse(props) {
                             </Grid>
                             <Grid item xs={4}>
                                 <Paper className={classes.paperConferencia}>
-                                    <ButtonBase className={classes.image}>
+                                    <ButtonBase className={classes.image}  disabled = {notme}>
 
 
                                         <Typography variant="h6" className={classes.titleCard}>
@@ -390,7 +394,7 @@ export default function StepOneCreateCourse(props) {
                             </Grid>
                             <Grid item xs={4}>
                                 <Paper className={classes.paperDiplomado}>
-                                    <ButtonBase className={classes.image}>
+                                    <ButtonBase className={classes.image}  disabled = {notme}>
                                         <Typography variant="h6" className={classes.titleCard}>
                                             Diplomados
                                         </Typography>

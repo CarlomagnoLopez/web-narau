@@ -301,3 +301,15 @@ font-weight: bold;
   background-color: #f19d2d !important;
   flex-grow: 1;
 }
+
+
+.cssImageSelected{
+  position: relative;
+  z-index: 100000;
+  color: #fff;
+  top: -117px;
+  font-size: 85px;
+  color: #fc5000;
+}
+
+

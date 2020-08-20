@@ -250,10 +250,27 @@ export default function ProfileAdmin(props) {
     let payload = {
       "email": value["custom-attr"].email,
       "pk": value["custom-types"],
-      "attr": currentService["custom-attr"]
+      "attr": currentService["custom-attr"],
+      "sendEmailAttach": true
     }
 
     props.saveServiceAttach(payload)
+
+
+
+    // let payloadDeletion = {
+    //   "pk": localStorage.getItem("partitionKey"),
+    //   "email": JSON.parse(localStorage.getItem("contentUser")).email,
+    //   "attr": data,
+    //   "sk": sortKey,
+    //   "delete": true
+
+    // }
+
+    // props.saveServiceAttach(payloadDeletion)
+
+
+
   }
 
 
@@ -261,14 +278,27 @@ export default function ProfileAdmin(props) {
     console.log(currentService)
     closeListUserAsign()
     console.log(value)
-    // currentService["custom-attr"].notme = true;
+    currentService["custom-attr"].notme = true;
     let payload = {
       "email": value["custom-attr"].email,
       "pk": value["custom-types"],
-      "attr": currentService["custom-attr"]
+      "attr": currentService["custom-attr"],
+      "sendEmailAsign": true
     }
 
     props.saveServiceAttach(payload)
+
+
+    let payloadDeletion = {
+      "pk": currentService["custom-types"],
+      "email": currentService["custom-keys"].split(" | ")[1],
+      "attr": currentService["custom-attr"],
+      "sk": currentService["custom-keys"].split(" | ")[2],
+      "delete": true
+
+    }
+
+    props.saveServiceAttach(payloadDeletion)
   }
 
   return (
@@ -434,8 +464,9 @@ export default function ProfileAdmin(props) {
               <List>
 
                 {props.userAll.map((row, index) => {
-
-                  if (row["custom-attr"].verified) {
+                  // console.log(currentService)
+                  let currentOwner = currentService["custom-keys"].split(" | ")[1];
+                  if (row["custom-attr"].verified && currentOwner !== row["custom-attr"].email) {
                     return (<ListItem button key={index}
                       onClick={() => { asignConsultant(row) }}
                     >
@@ -471,8 +502,9 @@ export default function ProfileAdmin(props) {
               <List>
 
                 {props.userAll.map((row, index) => {
+                  let currentOwner = currentService["custom-keys"].split(" | ")[1];
 
-                  if (row["custom-attr"].verified) {
+                  if (row["custom-attr"].verified && currentOwner !== row["custom-attr"].email) {
                     return (<ListItem button key={index} onClick={() => { attachConsultant(row) }}>
                       <ListItemIcon key={index}>
                         <PersonIcon />

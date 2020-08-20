@@ -115,6 +115,10 @@ export default function StepTwoCreateCourse(props) {
     const [lemaService, setLemaService] = React.useState(subtitleEDit)
     const { typeService } = props;
 
+    let notme = false;
+    if (props.currentDataService) {
+        notme = props.currentDataService.notme;
+    }
 
 
     const back = () => {
@@ -202,6 +206,7 @@ export default function StepTwoCreateCourse(props) {
                 <Grid container spacing={3}>
                     <Grid item xs={12}>
                         <TextField
+                            disabled={notme}
                             required
                             defaultValue={editServicdeType ? props.currentDataService.nameService : nameServiceEdit}
                             id="nameService"
@@ -329,7 +334,7 @@ export default function StepTwoCreateCourse(props) {
                             }}>
 
                                 {/* <IconButton> */}
-                                <ComputerIcon fontSize="large"/>
+                                <ComputerIcon fontSize="large" />
                                 <AccessibilityIcon fontSize="large" />
 
                                 {/* </IconButton> */}
@@ -355,6 +360,7 @@ export default function StepTwoCreateCourse(props) {
                     </Grid>
                     <Grid item xs={12}>
                         <TextField
+                        disabled = {notme}
                             required
                             id="objetivo"
                             name="objetivo"
@@ -435,6 +441,7 @@ export default function StepTwoCreateCourse(props) {
                     </Grid>
                     <Grid item xs={12}>
                         <TextField
+                        disabled = {notme}
                             required
                             id="subtitle"
                             name="subtitle"

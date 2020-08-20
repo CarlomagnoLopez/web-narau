@@ -506,7 +506,7 @@ export default function CustomerValorations(props) {
                                   >
                                     {item.by}
                                   </Typography>
-                                  <Rating name="half-rating" readOnly defaultValue={item.qualification} />
+                                  <Rating name="half-rating" readOnly defaultValue={item.qualification} precision={0.5} />
                                 </React.Fragment>
                               }
                               secondary={

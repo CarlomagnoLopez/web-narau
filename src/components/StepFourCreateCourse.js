@@ -156,6 +156,12 @@ export default function StepFourCreateCourse(props) {
     const [cost, setCost] = React.useState(costEdit)
     const [costD, setCostD] = React.useState("")
     const [timeEstimated, setTimeEstimated] = React.useState(timeEstimatedEdit)
+
+    let notme = false;
+    if (props.currentDataService) {
+        notme = props.currentDataService.notme;
+    }
+
     // const [topic, setTopic] = React.useState("")
 
     // const next = () => {
@@ -248,6 +254,8 @@ export default function StepFourCreateCourse(props) {
                                 <Grid item>
                                     {/* <Grid item xs> */}
                                     <TextField
+                            disabled={notme}
+
                                         required
                                         id="timeEstimated"
                                         name="timeEstimated"

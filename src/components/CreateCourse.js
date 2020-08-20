@@ -206,9 +206,7 @@ export default function CreateCourse(props) {
         }
         <Container maxWidth="md">
           {nextStep === 0 &&
-            <StepOneCreateCourse currentDataService={
-              currentDataService ? currentDataService.serviceType : ""
-            } handleNextStep={handleNextStep}></StepOneCreateCourse>
+            <StepOneCreateCourse currentDataService={currentDataService ? currentDataService.serviceType : ""} currentDataService2={currentDataService ? currentDataService : ""} handleNextStep={handleNextStep} ></StepOneCreateCourse>
 
           }
           {nextStep === 1 &&

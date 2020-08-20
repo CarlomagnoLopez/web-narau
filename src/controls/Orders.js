@@ -25,6 +25,13 @@ import 'moment/locale/es';
 import HttpsIcon from '@material-ui/icons/Https';
 import GroupAddIcon from '@material-ui/icons/GroupAdd';
 // Generate Order Data
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
+import ListItemAvatar from '@material-ui/core/ListItemAvatar';
+import FolderSharedIcon from '@material-ui/icons/FolderShared';
+import Avatar from '@material-ui/core/Avatar';
+import ImageIcon from '@material-ui/icons/Image';
 function createData(id, date, name, shipTo, paymentMethod, amount) {
   return { id, date, name, shipTo, paymentMethod, amount };
 }
@@ -135,7 +142,14 @@ export default function Orders(props) {
     props.openAssignList(true)
   }
 
-
+  const createItem = (option) => {
+    return (<TextField
+      id="filled-secondary"
+      label="Filled secondary"
+      variant="filled"
+      color="secondary"
+    />)
+  }
   return (
     <React.Fragment>
       <Typography component="h2" variant="h6" color="primary" gutterBottom>
@@ -146,7 +160,46 @@ export default function Orders(props) {
         options={serviceAllTest}
         onChange={findOnTable}
         fullWidth
-        getOptionLabel={(option) => option["custom-attr"].nameService}
+        getOptionLabel={(option) => "Nombre: " +option["custom-attr"].nameService + ". Email: " +option["custom-keys"].split(" | ")[1]}
+        // renderInput={(option) => (
+        //   <React.Fragment>
+        //   <ListItem>
+        //     <ListItemAvatar>
+        //       <Avatar>
+        //         <ImageIcon />
+        //       </Avatar>
+        //     </ListItemAvatar>
+        //     <ListItemText primary={option["custom-attr"].nameService} secondary={option["custom-keys"].split(" | ")[1]} />
+        //   </ListItem>
+        // </React.Fragment>
+        // )}
+        renderOption={(option) => (
+          <React.Fragment>
+            <ListItem>
+              <ListItemAvatar>
+                <Avatar>
+                  <FolderSharedIcon />
+                </Avatar>
+              </ListItemAvatar>
+              <ListItemText primary={option["custom-attr"].nameService} secondary={option["custom-keys"].split(" | ")[1]} />
+            </ListItem>
+          </React.Fragment>
+        )}
+        // (
+
+
+        // option["custom-attr"].nameService + " " + option["custom-keys"].split(" | ")[1]
+        // <List className={classes.root}>
+        //   <ListItem>
+        //     <ListItemAvatar>
+        //       <Avatar>
+        //         <ImageIcon />
+        //       </Avatar>
+        //     </ListItemAvatar>
+        //     <ListItemText primary={option["custom-attr"].nameService} secondary={option["custom-keys"].split(" | ")[1]} />
+        //   </ListItem>
+        // </List>
+        // )}
         // style={{ width: 300 }}
         renderInput={(params) => <TextField fullWidth {...params} label="Busqueda..." placeholder={"Busqueda..."} variant="outlined"
           classes={{
@@ -185,8 +238,8 @@ export default function Orders(props) {
                   </Tooltip>
                 ) :
 
-                  (<IconButton color="inherit" >
-                    <HttpsIcon></HttpsIcon>
+                  (<IconButton color="inherit" disabled={true} >
+                    <HttpsIcon ></HttpsIcon>
                   </IconButton>)
                 )}</TableCell>
                 <TableCell>{
@@ -213,7 +266,7 @@ export default function Orders(props) {
                       </Tooltip>
                     }
                     {/* {row["custom-attr"].shared && */}
-                    <Tooltip title="Asignar consultor" aria-label="Vincular">
+                    <Tooltip title="Asignar consultor" aria-label="Vincular" disabled={row["custom-attr"].shared ? true : false}>
                       <IconButton color="inherit"
                         onClick={() => { openAssignList(row) }}
                       >
