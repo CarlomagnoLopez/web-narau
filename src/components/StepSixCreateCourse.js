@@ -7,6 +7,9 @@ import ListItem from '@material-ui/core/ListItem';
 import List from '@material-ui/core/List';
 import Divider from '@material-ui/core/Divider';
 import AppBar from '@material-ui/core/AppBar';
+import SwitchControlShare from '../controls/SwitchControlShare';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
@@ -35,7 +38,7 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import ProgressCreateCourse from "../controls/ProgressCreateCourse"
-import { Container } from '@material-ui/core';
+import { Container, Link } from '@material-ui/core';
 import { Player } from 'video-react';
 const useStyles = makeStyles((theme) => ({
     appBar: {
@@ -149,6 +152,9 @@ const useStyles = makeStyles((theme) => ({
         width: "100%",
         height: "100%",
         // marginTop:"60px"
+    },
+    switchClass: {
+        flexDirection: "row-reverse"
     }
 
 
@@ -163,18 +169,19 @@ export default function StepSixCreateCourse(props) {
 
     const { typeService, countRefresh } = props;
     const editServicdeType = props.currentDataService;
-    const { currentDataService ,payload} = props;
+    const { currentDataService, payload } = props;
 
     let videoEdit = currentDataService ? currentDataService.video : "";
 
     if (editServicdeType && payload.video) {
-     videoEdit = payload ? payload.video : "";
+        videoEdit = payload ? payload.video : "";
 
     }
 
     const [to, setTo] = React.useState("")
     const [cost, setCost] = React.useState("")
     const [video, setVideo] = React.useState(videoEdit)
+    const [sharedService, setSharedService] = React.useState(false)
     // const [topic, setTopic] = React.useState("")
 
     // const next = () => {
@@ -213,9 +220,13 @@ export default function StepSixCreateCourse(props) {
     const next = () => {
         // console.log(modeService)
         // console.log(titleService)
-        let model = [{
-            video: video
-        }
+        let model = [
+            {
+                video: video
+            },
+            {
+                shared:sharedService
+            }
         ]
         props.handleNextStep(model)
     }
@@ -223,6 +234,12 @@ export default function StepSixCreateCourse(props) {
     // console.log(topicData.length)
     // console.log(to)
     // console.log(benefits)
+
+    const sharedServiceByUser = (value) => {
+        setSharedService(value)
+        // console.log(value)
+    }
+    const preventDefault = (event) => event.preventDefault();
 
     return (
         <div>
@@ -242,6 +259,33 @@ export default function StepSixCreateCourse(props) {
                     direction="row"
                     justify="center"
                     alignItems="center">
+                    <Grid item xs={12} container
+                        direction="row"
+                        justify="center"
+                        alignItems="baseline">
+                        <Grid item xs={12} container
+                            direction="row"
+                            justify="center"
+                            alignItems="baseline">
+
+
+                        </Grid>
+
+                        <FormControlLabel className={classes.switchClass}
+                            // control={<Checkbox value="allowExtraEmails" color="primary" />}
+                            control={
+                                <Typography className={classes.root}>
+                                    <Link href="https://faqsnarau.s3.amazonaws.com/Como_agregar_un_video_a_Narau.pdf" target="_blank"
+                                    // onClick={preventDefault}
+                                    >
+                                        {`¿Quieres aprender como subir un video? Clic aqui.`}
+                                        {/* {" "} */}
+                                    </Link>
+                                </Typography>}
+                        // label=""
+                        />
+
+                    </Grid>
                     <Grid container item xs={12} spacing={3}>
 
                         <TextField
@@ -288,6 +332,30 @@ export default function StepSixCreateCourse(props) {
                             </Card> */}
                     </Grid>
                     <br></br>
+                    {props.asociated &&
+                        <Grid item xs={12} container
+                            direction="row"
+                            justify="center"
+                            alignItems="baseline">
+                            <Grid item xs={12} container
+                                direction="row"
+                                justify="center"
+                                alignItems="baseline">
+
+
+                            </Grid>
+
+                            <FormControlLabel className={classes.switchClass}
+                                // control={<Checkbox value="allowExtraEmails" color="primary" />}
+                                control={<SwitchControlShare
+                                    changeEvent={sharedServiceByUser}
+                                    checked={false}
+                                />}
+                                label="¿Es un servicio compartido?"
+                            />
+
+                        </Grid>
+                    }
                     <Grid item xs={12} container
                         direction="row"
                         justify="center"

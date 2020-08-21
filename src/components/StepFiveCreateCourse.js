@@ -36,7 +36,7 @@ import CardMedia from '@material-ui/core/CardMedia';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import ProgressCreateCourse from "../controls/ProgressCreateCourse"
 import { Container } from '@material-ui/core';
-
+import CheckCircleTwoToneIcon from '@material-ui/icons/CheckCircleTwoTone';
 const useStyles = makeStyles((theme) => ({
     appBar: {
         position: 'relative',
@@ -134,6 +134,7 @@ const useStyles = makeStyles((theme) => ({
     },
     rootCard: {
         maxWidth: 345,
+        maxHeight: 140
     },
     media: {
         height: 140,
@@ -162,8 +163,8 @@ const useStyles = makeStyles((theme) => ({
         overflow: "auto",
         height: "75%"
     },
-    footerBack:{
-        marginTop:"15px"
+    footerBack: {
+        marginTop: "15px"
     }
 
 }));
@@ -180,6 +181,11 @@ export default function StepFiveCreateCourse(props) {
     const [to, setTo] = React.useState("")
     const [cost, setCost] = React.useState("")
     const [costD, setCostD] = React.useState("")
+    let notme = false;
+    if (props.currentDataService) {
+        notme = props.currentDataService.notme;
+    }
+
     // const [topic, setTopic] = React.useState("")
 
     // const next = () => {
@@ -225,6 +231,8 @@ export default function StepFiveCreateCourse(props) {
     // console.log(to)
     // console.log(benefits)
 
+
+
     const renderCardImage = () => {
 
         let imgService = props.images.filter((itemImage) => {
@@ -238,13 +246,22 @@ export default function StepFiveCreateCourse(props) {
         // })
         return imgService[0].services.map((itemService) => {
             return (<Grid item xs={4} >
-                <Card className={classes.rootCard} raised> 
-                    <CardActionArea onClick={() => props.handleNextStep(itemService["values"])}>
+                <Card className={classes.rootCard} raised>
+                    <CardActionArea onClick={() => props.handleNextStep(itemService["values"])} disabled={notme}>
                         <CardMedia
                             className={classes.media}
                             image={"https://imgcursos.s3.amazonaws.com/" + itemService["values"]}
                         // title="Contemplative Reptile"
                         />
+                        {props.currentDataService && props.currentDataService.img === itemService["values"] &&
+                            <CardContent className="cssImageSelected">
+                                <CheckCircleTwoToneIcon fontSize="inherit"></CheckCircleTwoToneIcon>
+                                {/* <Typography gutterBottom variant="h5" component="h2">
+                                    Imagen seleccionada.
+                                </Typography> */}
+                            </CardContent>
+                        }
+
                     </CardActionArea>
                 </Card>
             </Grid>)
@@ -363,6 +380,11 @@ export default function StepFiveCreateCourse(props) {
                 <Button onClick={props.back} variant="contained" className="btnBack"
 
                 >Regresar</Button>
+                {props.currentDataService && props.currentDataService.img !== "" &&
+                    <Button onClick={() => props.handleNextStep(props.currentDataService.img)} variant="contained" className="btnNext"
+
+                    >Continuar</Button>
+                }
             </Grid>
             {/* </Paper> */}
 

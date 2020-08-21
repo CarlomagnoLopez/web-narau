@@ -12,10 +12,17 @@ import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import CloseIcon from '@material-ui/icons/Close';
 import Slide from '@material-ui/core/Slide';
-
+import Paper from '@material-ui/core/Paper';
+import Grid from '@material-ui/core/Grid';
 import logo_sun from '../assets/sun_logo.png';
+import imgTaller from '../assets/narau-46.png';
+import imgAsesoria from '../assets/narau-47.png';
+import imgAprendizajeOnline from '../assets/narau-48.png';
+import imgAsesoriaPersonalizada from '../assets/narau-49.png';
+import imgConferencia from '../assets/narau-50.png';
+import imgDiplomado from '../assets/narau-51.png';
 
-
+import ButtonBase from '@material-ui/core/ButtonBase';
 import "./styles.css"
 
 import ProgressCreateCourse from "../controls/ProgressCreateCourse"
@@ -61,6 +68,94 @@ const useStyles = makeStyles((theme) => ({
         border: "1px solid !important",
         borderColor: "#fc5000 !important",
         color: "#fff !important"
+    },
+    root: {
+        flexGrow: 1,
+        paddingTop: "55px",
+        '& > div': {
+            paddingLeft: "55px",
+        },
+    },
+    paperTaller: {
+        padding: theme.spacing(1),
+        textAlign: 'center',
+        width: "250px",
+        height: "125px",
+        color: theme.palette.text.secondary,
+        backgroundColor: "#fc5000",
+        borderRadius: "13px"
+    },
+    paperAsesoria: {
+        padding: theme.spacing(1),
+        textAlign: 'center',
+        width: "250px",
+        height: "125px",
+        color: theme.palette.text.secondary,
+        backgroundColor: "#ff931e",
+        borderRadius: "13px"
+    },
+    paperAprendizajeOnline: {
+        padding: theme.spacing(1),
+        textAlign: 'center',
+        width: "250px",
+        height: "125px",
+        color: theme.palette.text.secondary,
+        backgroundColor: "#7175d8",
+        borderRadius: "13px"
+
+    },
+    paperAsesoriaPersonalizada: {
+        padding: theme.spacing(1),
+        textAlign: 'center',
+        width: "250px",
+        height: "125px",
+        color: theme.palette.text.secondary,
+        backgroundColor: "#2E3059",
+        borderRadius: "13px"
+    },
+    paperConferencia: {
+        padding: theme.spacing(1),
+        textAlign: 'center',
+        width: "250px",
+        height: "125px",
+        color: theme.palette.text.secondary,
+        backgroundColor: "#0186CB",
+        borderRadius: "13px"
+
+    },
+    paperDiplomado: {
+        padding: theme.spacing(1),
+        textAlign: 'center',
+        width: "250px",
+        height: "125px",
+        color: theme.palette.text.secondary,
+        backgroundColor: "#8627d6",
+        borderRadius: "13px"
+
+    },
+    image: {
+        width: "100%",
+        height: "100%",
+    },
+    img: {
+        marginLeft: "auto",
+        display: 'block',
+        maxWidth: '100%',
+        maxHeight: '100%',
+    },
+    backTaller: {
+        backgroundColor: "#fc5000"
+    },
+    titleCard: {
+        marginTop: "auto",
+        color: "#fff",
+        marginLeft: "10px",
+        fontWeight: "bolder",
+        textAlign: "start"
+        // fontWeigtj
+    },
+    btnContinuar: {
+        paddingTop: "20px"
     }
 
 
@@ -80,6 +175,10 @@ export default function StepOneCreateCourse(props) {
     const [openDesc3, setOpenDesc3] = React.useState(false);
 
 
+    let notme = false;
+    if (props.currentDataService2) {
+        notme = props.currentDataService2.notme;
+    }
 
 
     const handleClickOpen = () => {
@@ -227,7 +326,101 @@ export default function StepOneCreateCourse(props) {
                 </Typography>
             }
 
-            <div className="sun_orbit">
+            <div className={classes.root}>
+                <Grid container spacing={1}>
+                    <Grid container item xs={12} spacing={3}>
+                        <React.Fragment>
+                            <Grid item xs={4} >
+                                <Paper className={classes.paperTaller}>
+                                    {/* <div className={classes.backTaller}> */}
+                                    <ButtonBase className={classes.image} onClick={() => { selectService1("taller") }} disabled = {notme}> 
+                                        <Typography variant="h6" className={classes.titleCard}>
+                                            Taller
+                                        </Typography>
+                                        <img className={classes.img} alt="complex" src={imgTaller} />
+                                    </ButtonBase>
+                                    {/* </div> */}
+
+                                </Paper>
+                            </Grid>
+                            <Grid item xs={4}>
+                                <Paper className={classes.paperAsesoria}>
+                                    <ButtonBase className={classes.image} onClick={() => { selectService1("asesoria") }}  disabled = {notme}>
+                                        <Typography variant="h6" className={classes.titleCard}>
+                                            Asesoría
+                                        </Typography>
+                                        <img className={classes.img} alt="complex" src={imgAsesoria} />
+                                    </ButtonBase>
+                                </Paper>
+                            </Grid>
+                            <Grid item xs={4}>
+                                <Paper className={classes.paperAprendizajeOnline}>
+
+                                    <ButtonBase className={classes.image} onClick={() => { selectService1("conferencia") }}  disabled = {notme}>
+                                        <Typography variant="h6" className={classes.titleCard}>
+                                            Conferencias
+                                        </Typography>
+                                        <img className={classes.img} alt="complex" src={imgConferencia} />
+                                    </ButtonBase>
+                                </Paper>
+                            </Grid>
+                        </React.Fragment>
+                    </Grid>
+                    <Grid container item xs={12} spacing={3}>
+                        <React.Fragment>
+                            <Grid item xs={4}>
+                                <Paper className={classes.paperAsesoriaPersonalizada}>
+                                    <ButtonBase className={classes.image}  disabled = {notme}>
+                                        <Typography variant="h6" className={classes.titleCard}>
+                                            Asesoría
+                                            personalizada
+                                        </Typography>
+                                        <img className={classes.img} alt="complex" src={imgAsesoriaPersonalizada} />
+                                    </ButtonBase>
+                                </Paper>
+                            </Grid>
+                            <Grid item xs={4}>
+                                <Paper className={classes.paperConferencia}>
+                                    <ButtonBase className={classes.image}  disabled = {notme}>
+
+
+                                        <Typography variant="h6" className={classes.titleCard}>
+                                            Aprendizaje
+                                            online
+                                        </Typography>
+                                        <img className={classes.img} alt="complex" src={imgAprendizajeOnline} />
+                                    </ButtonBase>
+                                </Paper>
+                            </Grid>
+                            <Grid item xs={4}>
+                                <Paper className={classes.paperDiplomado}>
+                                    <ButtonBase className={classes.image}  disabled = {notme}>
+                                        <Typography variant="h6" className={classes.titleCard}>
+                                            Diplomados
+                                        </Typography>
+                                        <img className={classes.img} alt="complex" src={imgDiplomado} />
+                                    </ButtonBase>
+                                </Paper>
+                            </Grid>
+                        </React.Fragment>
+                    </Grid>
+                </Grid>
+                {opneDesc &&
+
+
+                    <Grid item xs={12} container className={classes.btnContinuar}
+                        direction="row"
+                        justify="center"
+                        alignItems="baseline">
+                        <Button onClick={next} variant="contained" className="btnNext"
+                        >Continuar</Button>
+                    </Grid>
+
+                }
+
+            </div>
+
+            {/* <div className="sun_orbit">
             </div>
 
             <div className="sun_logo" >
@@ -256,15 +449,9 @@ export default function StepOneCreateCourse(props) {
                 {openDesc2 &&
                     <div id="boxDescT" className="boxDesc colorTaller"> Taller <br></br><span >Click en continuar para crear un taller</span></div>
                 }
-            </div>
+            </div> */}
 
-            {opneDesc &&
-                <Button onClick={next} variant="contained" className={classes.buttonSelect}   classes={{
-                    root: classes.rootButton
-                }}
 
-                >Continuar</Button>
-            }
 
         </div>
     );

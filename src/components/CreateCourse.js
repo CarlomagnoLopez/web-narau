@@ -132,6 +132,7 @@ export default function CreateCourse(props) {
 
       
         payload.video = data[0].video;
+        payload.shared = data[1].shared;
 
         handleClose();
 
@@ -205,9 +206,7 @@ export default function CreateCourse(props) {
         }
         <Container maxWidth="md">
           {nextStep === 0 &&
-            <StepOneCreateCourse currentDataService={
-              currentDataService ? currentDataService.serviceType : ""
-            } handleNextStep={handleNextStep}></StepOneCreateCourse>
+            <StepOneCreateCourse currentDataService={currentDataService ? currentDataService.serviceType : ""} currentDataService2={currentDataService ? currentDataService : ""} handleNextStep={handleNextStep} ></StepOneCreateCourse>
 
           }
           {nextStep === 1 &&
@@ -224,7 +223,7 @@ export default function CreateCourse(props) {
           }
 
           {nextStep === 5 &&
-            <StepSixCreateCourse currentDataService={currentDataService} payload={payload} back={back} typeService={typeService} handleNextStep={handleNextStep} countRefresh={countRefresh}></StepSixCreateCourse>
+            <StepSixCreateCourse currentDataService={currentDataService} payload={payload} back={back} typeService={typeService} handleNextStep={handleNextStep} countRefresh={countRefresh} asociated={props.asociated}></StepSixCreateCourse>
           }
         </Container>
       </Dialog>

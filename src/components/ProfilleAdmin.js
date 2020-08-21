@@ -10,6 +10,7 @@ import List from '@material-ui/core/List';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
+import Button from '@material-ui/core/Button';
 import Badge from '@material-ui/core/Badge';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
@@ -31,10 +32,18 @@ import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import DetailCourseAdmin from "../components/DetailCourseAdmin"
 import DetailUserAdmin from "../components/DetailUserAdmin"
 import DetailCompanyAdmin from "../components/DetailCompanyAdmin"
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
 // import DetailUserAdmin from "../components/DetailUserAdmin"
 import LaunchCourse from './LaunchCourse';
-
-
+import ListItemText from '@material-ui/core/ListItemText';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+// import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import PersonIcon from '@material-ui/icons/Person';
 
 import {
   BrowserRouter as Router,
@@ -153,6 +162,9 @@ export default function ProfileAdmin(props) {
   const [openDetailUser, setOpenDetailUser] = React.useState(false);
   const [openDetailCompany, setOpenDetailCompany] = React.useState(false);
   const [dataService, setDataService] = React.useState();
+  const [openSharedList, setOpenSharedList] = React.useState(false);
+  const [openAssignList, setOpenAssignList] = React.useState(false);
+  const [currentService, setCurrentService] = React.useState();
 
   const { serviceAll, userAll, companyAll } = props;
   const handleDrawerOpen = () => {
@@ -196,7 +208,7 @@ export default function ProfileAdmin(props) {
     setTimeout(() => {
       setOpenDetailCourse(true);
     }, 4000);
-   
+
   }
 
   const showDetailUser = (data) => {
@@ -221,7 +233,73 @@ export default function ProfileAdmin(props) {
   const handleCloseDetailCompany = () => {
     setOpenDetailCompany(false)
   }
+  const closeListUserShared = () => {
+    setOpenSharedList(false)
+  }
 
+  const closeListUserAsign = () => {
+    setOpenAssignList(false)
+  }
+
+  const attachConsultant = (value) => {
+    console.log(currentService)
+    closeListUserShared()
+    console.log(value)
+    currentService["custom-attr"].notme = true;
+    currentService["custom-attr"].shared = false;
+    let payload = {
+      "email": value["custom-attr"].email,
+      "pk": value["custom-types"],
+      "attr": currentService["custom-attr"],
+      "sendEmailAttach": true
+    }
+
+    props.saveServiceAttach(payload)
+
+
+
+    // let payloadDeletion = {
+    //   "pk": localStorage.getItem("partitionKey"),
+    //   "email": JSON.parse(localStorage.getItem("contentUser")).email,
+    //   "attr": data,
+    //   "sk": sortKey,
+    //   "delete": true
+
+    // }
+
+    // props.saveServiceAttach(payloadDeletion)
+
+
+
+  }
+
+
+  const asignConsultant = (value) => {
+    console.log(currentService)
+    closeListUserAsign()
+    console.log(value)
+    currentService["custom-attr"].notme = true;
+    let payload = {
+      "email": value["custom-attr"].email,
+      "pk": value["custom-types"],
+      "attr": currentService["custom-attr"],
+      "sendEmailAsign": true
+    }
+
+    props.saveServiceAttach(payload)
+
+
+    let payloadDeletion = {
+      "pk": currentService["custom-types"],
+      "email": currentService["custom-keys"].split(" | ")[1],
+      "attr": currentService["custom-attr"],
+      "sk": currentService["custom-keys"].split(" | ")[2],
+      "delete": true
+
+    }
+
+    props.saveServiceAttach(payloadDeletion)
+  }
 
   return (
     <div className={classes.root}>
@@ -350,6 +428,9 @@ export default function ProfileAdmin(props) {
             serviceAll={serviceAll}
             showDetail={showDetail}
             saveService={props.saveService}
+            openUserList={setOpenSharedList}
+            openAssignList={setOpenAssignList}
+            currentService={setCurrentService}
 
 
           >
@@ -358,7 +439,7 @@ export default function ProfileAdmin(props) {
 
         {activeView === 2 &&
           <UserListView
-            userAll={userAll}
+            userAll={props.userAll}
             showDetail={showDetailUser}
             saveUser={props.saveUser}
 
@@ -376,8 +457,82 @@ export default function ProfileAdmin(props) {
           >
           </CompanyListView>
         }
+        {openAssignList &&
+          <Dialog open={true} onClose={closeListUserAsign} aria-labelledby="form-dialog-title">
+            <DialogTitle id="form-dialog-title">Asigna un serivicio a un consultor:</DialogTitle>
+            <DialogContent>
+              <List>
+
+                {props.userAll.map((row, index) => {
+                  // console.log(currentService)
+                  let currentOwner = currentService["custom-keys"].split(" | ")[1];
+                  if (row["custom-attr"].verified && currentOwner !== row["custom-attr"].email) {
+                    return (<ListItem button key={index}
+                      onClick={() => { asignConsultant(row) }}
+                    >
+                      <ListItemIcon key={index}>
+                        <PersonIcon />
+                      </ListItemIcon>
+                      <ListItemText primary={row["custom-attr"].firstName + " " + row["custom-attr"].lastName} secondary={row["custom-attr"].email} />
+                    </ListItem>)
+                  }
+
+
+                }
+                )
+
+
+                }
+              </List>
+            </DialogContent>
+            <DialogActions>
+              <Button
+                onClick={closeListUserAsign}
+                className="btnBack">
+                Cancelar
+          </Button>
+            </DialogActions>
+          </Dialog>
+        }
+
+        {openSharedList &&
+          <Dialog open={true} onClose={closeListUserShared} aria-labelledby="form-dialog-title">
+            <DialogTitle id="form-dialog-title">Vincula un serivicio a un consultor:</DialogTitle>
+            <DialogContent>
+              <List>
+
+                {props.userAll.map((row, index) => {
+                  let currentOwner = currentService["custom-keys"].split(" | ")[1];
+
+                  if (row["custom-attr"].verified && currentOwner !== row["custom-attr"].email) {
+                    return (<ListItem button key={index} onClick={() => { attachConsultant(row) }}>
+                      <ListItemIcon key={index}>
+                        <PersonIcon />
+                      </ListItemIcon>
+                      <ListItemText primary={row["custom-attr"].firstName + " " + row["custom-attr"].lastName} secondary={row["custom-attr"].email} />
+                    </ListItem>)
+                  }
+
+
+                }
+                )
+
+
+                }
+              </List>
+            </DialogContent>
+            <DialogActions>
+              <Button
+                onClick={closeListUserShared}
+                className="btnBack">
+                Cancelar
+          </Button>
+            </DialogActions>
+          </Dialog>
+        }
+
 
       </main>
-    </div>
+    </div >
   );
 }

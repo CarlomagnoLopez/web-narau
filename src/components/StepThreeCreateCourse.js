@@ -139,6 +139,10 @@ export default function StepThreeCreateCourse(props) {
     const [benefits, setBenefits] = React.useState(benefitsEdit)
     const [topicData, setTopicData] = React.useState(topicsEdit)
     const [topic, setTopic] = React.useState("")
+    let notme = false;
+    if (props.currentDataService) {
+        notme = props.currentDataService.notme;
+    }
 
     // const next = () => {
     //     props.nextStep()
@@ -242,6 +246,7 @@ export default function StepThreeCreateCourse(props) {
                     <Grid container spacing={3}>
                         <Grid item xs={12}>
                             <TextField
+                            disabled={notme}
                                 required
                                 // defaultValue={props.nameService}
                                 id="to"
@@ -286,6 +291,8 @@ export default function StepThreeCreateCourse(props) {
                         <Grid item xs={12}>
                             <TextField
                                 required
+                            disabled={notme}
+
                                 // defaultValue={props.nameService}
                                 id="benefits"
                                 name="benefits"
@@ -342,6 +349,8 @@ export default function StepThreeCreateCourse(props) {
                         <TextField
                             required
                             id="topics"
+                            disabled={notme}
+
                             name="topics"
                             fullWidth
                             value={topic}
@@ -355,7 +364,8 @@ export default function StepThreeCreateCourse(props) {
                         />
                     </Grid>
                     <Grid item xs={12} sm={3} style={{ textAlign: "center" }}>
-                        <Fab onClick={addNewTopic} classes={{
+                           
+                        <Fab onClick={addNewTopic}  disabled={notme}  classes={{
                             root: classes.rootFab,
 
                         }}
@@ -381,7 +391,7 @@ export default function StepThreeCreateCourse(props) {
                                         primary={(index + 1) + ") " + item.tema}
                                     />
                                     <ListItemSecondaryAction >
-                                        <IconButton edge="end" aria-label="delete"
+                                        <IconButton edge="end" aria-label="delete" disabled = {notme}
                                             onClick={() => { deleteTema(index) }}
                                         >
                                             <DeleteIcon fontSize="large" color="action"

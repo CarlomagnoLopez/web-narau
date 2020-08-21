@@ -155,7 +155,7 @@ export default function UserListView(props) {
                 <Grid item xs={12}>
                     <Paper className={classes.paper}>
                         <Users
-                            userAll={userAll}
+                            usersList={props.userAll}
                             showDetail={props.showDetail} 
                             saveUser={props.saveUser}
                             />

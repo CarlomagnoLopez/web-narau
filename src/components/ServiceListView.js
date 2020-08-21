@@ -158,6 +158,9 @@ export default function ServiceListView(props) {
                             serviceAll={serviceAll}
                             showDetail={props.showDetail} 
                             saveService={props.saveService}
+                            openUserList={props.openUserList}
+                            openAssignList={props.openAssignList}
+                            currentService={props.currentService}
                             />
                     </Paper>
                 </Grid>
