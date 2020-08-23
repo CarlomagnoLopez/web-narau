@@ -215,7 +215,7 @@ export default function StepThreeCreateCourse(props) {
         {
             topics: topicData
         }
-        ,
+            ,
         {
             deliverables: deliverableData
         }
@@ -268,6 +268,21 @@ export default function StepThreeCreateCourse(props) {
         }
     }
 
+
+    const validateRules = (typeService) => {
+        // (to !== "" && benefits !== "" && topicData.length !== 0 && deliverableData.length !== 0) &&
+        if (typeService === "webinar" || typeService === "asesoriapersonal") {
+            if (to !== "" && benefits !== "" && topicData.length !== 0 && deliverableData.length !== 0) {
+                return true
+            }
+            return false
+        } else {
+            if (to !== "" && benefits !== "" && topicData.length !== 0) {
+                return true
+            }
+            return false
+        }
+    }
     return (
         <div>
 
@@ -546,21 +561,44 @@ export default function StepThreeCreateCourse(props) {
                             />
                         </Fab> */}
                     </Grid>
-                    <Grid item xs={12} container
-                        direction="row"
-                        justify="center"
-                        alignItems="baseline">
-                        <Button onClick={props.back} variant="contained" className="btnBack"
+                    {(typeService === "webinar" || typeService === "asesoriapersonal") &&
+                        < Grid item xs={12} container
+                            direction="row"
+                            justify="center"
+                            alignItems="baseline">
+                            <Button onClick={props.back} variant="contained" className="btnBack"
 
-                        >Regresar</Button>
-                        {(to !== "" && benefits !== "" && topicData.length !== 0 && deliverableData.length !== 0) &&
-                            <Button onClick={next} variant="contained" className="btnNext"
+                            >Regresar</Button>
 
-                            >Continuar</Button>
-                        }
+                            {(to !== "" && benefits !== "" && topicData.length !== 0 && deliverableData.length !== 0) &&
+                                <Button onClick={next} variant="contained" className="btnNext"
+
+                                >Continuar</Button>
+                            }
 
 
-                    </Grid>
+                        </Grid>
+                    }
+
+                    {(typeService !== "webinar" && typeService !== "asesoriapersonal") &&
+                        < Grid item xs={12} container
+                            direction="row"
+                            justify="center"
+                            alignItems="baseline">
+                            <Button onClick={props.back} variant="contained" className="btnBack"
+
+                            >Regresar</Button>
+
+                            {(to !== "" && benefits !== "" && topicData.length !== 0) &&
+                                <Button onClick={next} variant="contained" className="btnNext"
+
+                                >Continuar</Button>
+                            }
+
+
+                        </Grid>
+                    }
+
                 </Grid>
 
             </form >
