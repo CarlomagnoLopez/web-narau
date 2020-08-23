@@ -258,7 +258,7 @@ export default function ProfileConsultant(props) {
 
     const { currentAccount } = props;
 
-    let { aboutMe, training, experience, customers } = currentAccount;
+    let { aboutMe, training, experience, customers,semblanza ,premios,libros,artículos } = currentAccount;
     const handleDrawerOpen = () => {
         setOpen(true);
     };
@@ -624,6 +624,34 @@ export default function ProfileConsultant(props) {
                                             referenceRequest={"customers"}
                                             title={"Clientes"}
                                             palaceHolder={"Menciona tus clientes más importantes."}
+                                            request={requestUpdateAttribute}
+                                        ></CardSideContent>
+                                        <CardSideContent
+                                            text={semblanza}
+                                            referenceRequest={"semblanza"}
+                                            title={"Semblanza"}
+                                            palaceHolder={"Menciona tus semblanzas más importantes."}
+                                            request={requestUpdateAttribute}
+                                        ></CardSideContent>
+                                        <CardSideContent
+                                            text={premios}
+                                            referenceRequest={"premios"}
+                                            title={"Premios"}
+                                            palaceHolder={"Menciona tus premios más importantes."}
+                                            request={requestUpdateAttribute}
+                                        ></CardSideContent>
+                                         <CardSideContent
+                                            text={libros}
+                                            referenceRequest={"libros"}
+                                            title={"Libros"}
+                                            palaceHolder={"Menciona tus libros más importantes."}
+                                            request={requestUpdateAttribute}
+                                        ></CardSideContent>
+                                          <CardSideContent
+                                            text={artículos}
+                                            referenceRequest={"artículos"}
+                                            title={"Artículos"}
+                                            palaceHolder={"Menciona tus artículos más importantes."}
                                             request={requestUpdateAttribute}
                                         ></CardSideContent>
                                         <Divider variant="middle" className={classes.divider} />
