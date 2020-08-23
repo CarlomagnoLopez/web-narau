@@ -238,7 +238,7 @@ export default function Orders(props) {
                   </Tooltip>
                 ) :
 
-                  (<IconButton color="inherit" disabled={true} >
+                  (<IconButton color="inherit" disabled={false}   onClick={() => { openUserList(row) }}>
                     <HttpsIcon ></HttpsIcon>
                   </IconButton>)
                 )}</TableCell>

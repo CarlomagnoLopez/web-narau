@@ -165,6 +165,11 @@ export default function CreateCourse(props) {
           if (currentDataService.notme) {
             payload.notme = true;
           }
+          if (!currentDataService.editedByConsultant) {
+            payload.editedByConsultant = true;
+          }
+
+
           props.closeFormCourse(payload, currentDataSortKey);
         } else {
           props.closeFormCourse(payload);

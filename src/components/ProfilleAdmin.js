@@ -246,6 +246,7 @@ export default function ProfileAdmin(props) {
     closeListUserShared()
     console.log(value)
     currentService["custom-attr"].notme = true;
+    currentService["custom-attr"].editedByConsultant = false;
     currentService["custom-attr"].shared = false;
     let payload = {
       "email": value["custom-attr"].email,
@@ -279,6 +280,7 @@ export default function ProfileAdmin(props) {
     closeListUserAsign()
     console.log(value)
     currentService["custom-attr"].notme = true;
+    currentService["custom-attr"].editedByConsultant = false;
     let payload = {
       "email": value["custom-attr"].email,
       "pk": value["custom-types"],

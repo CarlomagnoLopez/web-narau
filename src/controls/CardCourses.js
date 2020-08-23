@@ -17,7 +17,8 @@ import clsx from 'clsx';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
 import BookIcon from '@material-ui/icons/Book';
-
+import ShareIcon from '@material-ui/icons/Share';
+import NotificationImportantIcon from '@material-ui/icons/NotificationImportant';
 import MoreVertIcon from '@material-ui/icons/MoreVert'
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import FavoriteIcon from '@material-ui/icons/Favorite';
@@ -86,6 +87,13 @@ const useStyles = makeStyles((theme) => ({
         '& > *': {
             height: "100%",
         }
+    },
+    btnIcon: {
+        color: "#fff"
+    },
+    btnIconNotification:{
+        color:"#40b024"
+
     }
 }));
 
@@ -97,7 +105,7 @@ export default function CardCourses(props) {
     const classTaller = clsx(classes.titleCourse, classes.colorTaller);
     const classConferencia = clsx(classes.titleCourse, classes.colorConferencia);
     const classAsesoriaPersonal = clsx(classes.titleCourse, classes.colorAsesoriaPersonal);
-    const classWebinar  = clsx(classes.titleCourse, classes.colorWebinar);
+    const classWebinar = clsx(classes.titleCourse, classes.colorWebinar);
 
     const { serviceType } = infoCourse;
 
@@ -169,15 +177,26 @@ export default function CardCourses(props) {
                         action={
 
                             <div>
-                                <IconButton aria-label="settings" onClick={props.openFormView}>
+                                <IconButton aria-label="settings" className={classes.btnIcon} onClick={props.openFormView}>
                                     <VisibilityIcon />
                                 </IconButton>
-                                <IconButton aria-label="settings" onClick={props.openForm}>
+                                <IconButton aria-label="settings" className={classes.btnIcon} onClick={props.openForm}>
                                     <EditIcon />
                                 </IconButton>
-                                <IconButton aria-label="settings" onClick={props.deleteService}>
+                                <IconButton aria-label="settings" className={classes.btnIcon} onClick={props.deleteService}>
                                     <DeleteIcon />
                                 </IconButton>
+                                {infoCourse.notme &&
+                                    <IconButton aria-label="settings" className={classes.btnIcon} >
+                                        <ShareIcon></ShareIcon>
+                                    </IconButton>
+                                }
+                                {!infoCourse.editedByConsultant &&
+                                    <IconButton aria-label="settings" className={classes.btnIconNotification} >
+                                        <NotificationImportantIcon></NotificationImportantIcon>
+                                    </IconButton>
+                                }
+
                             </div>
 
                         }
