@@ -44,6 +44,12 @@ const useStyles = makeStyles((theme) => ({
     },
     colorConferencia: {
         backgroundColor: "rgba(255, 147, 30, 0.8)",
+    },
+    colorAsesoriaPersonal: {
+        backgroundColor: "rgb(46, 48, 89, .8)",
+    },
+    colorWebinar: {
+        backgroundColor: "rgb(1, 134, 203, .8)",
     }
     , btnAddToCart: {
         position: "inherit",
@@ -59,6 +65,8 @@ export default function CardCoursesCompany(props) {
     const classCuros = clsx(classes.titleCourse, classes.colorCourse);
     const classTaller = clsx(classes.titleCourse, classes.colorTaller);
     const classConferencia = clsx(classes.titleCourse, classes.colorConferencia);
+    const classAsesoriaPersonal = clsx(classes.titleCourse, classes.colorAsesoriaPersonal);
+    const classWebinar = clsx(classes.titleCourse, classes.colorWebinar);
 
     const { serviceType } = infoCourse;
 
@@ -102,6 +110,26 @@ export default function CardCoursesCompany(props) {
                     }
                     {serviceType === "asesoria" &&
                         <CardContent className={classConferencia}>
+                            <Typography gutterBottom variant="h5" component="h2" >
+                                {infoCourse.nameService}
+                            </Typography>
+                            <Fab className={classes.btnAddToCart} color="primary" aria-label="add">
+                                <NoteIcon />
+                            </Fab>
+                        </CardContent>
+                    }
+                    {serviceType === "asesoriapersonal" &&
+                        <CardContent className={classAsesoriaPersonal}>
+                            <Typography gutterBottom variant="h5" component="h2" >
+                                {infoCourse.nameService}
+                            </Typography>
+                            <Fab className={classes.btnAddToCart} color="primary" aria-label="add">
+                                <NoteIcon />
+                            </Fab>
+                        </CardContent>
+                    }
+                    {serviceType === "webinar" &&
+                        <CardContent className={classWebinar}>
                             <Typography gutterBottom variant="h5" component="h2" >
                                 {infoCourse.nameService}
                             </Typography>

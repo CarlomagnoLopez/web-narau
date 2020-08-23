@@ -105,6 +105,10 @@ export default function StepTwoCreateCourse(props) {
         subtitleEDit = payload ? payload.subtitle : "";
     }
 
+    if(props.typeService === "webinar"){
+        modeEdit = "online"
+    }
+
 
 
 
@@ -165,12 +169,34 @@ export default function StepTwoCreateCourse(props) {
         setMode(data)
 
     }
-
+    const writeTitleService = (value) => {
+        switch (value) {
+            case "asesoria":
+                return "asesoría";
+                break;
+            case "asesoriapersonal":
+                return "asesoría personalizada";
+                break;
+            case "webinar":
+                return "aprendizaje online";
+                break;
+            // default:
+            default:
+                return "Tema"
+        }
+    }
     const writeModeService = (value) => {
         switch (value) {
             case "asesoria":
                 return "asesoría";
                 break;
+            case "asesoriapersonal":
+                return "asesoría personalizada";
+                break;
+            case "webinar":
+                return "aprendizaje online";
+                break;
+            // default:
             default:
                 return value
         }
@@ -178,6 +204,9 @@ export default function StepTwoCreateCourse(props) {
     const writeModeServiceSub = (value) => {
         switch (value) {
             case "asesoria":
+                return "la ";
+                break;
+            case "asesoriapersonal":
                 return "la ";
                 break;
             case "conferencia":
@@ -195,7 +224,7 @@ export default function StepTwoCreateCourse(props) {
 
 
             <Typography variant="h6" className={classes.title}>
-                Escribe un título para tu {writeModeService(typeService)}
+                Escribe un titulo para tu {writeModeService(typeService)}
                 <div className={classes.subt}>
 
                 </div>
@@ -286,6 +315,12 @@ export default function StepTwoCreateCourse(props) {
                                 {/* Modalidad seleccionada: {() => { writeModeService(modeService) }} */}
                             </Alert>
                         }
+
+                        {/* {typeService === "webinar" &&
+                            <Alert variant="outlined" severity="success">
+                                Modalidad seleccionada: {modeService.toUpperCase()}
+                            </Alert>
+                        } */}
                     </Grid>
                     <Grid item xs={12}>
 
@@ -303,20 +338,23 @@ export default function StepTwoCreateCourse(props) {
                         justify="center"
                         alignItems="baseline">
                         <div className={classes.rootMode}>
-                            <Paper onClick={() => { selectMode("presencial") }}
-                                classes={{
-                                    root: "classTypeMode"
-                                }}
-                            >
-                                {/* <IconButton> */}
-                                <AccessibilityIcon fontSize="large" />
+                            {typeService !== "webinar" &&
+                                < Paper onClick={() => { selectMode("presencial") }}
+                                    classes={{
+                                        root: "classTypeMode"
+                                    }}
+                                >
+                                    {/* <IconButton> */}
+                                    <AccessibilityIcon fontSize="large" />
 
-                                {/* </IconButton> */}
-                                <Typography variant="subtitle1">
-                                    Presencial
-                                </Typography>
+                                    {/* </IconButton> */}
+                                    <Typography variant="subtitle1">
+                                        Presencial
+                                    </Typography>
 
-                            </Paper  >
+                                </Paper  >
+                            }
+
                             <Paper onClick={() => { selectMode("online") }} classes={{
                                 root: "classTypeModeLow"
                             }}>
@@ -329,19 +367,22 @@ export default function StepTwoCreateCourse(props) {
                                     Online
                            </Typography>
                             </Paper>
-                            <Paper onClick={() => { selectMode("mixto") }} classes={{
-                                root: "classTypeMode"
-                            }}>
 
-                                {/* <IconButton> */}
-                                <ComputerIcon fontSize="large" />
-                                <AccessibilityIcon fontSize="large" />
+                            {typeService !== "webinar" &&
+                                <Paper onClick={() => { selectMode("mixto") }} classes={{
+                                    root: "classTypeMode"
+                                }}>
 
-                                {/* </IconButton> */}
-                                <Typography variant="subtitle1">
-                                    Mixto
+                                    {/* <IconButton> */}
+                                    <ComputerIcon fontSize="large" />
+                                    <AccessibilityIcon fontSize="large" />
+
+                                    {/* </IconButton> */}
+                                    <Typography variant="subtitle1">
+                                        Mixto
                            </Typography>
-                            </Paper>
+                                </Paper>
+                            }
                         </div>
                     </Grid>
 
@@ -360,7 +401,7 @@ export default function StepTwoCreateCourse(props) {
                     </Grid>
                     <Grid item xs={12}>
                         <TextField
-                        disabled = {notme}
+                            disabled={notme}
                             required
                             id="objetivo"
                             name="objetivo"
@@ -441,7 +482,7 @@ export default function StepTwoCreateCourse(props) {
                     </Grid>
                     <Grid item xs={12}>
                         <TextField
-                        disabled = {notme}
+                            disabled={notme}
                             required
                             id="subtitle"
                             name="subtitle"
@@ -484,6 +525,6 @@ export default function StepTwoCreateCourse(props) {
 
             </form >
 
-        </div>
+        </div >
     );
 }

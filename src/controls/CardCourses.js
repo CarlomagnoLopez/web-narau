@@ -61,6 +61,12 @@ const useStyles = makeStyles((theme) => ({
     colorConferencia: {
         backgroundColor: "rgba(255, 147, 30, .8)",
     },
+    colorAsesoriaPersonal: {
+        backgroundColor: "rgb(46, 48, 89, .8)",
+    },
+    colorWebinar: {
+        backgroundColor: "rgb(1, 134, 203, .8)",
+    },
     cardService: {
         bottom: "0rem",
         position: "absolute",
@@ -90,6 +96,8 @@ export default function CardCourses(props) {
     const classCuros = clsx(classes.titleCourse, classes.colorCourse);
     const classTaller = clsx(classes.titleCourse, classes.colorTaller);
     const classConferencia = clsx(classes.titleCourse, classes.colorConferencia);
+    const classAsesoriaPersonal = clsx(classes.titleCourse, classes.colorAsesoriaPersonal);
+    const classWebinar  = clsx(classes.titleCourse, classes.colorWebinar);
 
     const { serviceType } = infoCourse;
 
@@ -109,6 +117,13 @@ export default function CardCourses(props) {
         case "asesoria":
             classService = classConferencia;
             break;
+        case "asesoriapersonal":
+            classService = classAsesoriaPersonal;
+            break;
+        case "webinar":
+            classService = classWebinar;
+            break;
+
 
         // default:
         //     break;
@@ -128,7 +143,7 @@ export default function CardCourses(props) {
     return (
         <Grid item xs={4} >
             {/* <Paper className={classes.paperCursos}>{infoCourse.name}</Paper> */}
-            
+
             <Card raised className={classes.root}>
 
                 {!props.role &&

@@ -214,6 +214,12 @@ export default function StepFourCreateCourse(props) {
             case "asesoria":
                 return "asesoría";
                 break;
+            case "asesoriapersonal":
+                return "asesoría personalizada";
+                break;
+            case "webinar":
+                return "aprendizaje online";
+                break;
             default:
                 return value
         }
@@ -254,7 +260,7 @@ export default function StepFourCreateCourse(props) {
                                 <Grid item>
                                     {/* <Grid item xs> */}
                                     <TextField
-                            disabled={notme}
+                                        disabled={notme}
 
                                         required
                                         id="timeEstimated"
@@ -325,13 +331,13 @@ export default function StepFourCreateCourse(props) {
                         direction="row"
                         justify="center"
                         alignItems="baseline">
-                        <Button onClick={props.back} variant="contained"  className="btnBack"
+                        <Button onClick={props.back} variant="contained" className="btnBack"
 
                         >Regresar</Button>
                         {cost !== ""
                             //  && costD !== ""
                             && timeEstimated !== "" &&
-                            <Button onClick={next} variant="contained"  className="btnNext"
+                            <Button onClick={next} variant="contained" className="btnNext"
 
                             >Continuar</Button>
                         }

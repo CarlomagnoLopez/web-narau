@@ -35,7 +35,7 @@ export default function SimpleRating(props) {
         {props.openCustomerValorations &&
           <Grid item xs>
 
-            <Typography component="legend">Valoraciones:</Typography>
+            <Typography component="legend">Valoraciones-:</Typography>
           </Grid>
         }
 

@@ -127,10 +127,12 @@ export default function StepThreeCreateCourse(props) {
     let toEdit = currentDataService ? currentDataService.to : "";
     let benefitsEdit = currentDataService ? currentDataService.benefits : "";
     let topicsEdit = currentDataService ? currentDataService.topics : [];
+    let deliverableEdit = currentDataService ? currentDataService.deliverables : [];
     if (!editServicdeType) {
         toEdit = payload ? payload.to : "";
         benefitsEdit = payload ? payload.benefits : "";
         topicsEdit = payload.topics ? payload.topics : [];
+        deliverableEdit = payload.deliverables ? payload.deliverables : [];
     }
 
 
@@ -138,7 +140,9 @@ export default function StepThreeCreateCourse(props) {
     const [to, setTo] = React.useState(toEdit)
     const [benefits, setBenefits] = React.useState(benefitsEdit)
     const [topicData, setTopicData] = React.useState(topicsEdit)
+    const [deliverableData, setDeliverableData] = React.useState(deliverableEdit)
     const [topic, setTopic] = React.useState("")
+    const [deliverable, setDeliverable] = React.useState("")
     let notme = false;
     if (props.currentDataService) {
         notme = props.currentDataService.notme;
@@ -162,6 +166,18 @@ export default function StepThreeCreateCourse(props) {
 
     }
 
+    const addDeliverable = (data) => {
+
+        if (deliverable !== "") {
+            props.countRefresh();
+            deliverableData.push({ tema: deliverable });
+            setDeliverableData(deliverableData);
+            setDeliverable("")
+            // setTo("")
+        }
+
+    }
+
     const valueTypingBenefits = (value) => {
         setBenefits(value.currentTarget.value)
     }
@@ -169,11 +185,22 @@ export default function StepThreeCreateCourse(props) {
     const valueTypingTopics = (value) => {
         setTopic(value.currentTarget.value)
     }
+    const valueTypingDeliverables = (value) => {
+        setDeliverable(value.currentTarget.value)
+    }
     const deleteTema = (value) => {
         props.countRefresh();
         // let _topicData = 
         topicData.splice(value, 1)
         setTopicData(topicData)
+        // console.log(value)
+    }
+
+    const deleteDeliverable = (value) => {
+        props.countRefresh();
+        // let _topicData = 
+        deliverableData.splice(value, 1)
+        setDeliverableData(deliverableData)
         // console.log(value)
     }
     const next = () => {
@@ -188,6 +215,10 @@ export default function StepThreeCreateCourse(props) {
         {
             topics: topicData
         }
+        ,
+        {
+            deliverables: deliverableData
+        }
         ]
         props.handleNextStep(model)
     }
@@ -199,6 +230,12 @@ export default function StepThreeCreateCourse(props) {
         switch (value) {
             case "asesoria":
                 return "asesoría";
+                break;
+            case "asesoriapersonal":
+                return "asesoría personalizada";
+                break;
+            case "webinar":
+                return "aprendizaje online";
                 break;
             default:
                 return value
@@ -213,6 +250,24 @@ export default function StepThreeCreateCourse(props) {
                 return "el "
         }
     }
+
+    const sectionList = (typeService) => {
+
+        switch (typeService) {
+            case "asesoria":
+            case "asesoriapersonal":
+                return "Actividades Clave"
+                break;
+            case "webinar":
+                return "Ejercicios"
+
+                break;
+            default:
+                return "Diseña un temario"
+                break;
+        }
+    }
+
     return (
         <div>
 
@@ -246,7 +301,7 @@ export default function StepThreeCreateCourse(props) {
                     <Grid container spacing={3}>
                         <Grid item xs={12}>
                             <TextField
-                            disabled={notme}
+                                disabled={notme}
                                 required
                                 // defaultValue={props.nameService}
                                 id="to"
@@ -291,7 +346,7 @@ export default function StepThreeCreateCourse(props) {
                         <Grid item xs={12}>
                             <TextField
                                 required
-                            disabled={notme}
+                                disabled={notme}
 
                                 // defaultValue={props.nameService}
                                 id="benefits"
@@ -322,25 +377,12 @@ export default function StepThreeCreateCourse(props) {
                                 root: classes.typography
                             }}>
                             <span>
-                                {typeService === "asesoria" &&
-                                    "Actividades Clave"
 
-                                }
-
-                                {typeService !== "asesoria" &&
-                                    "Diseña un temario"
-
-                                }
+                                {sectionList(typeService)}
                             </span>
-                            {/* <div className={classes.subt}>
-
-                            </div> */}
                         </Typography>
                         <Typography variant="body2" className={classes.title}>
                             Conocer los temas a tratar aumenta las probabilidades de venta
-                            {/* <div className={classes.subt}>
-
-                            </div> */}
                         </Typography>
                     </Grid>
                     <Grid item xs={12} sm={3}>
@@ -364,8 +406,8 @@ export default function StepThreeCreateCourse(props) {
                         />
                     </Grid>
                     <Grid item xs={12} sm={3} style={{ textAlign: "center" }}>
-                           
-                        <Fab onClick={addNewTopic}  disabled={notme}  classes={{
+
+                        <Fab onClick={addNewTopic} disabled={notme} classes={{
                             root: classes.rootFab,
 
                         }}
@@ -391,7 +433,7 @@ export default function StepThreeCreateCourse(props) {
                                         primary={(index + 1) + ") " + item.tema}
                                     />
                                     <ListItemSecondaryAction >
-                                        <IconButton edge="end" aria-label="delete" disabled = {notme}
+                                        <IconButton edge="end" aria-label="delete" disabled={notme}
                                             onClick={() => { deleteTema(index) }}
                                         >
                                             <DeleteIcon fontSize="large" color="action"
@@ -406,6 +448,91 @@ export default function StepThreeCreateCourse(props) {
                             }
                         </List>
                     </Grid>
+                    {(typeService === "webinar" || typeService === "asesoriapersonal") &&
+                        <React.Fragment>
+                            <Grid item xs={12}>
+                                <Typography variant="body1" className={classes.title}
+                                    classes=
+                                    {{
+                                        root: classes.typography
+                                    }}>
+                                    <span>
+
+                                        {/* {sectionList(typeService)}
+                                 */}
+                                 Entregables
+                            </span>
+                                </Typography>
+                                <Typography variant="body2" className={classes.title}>
+                                    Es importante dejar claro los entregables a tus clientes
+                        </Typography>
+                            </Grid>
+                            <Grid item xs={12} sm={3}>
+                            </Grid>
+                            <Grid item xs={12} sm={6}>
+                                <TextField
+                                    required
+                                    id="topics"
+                                    disabled={notme}
+
+                                    name="topics"
+                                    fullWidth
+                                    value={deliverable}
+                                    variant="filled"
+                                    onChange={valueTypingDeliverables}
+                                    classes={{
+                                        root: "textFieldOverride",
+
+
+                                    }}
+                                />
+                            </Grid>
+                            <Grid item xs={12} sm={3} style={{ textAlign: "center" }}>
+
+                                <Fab onClick={addDeliverable} disabled={notme} classes={{
+                                    root: classes.rootFab,
+
+                                }}
+                                >
+                                    <AddIcon fontSize="large" color="action"
+                                        classes={{
+                                            colorAction: classes.colorActionFab
+                                        }}
+                                    />
+                                </Fab>
+                            </Grid>
+                        </React.Fragment>
+                        // "este texto"
+                    }
+                    <Grid item xs={12} sm={3}>
+                    </Grid>
+                    <Grid item xs={12} sm={6}>
+                        <List dense={true}>
+                            {deliverableData && deliverableData.map((item, index) => {
+                                return (<ListItem key={index}>
+                                    <ListItemText classes={{
+                                        root: classes.rootListText
+
+                                    }}
+                                        primary={(index + 1) + ") " + item.tema}
+                                    />
+                                    <ListItemSecondaryAction >
+                                        <IconButton edge="end" aria-label="delete" disabled={notme}
+                                            onClick={() => { deleteDeliverable(index) }}
+                                        >
+                                            <DeleteIcon fontSize="large" color="action"
+                                                classes={{
+                                                    colorAction: classes.colorActionFab
+                                                }} />
+                                        </IconButton>
+                                    </ListItemSecondaryAction>
+                                </ListItem>)
+
+                            })
+                            }
+                        </List>
+                    </Grid>
+
                     <Grid item xs={12} sm={3}>
                         {/* <Fab classes={{
                             root: classes.rootFab,
@@ -426,7 +553,7 @@ export default function StepThreeCreateCourse(props) {
                         <Button onClick={props.back} variant="contained" className="btnBack"
 
                         >Regresar</Button>
-                        {to !== "" && benefits !== "" && topicData.length !== 0 &&
+                        {(to !== "" && benefits !== "" && topicData.length !== 0 && deliverableData.length !== 0) &&
                             <Button onClick={next} variant="contained" className="btnNext"
 
                             >Continuar</Button>

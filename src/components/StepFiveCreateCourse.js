@@ -275,6 +275,12 @@ export default function StepFiveCreateCourse(props) {
             case "asesoria":
                 return "asesoría";
                 break;
+            case "asesoriapersonal":
+                return "asesoría personalizada";
+                break;
+            case "webinar":
+                return "aprendizaje online";
+                break;
             default:
                 return value
         }

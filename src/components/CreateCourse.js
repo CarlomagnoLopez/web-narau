@@ -63,7 +63,7 @@ const useStyles = makeStyles((theme) => ({
     position: "absolute"
   },
 
-  backImg:{
+  backImg: {
     backgroundImage: `url(${backImg})`,
     filter: "sepia(.6)",
     // background-image: url(/static/media/narau-36.a1b21596.png);
@@ -83,12 +83,35 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 });
 
 export default function CreateCourse(props) {
+
+
+  const edit = props.currentDataSortKey;
+  let stepEdit = 0;
+  if (edit) {
+
+    // handleNextStep
+    stepEdit = 1;
+
+  }
   const classes = useStyles();
   const [open, setOpen] = React.useState(true);
-  const [nextStep, setNextStep] = React.useState(0);
+  const [nextStep, setNextStep] = React.useState(stepEdit);
   const [typeService, setTypeService] = React.useState();
   const [payload, setPayload] = React.useState({});
   const [count, setCount] = React.useState(0);
+
+  if (stepEdit === 1) {
+
+    // handleNextStep
+    // stepEdit = 1;
+    console.log("edit")
+    payload.serviceType = props.currentDataService.serviceType;
+    if (!typeService) {
+      setTypeService(props.currentDataService.serviceType)
+
+    }
+
+  }
 
   const handleClose = () => {
     // setOpen(false);
@@ -119,6 +142,7 @@ export default function CreateCourse(props) {
         payload.to = data[0].to;
         payload.benefits = data[1].benefits;
         payload.topics = data[2].topics;
+        payload.deliverables = data[3].deliverables;
         break;
       case 3:
         payload.cost = data[0].cost;
@@ -130,7 +154,7 @@ export default function CreateCourse(props) {
         break;
       case 5:
 
-      
+
         payload.video = data[0].video;
         payload.shared = data[1].shared;
 
@@ -138,6 +162,9 @@ export default function CreateCourse(props) {
 
 
         if (currentDataService) {
+          if (currentDataService.notme) {
+            payload.notme = true;
+          }
           props.closeFormCourse(payload, currentDataSortKey);
         } else {
           props.closeFormCourse(payload);
@@ -199,7 +226,7 @@ export default function CreateCourse(props) {
           </Toolbar>
         </AppBar>
         {
-          nextStep === 4 && 
+          nextStep === 4 &&
           <div className={classes.backImg}>
 
           </div>

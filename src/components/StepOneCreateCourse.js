@@ -307,6 +307,12 @@ export default function StepOneCreateCourse(props) {
             case "asesoria":
                 return "asesoría";
                 break;
+            case "asesoriapersonal":
+                return "asesoría personalizada";
+                break;
+            case "webinar":
+                return "aprendizaje online";
+                break;
             default:
                 return value
         }
@@ -333,7 +339,7 @@ export default function StepOneCreateCourse(props) {
                             <Grid item xs={4} >
                                 <Paper className={classes.paperTaller}>
                                     {/* <div className={classes.backTaller}> */}
-                                    <ButtonBase className={classes.image} onClick={() => { selectService1("taller") }} disabled = {notme}> 
+                                    <ButtonBase className={classes.image} onClick={() => { selectService1("taller") }} disabled={notme}>
                                         <Typography variant="h6" className={classes.titleCard}>
                                             Taller
                                         </Typography>
@@ -345,7 +351,7 @@ export default function StepOneCreateCourse(props) {
                             </Grid>
                             <Grid item xs={4}>
                                 <Paper className={classes.paperAsesoria}>
-                                    <ButtonBase className={classes.image} onClick={() => { selectService1("asesoria") }}  disabled = {notme}>
+                                    <ButtonBase className={classes.image} onClick={() => { selectService1("asesoria") }} disabled={notme}>
                                         <Typography variant="h6" className={classes.titleCard}>
                                             Asesoría
                                         </Typography>
@@ -356,7 +362,7 @@ export default function StepOneCreateCourse(props) {
                             <Grid item xs={4}>
                                 <Paper className={classes.paperAprendizajeOnline}>
 
-                                    <ButtonBase className={classes.image} onClick={() => { selectService1("conferencia") }}  disabled = {notme}>
+                                    <ButtonBase className={classes.image} onClick={() => { selectService1("conferencia") }} disabled={notme}>
                                         <Typography variant="h6" className={classes.titleCard}>
                                             Conferencias
                                         </Typography>
@@ -370,7 +376,7 @@ export default function StepOneCreateCourse(props) {
                         <React.Fragment>
                             <Grid item xs={4}>
                                 <Paper className={classes.paperAsesoriaPersonalizada}>
-                                    <ButtonBase className={classes.image}  disabled = {notme}>
+                                    <ButtonBase className={classes.image} onClick={() => { selectService1("asesoriapersonal") }} disabled={notme}>
                                         <Typography variant="h6" className={classes.titleCard}>
                                             Asesoría
                                             personalizada
@@ -381,7 +387,7 @@ export default function StepOneCreateCourse(props) {
                             </Grid>
                             <Grid item xs={4}>
                                 <Paper className={classes.paperConferencia}>
-                                    <ButtonBase className={classes.image}  disabled = {notme}>
+                                    <ButtonBase className={classes.image} onClick={() => { selectService1("webinar") }} disabled={notme}>
 
 
                                         <Typography variant="h6" className={classes.titleCard}>
@@ -392,7 +398,7 @@ export default function StepOneCreateCourse(props) {
                                     </ButtonBase>
                                 </Paper>
                             </Grid>
-                            <Grid item xs={4}>
+                            {/* <Grid item xs={4}>
                                 <Paper className={classes.paperDiplomado}>
                                     <ButtonBase className={classes.image}  disabled = {notme}>
                                         <Typography variant="h6" className={classes.titleCard}>
@@ -401,7 +407,7 @@ export default function StepOneCreateCourse(props) {
                                         <img className={classes.img} alt="complex" src={imgDiplomado} />
                                     </ButtonBase>
                                 </Paper>
-                            </Grid>
+                            </Grid> */}
                         </React.Fragment>
                     </Grid>
                 </Grid>

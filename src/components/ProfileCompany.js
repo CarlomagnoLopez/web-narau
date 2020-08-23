@@ -544,6 +544,14 @@ export default function ProfileCompany(props) {
             case "asesoria":
                 color = "#ff931e"
                 break
+            case "asesoriapersonal":
+                color = "#2e3059"
+
+                break;
+            case "webinar":
+                color = "#0186cb"
+                break;
+            default:
 
 
         }
@@ -834,7 +842,7 @@ export default function ProfileCompany(props) {
                                 <DialogContentText>
                                     Califícalo:
                                 </DialogContentText>
-                                <Rating name="half-rating" onChange={(value) => { changeRaiting(value) }} precision={0.5}/>
+                                <Rating name="half-rating" onChange={(value) => { changeRaiting(value) }} precision={0.5} />
                                 <TextField
 
 

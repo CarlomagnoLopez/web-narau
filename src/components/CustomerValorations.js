@@ -365,7 +365,7 @@ export default function CustomerValorations(props) {
     };
 
     props.valorations.map((item, index) => {
-      ratings["R_" + index] = parseInt(item.qualification)
+      ratings["R_" + index] = parseFloat(item.qualification)
     })
 
     const starTotal = 10;
@@ -380,13 +380,13 @@ export default function CustomerValorations(props) {
       const starPercentage = (ratings[rating] / starTotal) * 100;
       // 3
       // const starPercentageRounded = `${(Math.round(starPercentage / 10) * 10)}%`;
-      const starPercentageRounded = (Math.round(starPercentage / 10) * 10);
+      const starPercentageRounded = ((starPercentage / 10) * 10);
       // 4
       total += starPercentageRounded;
 
     }
 
-    let showTotal = Math.round((total / sumTotal) / 10)
+    let showTotal = ((total / sumTotal) / 10)
 
 
     // setSumTotal(showTotal)
