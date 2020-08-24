@@ -151,7 +151,7 @@ export default function StepFourCreateCourse(props) {
         timeEstimatedEdit = payload ? payload.timeEstimated : "";
     }
 
-    if(typeService === "diplomado"){
+    if (typeService === "diplomado") {
         costEdit = payload ? payload.cost : "";
         timeEstimatedEdit = payload ? payload.timeEstimated : "";
     }
@@ -166,6 +166,7 @@ export default function StepFourCreateCourse(props) {
     if (props.currentDataService) {
         notme = props.currentDataService.notme;
     }
+
 
     // const [topic, setTopic] = React.useState("")
 
@@ -310,6 +311,7 @@ export default function StepFourCreateCourse(props) {
                                 </Grid>
                                 <Grid item>
                                     <TextField
+                                        disabled={notme}
                                         required
                                         id="cost"
                                         name="cost"

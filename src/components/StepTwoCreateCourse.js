@@ -105,7 +105,7 @@ export default function StepTwoCreateCourse(props) {
         subtitleEDit = payload ? payload.subtitle : "";
     }
 
-    if(props.typeService === "webinar"){
+    if (props.typeService === "webinar") {
         modeEdit = "online"
     }
 
@@ -121,7 +121,12 @@ export default function StepTwoCreateCourse(props) {
 
     let notme = false;
     if (props.currentDataService) {
-        notme = props.currentDataService.notme;
+        if (typeService !== "diplomado") {
+            notme = props.currentDataService.notme;
+        }
+        if (typeService === "diplomado") {
+            notme = false;
+        }
     }
 
 

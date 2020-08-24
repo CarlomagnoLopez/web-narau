@@ -150,8 +150,19 @@ export default function StepThreeCreateCourse(props) {
     const [deliverable, setDeliverable] = React.useState("")
     const [currentModule, setCurrentModule] = React.useState("")
     let notme = false;
+    let notEditTopics = false;
+    // if (props.currentDataService) {
+    //     notme = props.currentDataService.notme;
+    // }
+
     if (props.currentDataService) {
-        notme = props.currentDataService.notme;
+        if (typeService !== "diplomado") {
+            notme = props.currentDataService.notme;
+        }
+        if (typeService === "diplomado") {
+            notEditTopics = true;
+            notme = false;
+        }
     }
 
     // const next = () => {
@@ -166,7 +177,7 @@ export default function StepThreeCreateCourse(props) {
         console.log("add module")
         if (currentModule !== "") {
             props.countRefresh();
-            
+
             let serviceData = ""
             props.serviceAll.filter((item) => {
                 if (item["custom-keys"].split(" | ")[2] === currentModule.split(" - ")[1]) {
@@ -174,10 +185,10 @@ export default function StepThreeCreateCourse(props) {
                 }
             })
 
-            modules.push({ 
+            modules.push({
                 tema: currentModule,
-                serviceData:serviceData
-             });
+                serviceData: serviceData
+            });
             setModules(modules);
             setCurrentModule("")
             // setTo("")
@@ -661,6 +672,7 @@ export default function StepThreeCreateCourse(props) {
                                     }}
                                 /> */}
                                 <Autocomplete
+                                    disabled={notEditTopics}
                                     id="combo-box-demo"
                                     options={props.serviceAll}
                                     onChange={changeModules}
@@ -689,7 +701,7 @@ export default function StepThreeCreateCourse(props) {
                             <Grid item xs={12} sm={1} style={{ textAlign: "center" }}>
 
                                 <Fab
-                                    onClick={addNewModule} disabled={notme} classes={{
+                                    onClick={addNewModule} disabled={notEditTopics} classes={{
                                         root: classes.rootFab,
 
                                     }}
@@ -719,7 +731,7 @@ export default function StepThreeCreateCourse(props) {
                                         primary={(index + 1) + ") " + item.tema}
                                     />
                                     <ListItemSecondaryAction >
-                                        <IconButton edge="end" aria-label="delete" disabled={notme}
+                                        <IconButton edge="end" aria-label="delete" disabled={notEditTopics}
                                             onClick={() => { deleteModule(index) }}
                                         >
                                             <DeleteIcon fontSize="large" color="action"

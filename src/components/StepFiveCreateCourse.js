@@ -181,10 +181,21 @@ export default function StepFiveCreateCourse(props) {
     const [to, setTo] = React.useState("")
     const [cost, setCost] = React.useState("")
     const [costD, setCostD] = React.useState("")
+    // let notme = false;
+    // if (props.currentDataService) {
+    //     notme = props.currentDataService.notme;
+    // }
+
     let notme = false;
     if (props.currentDataService) {
-        notme = props.currentDataService.notme;
+        if (typeService !== "diplomado") {
+            notme = props.currentDataService.notme;
+        }
+        if (typeService === "diplomado") {
+            notme = false;
+        }
     }
+
 
     // const [topic, setTopic] = React.useState("")
 
