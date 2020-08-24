@@ -310,7 +310,8 @@ export default function InvoicesForm(props) {
 
   const imageService = props.currentDataService.img ? "https://imgcursos.s3.amazonaws.com/" + props.currentDataService.img : "../assets/imgex.jpg"
   const { currentDataService } = props;
-  const video = currentDataService.video ? currentDataService.video : "https://imgcursos.s3.amazonaws.com/vide_demo.mp4"
+  // const video = currentDataService.video ? currentDataService.video : "https://imgcursos.s3.amazonaws.com/vide_demo.mp4"
+  const video = currentDataService.video;//? currentDataService.video : "https://imgcursos.s3.amazonaws.com/vide_demo.mp4"
 
   let modeService = "";
 
@@ -446,6 +447,7 @@ export default function InvoicesForm(props) {
                         </Typography>
                       </Paper>
                       <Paper elevation={0} className={classes.paperCustom}>
+
                         <Typography variant="subtitle1" className={classes.nameservice} >
                           {/* {"Tiempo estimado: "} {currentDataService.timeEstimated ? currentDataService.timeEstimated : ""} */}
                           {"Tiempo estimado: "}
@@ -472,11 +474,16 @@ export default function InvoicesForm(props) {
 
                     <Grid item xs={12} sm={12}>
                       {currentDataService.objetive !== "" &&
-                        <Typography variant="subtitle1" >
+                        <div>
+                          <Typography variant="h6" >
+                            {"Objetivo: "}
+                          </Typography>
+                          <Typography variant="subtitle1" >
 
-                          {/* {convertCapitalize(currentDataService.objetive)} */}
-                          {(currentDataService.objetive)}
-                        </Typography>
+                            {/* {convertCapitalize(currentDataService.objetive)} */}
+                            {(currentDataService.objetive)}
+                          </Typography>
+                        </div>
 
                       }
                       <Divider></Divider>
@@ -485,6 +492,7 @@ export default function InvoicesForm(props) {
                       <Typography variant="h6" >
                         {"Dirigido a: "}
                       </Typography>
+
                       <Typography variant="subtitle1" >
                         {currentDataService.to}
                       </Typography>

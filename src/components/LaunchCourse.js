@@ -310,7 +310,8 @@ export default function InvoicesForm(props) {
 
   const imageService = props.currentDataService.img ? "https://imgcursos.s3.amazonaws.com/" + props.currentDataService.img : "../assets/imgex.jpg"
   const { currentDataService } = props;
-  const video = currentDataService.video ? currentDataService.video : "https://imgcursos.s3.amazonaws.com/vide_demo.mp4"
+  // const video = currentDataService.video ? currentDataService.video : "https://imgcursos.s3.amazonaws.com/vide_demo.mp4"
+  const video = currentDataService.video //? currentDataService.video : "https://imgcursos.s3.amazonaws.com/vide_demo.mp4"
 
   let modeService = "";
 

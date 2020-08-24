@@ -432,7 +432,8 @@ export default function LaunchReservedService(props) {
 
   const imageService = props.currentDataService.img ? "https://imgcursos.s3.amazonaws.com/" + props.currentDataService.img : "../assets/imgex.jpg"
   const { currentDataService } = props;
-  const video = currentDataService.video ? currentDataService.video : "https://imgcursos.s3.amazonaws.com/vide_demo.mp4"
+  // const video = currentDataService.video ? currentDataService.video : "https://imgcursos.s3.amazonaws.com/vide_demo.mp4"
+  const video = currentDataService.video;
 
   let modeService = "";
 
@@ -533,7 +534,7 @@ export default function LaunchReservedService(props) {
       if (state.checkedOnline || state.checkedPresencial) {
         setEnableButton(true)
       }
-    }else{
+    } else {
       setEnableButton(true)
     }
 
