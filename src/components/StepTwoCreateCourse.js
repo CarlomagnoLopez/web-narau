@@ -479,7 +479,7 @@ export default function StepTwoCreateCourse(props) {
                     <Grid item xs={12}>
 
                         <Typography variant="h6" className={classes.title}>
-                            Cuéntanos  como indentificamos tu {writeModeService(typeService)}:
+                            Cuéntanos  como identificamos tu {writeModeService(typeService)}:
                             <div className={classes.subt}>
 
                             </div>
