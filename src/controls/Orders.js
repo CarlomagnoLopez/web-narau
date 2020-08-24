@@ -55,8 +55,8 @@ const useStyles = makeStyles((theme) => ({
   containerTable: {
     maxHeight: 700,
   },
-  widthTable:{
-    width:"30%"
+  widthTable: {
+    width: "30%"
   }
 }));
 
@@ -120,7 +120,7 @@ export default function Orders(props) {
       let currentSelected = value.currentTarget.innerText.split(" - ")[1];
       serviceAllTemp.filter((item, index) => {
         if (item["custom-keys"].split(" | ")[2] === currentSelected) {
-          indexService =  index;
+          indexService = index;
           // console.log(index)
           //         return item
         }
@@ -282,6 +282,12 @@ export default function Orders(props) {
                         </IconButton>
                       </Tooltip>
                     }
+                    {/* <Tooltip title="Activar" aria-label="Borrar">
+                      <IconButton aria-label="settings" className={classes.btnIcon} onClick={props.deleteService}>
+                        <DeleteIcon />
+                      </IconButton>
+                    </Tooltip> */}
+
                     {/* {row["custom-attr"].shared && */}
                     <Tooltip title="Asignar consultor" aria-label="Vincular" disabled={row["custom-attr"].shared ? true : false}>
                       <IconButton color="inherit"

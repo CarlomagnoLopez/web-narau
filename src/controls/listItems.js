@@ -12,6 +12,7 @@ import AssignmentIcon from '@material-ui/icons/Assignment';
 import Divider from '@material-ui/core/Divider';
 import SchoolIcon from '@material-ui/icons/School';
 import BusinessIcon from '@material-ui/icons/Business';
+import ViewQuiltIcon from '@material-ui/icons/ViewQuilt';
 export const mainListItems = (handle) => (
   <div>
     {/* <ListItem button onClick ={() => {handle(0)}}>
@@ -21,25 +22,32 @@ export const mainListItems = (handle) => (
       <ListItemText primary="Estadisticas" />
     </ListItem> */}
     <Divider />
-    <ListItem button onClick ={() => {handle(1)}}>
+    <ListItem button onClick={() => { handle(1) }}>
       <ListItemIcon>
         <SchoolIcon />
       </ListItemIcon>
       <ListItemText primary="Servicios" />
     </ListItem>
     <Divider />
-    <ListItem button  onClick ={() => {handle(2)}}>
+    <ListItem button onClick={() => { handle(2) }}>
       <ListItemIcon>
         <PeopleIcon />
       </ListItemIcon>
       <ListItemText primary="Consultores" />
     </ListItem>
     <Divider />
-    <ListItem button onClick ={() => {handle(3)}}>
+    <ListItem button onClick={() => { handle(3) }}>
       <ListItemIcon>
         <BusinessIcon />
       </ListItemIcon>
       <ListItemText primary="Empresas" />
+    </ListItem>
+    <Divider />
+    <ListItem button onClick={() => { handle(4) }}>
+      <ListItemIcon>
+        <ViewQuiltIcon />
+      </ListItemIcon>
+      <ListItemText primary="Diplomados" />
     </ListItem>
     <Divider />
     {/* <ListItem button>

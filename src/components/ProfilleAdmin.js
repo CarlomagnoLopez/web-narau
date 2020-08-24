@@ -44,6 +44,7 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 // import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import PersonIcon from '@material-ui/icons/Person';
+import CreateCourse from './CreateCourse';
 
 import {
   BrowserRouter as Router,
@@ -165,6 +166,8 @@ export default function ProfileAdmin(props) {
   const [openSharedList, setOpenSharedList] = React.useState(false);
   const [openAssignList, setOpenAssignList] = React.useState(false);
   const [currentService, setCurrentService] = React.useState();
+  const [openCreateCourse, setOpenCreateCourse] = React.useState(false);
+
 
   const { serviceAll, userAll, companyAll } = props;
   const handleDrawerOpen = () => {
@@ -194,6 +197,11 @@ export default function ProfileAdmin(props) {
         break;
       case 3:
         props.getCompany()
+        break;
+      case 4:
+        // props.getCompany()
+        setOpenCreateCourse(true)
+        console.log("creando diplomados")
         break;
     }
 
@@ -301,6 +309,11 @@ export default function ProfileAdmin(props) {
     }
 
     props.saveServiceAttach(payloadDeletion)
+  }
+
+  const closeCreateCourse = () => {
+    setOpenCreateCourse(false)
+
   }
 
   return (
@@ -433,8 +446,6 @@ export default function ProfileAdmin(props) {
             openUserList={setOpenSharedList}
             openAssignList={setOpenAssignList}
             currentService={setCurrentService}
-
-
           >
           </ServiceListView>
         }
@@ -444,8 +455,6 @@ export default function ProfileAdmin(props) {
             userAll={props.userAll}
             showDetail={showDetailUser}
             saveUser={props.saveUser}
-
-
           >
           </UserListView>
         }
@@ -454,10 +463,20 @@ export default function ProfileAdmin(props) {
             companyAll={companyAll}
             showDetail={showDetailCompany}
             saveService={props.saveUser}
-
-
           >
           </CompanyListView>
+        }
+        {activeView === 4 && openCreateCourse &&
+
+          <CreateCourse
+            closeCreateCourse={closeCreateCourse}
+          // closeFormCourse={closeFormCourse}
+          // images={props.images}
+          // closeForm={closeForm}
+          // asociated={props.currentAccount.isAsociate}
+          >
+
+          </CreateCourse>
         }
         {openAssignList &&
           <Dialog open={true} onClose={closeListUserAsign} aria-labelledby="form-dialog-title">
