@@ -143,6 +143,35 @@ export default function CreateCourse(props) {
         payload.benefits = data[1].benefits;
         payload.topics = data[2].topics;
         payload.deliverables = data[3].deliverables;
+        payload.modules = data[4].modules;
+        if (typeService === "diplomado") {
+          let costFromService = 0;
+          let timeFromService = 0;
+          data[4].modules.map((item) => {
+            if (item.serviceData["custom-attr"].cost) {
+              console.log(item.serviceData["custom-attr"].cost)
+              costFromService += (parseFloat(item.serviceData["custom-attr"].cost))
+            } else {
+              costFromService += 0;
+              console.log("no tiene costo")
+            }
+
+            if (item.serviceData["custom-attr"].timeEstimated) {
+              console.log(item.serviceData["custom-attr"].timeEstimated)
+              timeFromService += (parseFloat(item.serviceData["custom-attr"].timeEstimated))
+            } else {
+              timeFromService += 0;
+              console.log("no tiene costo")
+            }
+
+            
+          })
+          payload.cost = costFromService;
+          payload.timeEstimated = timeFromService;
+          // console.log(costFromService);
+
+        }
+
         break;
       case 3:
         payload.cost = data[0].cost;
@@ -238,14 +267,14 @@ export default function CreateCourse(props) {
         }
         <Container maxWidth="md">
           {nextStep === 0 &&
-            <StepOneCreateCourse currentDataService={currentDataService ? currentDataService.serviceType : ""} currentDataService2={currentDataService ? currentDataService : ""} handleNextStep={handleNextStep} ></StepOneCreateCourse>
+            <StepOneCreateCourse currentDataService={currentDataService ? currentDataService.serviceType : ""} currentDataService2={currentDataService ? currentDataService : ""} handleNextStep={handleNextStep} diplomado={props.diplomado} ></StepOneCreateCourse>
 
           }
           {nextStep === 1 &&
             <StepTwoCreateCourse currentDataService={currentDataService} payload={payload} back={back} typeService={typeService} handleNextStep={handleNextStep}></StepTwoCreateCourse>
           }
           {nextStep === 2 &&
-            <StepThreeCreateCourse currentDataService={currentDataService} payload={payload} back={back} typeService={typeService} handleNextStep={handleNextStep} countRefresh={countRefresh}></StepThreeCreateCourse>
+            <StepThreeCreateCourse currentDataService={currentDataService} payload={payload} back={back} typeService={typeService} handleNextStep={handleNextStep} countRefresh={countRefresh} serviceAll={props.serviceAll}></StepThreeCreateCourse>
           }
           {nextStep === 3 &&
             <StepFourCreateCourse currentDataService={currentDataService} payload={payload} back={back} typeService={typeService} handleNextStep={handleNextStep} countRefresh={countRefresh}></StepFourCreateCourse>

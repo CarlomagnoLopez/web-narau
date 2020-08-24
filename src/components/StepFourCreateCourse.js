@@ -151,6 +151,11 @@ export default function StepFourCreateCourse(props) {
         timeEstimatedEdit = payload ? payload.timeEstimated : "";
     }
 
+    if(typeService === "diplomado"){
+        costEdit = payload ? payload.cost : "";
+        timeEstimatedEdit = payload ? payload.timeEstimated : "";
+    }
+
 
     const [to, setTo] = React.useState("")
     const [cost, setCost] = React.useState(costEdit)

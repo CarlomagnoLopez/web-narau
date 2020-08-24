@@ -47,7 +47,7 @@ export const mainListItems = (handle) => (
       <ListItemIcon>
         <ViewQuiltIcon />
       </ListItemIcon>
-      <ListItemText primary="Diplomados" />
+      <ListItemText primary="Crear servicio" />
     </ListItem>
     <Divider />
     {/* <ListItem button>

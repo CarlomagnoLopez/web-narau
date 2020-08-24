@@ -85,6 +85,7 @@ class ProfileUser extends React.Component {
     componentWillMount() {
         if (this.state.currentAccountTemp.role === "admin") {
             this.startAdminLoading();
+            this.getImages();
         } else {
             if (this.state.currentAccountTemp.role === "company") {
                 this.requestHistory(this.state.currentAccountTemp);
@@ -924,6 +925,7 @@ class ProfileUser extends React.Component {
 
 
                         <ProfilleAdmin
+                            images={this.state.images}
                             byUser={this.state.byUser}
                             getByUser={this.getByUser}
                             currentAccount={this.state.currentAccountTemp}

@@ -21,11 +21,13 @@ import Slide from '@material-ui/core/Slide';
 import AccessibilityIcon from '@material-ui/icons/Accessibility';
 import foco from '../assets/foco.png';
 import DoneIcon from '@material-ui/icons/Done';
-
+import FolderSharedIcon from '@material-ui/icons/FolderShared';
+import Avatar from '@material-ui/core/Avatar';
 import ComputerIcon from '@material-ui/icons/Computer';
 import "./styles.css"
 import "./stylesOverride.css"
 import DeleteIcon from '@material-ui/icons/Delete';
+import Autocomplete from '@material-ui/lab/Autocomplete';
 
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import ProgressCreateCourse from "../controls/ProgressCreateCourse"
@@ -128,11 +130,13 @@ export default function StepThreeCreateCourse(props) {
     let benefitsEdit = currentDataService ? currentDataService.benefits : "";
     let topicsEdit = currentDataService ? currentDataService.topics : [];
     let deliverableEdit = currentDataService ? currentDataService.deliverables : [];
+    let modulesEdit = currentDataService ? currentDataService.modules : [];
     if (!editServicdeType) {
         toEdit = payload ? payload.to : "";
         benefitsEdit = payload ? payload.benefits : "";
         topicsEdit = payload.topics ? payload.topics : [];
         deliverableEdit = payload.deliverables ? payload.deliverables : [];
+        modulesEdit = payload.modules ? payload.modules : [];
     }
 
 
@@ -141,8 +145,10 @@ export default function StepThreeCreateCourse(props) {
     const [benefits, setBenefits] = React.useState(benefitsEdit)
     const [topicData, setTopicData] = React.useState(topicsEdit)
     const [deliverableData, setDeliverableData] = React.useState(deliverableEdit)
+    const [modules, setModules] = React.useState(modulesEdit)
     const [topic, setTopic] = React.useState("")
     const [deliverable, setDeliverable] = React.useState("")
+    const [currentModule, setCurrentModule] = React.useState("")
     let notme = false;
     if (props.currentDataService) {
         notme = props.currentDataService.notme;
@@ -153,6 +159,30 @@ export default function StepThreeCreateCourse(props) {
     // }
     const valueTypingTo = (value) => {
         setTo(value.currentTarget.value)
+    }
+
+    const addNewModule = () => {
+
+        console.log("add module")
+        if (currentModule !== "") {
+            props.countRefresh();
+            
+            let serviceData = ""
+            props.serviceAll.filter((item) => {
+                if (item["custom-keys"].split(" | ")[2] === currentModule.split(" - ")[1]) {
+                    serviceData = item;//console.log(item)
+                }
+            })
+
+            modules.push({ 
+                tema: currentModule,
+                serviceData:serviceData
+             });
+            setModules(modules);
+            setCurrentModule("")
+            // setTo("")
+        }
+
     }
     const addNewTopic = (data) => {
 
@@ -196,6 +226,13 @@ export default function StepThreeCreateCourse(props) {
         // console.log(value)
     }
 
+    const deleteModule = (value) => {
+        props.countRefresh();
+        // let _topicData = 
+        modules.splice(value, 1)
+        setModules(modules)
+    }
+
     const deleteDeliverable = (value) => {
         props.countRefresh();
         // let _topicData = 
@@ -214,10 +251,14 @@ export default function StepThreeCreateCourse(props) {
         },
         {
             topics: topicData
-        }
-            ,
+        },
         {
             deliverables: deliverableData
+        },
+        {
+            modules: modules,
+            // completeServiceData:
+
         }
         ]
         props.handleNextStep(model)
@@ -262,6 +303,10 @@ export default function StepThreeCreateCourse(props) {
                 return "Ejercicios"
 
                 break;
+            case "diplomado":
+                return "Diseña tu diplomado"
+
+                break;
             default:
                 return "Diseña un temario"
                 break;
@@ -282,6 +327,12 @@ export default function StepThreeCreateCourse(props) {
             }
             return false
         }
+    }
+
+    const changeModules = (value) => {
+
+        setCurrentModule(value.currentTarget.innerText.split(" - ")[0] + " - " + value.currentTarget.innerText.split(" - ")[1]);
+        // console.log(value)
     }
     return (
         <div>
@@ -385,55 +436,64 @@ export default function StepThreeCreateCourse(props) {
 
 
                     </Grid>
-                    <Grid item xs={12}>
-                        <Typography variant="body1" className={classes.title}
-                            classes=
-                            {{
-                                root: classes.typography
-                            }}>
-                            <span>
 
-                                {sectionList(typeService)}
-                            </span>
+
+                    {(typeService !== "diplomado") &&
+
+                        <React.Fragment>
+                            <Grid item xs={12}>
+                                <Typography variant="body1" className={classes.title}
+                                    classes=
+                                    {{
+                                        root: classes.typography
+                                    }}>
+                                    <span>
+
+                                        {sectionList(typeService)}
+                                    </span>
+                                </Typography>
+                                <Typography variant="body2" className={classes.title}>
+                                    Conocer los temas a tratar aumenta las probabilidades de venta
                         </Typography>
-                        <Typography variant="body2" className={classes.title}>
-                            Conocer los temas a tratar aumenta las probabilidades de venta
-                        </Typography>
-                    </Grid>
-                    <Grid item xs={12} sm={3}>
-                    </Grid>
-                    <Grid item xs={12} sm={6}>
-                        <TextField
-                            required
-                            id="topics"
-                            disabled={notme}
+                            </Grid>
+                            <Grid item xs={12} sm={3}>
+                            </Grid>
+                            <Grid item xs={12} sm={6}>
+                                <TextField
+                                    required
+                                    id="topics"
+                                    disabled={notme}
 
-                            name="topics"
-                            fullWidth
-                            value={topic}
-                            variant="filled"
-                            onChange={valueTypingTopics}
-                            classes={{
-                                root: "textFieldOverride",
+                                    name="topics"
+                                    fullWidth
+                                    value={topic}
+                                    variant="filled"
+                                    onChange={valueTypingTopics}
+                                    classes={{
+                                        root: "textFieldOverride",
 
 
-                            }}
-                        />
-                    </Grid>
-                    <Grid item xs={12} sm={3} style={{ textAlign: "center" }}>
+                                    }}
+                                />
+                            </Grid>
+                            <Grid item xs={12} sm={3} style={{ textAlign: "center" }}>
 
-                        <Fab onClick={addNewTopic} disabled={notme} classes={{
-                            root: classes.rootFab,
+                                <Fab onClick={addNewTopic} disabled={notme} classes={{
+                                    root: classes.rootFab,
 
-                        }}
-                        >
-                            <AddIcon fontSize="large" color="action"
-                                classes={{
-                                    colorAction: classes.colorActionFab
                                 }}
-                            />
-                        </Fab>
-                    </Grid>
+                                >
+                                    <AddIcon fontSize="large" color="action"
+                                        classes={{
+                                            colorAction: classes.colorActionFab
+                                        }}
+                                    />
+                                </Fab>
+                            </Grid>
+
+                        </React.Fragment>
+                    }
+
 
                     <Grid item xs={12} sm={3}>
                     </Grid>
@@ -561,6 +621,121 @@ export default function StepThreeCreateCourse(props) {
                             />
                         </Fab> */}
                     </Grid>
+
+
+                    {(typeService === "diplomado") &&
+
+                        <React.Fragment>
+                            <Grid item xs={12}>
+                                <Typography variant="body1" className={classes.title}
+                                    classes=
+                                    {{
+                                        root: classes.typography
+                                    }}>
+                                    <span>
+
+                                        {sectionList(typeService)}
+                                    </span>
+                                </Typography>
+                                <Typography variant="body2" className={classes.title}>
+                                    Conocer los modulos a tratar aumenta las probabilidades de venta
+                               </Typography>
+                            </Grid>
+                            {/* <Grid item xs={12} sm={3}>
+                            </Grid> */}
+                            <Grid item xs={12} sm={11}>
+                                {/* <TextField
+                                    required
+                                    id="topics"
+                                    disabled={notme}
+
+                                    name="topics"
+                                    fullWidth
+                                    value={topic}
+                                    variant="filled"
+                                    onChange={valueTypingTopics}
+                                    classes={{
+                                        root: "textFieldOverride",
+
+
+                                    }}
+                                /> */}
+                                <Autocomplete
+                                    id="combo-box-demo"
+                                    options={props.serviceAll}
+                                    onChange={changeModules}
+                                    fullWidth
+                                    getOptionLabel={(option) => option["custom-attr"].nameService + " - " + option["custom-keys"].split(" | ")[1]}
+                                    renderOption={(option) => (
+                                        <React.Fragment>
+                                            <ListItem>
+                                                <ListItemAvatar>
+                                                    <Avatar>
+                                                        <FolderSharedIcon />
+                                                    </Avatar>
+                                                </ListItemAvatar>
+                                                <ListItemText primary={option["custom-attr"].nameService} secondary={`${option["custom-keys"].split(" | ")[1]} - ${option["custom-keys"].split(" | ")[2]}`} />
+                                            </ListItem>
+                                        </React.Fragment>
+                                    )}
+                                    renderInput={(params) => <TextField fullWidth {...params} placeholder={"Selecciona los modulos disponibles"} variant="filled"
+                                        classes={{
+                                            root: "textFieldOverride"
+                                        }}
+                                    />
+                                    }
+                                />
+                            </Grid>
+                            <Grid item xs={12} sm={1} style={{ textAlign: "center" }}>
+
+                                <Fab
+                                    onClick={addNewModule} disabled={notme} classes={{
+                                        root: classes.rootFab,
+
+                                    }}
+                                >
+                                    <AddIcon fontSize="large" color="action"
+                                        classes={{
+                                            colorAction: classes.colorActionFab
+                                        }}
+                                    />
+                                </Fab>
+                            </Grid>
+
+                        </React.Fragment>
+                    }
+
+
+                    {/* <Grid item xs={12} sm={3}>
+                    </Grid> */}
+                    <Grid item xs={12} sm={11}>
+                        <List dense={true}>
+                            {modules && modules.map((item, index) => {
+                                return (<ListItem key={index}>
+                                    <ListItemText classes={{
+                                        root: classes.rootListText
+
+                                    }}
+                                        primary={(index + 1) + ") " + item.tema}
+                                    />
+                                    <ListItemSecondaryAction >
+                                        <IconButton edge="end" aria-label="delete" disabled={notme}
+                                            onClick={() => { deleteModule(index) }}
+                                        >
+                                            <DeleteIcon fontSize="large" color="action"
+                                                classes={{
+                                                    colorAction: classes.colorActionFab
+                                                }} />
+                                        </IconButton>
+                                    </ListItemSecondaryAction>
+                                </ListItem>)
+
+                            })
+                            }
+                        </List>
+                    </Grid>
+                    <Grid item xs={12} sm={1}>
+                    </Grid>
                     {(typeService === "webinar" || typeService === "asesoriapersonal") &&
                         < Grid item xs={12} container
                             direction="row"
@@ -580,7 +755,7 @@ export default function StepThreeCreateCourse(props) {
                         </Grid>
                     }
 
-                    {(typeService !== "webinar" && typeService !== "asesoriapersonal") &&
+                    {(typeService !== "webinar" && typeService !== "asesoriapersonal" && typeService !== "diplomado") &&
                         < Grid item xs={12} container
                             direction="row"
                             justify="center"
@@ -590,6 +765,26 @@ export default function StepThreeCreateCourse(props) {
                             >Regresar</Button>
 
                             {(to !== "" && benefits !== "" && topicData.length !== 0) &&
+                                <Button onClick={next} variant="contained" className="btnNext"
+
+                                >Continuar</Button>
+                            }
+
+
+                        </Grid>
+                    }
+
+
+                    {(typeService === "diplomado") &&
+                        < Grid item xs={12} container
+                            direction="row"
+                            justify="center"
+                            alignItems="baseline">
+                            <Button onClick={props.back} variant="contained" className="btnBack"
+
+                            >Regresar</Button>
+
+                            {(to !== "" && benefits !== "" && modules.length !== 0) &&
                                 <Button onClick={next} variant="contained" className="btnNext"
 
                                 >Continuar</Button>

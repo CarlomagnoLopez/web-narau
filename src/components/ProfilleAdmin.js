@@ -316,6 +316,27 @@ export default function ProfileAdmin(props) {
 
   }
 
+  const closeFormCourse = (data, sk) => {
+    console.log(data)
+    let payload = {
+      "pk": localStorage.getItem("partitionKey"),
+      "email": JSON.parse(localStorage.getItem("contentUser")).email,
+      "attr": data
+    }
+    if (sk) {
+      payload = {
+        "pk": localStorage.getItem("partitionKey"),
+        "email": JSON.parse(localStorage.getItem("contentUser")).email,
+        "attr": data,
+        "sk": sk
+      }
+    }
+
+    props.saveService(payload)
+    setOpenCreateCourse(false)
+    console.log("show")
+  }
+
   return (
     <div className={classes.root}>
       <CssBaseline />
@@ -470,10 +491,12 @@ export default function ProfileAdmin(props) {
 
           <CreateCourse
             closeCreateCourse={closeCreateCourse}
-          // closeFormCourse={closeFormCourse}
-          // images={props.images}
-          // closeForm={closeForm}
-          // asociated={props.currentAccount.isAsociate}
+            closeFormCourse={closeFormCourse}
+            images={props.images}
+            // closeForm={closeForm}
+            // asociated={props.currentAccount.isAsociate}
+            diplomado={true}
+            serviceAll={serviceAll}
           >
 
           </CreateCourse>

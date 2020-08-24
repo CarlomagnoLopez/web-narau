@@ -398,16 +398,19 @@ export default function StepOneCreateCourse(props) {
                                     </ButtonBase>
                                 </Paper>
                             </Grid>
-                            {/* <Grid item xs={4}>
-                                <Paper className={classes.paperDiplomado}>
-                                    <ButtonBase className={classes.image}  disabled = {notme}>
-                                        <Typography variant="h6" className={classes.titleCard}>
-                                            Diplomados
-                                        </Typography>
-                                        <img className={classes.img} alt="complex" src={imgDiplomado} />
-                                    </ButtonBase>
-                                </Paper>
-                            </Grid> */}
+                            {props.diplomado &&
+                                <Grid item xs={4}>
+                                    <Paper className={classes.paperDiplomado}>
+                                        <ButtonBase className={classes.image} disabled={notme} onClick={() => { selectService1("diplomado") }}>
+                                            <Typography variant="h6" className={classes.titleCard}>
+                                                Diplomados
+                                            </Typography>
+                                            <img className={classes.img} alt="complex" src={imgDiplomado} />
+                                        </ButtonBase>
+                                    </Paper>
+                                </Grid>
+                            }
+
                         </React.Fragment>
                     </Grid>
                 </Grid>
