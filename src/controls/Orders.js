@@ -55,6 +55,9 @@ const useStyles = makeStyles((theme) => ({
   containerTable: {
     maxHeight: 700,
   },
+  widthTable:{
+    width:"30%"
+  }
 }));
 
 
@@ -113,7 +116,17 @@ export default function Orders(props) {
   const findOnTable = (value) => {
     let userTrial
     if (value.currentTarget.dataset.optionIndex) {
-      userTrial = [serviceAllTemp[value.currentTarget.dataset.optionIndex]]
+      let indexService = "";
+      let currentSelected = value.currentTarget.innerText.split(" - ")[1];
+      serviceAllTemp.filter((item, index) => {
+        if (item["custom-keys"].split(" | ")[2] === currentSelected) {
+          indexService =  index;
+          // console.log(index)
+          //         return item
+        }
+      })
+
+      userTrial = [serviceAllTemp[indexService]]
     } else {
       userTrial = serviceAllTemp;
     }
@@ -160,7 +173,9 @@ export default function Orders(props) {
         options={serviceAllTest}
         onChange={findOnTable}
         fullWidth
-        getOptionLabel={(option) => "Nombre: " +option["custom-attr"].nameService + ". Email: " +option["custom-keys"].split(" | ")[1]}
+        // id={}
+        // getOptionSelected={(option) => "Nombre: " +option["custom-attr"].nameService + ". Email: " +option["custom-keys"].split(" | ")[1]}
+        getOptionLabel={(option) => "Nombre: " + option["custom-attr"].nameService + ". Email: " + option["custom-keys"].split(" | ")[1]}
         // renderInput={(option) => (
         //   <React.Fragment>
         //   <ListItem>
@@ -181,7 +196,7 @@ export default function Orders(props) {
                   <FolderSharedIcon />
                 </Avatar>
               </ListItemAvatar>
-              <ListItemText primary={option["custom-attr"].nameService} secondary={option["custom-keys"].split(" | ")[1]} />
+              <ListItemText primary={option["custom-attr"].nameService} secondary={`${option["custom-keys"].split(" | ")[1]} - ${option["custom-keys"].split(" | ")[2]}`} />
             </ListItem>
           </React.Fragment>
         )}
@@ -213,10 +228,11 @@ export default function Orders(props) {
           <TableHead>
             <TableRow>
               {/* <TableCell>Fecha de creacion</TableCell> */}
-              <TableCell>Titulo del servicio</TableCell>
-              <TableCell>Tipo de servicio</TableCell>
-              <TableCell>Compartido</TableCell>
-              <TableCell>Acciones</TableCell>
+              <TableCell className={classes.widthTable}>Titulo del servicio</TableCell>
+              <TableCell >Consultor</TableCell>
+              <TableCell align="center">Modalidad</TableCell>
+              <TableCell align="center">Compartido</TableCell>
+              <TableCell align="center">Acciones</TableCell>
 
               {/* <TableCell align="right">Sale Amount</TableCell> */}
             </TableRow>
@@ -226,8 +242,9 @@ export default function Orders(props) {
               <TableRow key={row["custom-keys"]}>
                 {/* <TableCell>{row["custom-attr"].date ? esM(row["custom-attr"].date).format("LL") : ""}</TableCell> */}
                 <TableCell>{row["custom-attr"].nameService}</TableCell>
-                <TableCell>{row["custom-attr"].mode}</TableCell>
-                <TableCell>{(row["custom-attr"].shared ? (
+                <TableCell>{row["custom-keys"].split(" | ")[1]}</TableCell>
+                <TableCell align="center">{row["custom-attr"].mode}</TableCell>
+                <TableCell align="center">{(row["custom-attr"].shared ? (
                   <Tooltip title="Vincular consultor" aria-label="Vincular">
                     <IconButton color="inherit"
                       onClick={() => { openUserList(row) }}
@@ -238,7 +255,7 @@ export default function Orders(props) {
                   </Tooltip>
                 ) :
 
-                  (<IconButton color="inherit" disabled={false}   onClick={() => { openUserList(row) }}>
+                  (<IconButton color="inherit" disabled={false} onClick={() => { openUserList(row) }}>
                     <HttpsIcon ></HttpsIcon>
                   </IconButton>)
                 )}</TableCell>
