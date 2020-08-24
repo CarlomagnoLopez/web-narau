@@ -68,6 +68,9 @@ const useStyles = makeStyles((theme) => ({
     colorWebinar: {
         backgroundColor: "rgb(1, 134, 203, .8)",
     },
+    colorDiplomado: {
+        backgroundColor: "rgb(134, 39, 214, .8)",
+    },
     cardService: {
         bottom: "0rem",
         position: "absolute",
@@ -91,8 +94,8 @@ const useStyles = makeStyles((theme) => ({
     btnIcon: {
         color: "#fff"
     },
-    btnIconNotification:{
-        color:"#40b024"
+    btnIconNotification: {
+        color: "#40b024"
 
     }
 }));
@@ -106,6 +109,7 @@ export default function CardCourses(props) {
     const classConferencia = clsx(classes.titleCourse, classes.colorConferencia);
     const classAsesoriaPersonal = clsx(classes.titleCourse, classes.colorAsesoriaPersonal);
     const classWebinar = clsx(classes.titleCourse, classes.colorWebinar);
+    const classDiplomado = clsx(classes.titleCourse, classes.colorDiplomado);
 
     const { serviceType } = infoCourse;
 
@@ -130,6 +134,9 @@ export default function CardCourses(props) {
             break;
         case "webinar":
             classService = classWebinar;
+            break;
+        case "diplomado":
+            classService = classDiplomado;
             break;
 
 
