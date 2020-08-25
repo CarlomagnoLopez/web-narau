@@ -382,7 +382,7 @@ class ProfileUser extends React.Component {
         this.setState({
             loadingUpdate: true
         }, (state, props) => {
-            fetch('https://ob5nizjire.execute-api.us-east-1.amazonaws.com/default/serviceall', {
+            fetch('https://ob5nizjire.execute-api.us-east-1.amazonaws.com/default/saveservice', {
                 method: 'PUT',
                 body: JSON.stringify(payload),
                 headers: {

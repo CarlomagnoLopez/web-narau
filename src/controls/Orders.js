@@ -91,6 +91,7 @@ export default function Orders(props) {
 
   const activeService = (data) => {
     data.verified = true;
+    data.verifiyng =  true;
     props.saveService(data)
     console.log(data)
 
@@ -98,6 +99,7 @@ export default function Orders(props) {
   }
   const deActiveService = (data) => {
     data.verified = false;
+    data.verifiyng =  true;
     props.saveService(data)
     console.log(data)
 
