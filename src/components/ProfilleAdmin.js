@@ -253,7 +253,7 @@ export default function ProfileAdmin(props) {
     console.log(currentService)
     closeListUserShared()
     console.log(value)
-    currentService["custom-attr"].notme = false;
+    currentService["custom-attr"].notme = true;
     currentService["custom-attr"].editedByConsultant = false;
     currentService["custom-attr"].shared = false;
     let payload = {
