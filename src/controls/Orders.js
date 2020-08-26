@@ -87,6 +87,11 @@ export default function Orders(props) {
   const [renderTable, setRenderTable] = React.useState(true)
 
   let serviceAllTest = renderTable ? props.serviceAll : serviceAllRender;
+  serviceAllTest = serviceAllTest.filter((item) => {
+    if(!item.deleted){
+      return item
+    }
+  })
   const serviceAllTemp = props.serviceAll;
 
   const activeService = (data) => {
