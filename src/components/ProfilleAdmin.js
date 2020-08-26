@@ -267,16 +267,16 @@ export default function ProfileAdmin(props) {
 
 
 
-    let payloadDeletion = {
-      "pk": localStorage.getItem("partitionKey"),
-      "email": JSON.parse(localStorage.getItem("contentUser")).email,
-      "attr": data,
-      "sk": sortKey,
-      "delete": true
+    // let payloadDeletion = {
+    //   "pk": localStorage.getItem("partitionKey"),
+    //   "email": JSON.parse(localStorage.getItem("contentUser")).email,
+    //   "attr":  currentService["custom-attr"],
+    //   "sk": sortKey,
+    //   "delete": true
 
-    }
+    // }
 
-    props.saveServiceAttach(payloadDeletion)
+    // props.saveServiceAttach(payloadDeletion)
 
 
 
@@ -295,10 +295,13 @@ export default function ProfileAdmin(props) {
       "attr": currentService["custom-attr"],
       "sendEmailAsign": true
     }
+    
+    console.log(payload)
 
     props.saveServiceAttach(payload)
 
-
+    currentService["custom-attr"].notme = false;
+    currentService["custom-attr"].editedByConsultant = false;
     let payloadDeletion = {
       "pk": currentService["custom-types"],
       "email": currentService["custom-keys"].split(" | ")[1],
@@ -307,6 +310,7 @@ export default function ProfileAdmin(props) {
       "delete": true
 
     }
+    console.log(payloadDeletion)
 
     props.saveServiceAttach(payloadDeletion)
   }
