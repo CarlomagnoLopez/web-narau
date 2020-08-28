@@ -85,7 +85,52 @@ body .cardService{
     border-color:#fc5000 !important;
 }
 
+/*  style for sign in-up forms */
 
+.rootTextFieldClient{
+    margin-top: 27px !important;
+}
+
+.rootTextFieldClient .MuiInputBase-root{
+    border-radius: .5rem;
+    background-color:rgb(117, 117, 117, .3);
+    color: #696969; 
+    /* font-weight: bold; */
+
+
+}
+.rootTextFieldClient .MuiOutlinedInput-input{
+    /* padding: 9.5px 14px; */
+}
+.rootTextFieldClient .MuiOutlinedInput-root{
+    border-color: rgb(255, 255, 255)  !important;
+}
+.rootTextFieldClient:hover {
+    border-color: rgb(255, 255, 255)  !important;
+}
+
+.rootTextFieldClient .MuiFormLabel-root {
+    color: rgba(255, 255, 255, 1);
+
+}
+
+.rootTextFieldClient .MuiFormLabel-root.Mui-focused {
+    color: rgba(255, 255, 255, 1);
+
+}
+.rootTextFieldClient  .MuiInputLabel-outlined.MuiInputLabel-shrink{
+    transform: translate(0px, -1.5rem) scale(0.75);
+}
+.rootTextFieldClient  .MuiInputLabel-outlined{
+    transform: translate(0px, -1.5rem) scale(0.75);
+}
+
+
+.rootTextFieldClient .MuiOutlinedInput-notchedOutline{
+    border-color:#fc500000 !important;
+}
+
+/*  style for sign in-up forms */
 /*  style for sign in-up forms */
 
 .rootTextField{
@@ -374,11 +419,11 @@ body .cardService{
 .rootAvatar p{
     position: absolute;
     /* z-index: 1000; */
-    background-color: #fc5000;
+    background-color: #7074d6;
     width: 100%;
     height: 100%;
     text-align: center;
-    padding-top: 18px;
+    padding-top: 22px;
     font-size: 1.2em;
 }
 .imageUpload{

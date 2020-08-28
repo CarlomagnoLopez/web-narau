@@ -31,6 +31,7 @@ import Avatar from '@material-ui/core/Avatar';
 import { deepOrange, deepPurple } from '@material-ui/core/colors';
 // import { DatePicker } from "@material-ui/pickers";
 import BookIcon from '@material-ui/icons/Book';
+import BusinessCenterIcon from '@material-ui/icons/BusinessCenter';
 import CardSideContent from "../controls/CardSideContent"
 import SearchServices from "../controls/SearchServices"
 import CardSideContentInvoices from "../controls/CardSideContentInvoices"
@@ -48,6 +49,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import DashboardCompany from "./ComponentsCompany/Dashboard";
 import {
     BrowserRouter as Router,
     Switch,
@@ -204,6 +206,11 @@ const useStyles = makeStyles((theme) => ({
     orange: {
         color: theme.palette.getContrastText(deepOrange[500]),
         backgroundColor: deepOrange[500],
+        color: "#fff",
+        borderColor: "white",
+        backgroundColor: "#ff5722",
+        borderStyle: "solid",
+        borderWidth: "2px"
     },
     divider: {
         margin: theme.spacing(2, 0),
@@ -619,359 +626,15 @@ export default function ProfileCompany(props) {
     //     props.historyService(currentAccount)
     // }
     return (
-        <div className={classes.root}>
-            <CssBaseline />
-            <AppBar position="absolute" className={clsx(classes.appBar, open && classes.appBarShift)}>
-                <Toolbar className={classes.toolbar}>
-                    <div className={classes.logo}>
-                        <img src={logo_login} className={classes.logoTopBar} />
-                    </div>
-                    <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
-                        {/* Narau */}
-                    </Typography>
-                    <Tooltip title={currentAccount.empresa} aria-label={currentAccount.empresa}>
-                        <Avatar className={classes.orange}>{currentAccount.empresa.substring(0, 1)}</Avatar>
-                    </Tooltip>
-                    <Tooltip title="Lista de deseos" aria-label="Lista de deseos">
-                        <IconButton color="inherit" onClick={openDrawer}>
-                            <Badge badgeContent={dataBadge} color="secondary">
-                                {/* <ShoppingBasketIcon></ShoppingBasketIcon> */}
-                                <BookIcon></BookIcon>
-                            </Badge>
-                        </IconButton>
-                    </Tooltip>
-                    {/* <Tooltip title="Carrito de compras" aria-label="Carrito de compras">
-                        <IconButton color="inherit" onClick={openDrawerCart}>
-                            <Badge badgeContent={dataBadgeCart} color="secondary">
-                                <ShoppingBasketIcon></ShoppingBasketIcon>
-                            </Badge>
-                        </IconButton>
-                    </Tooltip> */}
-                    <Tooltip title="LogOut" aria-label="LogOut">
-                        <IconButton color="inherit" onClick={closeSession}>
-                            {/* <Badge badgeContent={4} color="secondary"> */}
-                            <ExitToAppIcon />
-                            {/* </Badge> */}
-                        </IconButton>
-                    </Tooltip>
+        <DashboardCompany inherit={props}
+            closeSession={closeSession}
+            currentAccount={currentAccount}
+            saveImageProfile={props.saveImageProfile}
+            requestUpdateAttribute={requestUpdateAttribute}
+        >
 
+        </DashboardCompany>
 
-                </Toolbar>
-            </AppBar>
-            <main className={classes.content}>
-                <div className={classes.appBarSpacer} />
-                {/* <Container maxWidth="xl" className={classes.container} > */}
-                <Grid container spacing={3}>
-                    <Grid item xs={12}>
-                        <Paper className={classes.paper} elevation={0}>
-                            {/* <ProfileHeaderCompany currentAccount={currentAccount}></ProfileHeaderCompany> */}
-                            <ProfileHeaderCompany saveImageProfile={props.saveImageProfile} currentAccount={currentAccount} >
-
-                            </ProfileHeaderCompany>
-
-                        </Paper>
-                    </Grid>
-                </Grid>
-
-                <Container maxWidth="lg" className={classes.container}>
-
-                    {!openInvoices && !openLaunchCourse &&
-                        <Paper spacing={3} elevation={0}>
-                            <Grid container spacing={3} className={classes.rootRigthBar}>
-                                {/* <Grid item xs={12} md={4} lg={3} container
-                                    direction="column"
-                                    justify="flex-start"
-                                    alignItems="center">
-                                    <Paper spacing={3} elevation={6} classes={{ root: "rounded" }}>
-                                        <CardSideContent
-                                            text={aboutMe}
-                                            referenceRequest={"aboutMe"}
-                                            title={"Sobre mi empresa."}
-                                            request={requestUpdateAttribute}
-                                        ></CardSideContent>
-                                        <Divider variant="middle" className={classes.divider} />
-                                        <CardSideContent
-                                            text={experience}
-                                            referenceRequest={"experience"}
-                                            title={"Experiencia empresarial"}
-                                            request={requestUpdateAttribute}
-                                        ></CardSideContent>
-                                        <Divider variant="middle" className={classes.divider} />
-                                        <CardSideContent
-                                            text={customers}
-                                            referenceRequest={"customers"}
-                                            title={"Clientes"}
-                                            request={requestUpdateAttribute}
-                                        ></CardSideContent>
-                                        <Divider variant="middle" className={classes.divider} />
-                                        <CardSideContentInvoices showFormInvoices={showFormInvoices} title={"Facturacion"}
-                                        ></CardSideContentInvoices>
-                                    </Paper>
-                                </Grid> */}
-
-                                <Grid
-                                    item xs={12} md={8} lg={9} spacing={3}
-                                    container
-                                    direction="row"
-                                    justify="center"
-                                    alignItems="flex-start">
-                                    <Grid container item xs={12} spacing={3}>
-                                        {/* <SearchServices dataFilter={dataCourse} onTypeFilter={onTypeFilter}></SearchServices> */}
-                                        <Grid className={classes.gridHistoty}
-                                        // item xs={12}  container
-                                        //     direction="row"
-                                        //     justify="center"
-                                        //     alignItems="baseline"
-                                        >
-                                            <Typography
-                                                // component="span"
-                                                variant="h5"
-                                                // className={classes.commentBy}
-                                                color="textPrimary"
-                                            >
-                                                Historial de servicios
-                                            </Typography>
-                                            <br></br>
-
-                                            <Paper className={classes.paper} elevation={8}>
-                                                <List className={classes.rootList}>
-
-                                                    {props.historyService && props.historyService.map((item) => (
-                                                        <div>
-                                                            <ListItem alignItems="flex-start">
-                                                                <ListItemAvatar>
-                                                                    <Avatar className={classes.avatarCustomer} src={item.userProvide.imgProfile}>
-                                                                        {item.userProvide.firstName.substring(0, 1).toUpperCase()}
-                                                                    </Avatar>
-                                                                </ListItemAvatar>
-                                                                {/* <ListItemText></ListItemText> */}
-                                                                <ListItemText
-                                                                    primary={
-                                                                        <React.Fragment>
-                                                                            <Typography
-                                                                                variant="body2"
-                                                                                className={classes.textNameBy}
-                                                                                color="textPrimary"
-                                                                            >
-                                                                                <span className={classes.commentBy}>Instructor:</span>
-                                                                                {" " + item.userProvide.firstName + " " + item.userProvide.lastName}
-                                                                            </Typography>
-                                                                            {/* <Rating name="half-rating"  /> */}
-                                                                            {/* <Rating></Rating> */}
-                                                                        </React.Fragment>
-                                                                    }
-                                                                    secondary={
-                                                                        <React.Fragment>
-                                                                            {/* <Typography
-                                                                                // component="span"
-                                                                                variant="body2"
-                                                                                className={classes.commentBy}
-                                                                                color="textPrimary"
-                                                                            >
-                                                                                {item.comment}
-                                                                            </Typography> */}
-
-
-
-                                                                            <p>
-                                                                                {/* <Typography variant="body2" className={classes.en}>
-                                                                                        {"En: "}
-                                                                                    </Typography> */}
-                                                                                <Typography variant="body2" className={classes.nameServieClass}>
-                                                                                    <span className={classes.commentBy}>{"Servicio: "}</span>  {item.serviceProvide.nameService}
-                                                                                </Typography>
-                                                                            </p>
-                                                                            <Button variant="contained" className="btnNext"
-                                                                                onClick={() => { showEvaluation(item) }}
-
-                                                                            >Evaluar servicio</Button>
-
-                                                                        </React.Fragment>
-                                                                    }
-                                                                />
-
-                                                            </ListItem>
-                                                            <Divider variant="inset" component="li" />
-                                                        </div>
-                                                    ))}
-
-
-                                                </List>
-
-                                            </Paper>
-
-
-
-                                            {/* <Button variant="contained" className="btnBack"
-
-                                            >Historial de servicios</Button> */}
-                                        </Grid>
-                                    </Grid>
-                                    {/* <Grid container item xs={12} spacing={3}>
-                                        {dataCourse.map((infoCourse, index) => (
-                                            // <CardCoursesCompany
-                                            <CardCourses
-                                                key={index}
-                                                addToWishList={() => { addToWishList(infoCourse, dataCourseId[index]) }}
-                                                openForm={() => { showInfoCourse(infoCourse, dataCourseId[index]) }}
-                                                infoCourse={infoCourse}>
-                                            </CardCourses>
-                                            // </CardCoursesCompany>
-
-                                            // </div>
-
-
-                                        ))}
-                                    </Grid> */}
-                                </Grid>
-                            </Grid>
-
-                        </Paper>
-
-                    }
-
-
-                    {openEvaluation &&
-
-                        <Dialog open={true} onClose={closeEvaluation} aria-labelledby="form-dialog-title">
-                            {/* <Dialog></Dialog> */}
-                            <DialogTitle id="form-dialog-title">Ayudanos a mejorar:</DialogTitle>
-
-                            {/* <DialogContent></DialogContent> */}
-                            <DialogContent>
-                                <DialogContentText>
-                                    Califícalo:
-                                </DialogContentText>
-                                <Rating name="half-rating" onChange={(value) => { changeRaiting(value) }} precision={0.5} />
-                                <TextField
-
-
-                                    // autoComplete="fname"
-                                    name="comentario"
-                                    variant="outlined"
-                                    required
-                                    fullWidth
-                                    id="comentario"
-                                    // label="Comentanos:"
-                                    placeholder="Comentario"
-                                    classes={{
-                                        root: "rootTextField"
-                                    }}
-                                    onChange={(value) => { changeComment(value) }}
-                                />
-                            </DialogContent>
-                            <DialogActions>
-                                <Button onClick={sendEvaluation} className="btnNext">
-                                    Enviar
-                                </Button>
-                                <Button onClick={closeEvaluation} className="btnBack">
-                                    CANCELAR
-                                </Button>
-                            </DialogActions>
-                        </Dialog>
-                    }
-                    {openInvoices &&
-                        <Container maxWidth="lg" className={classes.container}>
-                            <Grid container spacing={3}>
-                                {/* <div>invoices</div> */}
-                                <InvoicesForm
-                                    closeFormInvoices={closeFormInvoices}
-                                    invoiceData={props.invoiceData}
-                                ></InvoicesForm>
-                            </Grid>
-
-                        </Container>
-                    }
-                    {openDetailCourse && props.byUser["custom-attr"] &&
-                        // <DetailCourse
-                        //     show={openDetailCourse}
-                        //     dataService={dataService}
-                        //     dataServiceId={dataServiceId}
-                        //     handleCloseDetail={handleCloseDetail}
-                        //     addToWishList={addToWishList}
-                        // ></DetailCourse>
-                        <Container maxWidth="lg" className={classes.container}>
-                            <Grid container spacing={3}>
-                                <LaunchCourse
-                                    addToWishList={addToWishList}
-                                    // closeFormCourse={closeFormCourse}
-                                    // closeForm={closeForm}
-                                    showReservedService={showReservedService}
-                                    colorDefault={currentColorService()}
-                                    byUser={props.byUser}
-                                    closeForm={handleCloseDetail}
-                                    currentDataService={dataService}
-                                    currentDataSortKey={dataServiceId}
-                                // addTopic={props.addTopic}
-                                // deleteTopic={props.deleteTopic}
-                                // topicData={props.topicData}
-                                ></LaunchCourse>
-                            </Grid>
-
-                        </Container>
-
-                    }
-
-                    {openReservedService &&
-                        <Container maxWidth="lg" className={classes.container}>
-                            <Grid container spacing={3}>
-                                <LaunchReservedService
-                                    addToWishList={addToWishList}
-                                    // showReservedService={showReservedService}
-                                    sendServiceRequest={sendServiceRequest}
-                                    colorDefault={currentColorService()}
-                                    byUser={props.byUser}
-                                    closeForm={handleCloseReservered}
-                                    currentDataService={dataService}
-                                    currentDataSortKey={dataServiceId}
-                                ></LaunchReservedService>
-                            </Grid>
-
-                        </Container>
-
-                    }
-                    {noDates &&
-                        <div className={classes.rootalert}>
-                            <Snackbar anchorOrigin={{ vertical, horizontal }} open={true} autoHideDuration={6000} onClose={() => { setNoDates(false) }}>
-                                <Alert onClose={() => { setNoDates(false) }} severity="warning">
-                                    El consultor no tiene fechas disponibles.
-                                </Alert>
-                            </Snackbar>
-                        </div>
-                    }
-
-                    {openWhishList &&
-                        <WishList
-                            deleteToWishList={deleteToWishList}
-                            addToCart={addToCart}
-                            closeDrawer={closeDrawer}
-                            whishList={whishList}
-                        // proceed={proceed}
-                        ></WishList>
-                    }
-                    {openShoppingCart &&
-                        <ShoppingCart
-                            deleteToCart={deleteToCart}
-                            closeDrawer={closeDrawerCart}
-                            shoppingCart={shoppingCart}
-                        // proceed={proceed}
-                        ></ShoppingCart>
-                    }
-
-
-
-
-
-
-
-                </Container>
-
-                <Box pt={4}>
-                    <Copyright />
-                </Box>
-                {/* </Container> */}
-            </main>
-        </div >
     );
 }
 
