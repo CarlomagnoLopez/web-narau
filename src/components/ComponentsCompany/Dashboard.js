@@ -21,6 +21,8 @@ import NotificationsIcon from '@material-ui/icons/Notifications';
 import { mainListItems, secondaryListItems } from './listItems';
 import { deepOrange, deepPurple } from '@material-ui/core/colors';
 import CompanyData from './CompanyData';
+import Profile from './Profile';
+import History from './History';
 import ProDataBasic from './ProDataBasic';
 import FollowingService from './FollowingService';
 import ListItem from '@material-ui/core/ListItem';
@@ -44,7 +46,9 @@ import PermIdentityIcon from '@material-ui/icons/PermIdentity';
 import UpdateIcon from '@material-ui/icons/Update';
 import TurnedInNotIcon from '@material-ui/icons/TurnedInNot';
 import "../../css/stylesGlobalOverRide.css"
+import Slide from '@material-ui/core/Slide';
 import EventAvailableIcon from '@material-ui/icons/EventAvailable';
+import FeedbackIcon from '@material-ui/icons/Feedback';
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
@@ -150,18 +154,21 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     overflow: 'auto',
     flexDirection: 'column',
+    borderRadius: "1.5rem",
+    width: "100px",
+    height: "100px"
   },
-  itemAlarm:{
-    color:"#fff"
+  itemAlarm: {
+    color: "#fff"
   },
   paperAlarm: {
     padding: theme.spacing(0),
     display: 'flex',
     overflow: 'auto',
     flexDirection: 'column',
-    color:"#fff",
-    backgroundColor:"#f19d2d",
-    borderRadius:"6rem"
+    color: "#fff",
+    backgroundColor: "#f19d2d",
+    borderRadius: "6rem"
   },
   fixedHeight: {
     height: 240,
@@ -209,6 +216,7 @@ const useStyles = makeStyles((theme) => ({
 export default function Dashboard(props) {
   const classes = useStyles();
   const [open, setOpen] = React.useState(true);
+  const [currentView, setCurrentView] = React.useState(0)
   const handleDrawerOpen = () => {
     setOpen(true);
   };
@@ -222,6 +230,13 @@ export default function Dashboard(props) {
 
     props.saveImageProfile(document.getElementsByClassName("uploadPicture")[0].src)
   }
+
+  const changeView = (value) => {
+    if (value !== currentView) {
+      setCurrentView(value)
+    }
+  }
+  
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
 
   return (
@@ -342,36 +357,30 @@ export default function Dashboard(props) {
             </ListItem> */}
 
             <ListSubheader inset>{props.currentAccount.empresa}</ListSubheader>
-            <ListItem button>
+            <ListItem button onClick={() => { changeView(0) }}>
               <ListItemIcon>
                 <PermIdentityIcon />
               </ListItemIcon>
               <ListItemText primary="Mi perfil" />
             </ListItem>
-            <ListItem button>
+            <ListItem button onClick={() => { changeView(1) }}>
+              <ListItemIcon>
+                <FeedbackIcon />
+              </ListItemIcon>
+              <ListItemText primary="Historial" />
+            </ListItem>
+            <ListItem button onClick={() => { changeView(2) }}>
               <ListItemIcon>
                 <EventAvailableIcon />
               </ListItemIcon>
               <ListItemText primary="Reservaciones" />
             </ListItem>
-            <ListItem button>
+            <ListItem button onClick={() => { changeView(3) }}>
               <ListItemIcon>
                 <TurnedInNotIcon />
               </ListItemIcon>
               <ListItemText primary="Lista de deseos" />
             </ListItem>
-            {/* <ListItem button>
-              <ListItemIcon>
-                <AssignmentIcon />
-              </ListItemIcon>
-              <ListItemText primary="Notificaciones" />
-            </ListItem>
-            <ListItem button>
-              <ListItemIcon>
-                <AssignmentIcon />
-              </ListItemIcon>
-              <ListItemText primary="Ajuste de cuenta" />
-            </ListItem> */}
             <ListItem button onClick={props.closeSession}>
               <ListItemIcon >
                 <ExitToAppIcon />
@@ -385,52 +394,38 @@ export default function Dashboard(props) {
       <main className={classes.content}>
         <div className={classes.appBarSpacer} />
         <Container maxWidth="lg" className={classes.container}>
-          <Typography gutterBottom variant="h5">
-            {"Mi perfil"}
-          </Typography>
-          <Grid container spacing={3}>
-            {/* Chart */}
-            <Grid item xs={12}>
-              <Paper className={classes.paperAlarm}>
-                {/* <Orders /> */}
-                <List>
-                  <ListItem>
-                    <ListItemIcon className={classes.itemAlarm}>
-                      <UpdateIcon fontSize={"large"} />
-                    </ListItemIcon>
-                    <ListItemText primary="Completa tus datos de contacto para que tu perfil sea validado." />
-                  </ListItem>
-                </List>
-              </Paper>
-            </Grid>
-            <Grid item xs={12} md={8} lg={3}>
-              <Paper className={classes.paper}>
-                <ProDataBasic requestUpdateAttribute={props.requestUpdateAttribute} currentAccount={props.currentAccount}/>
-              </Paper>
-            </Grid>
-            {/* Recent ProDataBasic */}
-            <Grid item xs={12} md={4} lg={9} >
-              <Paper className={fixedHeightPaper}>
-                <CompanyData requestUpdateAttribute={props.requestUpdateAttribute} currentAccount={props.currentAccount}/>
-              </Paper>
-              {/* <Divider />  */}
-              <br></br>
-              <Paper className={classes.paper}>
-                <FollowingService />
-              </Paper>
-            </Grid>
-            {/* Recent Orders */}
-            {/* <Grid item xs={12}> */}
-            {/* <Grid item xs={12} md={4} lg={9}>
-              <Paper className={classes.paper}>
-                <Orders />
-              </Paper>
-            </Grid> */}
-          </Grid>
-          {/* <Box pt={4}>
-            <Copyright />
-          </Box> */}
+
+          {currentView === 0 &&
+            <Slide direction="up" in={true} mountOnEnter unmountOnExit>
+              {/* <Paper className={classes.paper}>
+
+              </Paper> */}
+              <div>
+
+                <Profile requestUpdateAttribute={props.requestUpdateAttribute} currentAccount={props.currentAccount}>
+
+                </Profile>
+              </div>
+
+            </Slide>
+          }
+
+          
+
+          {currentView === 1 &&
+            <Slide direction="up" in={true} mountOnEnter unmountOnExit>
+              {/* <Paper className={classes.paper}>
+
+              </Paper> */}
+              <div>
+                <History historyService={props.historyService} showEvaluation={props.showEvaluation}></History>
+              </div>
+
+            </Slide>
+          }
         </Container>
+
+
       </main>
     </div>
   );

@@ -626,14 +626,62 @@ export default function ProfileCompany(props) {
     //     props.historyService(currentAccount)
     // }
     return (
-        <DashboardCompany inherit={props}
-            closeSession={closeSession}
-            currentAccount={currentAccount}
-            saveImageProfile={props.saveImageProfile}
-            requestUpdateAttribute={requestUpdateAttribute}
-        >
+        <React.Fragment>
+            <DashboardCompany inherit={props}
+                closeSession={closeSession}
+                currentAccount={currentAccount}
+                saveImageProfile={props.saveImageProfile}
+                requestUpdateAttribute={requestUpdateAttribute}
+                historyService={props.historyService}
+                showEvaluation={showEvaluation}
 
-        </DashboardCompany>
+            >
+
+            </DashboardCompany>
+
+            {openEvaluation &&
+
+                <Dialog open={true} onClose={closeEvaluation} aria-labelledby="form-dialog-title">
+                    {/* <Dialog></Dialog> */}
+                    <DialogTitle id="form-dialog-title">Ayudanos a mejorar:</DialogTitle>
+
+                    {/* <DialogContent></DialogContent> */}
+                    <DialogContent>
+                        <DialogContentText>
+                            Califícalo:
+                    </DialogContentText>
+                        <Rating name="half-rating" onChange={(value) => { changeRaiting(value) }} precision={0.5} />
+                        <TextField
+
+
+                            // autoComplete="fname"
+                            name="comentario"
+                            variant="outlined"
+                            required
+                            fullWidth
+                            id="comentario"
+                            // label="Comentanos:"
+                            placeholder="Comentario"
+                            classes={{
+                                root: "rootTextField"
+                            }}
+                            onChange={(value) => { changeComment(value) }}
+                        />
+                    </DialogContent>
+                    <DialogActions>
+                        <Button onClick={sendEvaluation} className="btnNext">
+                            Enviar
+                        </Button>
+                        <Button onClick={closeEvaluation} className="btnBack">
+                            CANCELAR
+                        </Button>
+                    </DialogActions>
+                </Dialog>
+            }
+        </React.Fragment>
+
+
+
 
     );
 }

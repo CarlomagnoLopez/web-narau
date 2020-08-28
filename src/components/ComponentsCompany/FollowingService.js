@@ -72,7 +72,7 @@ export default function FollowingService() {
   return (
     <React.Fragment>
       <Typography gutterBottom variant="body2">
-        {"Próximas capacitaciones"}
+        {"Próximas reservaciones"}
       </Typography>
       {/* <Title>Recent Orders</Title>
       <Table size="small">
