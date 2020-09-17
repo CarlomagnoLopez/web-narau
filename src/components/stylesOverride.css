@@ -271,35 +271,90 @@ font-weight: bold;
 
 }
 .btnRegisterLandiing{
-  margin: 10px !important;
+  flex: 1;
+
+  margin: 5px !important;
   background-color: #fc5000 !important;
   border-radius: .5rem !important;
   border: 1px solid !important;
   border-color: #fc5000 !important;
   color: #fff !important;
   font-weight: bold !important;
+  width: 200px;
 
 
 }
 
+
+.barButtonLanding{
+  display: flex;
+    align-items: center;
+    margin-left: auto;
+}
+
 .btnInitLandiing{
-  margin: 10px !important;
+  flex: 1;
+  margin: 5px !important;
   background-color: #000 !important;
   border-radius: .5rem !important;
   border: 1px solid !important;
   border-color: #fff !important;
   color: #fff !important;
   font-weight: bold !important;
+  width: 200px;
+}
+
+.btnInitLandiing span{
+  padding-left: 7px;
+
+}
+.btnRegisterLandiing span{
+  padding-left: 7px;
+
+}
+.btnInitLandiingMobile{
+  flex: 1;
+  margin: 5px !important;
+  background-color: #000 !important;
+  border-radius: .5rem !important;
+  border: 1px solid !important;
+  border-color: #fff !important;
+  color: #fff !important;
+  font-weight: bold !important;
+  /* width: 200px; */
+}
+.btnRegisterLandiingMobile{
+  flex: 1;
+
+  margin: 5px !important;
+  background-color: #fc5000 !important;
+  border-radius: .5rem !important;
+  border: 1px solid !important;
+  border-color: #fc5000 !important;
+  color: #fff !important;
+  font-weight: bold !important;
+  /* width: 200px; */
 
 
 }
-
 .headLanding{
+
   color: #fff;
   height: 400px;
   width: 100%;
   background-color: #f19d2d !important;
   flex-grow: 1;
+  background-image: url(https://rescss.s3.amazonaws.com/back-log.png);
+  background-repeat: no-repeat;
+  background-color: #f19d2d;
+  background-size: contain;
+
+  background-image: url(https://rescss.s3.amazonaws.com/back-log.png);
+  background-repeat: no-repeat;
+  background-color: #f19d2d;
+  background-position: right;
+  background-size: 47%;
+  object-fit: contain;
 }
 
 

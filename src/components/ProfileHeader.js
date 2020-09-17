@@ -72,7 +72,7 @@ const useStyles = makeStyles(
             backgroundSize: "contain",
             // top: "-6rem",
             color: theme.palette.getContrastText(deepOrange[500]),
-            backgroundColor: "#fc5000",
+            backgroundColor: "#7074d6",
             width: theme.spacing(10),
             height: theme.spacing(10),
             border: "solid"

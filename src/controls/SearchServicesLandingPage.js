@@ -14,9 +14,12 @@ export default function Filter() {
       id="filter-demo"
       options={top100Films}
       getOptionLabel={(option) => option.title}
-      filterOptions={filterOptions} 
+      filterOptions={filterOptions}
       style={{ width: "100%" }}
-      renderInput={(params) => <TextField {...params} label="Ej: Liderazgo" variant="outlined" />}
+      renderInput={(params) => <TextField {...params} placeholder="¿Qué te gustaría aprender hoy?" variant="outlined" variant="outlined"
+        classes={{
+          root: "rootTextFieldAutoComplete"
+        }} />}
     />
   );
 }

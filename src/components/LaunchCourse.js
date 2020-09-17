@@ -92,11 +92,11 @@ const useStyles = makeStyles((theme) => ({
 
   },
   paper: {
-    marginTop: theme.spacing(0),
+    marginTop: theme.spacing(1),
     marginBottom: theme.spacing(3),
     padding: theme.spacing(2),
     [theme.breakpoints.up(600 + theme.spacing(3) * 2)]: {
-      marginTop: theme.spacing(0),
+      marginTop: theme.spacing(1),
       marginBottom: theme.spacing(6),
       padding: theme.spacing(3),
     },
@@ -242,14 +242,15 @@ const useStyles = makeStyles((theme) => ({
     backgroundRepeat: "no-repeat", backgroundSize: "cover !important",
 
     // backgroundImage: `url(${imageProfileDynamo})`,
-    backgroundImage: `url(${localStorage.getItem("contentUserCurrentAvatar")})`,
+    // backgroundImage: `url(${localStorage.getItem("contentUserCurrentAvatar")})`,
     backgroundSize: "contain",
     // top: "-6rem",
     // color: theme.palette.getContrastText(deepOrange[500]),
     backgroundColor: localStorage.getItem("colorDefaul"),
     width: theme.spacing(10),
     height: theme.spacing(10),
-    border: "solid"
+    // border: "solid"
+    // borde
   },
 
 }));
@@ -361,9 +362,9 @@ export default function InvoicesForm(props) {
       break;
   }
 
-const showProfileConsultant = () => {
-  console.log("profile")
-}
+  const showProfileConsultant = () => {
+    console.log("profile")
+  }
 
   // currentDataService.mode ? 
 
@@ -569,8 +570,8 @@ const showProfileConsultant = () => {
                     <Grid item>
                       <Avatar className={classes.avatarHeader} classes={{
                         root: "rootAvatar"
-                      }}>
-                        {localStorage.getItem("contentUserCurrentAvatar") === "undefined" ? props.byUser["custom-attr"].firstName.substring(0, 1).toUpperCase() : ""}
+                      }} src={props.byUser["custom-attr"].imgProfile}>
+                        {props.byUser["custom-attr"].firstName.substring(0, 1).toUpperCase()}
                       </Avatar>
 
 
@@ -591,7 +592,7 @@ const showProfileConsultant = () => {
                   </Grid>
                   <Grid item>
                     <div className={classes.rootChip}>
-                      <Chip label="Ver perfil completo" onClick={showProfileConsultant}/>
+                      <Chip label="Ver perfil completo" onClick={showProfileConsultant} />
                     </div>
                   </Grid>
                 </Paper>
@@ -602,12 +603,17 @@ const showProfileConsultant = () => {
                     alignItems="flex-start">
 
                     <Grid item>
-                      {/* <video width="320" height="240" controls className={classes.video}>
-                        <source src={video} type="video/mp4" />
-                      </video> */}
-                      <iframe width="320" height="240" className={classes.video}
+                      {video &&
+
+                        <video width="320" height="240" controls className={classes.video} controls="true">
+                          <source src={video} type="video/mp4" />
+                        </video>
+                      }
+
+
+                      {/* <iframe width="320" height="240" className={classes.video}
                         src={video}>
-                      </iframe>
+                      </iframe> */}
 
                     </Grid>
 

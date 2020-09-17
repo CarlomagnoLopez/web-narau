@@ -23,6 +23,7 @@ class App extends React.Component {
     this.state = {
       openConf: true,
       openAlertDialogSlide: true,
+      // firstRender:false,
       // input: "" 
       signupintructor: false,
       signupempresa: false,
@@ -30,14 +31,16 @@ class App extends React.Component {
       forgotPassword: false,
       loadingRecoveryPassword: false,
       successSendPassword: false,
-      landingPage: false,
-      initLogin: true,
-      // landingPage: true,
-      // initLogin:false
+      // landingPage: false,
+      // initLogin: true,
+      landingPage: true,
+      initLogin: false,
+      loading: true
     };
   }
 
   componentDidMount() {
+    this.getUserService()
     localStorage.setItem("active", "false");
     localStorage.setItem("contentUser", "");
   }
@@ -89,31 +92,108 @@ class App extends React.Component {
       .catch(console.log)
   }
 
+  getService = (data) => {
+    let payload = data;
+    this.setState({
+      loading: true
+    }, (state, props) => {
+      fetch('https://ob5nizjire.execute-api.us-east-1.amazonaws.com/default/serviceall', {
+        method: 'GET',
+        // body: JSON.stringify(payload),
+        headers: {
+          'Content-Type': 'application/json',
+          'x-api-key': 'wD4FjaAoiG4bldvQ0oB6Q6fyIDqZCsfkaXCun0u6'
+        }
+      })
+        .then(res => res.json())
+        .then((data) => {
+          this.setState({
+            serviceAll: data.body
+          }, (props, state) => {
+            // this.setState({
+            //   loading: false
+            // })
+            this.getConsultants()
+          })
 
-  getServices = (data) => {
-    // fetch('https://ob5nizjire.execute-api.us-east-1.amazonaws.com/default/usersignup', {
-    //   method: 'PUT',
-    //   // mode: 'CORS',
-    //   body: JSON.stringify(data),
-    //   headers: {
-    //     'Content-Type': 'application/json',
-    //     'x-api-key': 'wD4FjaAoiG4bldvQ0oB6Q6fyIDqZCsfkaXCun0u6'
-    //   }
-    // })
-    //   .then(res => res.json())
-    //   .then((data) => {
-    //     this.props.singUp(data.body);
-    //     this.setState({
-    //       signupintructor: false,
-    //       signupempresa: false,
-    //       showLoader: false
-    //     })
 
-    //     console.log(data)
-    //   })
-    //   .catch(console.log)
+          console.log(data)
+        })
+        .catch(console.log)
+    })
+
   }
 
+  getConsultants = () => {
+    // let payload = data;
+    this.setState({
+      loading: true
+    }, (state, props) => {
+      fetch('https://ob5nizjire.execute-api.us-east-1.amazonaws.com/default/consultantall', {
+        method: 'GET',
+        // body: JSON.stringify(payload),
+        headers: {
+          'Content-Type': 'application/json',
+          'x-api-key': 'wD4FjaAoiG4bldvQ0oB6Q6fyIDqZCsfkaXCun0u6'
+        }
+      })
+        .then(res => res.json())
+        .then((data) => {
+          this.setState({
+            consultantAll: data.body
+          }, (props, state) => {
+            this.setState({
+              loading: false
+            })
+            // this.getConsultants()
+          })
+
+
+          console.log(data)
+        })
+        .catch(console.log)
+    })
+
+  }
+
+  getUserService = () => {
+    // let payload = data;
+    this.setState({
+      loading: true
+    }, (state, props) => {
+      fetch('https://ob5nizjire.execute-api.us-east-1.amazonaws.com/default/getuserservice', {
+        method: 'GET',
+        // body: JSON.stringify(payload),
+        headers: {
+          'Content-Type': 'application/json',
+          'x-api-key': 'wD4FjaAoiG4bldvQ0oB6Q6fyIDqZCsfkaXCun0u6'
+        }
+      })
+        .then(res => res.json())
+        .then((data) => {
+          this.setState({
+            consultantAll: data.body.users,
+            serviceAll: data.body.services,
+            bestFourChallenge: data.body.bestFourChallenge,
+            servicesWithOwner: data.body.servicesWithOwner,
+          }, (props, state) => {
+            this.setState({
+              loading: false
+            })
+            // this.getConsultants()
+          })
+
+
+
+
+
+          console.log(data)
+        })
+        .catch(console.log)
+    })
+
+  }
+  
   signUppRequest = (data) => {
     fetch('https://ob5nizjire.execute-api.us-east-1.amazonaws.com/default/usersignup', {
       method: 'PUT',
@@ -235,10 +315,16 @@ class App extends React.Component {
 
   handleSendRequestOne = () => {
     this.setState({
-      initLogin:true,
-      landingPage:false
+      initLogin: true,
+      landingPage: false
     })
   }
+
+  // setFirstRender = () => {
+  //   this.setState({
+  //     firstRender:true
+  //   })
+  // }
 
   render() {
     // console.log("props")
@@ -263,8 +349,28 @@ class App extends React.Component {
     return (
       <div>
         {this.state.landingPage &&
-          <LandingPage handleSendRequestOne= {this.handleSendRequestOne}>
-          </LandingPage>
+          <div>
+            {this.state.loading &&
+              <BussyLoader
+
+              // showLoader={this.state.showLoader}
+              ></BussyLoader>
+            }
+            {this.state.serviceAll && this.state.consultantAll && this.state.bestFourChallenge && this.state.servicesWithOwner &&
+              <LandingPage
+                handleSendRequestOne={this.handleSendRequestOne}
+                serviceAll={this.state.serviceAll}
+                consultantAll={this.state.consultantAll}
+                bestFourChallenge={this.state.bestFourChallenge}
+                servicesWithOwner={this.state.servicesWithOwner}
+                // firstRender={this.state.firstRender}
+                // setFirstRender={this.setFirstRender}
+               >
+              </LandingPage>
+            }
+
+
+          </div>
         }
         {this.state.initLogin &&
           <div>
